@@ -6,11 +6,11 @@ import Topbar from "./Component/Topbar/Topbar";
 import Navbar from "./Component/Navbar/Navbar";
 import Footer from "./Component/Footer/Footer";
 
+
 function App() {
   return (
     <BrowserRouter>
       <Topbar />
-
       <Navbar />
 
       <Routes>
@@ -23,4 +23,5 @@ function App() {
   );
 }
 
-export default App;
+
+export default App
