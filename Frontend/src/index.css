@@ -1,0 +1,6 @@
+/* Enable Native Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+  /* Optional: Accounts for the sticky navbar height so headings don't get blocked */
+  scroll-padding-top: 80px; 
+}

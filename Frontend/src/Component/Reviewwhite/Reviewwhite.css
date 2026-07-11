@@ -1,0 +1,165 @@
+/* ================= MAIN WRAPPER CONTAINER ================= */
+.rw-testimonial-section {
+  background-color: #eef2f7; /* Muted soft grey background matching the layout precisely */
+  padding: 100px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.rw-viewport-slider-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ================= INFINITE SCROLL CAROUSEL TRACK ================= */
+.rw-track-animate-slider {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  animation: rwInfiniteAutoTranslate 35s linear infinite;
+  padding: 40px 0; /* Clear space for absolute avatar heads */
+}
+
+/* Pauses track sliding on card container hover */
+.rw-track-animate-slider:hover {
+  animation-play-state: paused;
+}
+
+/* ================= HOVER-BRIGHT WHITE CARD MATRIX ================= */
+.rw-review-card {
+  background: #ebf1f6; /* Slightly off-white grayish base color from reference */
+  border-radius: 12px;
+  width: 340px;
+  padding: 60px 28px 32px 28px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* Cards light up completely white on active cursor hover */
+.rw-review-card:hover {
+  background-color: #ffffff; /* Turns clean white */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+/* ================= FLOATING SPEECH-BUBBLE AVATARS ================= */
+.rw-avatar-header-holder {
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 76px;
+  z-index: 10;
+}
+
+.rw-avatar-header-holder img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Diagonal pointer bubble tail matching reference image */
+.rw-speech-pointer-tail {
+  position: absolute;
+  bottom: -6px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: -4px 4px 10px rgba(0,0,0,0.05);
+  display: none; /* Shows selectively on card hover condition tracking state */
+}
+
+.rw-review-card:hover .rw-speech-pointer-tail {
+  display: block;
+}
+
+/* ================= CARD TEXT CONTENT TYPOGRAPHY ================= */
+.rw-stars-row-layout {
+  display: flex;
+  gap: 3px;
+  font-size: 15px;
+  margin-bottom: 18px;
+  justify-content: flex-start;
+}
+
+.rw-star-blue {
+  color: #0b5aa2; /* Accurate deep steel blue rating star graphics */
+}
+
+.rw-star-dim {
+  color: #cbd5e1;
+}
+
+.rw-card-title-headline {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0b1e33;
+  margin: 0 0 14px 0;
+  line-height: 1.3;
+}
+
+.rw-card-body-paragraph {
+  font-size: 13.5px;
+  color: #556275;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  min-height: 110px; /* Aligns footer text rows identically */
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Card Author Footer metadata elements */
+.rw-card-footer-author-meta {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 16px;
+  margin-top: auto;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+.rw-author-name-txt {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.rw-location-link-txt {
+  color: #2563eb; /* Clean blue tracking city location label link */
+  font-weight: 500;
+}
+
+/* ================= SCROLL KEYFRAMES ENGINE ================= */
+@keyframes rwInfiniteAutoTranslate {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 16px));
+  }
+}
+
+/* ================= PORT SLIDER MEDIA BREAKPOINTS ================= */
+@media (max-width: 640px) {
+  .rw-testimonial-section {
+    padding: 80px 16px;
+  }
+  .rw-review-card {
+    width: 290px;
+    padding: 55px 20px 24px 20px;
+  }
+}

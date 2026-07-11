@@ -1,7 +1,7 @@
 // Navbar.jsx
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
-import logo from '../../assets/logo-1.png'; // Import your logo image asset here
+import logo from '../../assets/ALKA DROPS LOGO.png'; // Import your logo image asset here
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,7 +37,7 @@ const Navbar = () => {
         {/* Dynamic Navigation Links Block */}
         <ul className={`navbar-menu ${isMobileMenuOpen ? 'is-open' : ''}`}>
           <li className="navbar-item">
-            <a href="/home" className="navbar-link">Home </a>
+            <a href="/" className="navbar-link">Home </a>
           </li>
           
           <li className="navbar-item">
@@ -61,7 +61,7 @@ const Navbar = () => {
             <ul className="navbar-dropdown">
               <li className="navbar-dropdown-item"><a href="/services/all">All Services</a></li>
               <li className="navbar-dropdown-item"><a href="/services/packages">Service Packages</a></li>
-              <li className="navbar-dropdown-item"><a href="/services/pricing">Pricing</a></li>
+             
               <li className="navbar-dropdown-item"><a href="/services/request">Request Service</a></li>
             </ul>
           </li>
@@ -72,7 +72,8 @@ const Navbar = () => {
             <ul className="navbar-dropdown">
               <li className="navbar-dropdown-item"><a href="/resources/blog">Blog</a></li>
               <li className="navbar-dropdown-item"><a href="/resources/faqs">FAQs</a></li>
-              <li className="navbar-dropdown-item"><a href="/resources/news">Latest News</a></li>
+              <li className="navbar-dropdown-item"><a href="/resources/team">Our Team</a></li>
+               <li className="navbar-dropdown-item"><a href="/resources/gallary">Gallary</a></li>
             </ul>
           </li>
 

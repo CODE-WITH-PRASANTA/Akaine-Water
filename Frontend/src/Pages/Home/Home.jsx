@@ -8,10 +8,12 @@ import HomeDeliveredProcess from '../../Component/HomeDeliveredProcess/HomeDeliv
 import HomeGetInTouch from '../../Component/HomeGetInTouch/HomeGetInTouch'
 import HomeTestimonials from '../../Component/HomeTestimonials/HomeTestimonials'
 import HomeRecentBlogPost from '../../Component/HomeRecentBlogPost/HomeRecentBlogPost'
+import HeroSection from '../../Component/HeroSection/HeroSection'
 
 const Home = () => {
   return (
     <div>
+      <HeroSection/>
       <HomeService/>
       <HomeReview/>
       <HomeAboutCompany/>

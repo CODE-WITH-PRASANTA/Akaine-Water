@@ -1,0 +1,166 @@
+.rb-testimonial-section {
+  background-color: #1a6fca;
+  padding: 80px 40px;
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.rb-carousel-container {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.rb-track-slider {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+  animation: infiniteAutoScroll 30s linear infinite;
+}
+
+.rb-track-slider:hover {
+  animation-play-state: paused;
+}
+
+.rb-card-node {
+  background: #ffffff;
+  border-radius: 8px;
+  width: 320px;
+  padding: 40px 24px 30px 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-top: 25px;
+  flex-shrink: 0;
+}
+
+.rb-quote-bubble {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0c59aa;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.rb-quote-bubble span {
+  color: #ffffff;
+  font-size: 32px;
+  font-family: serif;
+  line-height: 1;
+  margin-top: 14px;
+}
+
+.rb-stars-row {
+  display: flex;
+  gap: 2px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.rb-star-filled {
+  color: #0e5ca2;
+}
+
+.rb-star-empty {
+  color: #d1d5db;
+}
+
+.rb-review-paragraph {
+  font-size: 13.5px;
+  color: #555555;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.rb-avatar-frame {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.rb-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rb-card-headline {
+  font-size: 11px;
+  font-weight: 700;
+  color: #222222;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px 0;
+}
+
+.rb-card-location {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1d6fca;
+}
+
+.rb-scroll-top-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.rb-scroll-top-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.rb-scroll-top-btn span {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+@keyframes infiniteAutoScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 15px)); 
+  }
+}
+
+@media (max-width: 640px) {
+  .rb-testimonial-section {
+    padding: 60px 20px;
+  }
+  .rb-card-node {
+    width: 280px;
+  }
+}
