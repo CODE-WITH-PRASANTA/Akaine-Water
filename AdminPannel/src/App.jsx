@@ -1,9 +1,33 @@
-import React from 'react'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Layout
+
+// Pages
+
+
+import "./App.css";
+import MainLayout from "./Layout/MainLayout/MainLayout";
+import Testimonial from "./pages/Testimonial/Testimonial";
+import ShopPosting from "./Components/ShopPosting/ShopPosting";
+import Contact from "./Components/Contact/Contact";
+
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          {/* Home */}
+           <Route path="/" element={<Testimonial />} />
+           <Route path="/shop" element={<ShopPosting/>} />
+           <Route path="/contact" element={<Contact />} />
 
-export default App
+
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;

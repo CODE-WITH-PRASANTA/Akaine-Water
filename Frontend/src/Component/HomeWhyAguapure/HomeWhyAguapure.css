@@ -1,0 +1,257 @@
+/* Container Layout initialization */
+.HomeWhyAguapure-container {
+  position: relative;
+  width: 100%;
+  padding: 80px 24px;
+  background-color: #ffffff;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Center-right vertical background wavy paths template style matching */
+.HomeWhyAguapure-bgWaves {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 25%;
+  width: 160px;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 1;
+}
+.HomeWhyAguapure-bgWaves svg {
+  width: 100%;
+  height: 100%;
+}
+
+.HomeWhyAguapure-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+/* --- LEFT COLUMN GRAPHICS ASSEMBLY --- */
+.HomeWhyAguapure-leftVisual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-top: 20px;
+}
+
+.HomeWhyAguapure-trolleyFrame {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+}
+
+.HomeWhyAguapure-trolleyImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Floating Badge Elements Replicating Screenshot UI */
+.HomeWhyAguapure-badgeOuter {
+  position: absolute;
+  right: 5px;
+  bottom: 32%;
+  width: 145px;
+  height: 145px;
+  border: 1px solid #3b47c2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.HomeWhyAguapure-badgeInner {
+  width: 133px;
+  height: 133px;
+  border: 1px solid #3b47c2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomeWhyAguapure-badgeContent {
+  background-color: #2b39b3;
+  color: #ffffff;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(43, 57, 179, 0.25);
+}
+
+.HomeWhyAguapure-badgeMiddle {
+  margin: 1px 0;
+  font-size: 15px;
+}
+
+/* --- RIGHT COLUMN CONTENT ELEMENT RULES --- */
+.HomeWhyAguapure-rightContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.HomeWhyAguapure-headerBlock {
+  margin-bottom: 45px;
+}
+
+.HomeWhyAguapure-tagline {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2b39b3;
+  letter-spacing: 1.5px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.HomeWhyAguapure-heading {
+  font-size: 42px;
+  color: #1a1a1a;
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 14px 0;
+  max-width: 580px;
+}
+
+.HomeWhyAguapure-miniWave {
+  width: 44px;
+  height: 8px;
+  display: block;
+}
+
+/* Feature Matrix Definition (2-Column Grid) */
+.HomeWhyAguapure-featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+  row-gap: 45px;
+}
+
+.HomeWhyAguapure-featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Custom Wavy Flower Circle Wrapper around Vector Graphics */
+.HomeWhyAguapure-iconShape {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  background-color: #2b39b3;
+  border-radius: 36% 64% 39% 61% / 62% 40% 60% 38%; /* Smooth organic scalloped edges matching UI */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 6px 15px rgba(43, 57, 179, 0.2);
+}
+
+.HomeWhyAguapure-iconInside {
+  width: 22px;
+  height: 22px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomeWhyAguapure-iconInside svg {
+  width: 100%;
+  height: 100%;
+}
+
+.HomeWhyAguapure-textBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.HomeWhyAguapure-featureTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 6px 0;
+}
+
+.HomeWhyAguapure-featureDesc {
+  font-size: 14px;
+  color: #687182;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* --- RESPONSIFICATION QUERIES BREAKPOINTS --- */
+@media (max-width: 1024px) {
+  .HomeWhyAguapure-heading {
+    font-size: 34px;
+  }
+  .HomeWhyAguapure-featuresGrid {
+    column-gap: 24px;
+  }
+}
+
+@media (max-width: 868px) {
+  .HomeWhyAguapure-wrapper {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .HomeWhyAguapure-leftVisual {
+    order: 2; /* Move image down on tablet layout for natural hierarchy flow */
+  }
+  .HomeWhyAguapure-rightContent {
+    order: 1;
+  }
+  .HomeWhyAguapure-bgWaves {
+    right: 5%;
+    top: 30%;
+  }
+}
+
+@media (max-width: 520px) {
+  .HomeWhyAguapure-featuresGrid {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
+  .HomeWhyAguapure-heading {
+    font-size: 28px;
+  }
+  .HomeWhyAguapure-container {
+    padding: 50px 16px;
+  }
+  .HomeWhyAguapure-badgeOuter {
+    width: 120px;
+    height: 120px;
+    bottom: 25%;
+  }
+  .HomeWhyAguapure-badgeInner {
+    width: 110px;
+    height: 110px;
+  }
+  .HomeWhyAguapure-badgeContent {
+    width: 98px;
+    height: 98px;
+    font-size: 12px;
+  }
+  .HomeWhyAguapure-badgeMiddle {
+    font-size: 13px;
+  }
+}

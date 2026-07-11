@@ -18,12 +18,19 @@ import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
 
 // Other Pages
+<<<<<<< HEAD
 import Testimonial from "./pages/Testimonial/Testimonial";
 import Cart from "./pages/Cart/Cart";
 import Cheakout from "./pages/Cheakout/Cheakout";
 import Faq from "./pages/Faq/Faq";
 import About from "./Pages/About/About";
 
+=======
+import Testimonial from "./Pages/Testimonial/Testimonial";
+import Cart from "./Pages/Cart/Cart";
+import Cheakout from "./Pages/Cheakout/Cheakout";
+import Faq from "./Pages/Faq/Faq";
+>>>>>>> f8d9a89f7e59f50c3de4d01378c72f7d63f4660c
 
 function App() {
   return (
@@ -36,22 +43,32 @@ function App() {
       <Routes>
         {/* Home */}
         <Route path="/" element={<Home />} />
+<<<<<<< HEAD
         <Route path="/about" element={<About />} />
       
        
+=======
+        <Route path="/home" element={<Home />} />
+
+        {/* Pricing */}
+        <Route path="/plan" element={<PricingAndPlans />} />
+        <Route
+          path="/products/pricing"
+          element={<PricingAndPlans />}
+        />
+>>>>>>> f8d9a89f7e59f50c3de4d01378c72f7d63f4660c
 
         {/* Main Pages */}
         <Route path="/shop" element={<Shop />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/resources/blog" element={<Blog />} />
-        <Route path="/products/pricing" element={<PricingAndPlans />} />
 
         {/* Resources */}
         <Route path="/resources/faqs" element={<Faq />} />
         <Route path="/resources/team" element={<OurTeam />} />
         <Route path="/resources/gallary" element={<AkaineGalary />} />
 
-        {/* Products */}
+        {/* Testimonials */}
         <Route
           path="/products/testimonials"
           element={<Testimonial />}

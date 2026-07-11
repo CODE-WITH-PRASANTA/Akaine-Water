@@ -1,0 +1,256 @@
+/* Container Shell Initialization */
+.HomeRecentBlogPost-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #ffffff;
+}
+
+/* --- TITLE AND TOP ACTION BUTTON BLOCK --- */
+.HomeRecentBlogPost-headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 45px;
+  width: 100%;
+}
+
+.HomeRecentBlogPost-headerLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.HomeRecentBlogPost-tagline {
+  font-size: 12px;
+  font-weight: 700;
+  color: #3b47c2;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.HomeRecentBlogPost-heading {
+  font-size: 42px;
+  color: #1b1b1b;
+  font-weight: 700;
+  margin: 0 0 14px 0;
+  line-height: 1.15;
+}
+
+.HomeRecentBlogPost-miniWave {
+  width: 44px;
+  height: 8px;
+  display: block;
+}
+
+/* Pill Shape Button Matching Screenshot 4 Hover Configuration */
+.HomeRecentBlogPost-topBtn {
+  padding: 15px 46px 15px 34px;
+  background-color: #2b39b3;
+  color: #ffffff;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(43, 57, 179, 0.2);
+  transition: background-color 0.25s ease, opacity 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Semi-Transparent Background Accent Crescent Circle Shape */
+.HomeRecentBlogPost-topBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -5px;
+  width: 35px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50% 0 0 50%;
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+
+/* Hover Action State Trigger matching Screenshot 4 specs */
+.HomeRecentBlogPost-topBtn:hover {
+  background-color: #3e4ed8;
+}
+
+.HomeRecentBlogPost-topBtn:hover::after {
+  transform: scaleX(1.1);
+}
+
+/* --- THE 3-COLUMN CARD GRID --- */
+.HomeRecentBlogPost-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.HomeRecentBlogPost-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  border: 1px solid #f2f5fa;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- IMAGE SCALING EFFECT ON INTERACTION (Screenshot 3) --- */
+.HomeRecentBlogPost-imageFrame {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.HomeRecentBlogPost-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.1, 1, 0.1, 1);
+  display: block;
+}
+
+/* Custom Zoom Factor on Card Component Overlays */
+.HomeRecentBlogPost-imageFrame:hover .HomeRecentBlogPost-img {
+  transform: scale(1.08);
+}
+
+/* Floating Folder Badges Details */
+.HomeRecentBlogPost-cardRibbon {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #2b39b3;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 4px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* --- TEXT DETAILS ELEMENT LAYOUT --- */
+.HomeRecentBlogPost-contentBody {
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.HomeRecentBlogPost-title {
+  font-size: 21px;
+  color: #1b1b1b;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  line-height: 1.35;
+  transition: color 0.25s ease;
+}
+
+.HomeRecentBlogPost-card:hover .HomeRecentBlogPost-title {
+  color: #2b39b3;
+}
+
+/* Horizontal Meta Blocks Configuration */
+.HomeRecentBlogPost-metaGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed #e4eaf2;
+  padding-bottom: 16px;
+}
+
+.HomeRecentBlogPost-metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #7e8896;
+}
+
+.HomeRecentBlogPost-metaItem svg {
+  color: #7e8896;
+  opacity: 0.7;
+}
+
+.HomeRecentBlogPost-metaDivider {
+  color: #d1d9e5;
+  font-size: 13px;
+}
+
+.HomeRecentBlogPost-desc {
+  font-size: 14px;
+  color: #656e7b;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+/* Arrow Vector Links Layout */
+.HomeRecentBlogPost-footerLink {
+  margin-top: auto;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1b1b1b;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.HomeRecentBlogPost-footerLink svg {
+  transition: transform 0.25s ease;
+}
+
+.HomeRecentBlogPost-card:hover .HomeRecentBlogPost-footerLink {
+  color: #2b39b3;
+}
+
+.HomeRecentBlogPost-card:hover .HomeRecentBlogPost-footerLink svg {
+  transform: translateX(4px);
+}
+
+/* --- ADAPTIVE RESPONSIVENESS DESIGN RULES --- */
+@media (max-width: 992px) {
+  .HomeRecentBlogPost-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .HomeRecentBlogPost-heading {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 680px) {
+  .HomeRecentBlogPost-headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .HomeRecentBlogPost-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .HomeRecentBlogPost-heading {
+    font-size: 28px;
+  }
+  .HomeRecentBlogPost-container {
+    padding: 50px 16px;
+  }
+}
