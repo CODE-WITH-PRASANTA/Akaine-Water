@@ -5,20 +5,18 @@ import Home from "./Pages/Home/Home";
 import PricingAndPlans from './Pages/PricingAndPlans/PricingAndPlans';
 
 function App() {
-  // You have useState imported, so you can define any state here if needed
-  
   return (
     <BrowserRouter>
+      <Topbar />
+      <Navbar />
+
       <Routes>
-        {/* Home Route */}
         <Route path="/Home" element={<Home />} />
-        
-        {/* Pricing and Plans Route */}
         <Route path="/plan" element={<PricingAndPlans />} />
         
-        {/* Optional: Default root route redirecting to Home */}
-        {/* <Route path="/" element={<Home />} /> */}
+      
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

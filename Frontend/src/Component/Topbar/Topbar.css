@@ -1,0 +1,68 @@
+/* Topbar.css */
+
+.topbar {
+  background-color: #0052B4; /* Exact blue color from reference image */
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.topbar-delivery,
+.topbar-hours {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar-divider {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 300;
+}
+
+.topbar-phone,
+.topbar-email {
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.topbar-phone:hover,
+.topbar-email:hover {
+  opacity: 0.85;
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 10px 15px;
+  }
+  
+  .topbar-left {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .topbar-divider {
+    display: none; /* Hide vertical lines on small screens */
+  }
+}
