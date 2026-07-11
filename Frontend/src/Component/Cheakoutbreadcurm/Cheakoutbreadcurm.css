@@ -1,0 +1,118 @@
+/* मुख्य बैनर कंटेनर - जो आपकी संदर्भ छवि को बैकग्राउंड में सेट करेगा */
+.checkout-banner-section {
+  position: relative;
+  width: 100%;
+  height: 300px; /* डेस्कटॉप स्क्रीन्स के लिए परफेक्ट बैनर हाइट */
+  background-image: url('../../assets/akin-12.png'); /* अपनी इमेज का पाथ यहाँ सेट करें */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* हल्का सा ट्रांसपेरेंट ओवरले ताकि सफेद टेक्स्ट बैकग्राउंड के ऊपर बिल्कुल साफ़ दिखे */
+.checkout-banner-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1); /* इमेज के टोन के अनुसार बहुत हल्का ओवरले */
+  z-index: 1;
+}
+
+/* टेक्स्ट और ब्रेडक्रंब को बिल्कुल बीच (Horizontal & Vertical Center) में रखने के लिए */
+.checkout-banner-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+/* मुख्य बड़ा अक्षर "Cart" */
+.checkout-main-title {
+  font-size: 46px;
+  font-weight: 700;
+  color: #ffffff; /* सफ़ेद रंग का बोल्ड टेक्स्ट जैसा इमेज में है */
+  margin: 0 0 10px 0;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15); /* टेक्स्ट को स्पष्ट दिखाने के लिए हल्का शैडो */
+}
+
+/* ब्रेडक्रंब नेविगेशन लेआउट */
+.checkout-breadcrumb-nav {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* होम बटन लिंक स्टाइल */
+.checkout-home-link {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.checkout-home-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* संदर्भ छवि की तरह लाल रंग का डबल स्लैश विभाजक */
+.checkout-breadcrumb-separator {
+  margin: 0 14px;
+  color: #d93838; /* परफेक्ट रेड कलर */
+  font-weight: 700;
+}
+
+/* वर्तमान पेज (cart) का टेक्स्ट */
+.checkout-current-text {
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+/* --- रेस्पॉन्सिव सेटिंग्स (Responsive for all devices) --- */
+
+/* टैबलेट और मध्यम स्क्रीन के लिए */
+@media (max-width: 768px) {
+  .checkout-banner-section {
+    height: 220px; /* मोबाइल और टैबलेट पर बैनर की हाइट एडजस्ट होगी */
+  }
+  
+  .checkout-main-title {
+    font-size: 34px;
+    margin-bottom: 6px;
+  }
+  
+  .checkout-breadcrumb-nav {
+    font-size: 14px;
+  }
+}
+
+/* छोटे मोबाइल फ़ोन्स के लिए */
+@media (max-width: 480px) {
+  .checkout-banner-section {
+    height: 180px;
+  }
+  
+  .checkout-main-title {
+    font-size: 28px;
+  }
+  
+  .checkout-breadcrumb-separator {
+    margin: 0 8px;
+  }
+}

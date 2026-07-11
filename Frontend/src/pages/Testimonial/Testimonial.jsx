@@ -1,7 +1,8 @@
 import React from 'react'
-import TestiminialBreadcrum from '../../Components/TestiminialBreadcrum/TestiminialBreadcrum'
-import Reviewblue from '../../Components/Reviewblue/Reviewblue'
-import Reviewwhite from '../../Components/Reviewwhite/Reviewwhite'
+import TestiminialBreadcrum from '../../Component/TestiminialBreadcrum/TestiminialBreadcrum'
+import Reviewblue from '../../Component/Reviewblue/Reviewblue'
+import Reviewwhite from '../../Component/Reviewwhite/Reviewwhite'
+
 
 const Testimonial = () => {
   return (
