@@ -1,0 +1,338 @@
+@keyframes slideDownRibbon {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Base Container Styling */
+.HomeOurProducts-container {
+  padding: 40px 5px;
+  max-width: 1240px;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f4f7fc;
+}
+
+/* --- HERO HEADER DESIGN ELEMENT --- */
+.HomeOurProducts-heroSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+}
+
+/* Compositional Layout Module (Badge + Water Jug Alignment) */
+.HomeOurProducts-graphicWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  z-index: 3;
+}
+
+.HomeOurProducts-jugAndIceContainer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: #3b47c2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.HomeOurProducts-giantJug {
+  height: 110%;
+  width: auto;
+  object-fit: contain;
+  transform: translateY(-15px);
+  z-index: 3;
+}
+
+.HomeOurProducts-iceCluster {
+  position: absolute;
+  bottom: 0px;
+  right: -70px;
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+  z-index: 4;
+}
+
+/* Accurate CSS Replication of the Left Double-Circle Promo Badge */
+.HomeOurProducts-badgeOuterCircle {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 130px;
+  height: 130px;
+  border: 1px solid #3b47c2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.HomeOurProducts-badgeInnerCircle {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #3b47c2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomeOurProducts-badgeContainer {
+  background-color: #2b39b3;
+  color: #ffffff;
+  border-radius: 50%;
+  width: 108px;
+  height: 108px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-transform: none;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(43, 57, 179, 0.25);
+}
+
+.HomeOurProducts-badgeMiddleText {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+/* Typography & Visual Separators */
+.HomeOurProducts-textContent {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-top: -30px;
+  z-index: 2;
+}
+
+.HomeOurProducts-bgText {
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: #e9eef8;
+  letter-spacing: 2px;
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.HomeOurProducts-subHeading {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #2b39b3;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-top: -25px;
+  margin-bottom: 10px;
+}
+
+.HomeOurProducts-mainHeading {
+  font-size: 26px;
+  color: #1e266d;
+  font-weight: 800;
+  margin: 0 auto 14px auto;
+  max-width: 600px;
+}
+
+.HomeOurProducts-waveSvg {
+  width: 42px;
+  height: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* --- EXACT 3-COLUMN CARD GRID --- */
+.HomeOurProducts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* Responsive downscaling for tablet views */
+@media (max-width: 992px) {
+  .HomeOurProducts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .HomeOurProducts-badgeOuterCircle {
+    left: 15px;
+  }
+}
+
+/* Responsive downscaling for smartphone views */
+@media (max-width: 650px) {
+  .HomeOurProducts-grid {
+    grid-template-columns: 1fr;
+  }
+  .HomeOurProducts-bgText {
+    font-size: 3rem;
+  }
+  .HomeOurProducts-graphicWrapper {
+    transform: scale(0.85);
+  }
+}
+
+/* --- INDIVIDUAL PRODUCT CARD DESIGN --- */
+.HomeOurProducts-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.HomeOurProducts-card.is-hovered {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 38px rgba(43, 57, 179, 0.09);
+}
+
+/* Top Hover Ribbon Element */
+.HomeOurProducts-ribbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #2b39b3;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 7px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.8px;
+  animation: slideDownRibbon 0.22s ease-out forwards;
+  z-index: 5;
+}
+
+/* Product Media Framing */
+.HomeOurProducts-imageContainer {
+  height: 220px;
+  width: 100%;
+  border: 1px solid #f1f5fa;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.HomeOurProducts-productImg {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Design Modification Rules for Card 1 (Rotated) & Card 2/3 (Centered/Vertical) */
+.HomeOurProducts-productImg.should-rotate {
+  transform: rotate(-32deg) scale(1.05);
+}
+
+.HomeOurProducts-card.is-hovered .HomeOurProducts-productImg.should-rotate {
+  transform: rotate(-32deg) scale(1.12);
+}
+
+.HomeOurProducts-card.is-hovered .HomeOurProducts-productImg:not(.should-rotate) {
+  transform: scale(1.08);
+}
+
+/* Product Meta Segment Blocks */
+.HomeOurProducts-metaBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.HomeOurProducts-priceBox {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2b39b3;
+  border: 1px solid #eef2fa;
+  border-radius: 6px;
+  padding: 8px 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 0.2px;
+}
+
+.HomeOurProducts-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.HomeOurProducts-deliveryText {
+  font-size: 13px;
+  color: #687182;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+/* Call to Action Button Container & Interactive Rules */
+.HomeOurProducts-btnWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.HomeOurProducts-btn {
+  width: 62%;
+  padding: 11px 0;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #3b47c2 0%, #2b39b3 100%);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(43, 57, 179, 0.2);
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.HomeOurProducts-card.is-hovered .HomeOurProducts-btn {
+  background: linear-gradient(135deg, #2b39b3 0%, #1e2885 100%);
+  box-shadow: 0 6px 16px rgba(43, 57, 179, 0.35);
+}
+
+.HomeOurProducts-btn:active {
+  transform: scale(0.97);
+}
