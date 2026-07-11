@@ -37,7 +37,7 @@ const Navbar = () => {
         {/* Dynamic Navigation Links Block */}
         <ul className={`navbar-menu ${isMobileMenuOpen ? 'is-open' : ''}`}>
           <li className="navbar-item">
-            <a href="/home" className="navbar-link">Home </a>
+            <a href="/" className="navbar-link">Home </a>
           </li>
           
           <li className="navbar-item">
@@ -72,7 +72,8 @@ const Navbar = () => {
             <ul className="navbar-dropdown">
               <li className="navbar-dropdown-item"><a href="/resources/blog">Blog</a></li>
               <li className="navbar-dropdown-item"><a href="/resources/faqs">FAQs</a></li>
-              <li className="navbar-dropdown-item"><a href="/resources/news">Latest News</a></li>
+              <li className="navbar-dropdown-item"><a href="/resources/team">Our Team</a></li>
+               <li className="navbar-dropdown-item"><a href="/resources/gallary">Gallary</a></li>
             </ul>
           </li>
 

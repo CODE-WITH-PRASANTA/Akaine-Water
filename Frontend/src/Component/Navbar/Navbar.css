@@ -267,7 +267,15 @@
     transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
     box-shadow: 0 15px 30px rgba(0,0,0,0.08);
   }
+/* REMOVE THIS OLD RULE: */
+/* .navbar-item:hover .navbar-dropdown { ... } */
 
+/* ADD THIS INSTEAD: */
+.navbar-item.is-open .navbar-dropdown {
+  transform: none;
+  max-height: 500px;
+  padding: 5px 0;
+}
   /* Activated mobile menu drawer container state */
   .navbar-menu.is-open {
     max-height: 85vh;
