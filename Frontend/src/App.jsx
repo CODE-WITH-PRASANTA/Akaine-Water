@@ -5,6 +5,7 @@ import "./App.css";
 import Topbar from "./Component/Topbar/Topbar";
 import Navbar from "./Component/Navbar/Navbar";
 import Footer from "./Component/Footer/Footer";
+import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
 
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
       <Navbar />
 
       <Routes>
+
+       <Route path="/products/pricing" element={<PricingAndPlans />} />
       
 
 
