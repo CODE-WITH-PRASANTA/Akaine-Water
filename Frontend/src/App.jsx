@@ -1,14 +1,20 @@
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+
+import "./App.css";
+
+import AkaineGalary from "./Component/AkaineGalary/AkaineGalary";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
- <>
- 
- </>
-  )
+    <BrowserRouter>
+      
+
+      <Routes>
+          <Route path='/galary' element={<AkaineGalary/>}/>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
