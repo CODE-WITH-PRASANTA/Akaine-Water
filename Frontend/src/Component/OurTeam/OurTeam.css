@@ -53,6 +53,7 @@
   background-color: rgba(0, 0, 0, 0.65);
   opacity: 0;
   transition: opacity 0.4s ease;
+  transition-duration: .7S;
   pointer-events: none;
 }
 
@@ -62,6 +63,7 @@
 
 .team-card:hover .image-box img {
   transform: scale(1.05);
+  transition-timing-function:ease-in-out ;
 }
 
 /* White Dropdown Information Box Wrapper */
