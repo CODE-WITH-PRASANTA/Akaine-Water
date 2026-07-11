@@ -1,0 +1,326 @@
+/* --- Base Container Geometry --- */
+.Plans-section {
+  position: relative;
+  width: 100%;
+  padding: 60px 20px;
+  background-color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+.Plans-seo-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.Plans-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  align-items: stretch;
+  perspective: 1500px; /* Crucial for beautiful 3D 180° flip mechanics */
+}
+
+@media (min-width: 992px) {
+  .Plans-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* --- Card Architecture & 3D Flipping Systems --- */
+.Plans-card {
+  position: relative;
+  border-radius: 12px;
+  box-sizing: border-box;
+  height: 520px;
+}
+
+.Plans-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover rule forcing full 180-degree vertical flip sequence on standard cards */
+.Plans-standard-card:hover .Plans-card-inner {
+  transform: rotateY(180deg);
+}
+
+.Plans-card-front, .Plans-card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- Front-facing / Standard Setup Styles --- */
+.Plans-standard-card .Plans-card-front {
+  background-color: #ffffff;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+}
+
+/* --- Back-facing Hover State Configuration (Matches Reference 2 & 3) --- */
+.Plans-card-back {
+  background-color: #004EA8;
+  transform: rotateY(180deg);
+  box-shadow: 0 20px 40px rgba(0, 78, 168, 0.25);
+}
+
+/* --- Premium Featured Center Card Config --- */
+.Plans-featured-card {
+  background-color: #004EA8;
+  box-shadow: 0 20px 40px rgba(0, 78, 168, 0.25);
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 550px; /* Elevated height natively matching ref image 1 */
+  margin-top: -15px;
+}
+
+@media (max-width: 991px) {
+  .Plans-featured-card {
+    height: 520px;
+    margin-top: 0;
+  }
+}
+
+/* --- Precise Circular Pricing Badges Geometry --- */
+.Plans-price-ring-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.Plans-price-outer-ring {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Plans-featured-card .Plans-price-outer-ring,
+.Plans-price-outer-ring.variant-blue {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: absolute;
+  top: -65px;
+}
+
+.Plans-price-bubble {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.04), 0 8px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.Plans-featured-card .Plans-price-bubble,
+.Plans-price-bubble.variant-blue {
+  background-color: #59C6F9;
+  box-shadow: 0 10px 25px rgba(89, 198, 249, 0.4);
+}
+
+.Plans-currency-symbol {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-right: 2px;
+  align-self: center;
+  margin-top: -10px;
+}
+
+.Plans-featured-card .Plans-currency-symbol,
+.Plans-price-bubble.variant-blue .Plans-currency-symbol {
+  color: #ffffff;
+}
+
+.Plans-price-amount {
+  font-size: 34px;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -1px;
+}
+
+.Plans-featured-card .Plans-price-amount,
+.Plans-price-bubble.variant-blue .Plans-price-amount {
+  color: #ffffff;
+}
+
+.Plans-period-badge {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #004EA8;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 78, 168, 0.3);
+}
+
+.Plans-featured-card .Plans-period-badge,
+.Plans-price-bubble.variant-blue .Plans-period-badge {
+  background-color: #ffffff;
+  color: #59C6F9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Typography --- */
+.Plans-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 15px 0 2px 0;
+  text-align: center;
+}
+
+.Plans-featured-card .Plans-card-title {
+  color: #ffffff;
+  margin-top: 60px;
+}
+
+.text-white { color: #ffffff !important; }
+.text-lightblue { color: rgba(255, 255, 255, 0.6) !important; }
+
+.Plans-card-subtitle {
+  font-size: 10px;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.Plans-featured-card .Plans-card-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.Plans-card-description {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* --- Features Layout List --- */
+.Plans-feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Plans-feature-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.Plans-feat-icon {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #59C6F9;
+}
+
+/* --- Action Buttons Styling --- */
+.Plans-order-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  border-radius: 30px;
+  background-color: #004EA8;
+  padding: 14px 50px 14px 28px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 170px;
+  box-sizing: border-box;
+}
+
+.Plans-order-btn:hover {
+  background-color: #003777;
+}
+
+.Plans-featured-card .Plans-order-btn,
+.Plans-order-btn.variant-light {
+  background-color: #59C6F9;
+  color: #ffffff;
+}
+
+.Plans-featured-card .Plans-order-btn:hover,
+.Plans-order-btn.variant-light:hover {
+  background-color: #38b4f4;
+}
+
+.Plans-order-btn-accent {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 38px;
+  background-color: #3A89E9;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.Plans-featured-card .Plans-order-btn-accent,
+.Plans-order-btn.variant-light .Plans-order-btn-accent {
+  background-color: #79d5ff;
+}
