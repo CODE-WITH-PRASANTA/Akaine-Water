@@ -1,0 +1,78 @@
+/* मुख्य कंटेनर की स्टाइलिंग */
+.app-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #333;
+}
+
+/* नेविगेशन बार (Navbar) */
+nav {
+  display: flex;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 2px solid #f0f0f0;
+  margin-bottom: 20px;
+}
+
+/* नेविगेशन लिंक्स */
+nav a {
+  text-decoration: none;
+  color: #0070f3;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: #0051a8;
+  text-decoration: underline;
+}
+
+/* हॉरिजॉन्टल लाइन को हटाना या स्टाइल करना */
+hr {
+  border: 0;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 20px 0;
+}
+
+/* ब्लॉग लिस्ट की स्टाइलिंग */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  background: #f9f9f9;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+ul li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: block;
+}
+
+ul li a:hover {
+  color: #0070f3;
+}
+
+/* हेडिंग्स */
+h2 {
+  color: #111;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
