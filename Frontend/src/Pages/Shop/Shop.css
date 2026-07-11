@@ -1,0 +1,877 @@
+/* --- GLOBAL TO COMPONENT STYLES --- */
+.Shop {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2c3e50;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.Shop * {
+  box-sizing: border-box;
+}
+
+/* --- BANNER COMPONENT (Image 1) --- */
+.ShopHeaderBanner {
+  width: 100%;
+  height: 280px;
+  background-image: linear-gradient(rgba(44, 62, 80, 0.25), rgba(44, 62, 80, 0.25)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&auto=format&fit=crop&q=80');
+  background-size: cover;
+  background-position: center 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ShopHeaderBreadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.ShopBreadcrumbDivider {
+  color: #ff2a2a;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.ShopBreadcrumbActive {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+}
+
+/* --- LAYOUT CONFIGURATION --- */
+.ShopMainContainer {
+  max-width: 1240px;
+  margin: 60px auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 45px;
+  align-items: flex-start;
+}
+
+/* --- STICKY SIDEBAR (Images 2, 3, 4) --- */
+.ShopSidebar {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.ShopSidebarWidget {
+  background: #f4f6f8;
+  border-radius: 16px;
+  padding: 28px 24px;
+}
+
+.ShopWidgetTitle {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #0e2238;
+  margin-top: 0;
+  margin-bottom: 22px;
+}
+
+/* Search Box Form */
+.ShopSearchInputWrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.ShopSearchInputWrapper input {
+  width: 100%;
+  padding: 15px 55px 15px 20px;
+  border: none;
+  background-color: #ffffff;
+  border-radius: 30px;
+  font-size: 14px;
+  color: #555;
+  outline: none;
+}
+
+.ShopSearchInputWrapper input::placeholder {
+  color: #a3b1c2;
+}
+
+.ShopSearchButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 48px;
+  border: none;
+  background-color: #d91c1c;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.ShopSearchButton:hover {
+  background-color: #b81414;
+}
+
+/* Sidebar Cart Block styling */
+.ShopEmptyCartText {
+  font-size: 14px;
+  color: #5c6b73;
+  margin: 0;
+}
+
+.ShopSidebarCartList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.ShopSidebarCartItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.ShopCartItemRemove {
+  background: transparent;
+  border: none;
+  color: #ff2a2a;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.ShopCartItemImage {
+  width: 40px;
+  height: 50px;
+  object-fit: contain;
+  background: transparent;
+}
+
+.ShopCartItemMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ShopCartItemName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0e2238;
+}
+
+.ShopCartItemPrice {
+  font-size: 13px;
+  color: #5c6b73;
+}
+
+.ShopSidebarCartSubtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0e2238;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 15px;
+  margin-bottom: 20px;
+}
+
+.ShopSubtotalAmount {
+  color: #0e2238;
+}
+
+.ShopSidebarCartButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.ShopCartBtn {
+  flex: 1;
+  padding: 12px 10px;
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.ShopCartBtn.ViewCartBtn {
+  background-color: #0d233a;
+  color: #ffffff;
+}
+
+.ShopCartBtn.ViewCartBtn:hover {
+  background-color: #173352;
+}
+
+.ShopCartBtn.CheckoutBtn {
+  background-color: #d91c1c;
+  color: #ffffff;
+}
+
+.ShopCartBtn.CheckoutBtn:hover {
+  background-color: #b81414;
+}
+
+/* Filter by Price UI Slider styling */
+.ShopPriceSliderWrapper {
+  position: relative;
+  margin-bottom: 22px;
+  padding-top: 10px;
+}
+
+.ShopSliderLineTrack {
+  height: 4px;
+  background-color: rgba(13, 35, 58, 0.1);
+  width: 100%;
+  border-radius: 2px;
+  position: relative;
+}
+
+.ShopSliderLineProgress {
+  height: 100%;
+  background-color: #d91c1c;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.ShopActualSliderInput {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.ShopSliderKnob {
+  width: 10px;
+  height: 10px;
+  background-color: #0d233a;
+  border-radius: 50%;
+  position: absolute;
+  top: -3px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.ShopSliderKnob.left {
+  left: 0;
+}
+
+.ShopPriceFilterFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ShopPriceOutputDisplay {
+  font-size: 13px;
+  color: #5c6b73;
+}
+
+.ShopFilterActionBtn {
+  background-color: #d91c1c;
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.ShopFilterActionBtn:hover {
+  background-color: #b81414;
+}
+
+/* Category widget rows */
+.ShopCategoriesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ShopCategoryItem {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #5c6b73;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.ShopCategoryItem:hover, .ShopCategoryItem.active {
+  color: #d91c1c;
+}
+
+.ShopCategoryArrow {
+  font-size: 11px;
+  margin-right: 8px;
+  color: #d91c1c;
+}
+
+.ShopCategoryLabelName {
+  flex-grow: 1;
+}
+
+.ShopCategoryCount {
+  font-size: 12px;
+  color: #a3b1c2;
+  margin-left: 5px;
+}
+
+/* Tags cloud */
+.ShopTagsCloudContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ShopProductTagBadge {
+  background-color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #5c6b73;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ShopProductTagBadge:hover, .ShopProductTagBadge.active {
+  background-color: #d91c1c;
+  color: #ffffff;
+}
+
+/* --- MAIN GRID AREA CONTROLS --- */
+.ShopContentGridArea {
+  flex-grow: 1;
+}
+
+.ShopGridTopControlsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.ShopResultsCounter {
+  font-size: 14px;
+  color: #5c6b73;
+}
+
+/* Dropdown styling mimicking Image 7 */
+.ShopSortingDropdownWrapper {
+  position: relative;
+  min-width: 210px;
+  z-index: 10;
+}
+
+.ShopSelectedSortBox {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #5c6b73;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ShopDropdownArrowIcon {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.ShopDropdownArrowIcon.open {
+  transform: rotate(180deg);
+}
+
+.ShopDropdownOptionsPortalList {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.ShopDropdownOptionRow {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #5c6b73;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ShopDropdownOptionRow:hover {
+  background-color: #f4f6f8;
+  color: #0e2238;
+}
+
+.ShopDropdownOptionRow.selected {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+/* --- RESPONSIVE PRODUCT CARD GRID --- */
+.ShopProductsResponsiveGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1xl);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 30px;
+  row-gap: 45px;
+}
+
+.ShopProductCardItem {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+/* Image framing interaction container */
+.ShopCardImageFrameContainer {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 12px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.ShopProductItemCoreImage {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.ShopProductCardItem:hover .ShopProductItemCoreImage {
+  transform: scale(1.04);
+}
+
+/* Percentage Discount Sale Badge */
+.ShopSaleRibbonBadge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #d91c1c;
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  z-index: 2;
+}
+
+/* Cart adding overlays */
+.ShopCardHoverActionOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.ShopCardImageFrameContainer:hover .ShopCardHoverActionOverlay {
+  opacity: 1;
+}
+
+.ShopCardCircleActionBtn {
+  width: 52px;
+  height: 52px;
+  background-color: #d91c1c;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(217, 28, 28, 0.3);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.ShopCardCircleActionBtn:hover {
+  transform: scale(1.1);
+}
+
+.ShopCardCircleActionBtn.addedSuccessState {
+  background-color: #0e2338;
+  box-shadow: 0 4px 15px rgba(14, 35, 56, 0.3);
+}
+
+.ShopActionCheckmark {
+  font-size: 18px;
+}
+
+/* Text Detail Content inside card items */
+.ShopProductItemCardDetails {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.ShopProductItemRatingStars {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.ShopStarIconElement {
+  font-size: 13px;
+}
+
+.ShopStarIconElement.filledGold {
+  color: #ffb606;
+}
+
+.ShopStarIconElement.emptyMuted {
+  color: #e2e8f0;
+}
+
+.ShopProductCardItemTitleName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0e2238;
+  margin: 0 0 10px 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.ShopProductCardItemTitleName:hover {
+  color: #d91c1c;
+}
+
+.ShopProductCardItemShortDesc {
+  font-size: 13px;
+  color: #7e8c9b;
+  line-height: 1.6;
+  margin: 0 0 14px 0;
+  padding: 0 10px;
+}
+
+.ShopProductCardPricingRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ShopProductCardOriginalCrossedPrice {
+  color: #a3b1c2;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.ShopProductCardActiveSalePrice {
+  color: #d91c1c;
+}
+
+/* --- PAGINATION STYLING LAYER (Image 6) --- */
+.ShopPaginationNavigationLayout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 60px;
+}
+
+.ShopPaginationPageNumberBtn, .ShopPaginationArrowBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background-color: #f4f6f8;
+  color: #5c6b73;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ShopPaginationPageNumberBtn:hover, .ShopPaginationArrowBtn:hover:not(:disabled) {
+  background-color: #e2e8f0;
+  color: #0e2238;
+}
+
+.ShopPaginationPageNumberBtn.activeCurrentPage {
+  background-color: #ffffff;
+  color: #0e2238;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.ShopPaginationArrowBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --- SYSTEM FOOTER LAYER COMPONENT (Image 6) --- */
+.ShopMainApplicationFooter {
+  background-color: #f4f6f8;
+  margin-top: 100px;
+  padding: 80px 0 0 0;
+  position: relative;
+  border-top: 1px solid rgba(0,0,0,0.02);
+}
+
+.ShopFooterContentGridColumns {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr;
+  gap: 40px;
+}
+
+.ShopFooterBrandLogoText {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0e2238;
+  margin: 0 0 20px 0;
+}
+
+.ShopFooterBrandAboutParagraphText {
+  font-size: 14px;
+  color: #5c6b73;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+.ShopFooterSocialIconsMediaRow {
+  display: flex;
+  gap: 15px;
+}
+
+.ShopFooterSocialMediaIconLinkIcon {
+  color: #0e2238;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.ShopFooterSocialMediaIconLinkIcon:hover {
+  color: #d91c1c;
+}
+
+.ShopFooterColumnHeadingTitleText {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0e2238;
+  margin: 0 0 25px 0;
+}
+
+.ShopFooterLinksListWrapper {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ShopFooterLinksListWrapper li {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.ShopFooterLinkNavArrow {
+  font-size: 10px;
+  color: #d91c1c;
+  margin-right: 8px;
+}
+
+.ShopFooterLinksListWrapper a {
+  color: #5c6b73;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ShopFooterLinksListWrapper a:hover, .ShopFooterActiveHighlightLink {
+  color: #d91c1c !important;
+}
+
+.ShopFooterContactInfoRowItem {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.ShopFooterContactIconSquareBadge {
+  background-color: #d91c1c;
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.ShopFooterContactLinesBlockText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ShopFooterContactSubLabelTitle {
+  font-size: 13px;
+  color: #a3b1c2;
+}
+
+.ShopFooterContactCoreValueDetail {
+  font-size: 14px;
+  color: #0e2238;
+  font-weight: 500;
+}
+
+.ShopFooterBottomBarCopyrightSegment {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: 60px;
+  padding: 25px 20px;
+  text-align: left;
+}
+
+.ShopFooterBottomCopyrightLeft {
+  max-width: 1240px;
+  margin: 0 auto;
+  font-size: 13px;
+  color: #7e8c9b;
+}
+
+.ShopFooterHighlightThemesBrandLink {
+  color: #d91c1c;
+}
+
+.ShopFooterPurchaseCopyrightActionLinkText {
+  color: #d91c1c;
+  text-decoration: none;
+}
+
+/* Floating Fixed Go Top Action Circle button layout */
+.ShopFloatingFixedGoToTopBtn {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  background-color: #d91c1c;
+  color: #ffffff;
+  border: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: lowercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(217, 28, 28, 0.2);
+  transition: background 0.2s ease;
+  z-index: 99;
+}
+
+.ShopFloatingFixedGoToTopBtn:hover {
+  background-color: #b81414;
+}
+
+/* --- RESPONSIVE MEDIA QUERIES BREAKPOINTS --- */
+@media (max-width: 1024px) {
+  .ShopProductsResponsiveGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ShopFooterContentGridColumns {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ShopMainContainer {
+    flex-direction: column;
+    margin: 30px auto;
+  }
+  .ShopSidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+  .ShopGridTopControlsBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .ShopSortingDropdownWrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .ShopProductsResponsiveGrid {
+    grid-template-columns: 1fr;
+  }
+  .ShopFooterContentGridColumns {
+    grid-template-columns: 1fr;
+  }
+  .ShopCardImageFrameContainer {
+    height: 280px;
+  }
+}
