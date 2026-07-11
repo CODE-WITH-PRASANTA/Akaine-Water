@@ -22,6 +22,8 @@ import Testimonial from "./pages/Testimonial/Testimonial";
 import Cart from "./pages/Cart/Cart";
 import Cheakout from "./pages/Cheakout/Cheakout";
 import Faq from "./pages/Faq/Faq";
+import About from "./Pages/About/About";
+
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
       <Routes>
         {/* Home */}
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      
        
 
         {/* Main Pages */}
