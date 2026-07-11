@@ -1,5 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
+import "./App.css";
+
+import AkaineGalary from "./Component/AkaineGalary/AkaineGalary";
 import "./App.css";
 
 // Layout Components
@@ -23,12 +27,24 @@ import Faq from "./pages/Faq/Faq";
 
 
 
+import Topbar from "./Component/Topbar/Topbar";
+import Navbar from "./Component/Navbar/Navbar";
+import Footer from "./Component/Footer/Footer";
+import OurTeam from "./Component/OurTeam/OurTeam";
 
 function App() {
   return (
     <BrowserRouter>
       <Topbar />
       <Navbar />
+      
+
+      <Routes>
+          <Route path='/galary' element={<AkaineGalary/>}/>
+          <Route path='/ourteam' element={<OurTeam/>}/>
+      </Routes>
+    <Topbar/>
+      <Navbar/>
 
       <Routes>
         {/* Home Routes */}

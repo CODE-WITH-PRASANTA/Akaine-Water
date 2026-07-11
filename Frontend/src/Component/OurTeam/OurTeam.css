@@ -1,0 +1,216 @@
+/* Container & Layout setup for a fully scrollable page layout */
+.team-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 60px 40px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-y: auto; /* Ensures page scrollability */
+}
+
+/* 4-column responsive grid matching exact reference dimensions and alignment */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 30px;
+  row-gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Card Container setup */
+.team-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Image container with rounded top borders matching reference */
+.image-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Reference spec: Turns into a dark dimmed screen overlay on hover */
+.dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  transition-duration: .7S;
+  pointer-events: none;
+}
+
+.team-card:hover .dark-overlay {
+  opacity: 1;
+}
+
+.team-card:hover .image-box img {
+  transform: scale(1.05);
+  transition-timing-function:ease-in-out ;
+}
+
+/* White Dropdown Information Box Wrapper */
+.info-box-wrapper {
+  position: relative;
+  width: 85%;
+  margin-top: -45px; /* Pulls text frame overlapping over the image box */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-box {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 35px 15px 20px 15px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+}
+
+.member-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.member-role {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1d61b4; /* Deep premium profile role blue tint */
+  margin: 0;
+}
+
+/* Share Button base stylings */
+.share-btn {
+  position: absolute;
+  top: -22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: none;
+  color: #8a99ad;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  z-index: 12;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Sky-blue circle outer ring animation wrapper */
+.share-ring {
+  position: absolute;
+  top: -32px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1.5px solid #43bbf2; /* Sky-blue boundary stroke line */
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 11;
+  pointer-events: none;
+}
+
+.share-ring.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Reference spec: Changes background color to filled sky blue when active/hovered */
+.share-btn.active {
+  background-color: #43bbf2;
+  color: #ffffff;
+}
+
+/* Smooth Blossoming Social Tooltip Window (Opening like a flower) */
+.social-popup {
+  position: absolute;
+  bottom: 140px; /* Move popup higher */
+  left: 50%;
+  transform: translateX(-50%) translateY(15px) scale(0.8);
+  background: #fff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  /* pointer-events: none; */
+  pointer-events:visibleFill;
+  transition: all 0.4s ease;
+  z-index: 20;
+}
+
+/* Tiny dynamic downward arrow notch pointing to the button center */
+.social-popup::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+.social-popup.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) scale(1); /* Smooth blooming expand effect */
+}
+
+.social-link {
+  color: #64748b;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.social-link:hover {
+  color: #1e293b; /* Accent highlight on dynamic click paths */
+}
+
+/* Responsive breakdowns matching mobile & tablet devices */
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 24px;
+    row-gap: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .team-container {
+    padding: 40px 20px;
+  }
+  .team-grid {
+    grid-template-columns: 1fr;
+    row-gap: 45px;
+  }
+}
