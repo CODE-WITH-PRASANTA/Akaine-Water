@@ -1,0 +1,236 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.info-pricing-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #ffffff;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 60px;
+  padding: 50px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.pricing-section {
+  border-bottom: none;
+  padding-top: 60px;
+}
+
+/* लेफ्ट पैनल स्टाइलिंग */
+.info-left-panel {
+  flex: 1;
+  max-width: 400px;
+}
+
+.center-btn-panel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 15px;
+}
+
+.info-main-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #072b3a;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.info-description {
+  font-size: 15px;
+  color: #4a5b65;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.info-features-list {
+  list-style: none;
+  margin-bottom: 35px;
+}
+
+.info-features-list li {
+  font-size: 15px;
+  color: #072b3a;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.checkmark {
+  color: #c4261d;
+  font-weight: bold;
+  margin-right: 12px;
+}
+
+.info-sub-heading {
+  font-size: 26px;
+  font-weight: 700;
+  color: #072b3a;
+  margin-bottom: 15px;
+}
+
+.info-sub-description {
+  font-size: 15px;
+  color: #4a5b65;
+  line-height: 1.6;
+}
+
+/* आपकी पसंद का नीला बटन (Blue Read More Button) */
+.read-more-btn-blue {
+  background-color: #0056b3;
+  color: #ffffff;
+  border: none;
+  padding: 16px 42px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 10px rgba(0, 86, 179, 0.2);
+}
+
+.read-more-btn-blue:hover {
+  background-color: #003d82;
+}
+
+.read-more-btn-blue:active {
+  transform: scale(0.98);
+}
+
+/* राइट पैनल (अकोर्डियन) स्टाइलिंग */
+.info-right-panel {
+  flex: 1.5;
+}
+
+.section-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #0c3344;
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
+}
+
+.accordion-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #e5e9eb;
+}
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 22px 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.toggle-icon {
+  width: 28px;
+  height: 28px;
+  background-color: #f0f4f6;
+  color: #0c3344;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 20px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-header:hover .toggle-icon {
+  background-color: #e2e8ec;
+}
+
+.toggle-icon.active {
+  background-color: #0c3344;
+  color: #ffffff;
+}
+
+.faq-question {
+  font-size: 17px;
+  font-weight: 500;
+  color: #103747;
+  line-height: 1.4;
+}
+
+.accordion-content {
+  padding: 0 0 20px 48px;
+  font-size: 15px;
+  color: #556873;
+  line-height: 1.6;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* रेस्पॉन्सिव मीडिया क्वेरी (टैबलेट और मोबाइल स्क्रीन्स के लिए) */
+@media (max-width: 992px) {
+  .info-section {
+    flex-direction: column;
+    gap: 40px;
+    padding: 30px 0;
+  }
+  
+  .info-left-panel {
+    max-width: 100%;
+  }
+  
+  .section-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .center-btn-panel {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .info-main-heading {
+    font-size: 26px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .faq-question {
+    font-size: 15px;
+  }
+
+  .toggle-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    margin-right: 12px;
+  }
+
+  .accordion-content {
+    padding-left: 36px;
+  }
+}

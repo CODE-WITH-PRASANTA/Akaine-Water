@@ -1,0 +1,117 @@
+/* मुख्य बैनर कंटेनर - जो आपकी पहाड़ वाली इमेज को बैकग्राउंड में सेट करेगा */
+.cart-banner-section {
+  position: relative;
+  width: 100%;
+  height: 300px; /* डेस्कटॉप के लिए परफेक्ट बैनर हाइट */
+  background-image: url('../../assets/akin-12.png'); /* अपनी इमेज का पाथ यहाँ सेट करें */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* हल्का ओवरले ताकि टेक्स्ट इमेज के ऊपर साफ़ और स्पष्ट दिखे */
+.cart-banner-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.05); /* बहुत हल्का डार्क इफ़ेक्ट */
+  z-index: 1;
+}
+
+/* टेक्स्ट और ब्रेडक्रंब को बिल्कुल बीच में रखने के लिए */
+.cart-banner-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+/* मुख्य बड़ा अक्षर "Cart" */
+.cart-main-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #ffffff; /* सफ़ेद रंग का टेक्स्ट */
+  margin: 0 0 8px 0;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* टेक्स्ट को उभरने के लिए शैडो */
+}
+
+/* ब्रेडक्रंब नेविगेशन का स्टाइल */
+.cart-breadcrumb-nav {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* होम बटन का लिंक */
+.cart-home-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.cart-home-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* संदर्भ छवि (Reference Image) की तरह लाल रंग का डबल स्लैश */
+.cart-breadcrumb-separator {
+  margin: 0 12px;
+  color: #e53e3e; /* लाल रंग (Red color) */
+  font-weight: bold;
+}
+
+/* वर्तमान पेज (cart) का टेक्स्ट */
+.cart-current-text {
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+/* --- रेस्पॉन्सिव सेटिंग्स (Responsive for all devices) --- */
+
+/* टैबलेट और छोटी स्क्रीन्स के लिए */
+@media (max-width: 768px) {
+  .cart-banner-section {
+    height: 220px; /* मोबाइल/टैबलेट पर हाइट थोड़ी कम हो जाएगी */
+  }
+  
+  .cart-main-title {
+    font-size: 32px;
+    margin-bottom: 6px;
+  }
+  
+  .cart-breadcrumb-nav {
+    font-size: 14px;
+  }
+}
+
+/* छोटे मोबाइल फ़ोन्स के लिए */
+@media (max-width: 480px) {
+  .cart-banner-section {
+    height: 180px;
+  }
+  
+  .cart-main-title {
+    font-size: 28px;
+  }
+  
+  .cart-breadcrumb-separator {
+    margin: 0 8px;
+  }
+}
