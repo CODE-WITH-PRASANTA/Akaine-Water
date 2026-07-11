@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Sidebar from '../Sidebar/Sidebar';
-import Topbar from '../Topbar/Topbar';
-import './MainLayout.css';
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 
-const MainLayout = ({ children }) => {
+import Sidebar from "../Sidebar/Sidebar";
+import Topbar from "../Topbar/Topbar";
+import "./MainLayout.css";
+
+const MainLayout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -15,29 +17,30 @@ const MainLayout = ({ children }) => {
     }
   };
 
-  // Close mobile overlay when clicking outside the sidebar
   const closeMobileSidebar = () => {
     setIsMobileOpen(false);
   };
 
   return (
-    <div className={`MainLayout ${isCollapsed ? 'sidebar-collapsed' : ''}`}>
-      <Sidebar isCollapsed={isCollapsed} isMobileOpen={isMobileOpen} />
-      
-      {/* Mobile Sidebar Overlay */}
+    <div className={`MainLayout ${isCollapsed ? "sidebar-collapsed" : ""}`}>
+      <Sidebar
+        isCollapsed={isCollapsed}
+        isMobileOpen={isMobileOpen}
+      />
+
+      {/* Mobile Overlay */}
       {isMobileOpen && (
-        <div className="MainLayout-overlay" onClick={closeMobileSidebar}></div>
+        <div
+          className="MainLayout-overlay"
+          onClick={closeMobileSidebar}
+        />
       )}
 
       <div className="MainLayout-container">
         <Topbar toggleSidebar={toggleSidebar} />
+
         <main className="MainLayout-content">
-          {children ? children : (
-            <div className="MainLayout-placeholder">
-              <h2>Welcome to Dashboard</h2>
-              <p>This is where your primary views and page layouts will dynamically render.</p>
-            </div>
-          )}
+          <Outlet />
         </main>
       </div>
     </div>
