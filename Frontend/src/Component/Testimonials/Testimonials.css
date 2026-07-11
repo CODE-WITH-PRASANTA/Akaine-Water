@@ -1,0 +1,120 @@
+/* Container for the whole section */
+.testimonials {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #f9fbfd;
+}
+
+/* Header styling */
+.testimonials-header {
+  margin-bottom: 40px;
+}
+
+.testimonials-subheading {
+  color: #004a99;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.testimonials-main-title {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+/* Grid layout for 3 cards */
+.testimonials-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual card styling */
+.testimonial-card {
+  background: white;
+  padding: 40px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.quote-icon {
+  background: #004a99;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.stars {
+  margin-bottom: 15px;
+}
+
+.testimonial-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 25px;
+  height: 80px; /* Keeps card heights consistent */
+}
+
+.user-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.testimonial-heading {
+  margin: 5px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.user-location {
+  color: #004a99;
+  font-weight: 600;
+}
+
+/* Pagination Styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: 1px solid #004a99;
+  background-color: white;
+  color: #004a99;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #004a99;
+  color: white;
+}
+
+.pagination button.active {
+  background-color: #004a99;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  border-color: #ccc;
+  color: #ccc;
+  cursor: not-allowed;
+  background-color: #f4f4f4;
+}

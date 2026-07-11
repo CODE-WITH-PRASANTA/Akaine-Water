@@ -1,7 +1,7 @@
 import React from 'react';
 import './PlanBreadcrumb.css';
 // Import your background image directly from your assets folder
-import planBannerBg from '../../assets/W1.jpeg'; 
+import planBannerBg from '../../assets/wat 1.jpg'; 
 
 const PlanBreadcrumb = () => {
   return (
