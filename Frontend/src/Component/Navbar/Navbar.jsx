@@ -61,7 +61,7 @@ const Navbar = () => {
             <ul className="navbar-dropdown">
               <li className="navbar-dropdown-item"><a href="/services/all">All Services</a></li>
               <li className="navbar-dropdown-item"><a href="/services/packages">Service Packages</a></li>
-              <li className="navbar-dropdown-item"><a href="/services/pricing">Pricing</a></li>
+             
               <li className="navbar-dropdown-item"><a href="/services/request">Request Service</a></li>
             </ul>
           </li>

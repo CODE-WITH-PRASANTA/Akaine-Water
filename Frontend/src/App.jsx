@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
-// Components
+// Layout Components
 import Topbar from "./Component/Topbar/Topbar";
 import Navbar from "./Component/Navbar/Navbar";
 import Footer from "./Component/Footer/Footer";
+
+// Components
 import AkaineGalary from "./Component/AkaineGalary/AkaineGalary";
+import OurTeam from "./Component/OurTeam/OurTeam";
 
 // Pages
 import Home from "./Pages/Home/Home";
@@ -14,22 +17,48 @@ import Contact from "./Pages/Contact/Contact";
 import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
 
+// Other Pages
+import Testimonial from "./pages/Testimonial/Testimonial";
+import Cart from "./pages/Cart/Cart";
+import Cheakout from "./pages/Cheakout/Cheakout";
+import Faq from "./pages/Faq/Faq";
+
 function App() {
   return (
     <BrowserRouter>
+      {/* Header */}
       <Topbar />
       <Navbar />
 
+      {/* Routes */}
       <Routes>
+        {/* Home */}
         <Route path="/" element={<Home />} />
-        
+       
+
+        {/* Main Pages */}
         <Route path="/shop" element={<Shop />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/resources/blog" element={<Blog />} />
         <Route path="/products/pricing" element={<PricingAndPlans />} />
+
+        {/* Resources */}
+        <Route path="/resources/faqs" element={<Faq />} />
+        <Route path="/resources/team" element={<OurTeam />} />
         <Route path="/resources/gallary" element={<AkaineGalary />} />
+
+        {/* Products */}
+        <Route
+          path="/products/testimonials"
+          element={<Testimonial />}
+        />
+
+        {/* Shop */}
+        <Route path="/shop/cart" element={<Cart />} />
+        <Route path="/shop/checkout" element={<Cheakout />} />
       </Routes>
 
+      {/* Footer */}
       <Footer />
     </BrowserRouter>
   );

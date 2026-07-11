@@ -1,0 +1,226 @@
+/* मुख्य रैपर */
+.cart-page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   1. एम्प्टी कार्ट स्टाइलिंग (बिल्कुल संदर्भ छवि UI डिज़ाइन के समान अलाइनमेंट)
+   ========================================================================== */
+.empty-cart-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* लेफ्ट अलाइनमेंट जैसा कि संदर्भ छवि में है */
+  width: 100%;
+}
+
+/* अलर्ट बॉक्स डिज़ाइन जिसमें ऊपर लाल रंग की बॉर्डर स्ट्रिप है */
+.empty-cart-alert-box {
+  width: 100%;
+  background-color: #f0f4f6; /* लाइट ग्रे बैकग्राउंड */
+  padding: 24px 30px;
+  border-radius: 25px; /* गोल कोने */
+  border-top: 4px solid #c4261d; /* थिक रेड टॉप बॉर्डर */
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  display: flex;
+  align-items: center;
+}
+
+.empty-cart-text {
+  font-size: 16px;
+  color: #1e3643; /* डार्क ब्लू/ग्रे शेड का टेक्स्ट */
+  font-weight: 400;
+}
+
+/* लाल रंग का 'Return to shop' बटन */
+.return-shop-btn {
+  background-color: #c4261d; /* परफेक्ट रेड कलर */
+  color: #ffffff;
+  border: none;
+  padding: 16px 42px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+/* बटन होवर इफेक्ट */
+.return-shop-btn:hover {
+  background-color: #a11d16;
+  box-shadow: 0 4px 12px rgba(196, 38, 29, 0.3);
+  transform: translateY(-1px);
+}
+
+.return-shop-btn:active {
+  transform: translateY(1px);
+}
+
+
+/* ==========================================================================
+   2. एक्टिव कार्ट आइटम्स और होवर इफेक्ट्स लेआउट
+   ========================================================================== */
+.active-cart-wrapper {
+  width: 100%;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.cart-heading {
+  font-size: 24px;
+  color: #1e3643;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+/* आइटम रो डिज़ाइन और होवर इफ़ेक्ट */
+.cart-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #e1e8ed;
+  padding: 20px;
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* कार्ड पर डायनेमिक होवर इफेक्ट */
+.cart-item-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  border-color: #c4261d; /* होवर करने पर लाल रंग की हल्की झलक */
+}
+
+.cart-item-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cart-item-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #f7f9fa;
+}
+
+.item-title {
+  font-size: 17px;
+  color: #1e3643;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.item-qty {
+  font-size: 14px;
+  color: #788893;
+}
+
+.cart-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e3643;
+}
+
+/* आइटम रिमूव बटन */
+.remove-item-btn {
+  background: none;
+  border: 1px solid #d2dce2;
+  color: #657786;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* रिमूव बटन पर होवर इफ़ेक्ट */
+.remove-item-btn:hover {
+  background-color: #fff1f0;
+  border-color: #ffccc7;
+  color: #ff4d4f;
+}
+
+/* टेस्टिंग के लिए छोटा बटन */
+.clear-all-demo-btn {
+  background: none;
+  border: 1px dashed #788893;
+  color: #788893;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 10px;
+  transition: all 0.2s;
+}
+
+.clear-all-demo-btn:hover {
+  background-color: #f0f4f6;
+  color: #1e3643;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   3. रेस्पॉन्सिव डिज़ाइन ब्रेकपॉइंट्स (Responsive for all devices)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .cart-item-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .cart-item-actions {
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid #edf1f3;
+    padding-top: 14px;
+  }
+
+  .empty-cart-alert-box {
+    padding: 20px;
+    border-radius: 18px;
+  }
+  
+  .return-shop-btn {
+    width: 100%; /* मोबाइल स्क्रीन पर बटन फुल-विड्थ हो जाएगा */
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-page-container {
+    padding: 30px 15px;
+  }
+
+  .empty-cart-text {
+    font-size: 14px;
+  }
+
+  .item-title {
+    font-size: 15px;
+  }
+}
