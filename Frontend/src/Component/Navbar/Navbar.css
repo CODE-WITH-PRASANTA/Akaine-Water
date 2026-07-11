@@ -1,0 +1,334 @@
+/* Navbar.css */
+
+/* Core Sticky Wrapper */
+.navbar-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* 1st Image Style: Floating in Hero Section */
+.navbar-wrapper.hero-state {
+  padding: 25px 60px;
+}
+
+.navbar-wrapper.hero-state .navbar {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* 2nd Image Style: Scrolled State */
+.navbar-wrapper.scrolled-state {
+  padding: 0;
+}
+
+.navbar-wrapper.scrolled-state .navbar {
+  background-color: #ffffff;
+  border-radius: 0;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Navbar Flex Container */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+/* Logo Setup */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Desktop Navigation Menu */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nav Items & Dropdown Containers */
+.navbar-item {
+  position: relative;
+}
+
+.navbar-link {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.navbar-link:hover, 
+.navbar-item.active .navbar-link {
+  color: #0052B4; /* Classic Active Blue */
+}
+
+.navbar-arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+  color: #a0a0a0;
+}
+
+.navbar-item:hover .navbar-arrow {
+  transform: translateY(2px);
+  color: #0052B4;
+}
+
+/* Dropdown Menu Overlay Styles */
+.navbar-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(15px);
+  background-color: #ffffff;
+  min-width: 200px;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 12px 0;
+  list-style: none;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  border-top: 3px solid #0052B4;
+}
+
+.navbar-item:hover .navbar-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.navbar-dropdown-item a {
+  display: block;
+  padding: 10px 20px;
+  color: #4a4a4a;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.navbar-dropdown-item a:hover {
+  background-color: #e6f0fa; /* Light Blue tint */
+  color: #0052B4;
+  padding-left: 25px;
+}
+
+/* Right Controls (Search and Order Button) */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Hidden elements in Scrolled State based on Image 2 */
+.navbar-wrapper.scrolled-state .navbar-actions {
+  display: none;
+}
+
+.navbar-search-btn {
+  background-color: #0052B4;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.navbar-search-btn:hover {
+  background-color: #003d87;
+  transform: scale(1.05);
+}
+
+/* Styled Pill Button matching Image 1 */
+.navbar-order-btn {
+  background: linear-gradient(90deg, #0052B4 82%, #6cc4ee 82%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 35px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 82, 180, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar-order-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 82, 180, 0.3);
+}
+
+/* Mobile Toggle Hamburger Button */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1001;
+}
+
+.navbar-toggle span {
+  width: 25px;
+  height: 3px;
+  background-color: #1a1a1a;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   ENHANCED MOBILE RESPONSIVENESS (Breakpoints for Tablets and Smartphones)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  /* Override padding wrappers to force standard layout limits on small devices */
+  .navbar-wrapper.hero-state,
+  .navbar-wrapper.scrolled-state {
+    padding: 0 !important;
+  }
+  
+  .navbar {
+    border-radius: 0 !important;
+    padding: 12px 20px;
+  }
+
+  /* Make Hamburger menu visible */
+  .navbar-toggle {
+    display: flex;
+  }
+
+  /* Hamburger transformations when mobile menu state is open */
+  .navbar-toggle.is-open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .navbar-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+  .navbar-toggle.is-open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Slide down vertical drawer configuration */
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  }
+
+  /* Activated mobile menu drawer container state */
+  .navbar-menu.is-open {
+    max-height: 85vh;
+    overflow-y: auto;
+    visibility: visible;
+  }
+
+  .navbar-item {
+    width: 100%;
+    border-bottom: 1px solid #f4f6f9;
+  }
+
+  .navbar-link {
+    padding: 16px 24px;
+    justify-content: space-between;
+    font-size: 15px; /* Slightly easier to tap */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Restructure Absolute Dropdowns to inline Accordions for touch screens */
+  .navbar-dropdown {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    max-height: 0;
+    padding: 0;
+    border-top: none;
+    background-color: #f8fbfd; /* Subtle visual offset color */
+    overflow: hidden;
+    width: 100%;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Smooth accordion reveal when tap/hovered */
+  .navbar-item:hover .navbar-dropdown {
+    transform: none;
+    max-height: 500px;
+    padding: 5px 0;
+  }
+
+  .navbar-dropdown-item a {
+    padding: 12px 40px; /* Indent sub items for clean visual hierarchy */
+    font-size: 14px;
+  }
+
+  /* Hide desktop action area elements to optimize top viewport space */
+  .navbar-actions {
+    display: none !important;
+  }
+}
+
+/* Extra optimization for ultra small device screens */
+@media (max-width: 480px) {
+  .navbar-logo {
+    height: 34px; /* Scaled down logo text height to eliminate clipping */
+  }
+  
+  .navbar {
+    padding: 10px 15px;
+  }
+}
