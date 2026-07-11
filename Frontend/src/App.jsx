@@ -15,6 +15,7 @@ import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
 import Topbar from "./Component/Topbar/Topbar";
 import Navbar from "./Component/Navbar/Navbar";
 import Footer from "./Component/Footer/Footer";
+import OurTeam from "./Component/OurTeam/OurTeam";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
 
       <Routes>
           <Route path='/galary' element={<AkaineGalary/>}/>
+          <Route path='/ourteam' element={<OurTeam/>}/>
       </Routes>
     <Topbar/>
       <Navbar/>
