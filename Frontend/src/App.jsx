@@ -1,15 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-
-import "./App.css";
-
-import AkaineGalary from "./Component/AkaineGalary/AkaineGalary";
 import "./App.css";
 
 // Layout Components
 import Navbar from "./Component/Navbar/Navbar";
 import Topbar from "./Component/Topbar/Topbar";
 import Footer from "./Component/Footer/Footer";
+
+// Components
 
 // Pages
 import Home from "./Pages/Home/Home";
@@ -21,33 +18,16 @@ import Testimonial from "./pages/Testimonial/Testimonial";
 import Cart from "./pages/Cart/Cart";
 import Cheakout from "./pages/Cheakout/Cheakout";
 import Faq from "./pages/Faq/Faq";
-
-
-
-
-
-
-import Topbar from "./Component/Topbar/Topbar";
-import Navbar from "./Component/Navbar/Navbar";
-import Footer from "./Component/Footer/Footer";
-import OurTeam from "./Component/OurTeam/OurTeam";
+import MainTeam from "./Pages/MainTeam/MainTeam";
 
 function App() {
   return (
     <BrowserRouter>
       <Topbar />
       <Navbar />
-      
 
       <Routes>
-          <Route path='/galary' element={<AkaineGalary/>}/>
-          <Route path='/ourteam' element={<OurTeam/>}/>
-      </Routes>
-    <Topbar/>
-      <Navbar/>
-
-      <Routes>
-        {/* Home Routes */}
+        {/* Home */}
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
 
@@ -57,16 +37,15 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/plan" element={<PricingAndPlans />} />
 
+        {/* Components */}
+        <Route path="/mainteam" element={<MainTeam/>} />
+        {/* <Route path="/galarymain" element={<GalaryMain/>} /> */}
+
         {/* Other Pages */}
         <Route path="/products/testimonials" element={<Testimonial />} />
-        <Route path="/shop/cart" element={<Cart/>}/>
-        <Route path="/shop/checkout" element={<Cheakout/>}/>
-        <Route path="/resources/faqs"element={<Faq/>}/>
-        
-        
-       
-        
-
+        <Route path="/shop/cart" element={<Cart />} />
+        <Route path="/shop/checkout" element={<Cheakout />} />
+        <Route path="/resources/faqs" element={<Faq />} />
       </Routes>
 
       <Footer />
