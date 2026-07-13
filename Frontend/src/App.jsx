@@ -10,17 +10,17 @@ import Footer from "./Component/Footer/Footer";
 import AkaineGalary from "./Component/AkaineGalary/AkaineGalary";
 import OurTeam from "./Component/OurTeam/OurTeam";
 
-// Pages
+// Main Pages
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Shop from "./Pages/Shop/Shop";
 import Contact from "./Pages/Contact/Contact";
 import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
-import MainTeam from "./Pages/MainTeam/MainTeam";
-import GalaryMain from "./Pages/GalaryMain/GalaryMain";
 
 // Other Pages
+import MainTeam from "./Pages/MainTeam/MainTeam";
+import GalaryMain from "./Pages/GalaryMain/GalaryMain";
 import Testimonial from "./Pages/Testimonial/Testimonial";
 import Cart from "./Pages/Cart/Cart";
 import Cheakout from "./Pages/Cheakout/Cheakout";
@@ -37,6 +37,7 @@ function App() {
       <Routes>
         {/* Main Pages */}
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/contact" element={<Contact />} />
@@ -70,7 +71,7 @@ function App() {
         <Route path="/shop/cart" element={<Cart />} />
         <Route path="/shop/checkout" element={<Cheakout />} />
 
-        {/* Individual Components (Optional) */}
+        {/* Individual Components */}
         <Route path="/team-component" element={<OurTeam />} />
         <Route path="/gallery-component" element={<AkaineGalary />} />
       </Routes>

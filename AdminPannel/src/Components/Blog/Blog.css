@@ -1,0 +1,90 @@
+:root {
+  --primary-color: #2563eb;
+  --bg-color: #eff6ff;
+  --card-bg: #ffffff;
+  --text-dark: #1e293b;
+  --border-color: #bfdbfe;
+}
+
+.blog-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  box-sizing: border-box;
+  /* Prevent the whole page from overflowing */
+  overflow: hidden; 
+}
+
+.form-section, .table-section {
+  flex: 0 0 calc(50% - 10px);
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  /* Ensure these sections don't grow beyond their flex basis */
+  min-width: 0; 
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title { color: var(--primary-color); margin-top: 0; }
+
+.required { color: #dc2626; }
+
+label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
+
+.blog-form input {
+  width: 100%; padding: 10px; border: 1px solid var(--border-color);
+  border-radius: 6px; margin-bottom: 10px; box-sizing: border-box;
+}
+
+.blog-form button {
+  background-color: var(--primary-color); color: white;
+  width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px;
+}
+
+/* Scrollable Table Wrapper */
+.table-wrapper {
+  width: 100%;
+  /* This ensures the scrollbar stays inside the table section */
+  overflow-x: auto; 
+  margin-top: 15px;
+  /* Adds a subtle visual hint for scrolling */
+  border: 1px solid #e2e8f0;
+}
+
+table {
+  width: 100%;
+  min-width: 600px; /* Forces scrollbar when screen is narrow */
+  border-collapse: collapse;
+}
+
+th { background-color: var(--primary-color); color: white; padding: 12px; text-align: left; }
+td { padding: 12px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+/* ... (Keep previous root and container styles) ... */
+
+.actions-cell { display: flex; gap: 8px; }
+
+.btn-edit {
+  background-color: #fbbf24; /* Amber */
+  color: white; border: none; padding: 5px 10px;
+  border-radius: 4px; cursor: pointer;
+}
+
+.btn-delete {
+  background-color: #ef4444; /* Red */
+  color: white; border: none; padding: 5px 10px;
+  border-radius: 4px; cursor: pointer;
+}
+
+/* Ensure actions column doesn't wrap unnecessarily */
+th:last-child, td:last-child { min-width: 120px; }
+
+/* Responsive break: Stack on smaller screens */
+@media (max-width: 900px) {
+  .blog-container { flex-direction: column; overflow: visible; }
+  .form-section, .table-section { flex: 0 0 100%; }
+}

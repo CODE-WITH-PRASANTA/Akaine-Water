@@ -14,7 +14,9 @@ const galleryRoutes = require("./src/routes/galleryRoutes");
 const testimonialRoutes = require(
   "./src/routes/testimonialRoutes");
 const contactRoutes= require("./src/routes/contactRoutes");
-
+const blogRoutes = require(
+  "./src/routes/blogRoutes"
+);
 
 // Connect Database
 connectDB();
@@ -22,6 +24,7 @@ connectDB();
 const app = express();
 
 // ================= Middleware =================
+
 app.use(cors());
 
 app.use(express.json());
@@ -40,6 +43,10 @@ app.use(
   testimonialRoutes
 );
 app.use("/api/contact", contactRoutes);
+app.use(
+  "/api/blog",
+  blogRoutes
+);
 
 
 
