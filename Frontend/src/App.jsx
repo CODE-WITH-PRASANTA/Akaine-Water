@@ -10,27 +10,22 @@ import Footer from "./Component/Footer/Footer";
 import AkaineGalary from "./Component/AkaineGalary/AkaineGalary";
 import OurTeam from "./Component/OurTeam/OurTeam";
 
-// Pages
+// Main Pages
 import Home from "./Pages/Home/Home";
+import About from "./Pages/About/About";
 import Shop from "./Pages/Shop/Shop";
 import Contact from "./Pages/Contact/Contact";
 import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
-
-// Other Pages
-import Testimonial from "./pages/Testimonial/Testimonial";
-import Cart from "./pages/Cart/Cart";
-import Cheakout from "./pages/Cheakout/Cheakout";
-import Faq from "./pages/Faq/Faq";
 import MainTeam from "./Pages/MainTeam/MainTeam";
 import GalaryMain from "./Pages/GalaryMain/GalaryMain";
 
-
-
-
-import About from "./Pages/About/About";
-import WhiteQuartz from "./pages/WhiteQuartz/WhiteQuartz";
-
+// Other Pages
+import Testimonial from "./Pages/Testimonial/Testimonial";
+import Cart from "./Pages/Cart/Cart";
+import Cheakout from "./Pages/Cheakout/Cheakout";
+import Faq from "./Pages/Faq/Faq";
+import WhiteQuartz from "./Pages/WhiteQuartz/WhiteQuartz";
 
 function App() {
   return (
@@ -41,37 +36,31 @@ function App() {
 
       {/* Routes */}
       <Routes>
-        {/* Home */}
+        {/* Main Pages */}
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
-        
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* Pricing */}
-        
+        <Route path="/plan" element={<PricingAndPlans />} />
         <Route
           path="/products/pricing"
           element={<PricingAndPlans />}
         />
 
-        {/* Main Pages */}
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/contact" element={<Contact />} />
+        {/* Blog */}
         <Route path="/resources/blog" element={<Blog />} />
 
-        {/* Components */}
-        <Route path="/resources/team" element={<MainTeam/>} />
-        <Route path="/resources/gallary" element={<GalaryMain/>} />
-        
+        {/* Team */}
+        <Route path="/resources/team" element={<MainTeam />} />
 
-        {/* Other Pages */}
-        <Route path="/products/testimonials" element={<Testimonial />} />
-        <Route path="/shop/cart" element={<Cart />} />
-        <Route path="/shop/checkout" element={<Cheakout />} />
+        {/* Gallery */}
+        <Route path="/resources/gallary" element={<GalaryMain />} />
+
+        {/* FAQs */}
         <Route path="/resources/faqs" element={<Faq />} />
-        {/* Resources */}
-        <Route path="/resources/faqs" element={<Faq />} />
-        <Route path="/resources/team" element={<OurTeam />} />
-        <Route path="/resources/gallary" element={<AkaineGalary />} />
 
         {/* Testimonials */}
         <Route
@@ -79,11 +68,16 @@ function App() {
           element={<Testimonial />}
         />
 
-        {/* Shop */}
+        {/* Cart & Checkout */}
         <Route path="/shop/cart" element={<Cart />} />
         <Route path="/shop/checkout" element={<Cheakout />} />
-        <Route path="/whitequartz" element={<WhiteQuartz/>}/>
-        
+
+        {/* Product Pages */}
+        <Route path="/whitequartz" element={<WhiteQuartz />} />
+
+        {/* Optional Components */}
+        <Route path="/team-component" element={<OurTeam />} />
+        <Route path="/gallery-component" element={<AkaineGalary />} />
       </Routes>
 
       {/* Footer */}
