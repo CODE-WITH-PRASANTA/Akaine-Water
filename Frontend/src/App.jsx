@@ -17,10 +17,29 @@ import Shop from "./Pages/Shop/Shop";
 import Contact from "./Pages/Contact/Contact";
 import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
+<<<<<<< HEAD
+
+// Other Pages
+<<<<<<< HEAD
+import Testimonial from "./pages/Testimonial/Testimonial";
+import Cart from "./pages/Cart/Cart";
+import Cheakout from "./pages/Cheakout/Cheakout";
+import Faq from "./pages/Faq/Faq";
+<<<<<<< HEAD
+import About from "./Pages/About/About";
+
+
+=======
+import MainTeam from "./Pages/MainTeam/MainTeam";
+import GalaryMain from "./Pages/GalaryMain/GalaryMain";
+>>>>>>> caff59ae6fe819a177b1379a3462d0a5bbad0041
+=======
+=======
 import MainTeam from "./Pages/MainTeam/MainTeam";
 import GalaryMain from "./Pages/GalaryMain/GalaryMain";
 
 // Other Pages
+>>>>>>> 40f9ea368375c01937174bbf1385ac85da1187b1
 import Testimonial from "./Pages/Testimonial/Testimonial";
 import Cart from "./Pages/Cart/Cart";
 import Cheakout from "./Pages/Cheakout/Cheakout";
@@ -38,8 +57,18 @@ function App() {
         {/* Main Pages */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+<<<<<<< HEAD
+<<<<<<< HEAD
+      
+       
+        <Route path="/home" element={<Home />} />
+=======
+        
+>>>>>>> faf7d3c0c5098345fae848ed9ed5c82e7752a596
+=======
         <Route path="/shop" element={<Shop />} />
         <Route path="/contact" element={<Contact />} />
+>>>>>>> 40f9ea368375c01937174bbf1385ac85da1187b1
 
         {/* Pricing */}
         <Route path="/plan" element={<PricingAndPlans />} />
