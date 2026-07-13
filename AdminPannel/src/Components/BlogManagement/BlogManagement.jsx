@@ -5,7 +5,7 @@ import './BlogManagement.css';
 const MOCK_DATA = Array.from({ length: 12 }, (_, index) => ({
   id: index + 1,
   name: `Author ${index + 1}`,
-  date: new Date(2026, 6, 13 - index).toLocaleDateString('en-US', {
+  date: new Date(2026, 6, 12 - index).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric'

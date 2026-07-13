@@ -4,34 +4,36 @@ const blogSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Author name is required"],
       trim: true,
     },
 
     designation: {
       type: String,
-      required: true,
+      required: [true, "Author designation is required"],
       trim: true,
     },
 
     title: {
       type: String,
-      required: true,
+      required: [true, "Blog title is required"],
       trim: true,
     },
 
     category: {
       type: String,
       default: "",
+      trim: true,
     },
 
     date: {
       type: Date,
+      default: Date.now,
     },
 
     description: {
       type: String,
-      required: true,
+      required: [true, "Blog description is required"],
     },
 
     image: {
@@ -44,7 +46,4 @@ const blogSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(
-  "Blog",
-  blogSchema
-);
+module.exports = mongoose.model("Blog", blogSchema);
