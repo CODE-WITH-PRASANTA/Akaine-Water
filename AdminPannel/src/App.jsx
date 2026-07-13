@@ -12,6 +12,7 @@ import ShopPosting from "./Components/ShopPosting/ShopPosting";
 import Contact from "./Components/Contact/Contact";
 
 import "./App.css";
+import BlogManagement from "./Components/BlogManagement/BlogManagement";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/testimonial" element={<Testimonial />} />
           <Route path="/shop" element={<ShopPosting />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/blog-management" element={<BlogManagement />} />
 
         </Route>
 
