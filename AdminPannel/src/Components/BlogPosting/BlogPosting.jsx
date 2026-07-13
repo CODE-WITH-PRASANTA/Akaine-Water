@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaTachometerAlt, FaPhotoVideo, FaCalendarAlt, FaUsers, FaAddressBook, FaHistory, FaPlusCircle } from 'react-icons/fa';
+import { FaUsers } from 'react-icons/fa';
 import './BlogPosting.css';
 
 const BlogPosting = () => {
@@ -25,19 +25,6 @@ const BlogPosting = () => {
 
   return (
     <div className="BlogPosting">
-      <nav className="BlogPosting__sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-          <li><FaTachometerAlt /> Dashboard</li>
-          <li><FaPhotoVideo /> Gallery Management</li>
-          <li><FaPhotoVideo /> Video Management</li>
-          <li><FaCalendarAlt /> Event Management</li>
-          <li className="active"><FaUsers /> Team Management</li>
-          <li><FaAddressBook /> Contact Management</li>
-          <li><FaHistory /> Archivment Posting</li>
-        </ul>
-      </nav>
-
       <main className="BlogPosting__main">
         <h1><FaUsers /> Team Management</h1>
         <div className="BlogPosting__container">

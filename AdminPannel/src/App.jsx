@@ -10,6 +10,8 @@ import "./App.css";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import Testimonial from "./pages/Testimonial/Testimonial";
 import BlogPosting from "./Components/BlogPosting/BlogPosting";
+import Contact from "./Components/Contact/Contact";
+
 
 const App = () => {
   return (
@@ -19,6 +21,7 @@ const App = () => {
           {/* Home */}
            <Route path="/" element={<Testimonial />} />
             <Route path="/blog" element={<BlogPosting />} />
+           <Route path="/contact" element={<Contact />} />
 
 
         </Route>
