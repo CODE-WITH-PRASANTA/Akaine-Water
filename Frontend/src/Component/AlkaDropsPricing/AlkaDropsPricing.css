@@ -1,0 +1,259 @@
+/* Container styling and overall split section */
+.AlkaDropsPricing {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7f9fc; /* Light clean gray background for the bottom */
+  padding: 60px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* The banner background restricted to only the top portions */
+.AlkaDropsPricing__banner-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 480px; /* Adjust height to match where your cards split */
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+/* Safe layout wrapper to force content above absolute background */
+.AlkaDropsPricing__content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Text Styles */
+.AlkaDropsPricing__header {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 50px;
+}
+
+.AlkaDropsPricing__subtitle {
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.AlkaDropsPricing__title {
+  font-size: 38px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.AlkaDropsPricing__seo-text {
+  max-width: 700px;
+  margin: 15px auto 0 auto;
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* Wave Decoration */
+.AlkaDropsPricing__wave {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+.AlkaDropsPricing__wave span {
+  width: 12px;
+  height: 4px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+/* Flex Container for Cards */
+.AlkaDropsPricing__container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* The Pricing Card Styles matching reference perfectly */
+.AlkaDropsPricing__card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 350px;
+  padding: 35px 25px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.AlkaDropsPricing__card:hover {
+  transform: translateY(-5px);
+}
+
+.AlkaDropsPricing__card-top {
+  margin-bottom: 25px;
+}
+
+.AlkaDropsPricing__plan-name {
+  font-size: 24px;
+  color: #1a1a1a;
+  margin: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.AlkaDropsPricing__plan-sub {
+  font-size: 11px;
+  color: #999999;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+/* Price Badge Circle Layout */
+.AlkaDropsPricing__price-circle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.AlkaDropsPricing__price-circle {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 2px solid #eef2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+/* Inner decorative ring shadows */
+.AlkaDropsPricing__price-circle::before {
+  content: '';
+  position: absolute;
+  top: 6px; left: 6px; right: 6px; bottom: 6px;
+  border-radius: 50%;
+  border: 1px solid #eef2f5;
+}
+
+.AlkaDropsPricing__currency {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  align-self: flex-start;
+  margin-top: 35px;
+  margin-right: 2px;
+}
+
+.AlkaDropsPricing__amount {
+  font-size: 46px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.AlkaDropsPricing__period-badge {
+  position: absolute;
+  top: 10px;
+  right: -5px;
+  background-color: #0056b3;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+}
+
+/* Features List styling */
+.AlkaDropsPricing__features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 35px 0;
+  flex-grow: 1;
+}
+
+.AlkaDropsPricing__feature-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f4f8;
+  text-align: left;
+}
+
+.AlkaDropsPricing__feature-item:last-child {
+  border-bottom: none;
+}
+
+.AlkaDropsPricing__feature-icon {
+  color: #0056b3;
+  font-size: 16px;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.AlkaDropsPricing__feature-text {
+  font-size: 14px;
+  color: #4a4a4a;
+}
+
+/* Action Order Button */
+.AlkaDropsPricing__action {
+  margin-top: auto;
+}
+
+.AlkaDropsPricing__button {
+  width: 100%;
+  background-color: #0056b3;
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 25px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.AlkaDropsPricing__button:hover {
+  background-color: #004494;
+}
+
+.AlkaDropsPricing__button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 992px) {
+  .AlkaDropsPricing__banner-bg {
+    height: 540px; /* Expand banner depth slightly when layout stacks */
+  }
+}/* The banner background - increased height from 480px to 540px */
+.AlkaDropsPricing__banner-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 540px; /* Increased to push the blue background a bit further down behind the cards */
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}

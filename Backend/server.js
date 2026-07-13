@@ -14,9 +14,7 @@ const galleryRoutes = require("./src/routes/galleryRoutes");
 const testimonialRoutes = require(
   "./src/routes/testimonialRoutes");
 const contactRoutes= require("./src/routes/contactRoutes");
-const blogRoutes = require(
-  "./src/routes/blogRoutes"
-);
+
 
 // Connect Database
 connectDB();
@@ -43,10 +41,7 @@ app.use(
   testimonialRoutes
 );
 app.use("/api/contact", contactRoutes);
-app.use(
-  "/api/blog",
-  blogRoutes
-);
+
 
 
 
