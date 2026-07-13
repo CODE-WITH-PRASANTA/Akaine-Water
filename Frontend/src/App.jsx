@@ -23,13 +23,6 @@ import Cheakout from "./pages/Cheakout/Cheakout";
 import Faq from "./pages/Faq/Faq";
 
 
-
-
-
-
-import Topbar from "./Component/Topbar/Topbar";
-import Navbar from "./Component/Navbar/Navbar";
-import Footer from "./Component/Footer/Footer";
 import OurTeam from "./Component/OurTeam/OurTeam";
 
 function App() {
