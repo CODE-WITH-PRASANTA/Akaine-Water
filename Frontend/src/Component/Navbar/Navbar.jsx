@@ -48,10 +48,10 @@ const Navbar = () => {
           <li className="navbar-item">
             <span className="navbar-link">Products <span className="navbar-arrow">▼</span></span>
             <ul className="navbar-dropdown">
-              <li className="navbar-dropdown-item"><a href="/products/categories">Product Categories</a></li>
+              {/* <li className="navbar-dropdown-item"><a href="/products/categories">Product Categories</a></li> */}
               <li className="navbar-dropdown-item"><a href="/products/pricing">Pricing</a></li>
               <li className="navbar-dropdown-item"><a href="/products/testimonials">Testimonials</a></li>
-              <li className="navbar-dropdown-item"><a href="/products/join-now">Join Now</a></li>
+              {/* <li className="navbar-dropdown-item"><a href="/products/join-now">Join Now</a></li> */}
             </ul>
           </li>
 
