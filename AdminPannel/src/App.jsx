@@ -9,6 +9,7 @@ import MainLayout from "./Layout/MainLayout/MainLayout";
 import OurTeam from "./Components/OurTeam/OurTeam";
 import Gallery from "./Components/Gallery/Gallery";
 import Testimonial from "./pages/Testimonial/Testimonial";
+
 import ShopPosting from "./Components/ShopPosting/ShopPosting";
 import Contact from "./Components/Contact/Contact";
 import Blog from "./Components/Blog/Blog";
@@ -16,6 +17,9 @@ import Blog from "./Components/Blog/Blog";
 
 
 
+import "./App.css";
+import BlogManagement from "./Components/BlogManagement/BlogManagement";
+import Testiminial from "./Components/Testiminial/Testiminial";
 
 const App = () => {
   return (
@@ -33,9 +37,20 @@ const App = () => {
           <Route path="/testimonial" element={<Testimonial />} />
           <Route path="/shop" element={<ShopPosting />} />
           <Route path="/contact" element={<Contact />} />
+<<<<<<< HEAD
           <Route path="/blog" element={<Blog />} />
         
     
+=======
+          <Route path="/blog-management" element={<BlogManagement />} />
+         
+
+          <Route path="/resources/team" element={<OurTeam />} />
+          <Route path="/resources/gallary" element={<Gallery />} />
+          <Route path="/products/testimonials" element={<Testiminial />} />
+          <Route path="/shop" element={<ShopPosting />} />
+          <Route path="/contact" element={<Contact />} />
+>>>>>>> 40f9ea368375c01937174bbf1385ac85da1187b1
 
         </Route>
 

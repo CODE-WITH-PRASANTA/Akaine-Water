@@ -12,10 +12,12 @@ import OurTeam from "./Component/OurTeam/OurTeam";
 
 // Pages
 import Home from "./Pages/Home/Home";
+import About from "./Pages/About/About";
 import Shop from "./Pages/Shop/Shop";
 import Contact from "./Pages/Contact/Contact";
 import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
+<<<<<<< HEAD
 
 // Other Pages
 <<<<<<< HEAD
@@ -32,12 +34,16 @@ import MainTeam from "./Pages/MainTeam/MainTeam";
 import GalaryMain from "./Pages/GalaryMain/GalaryMain";
 >>>>>>> caff59ae6fe819a177b1379a3462d0a5bbad0041
 =======
+=======
+import MainTeam from "./Pages/MainTeam/MainTeam";
+import GalaryMain from "./Pages/GalaryMain/GalaryMain";
+
+// Other Pages
+>>>>>>> 40f9ea368375c01937174bbf1385ac85da1187b1
 import Testimonial from "./Pages/Testimonial/Testimonial";
 import Cart from "./Pages/Cart/Cart";
 import Cheakout from "./Pages/Cheakout/Cheakout";
 import Faq from "./Pages/Faq/Faq";
-import About from "./Pages/About/About";
->>>>>>> faf7d3c0c5098345fae848ed9ed5c82e7752a596
 
 function App() {
   return (
@@ -48,9 +54,10 @@ function App() {
 
       {/* Routes */}
       <Routes>
-        {/* Home */}
+        {/* Main Pages */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+<<<<<<< HEAD
 <<<<<<< HEAD
       
        
@@ -58,33 +65,29 @@ function App() {
 =======
         
 >>>>>>> faf7d3c0c5098345fae848ed9ed5c82e7752a596
+=======
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/contact" element={<Contact />} />
+>>>>>>> 40f9ea368375c01937174bbf1385ac85da1187b1
 
         {/* Pricing */}
-        
+        <Route path="/plan" element={<PricingAndPlans />} />
         <Route
           path="/products/pricing"
           element={<PricingAndPlans />}
         />
 
-        {/* Main Pages */}
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/contact" element={<Contact />} />
+        {/* Blog */}
         <Route path="/resources/blog" element={<Blog />} />
 
-        {/* Components */}
-        <Route path="/resources/team" element={<MainTeam/>} />
-        <Route path="/resources/gallary" element={<GalaryMain/>} />
-        
+        {/* Team */}
+        <Route path="/resources/team" element={<MainTeam />} />
 
-        {/* Other Pages */}
-        <Route path="/products/testimonials" element={<Testimonial />} />
-        <Route path="/shop/cart" element={<Cart />} />
-        <Route path="/shop/checkout" element={<Cheakout />} />
+        {/* Gallery */}
+        <Route path="/resources/gallary" element={<GalaryMain />} />
+
+        {/* FAQs */}
         <Route path="/resources/faqs" element={<Faq />} />
-        {/* Resources */}
-        <Route path="/resources/faqs" element={<Faq />} />
-        <Route path="/resources/team" element={<OurTeam />} />
-        <Route path="/resources/gallary" element={<AkaineGalary />} />
 
         {/* Testimonials */}
         <Route
@@ -92,9 +95,13 @@ function App() {
           element={<Testimonial />}
         />
 
-        {/* Shop */}
+        {/* Cart & Checkout */}
         <Route path="/shop/cart" element={<Cart />} />
         <Route path="/shop/checkout" element={<Cheakout />} />
+
+        {/* Individual Components (Optional) */}
+        <Route path="/team-component" element={<OurTeam />} />
+        <Route path="/gallery-component" element={<AkaineGalary />} />
       </Routes>
 
       {/* Footer */}
