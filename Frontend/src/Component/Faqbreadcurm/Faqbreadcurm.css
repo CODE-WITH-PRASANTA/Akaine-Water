@@ -1,9 +1,9 @@
-/* मुख्य बैनर कंटेनर - जो आपकी पानी पीती महिला वाली इमेज को बैकग्राउंड में सेट करेगा */
+
 .faq-banner-wrapper {
   position: relative;
   width: 100%;
-  height: 320px; /* डेस्कटॉप स्क्रीन्स के लिए परफेक्ट बैनर हाइट */
-  background-image: url('../../assets/akin-12.png'); /* अपनी इमेज का पाथ यहाँ सेट करें */
+  height: 320px; 
+  background-image: url('../../assets/akin-12.png'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -13,7 +13,7 @@
   user-select: none;
 }
 
-/* हल्का सा ट्रांसपेरेंट ओवरले */
+
 .faq-banner-overlay {
   position: absolute;
   top: 0;
@@ -24,15 +24,15 @@
   z-index: 1;
 }
 
-/* टेक्स्ट और ब्रेडक्रंब को बिल्कुल बीच (Horizontal & Vertical Center) में रखने के लिए बॉक्स */
+
 .faq-content-box {
   position: relative;
   z-index: 2;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.55);
+
   padding: 20px 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  
   display: flex;
   flex-direction: column;
   align-items: center;
