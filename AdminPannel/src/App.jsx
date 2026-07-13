@@ -22,6 +22,12 @@ import Blog from "./Components/Blog/Blog";
 import BlogPosting from "./Components/BlogPosting/BlogPosting";
 >>>>>>> ddc2b35b615bad704ad4c42fae2847764e6a13e5
 import BlogManagement from "./Components/BlogManagement/BlogManagement";
+<<<<<<< HEAD
+=======
+import Testiminial from "./Components/Testiminial/Testiminial";
+import DashboardMain from "./Pages/DashboardMain/DashboardMain";
+import ManageStock from "./Components/ManageStock/ManageStock";
+>>>>>>> 942a4c912a544d8b7492ee337ce8989b69feab24
 
 const App = () => {
   return (
@@ -69,6 +75,15 @@ const App = () => {
 
           {/* Additional Pages */}
           <Route path="/resources/team" element={<OurTeam />} />
+          <Route path="/resources/gallary" element={<Gallery />} />
+          <Route path="/products/testimonials" element={<Testiminial />} />
+          <Route path="/shop" element={<ShopPosting />} />
+          <Route path="/contact" element={<Contact />} />
+
+
+          <Route path="/wdms/dashboard" element={<DashboardMain />} />
+          <Route path="/wdms/stock/manage" element={<ManageStock />} />
+
           <Route path="/resources/gallery" element={<Gallery />} />
 >>>>>>> ddc2b35b615bad704ad4c42fae2847764e6a13e5
           <Route

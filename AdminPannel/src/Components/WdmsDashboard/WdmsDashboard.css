@@ -1,0 +1,254 @@
+/* Core Global Dashboard Background Parameters (White & Light Gray Palette) */
+.wdms-dashboard {
+  background-color: #f4f6f9;
+  color: #334155;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e3a8a; /* Deep Navy Blue */
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+/* ────────────────────────────────────────────────────────
+   SECTION 1: HIGH IMPACT METRICS GRIDS (70vh target space)
+   ──────────────────────────────────────────────────────── */
+.wdms-section-metrics {
+  margin-bottom: 32px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Enforce 70vh minimum height distribution scaling on large displays */
+@media (min-width: 1024px) {
+  .wdms-section-metrics {
+    height: 65vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+    flex-grow: 1;
+  }
+}
+
+/* KPI Cards Layout Formatting (Pure White Cards with Subtle Elevation Shadows) */
+.kpi-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px -8px rgba(30, 58, 138, 0.12);
+  border-color: #bfdbfe;
+}
+
+.kpi-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.kpi-icon-wrapper {
+  padding: 10px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Clean Professional Blue-Infused Icon Variants */
+.icon-bg-blue { background-color: #eff6ff; color: #2563eb; }
+.icon-bg-teal { background-color: #f0fdfa; color: #0d9488; }
+.icon-bg-indigo { background-color: #e0e7ff; color: #4f46e5; }
+.icon-bg-amber { background-color: #fffbeb; color: #d97706; }
+.icon-bg-emerald { background-color: #ecfdf5; color: #059669; }
+.icon-bg-purple { background-color: #faf5ff; color: #9333ea; }
+
+.kpi-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 9999px;
+}
+.badge-blue { background: #dbeafe; color: #1e40af; }
+.badge-teal { background: #ccfbf1; color: #115e59; }
+.badge-indigo { background: #e0e7ff; color: #3730a3; }
+.badge-amber { background: #fef3c7; color: #92400e; }
+.badge-emerald { background: #d1fae5; color: #065f46; }
+.badge-purple { background: #f3e8ff; color: #6b21a8; }
+
+.kpi-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a; /* Slate Dark */
+  margin: 0 0 4px 0;
+}
+
+.kpi-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #475569;
+  margin: 0 0 6px 0;
+}
+
+.kpi-subtext {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ────────────────────────────────────────────────────────
+   LOWER FLEX STRIP: SPLIT GRID (Sections 2 and 3 Layout)
+   ──────────────────────────────────────────────────────── */
+.wdms-split-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .wdms-split-layout {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+.wdms-section-stock, 
+.wdms-section-delivery {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.section-panel-header {
+  margin-bottom: 20px;
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 0 0 4px 0;
+}
+
+.panel-subtitle {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* SECTION 2: Stock Tracking Data Table Formatting */
+.table-responsive-wrapper {
+  overflow-x: auto;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.stock-table th {
+  padding: 12px;
+  border-bottom: 2px solid #e2e8f0;
+  color: #475569;
+  font-weight: 600;
+  background-color: #f8fafc;
+}
+
+.stock-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+/* Clear Pill Badges */
+.status-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.pill-optimal { background-color: #d1fae5; color: #065f46; }
+.pill-low-stock { background-color: #fef3c7; color: #92400e; }
+.pill-critical { background-color: #fee2e2; color: #991b1b; }
+
+/* SECTION 3: Delivery Executive Row Allocator Elements */
+.delivery-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.delivery-boy-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #2563eb; /* Primary Accent Royal Blue Marker */
+}
+
+.boy-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.boy-zone {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.delivery-boy-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.orders-count-badge {
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #dbeafe;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #1e40af;
+}
+
+.status-indicator {
+  font-size: 12px;
+  font-weight: 600;
+}
+.indicator-active { color: #2563eb; }
+.indicator-idle { color: #64748b; }
