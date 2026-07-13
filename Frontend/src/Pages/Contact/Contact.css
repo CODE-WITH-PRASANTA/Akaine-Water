@@ -1,0 +1,307 @@
+/* Color System matching your theme design */
+:root {
+  --contact-blue: #2c3e50;
+  --contact-red: #d91c1c;
+  --contact-muted: #6e7a8a;
+  --contact-light-gray: #f4f7f9;
+  --contact-border: #e2e8f0;
+}
+
+.ContactContainer {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--contact-blue);
+  background-color: #ffffff;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* =========================================================
+   COMPONENT WINDOW 1: SINGLE IMAGE HERO BANNER (60vh)
+   ========================================================= */
+.ContactHeroBanner {
+  height: 60vh;
+  min-height: 350px;
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* Darkening overlay optional: helps text pop over bright banner images */
+.ContactHeroOverlay {
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15); 
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+  box-sizing: border-box;
+}
+
+.ContactHeroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 2;
+}
+
+.ContactHeroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--contact-blue);
+  margin: 0;
+}
+
+.ContactHeroBreadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ContactBreadcrumbLink {
+  color: var(--contact-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.ContactBreadcrumbLink:hover {
+  color: var(--contact-red);
+}
+
+.ContactBreadcrumbDivider {
+  color: var(--contact-red);
+  font-weight: bold;
+}
+
+.ContactBreadcrumbActive {
+  color: var(--contact-blue);
+}
+
+/* =========================================================
+   COMPONENT WINDOW 2: CONTACT FORM SECTION
+   ========================================================= */
+.ContactFormSection {
+  min-height: 60vh;
+  width: 100%;
+  padding: 80px 10%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.ContactFormGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 70px;
+  width: 100%;
+  align-items: start;
+}
+
+.ContactFormLeftPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.ContactFormLabel {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--contact-muted);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.ContactFormTitle {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 20px 0;
+  color: var(--contact-blue);
+}
+
+.ContactFormDescription {
+  font-size: 1rem;
+  color: var(--contact-muted);
+  line-height: 1.6;
+  margin: 0 0 40px 0;
+}
+
+.ContactFormInfoList {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ContactFormInfoItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.ContactFormIconBadge {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--contact-red);
+  font-size: 1.2rem;
+}
+
+.ContactFormInfoValue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--contact-blue);
+}
+
+/* Right Inputs Column Layout */
+.ContactFormRightPanel {
+  width: 100%;
+}
+
+.ContactFormElement {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.ContactFormInputRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.ContactFormInputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.ContactFormInputIcon {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--contact-muted);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.ContactFormInput {
+  width: 100%;
+  padding: 18px 24px 18px 56px;
+  border-radius: 40px;
+  border: 1px solid var(--contact-border);
+  background-color: var(--contact-light-gray);
+  font-size: 0.95rem;
+  color: var(--contact-blue);
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.ContactFormInput:focus {
+  border-color: var(--contact-blue);
+  background-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(44, 62, 80, 0.06);
+}
+
+.ContactFormTextareaWrapper {
+  width: 100%;
+}
+
+.ContactFormTextarea {
+  width: 100%;
+  padding: 22px 28px;
+  border-radius: 28px;
+  border: 1px solid var(--contact-border);
+  background-color: var(--contact-light-gray);
+  font-size: 0.95rem;
+  color: var(--contact-blue);
+  box-sizing: border-box;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.ContactFormTextarea:focus {
+  border-color: var(--contact-blue);
+  background-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(44, 62, 80, 0.06);
+}
+
+.ContactFormActionRow {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.ContactFormSubmitButton {
+  background-color: var(--contact-red);
+  color: #ffffff;
+  border: none;
+  padding: 18px 48px;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ContactFormSubmitButton:hover {
+  background-color: #b81414;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(217, 28, 28, 0.2);
+}
+
+/* =========================================================
+   COMPONENT WINDOW 3: GEOLOCATION MAP (60vh)
+   ========================================================= */
+/* =========================================================
+   COMPONENT WINDOW 3: GEOLOCATION MAP (60vh)
+   ========================================================= */
+.ContactMapSection {
+  height: 60vh;
+  min-height: 450px;
+  width: 100%;
+  position: relative;
+  background-color: #e5e3df;
+}
+
+.ContactMapCanvas {
+  height: 100%;
+  width: 100%;
+  border: none;
+  display: block;
+} 
+/* =========================================================
+   RESPONSIVE RENDERING CORE VIEWS MATRIX
+   ========================================================= */
+@media (max-width: 1200px) {
+  .ContactFormGrid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ContactHeroTitle {
+    font-size: 2.8rem;
+  }
+  .ContactFormTitle {
+    font-size: 2.2rem;
+  }
+  .ContactFormInputRow {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .ContactFormSection {
+    padding: 60px 5%;
+  }
+}

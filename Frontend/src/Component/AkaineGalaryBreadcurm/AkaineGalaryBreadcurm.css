@@ -1,0 +1,121 @@
+/* ===============================
+   Gallery Banner
+================================= */
+
+.galary-banner-section {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-image: url("../../assets/akin-12.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.galary-banner-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+
+.galary-banner-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 20px;
+}
+
+.galary-main-title {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.galary-breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.galary-home-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.galary-home-link:hover {
+  color: #d93838;
+}
+
+.galary-breadcrumb-separator {
+  margin: 0 12px;
+  color: #d93838;
+  font-weight: 700;
+}
+
+.galary-current-text {
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+/* ===============================
+   Responsive
+================================= */
+
+@media (max-width: 992px) {
+  .galary-banner-section {
+    height: 260px;
+  }
+
+  .galary-main-title {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  .galary-banner-section {
+    height: 220px;
+  }
+
+  .galary-main-title {
+    font-size: 34px;
+  }
+
+  .galary-breadcrumb-nav {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .galary-banner-section {
+    height: 180px;
+  }
+
+  .galary-main-title {
+    font-size: 28px;
+  }
+
+  .galary-breadcrumb-separator {
+    margin: 0 8px;
+  }
+}

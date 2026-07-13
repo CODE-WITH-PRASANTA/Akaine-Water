@@ -1,0 +1,713 @@
+/* Color token layout config properties mapping exactly to .waterly template screens */
+:root {
+  --blog-navy: #2c3e50;
+  --blog-red: #d91c1c;
+  --blog-slate: #6e7a8a;
+  --blog-bg-light: #f4f7f9;
+  --blog-border-line: #e2e8f0;
+}
+
+.Blog {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--blog-navy);
+  background-color: #ffffff;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* =========================================================
+   COMPONENT 1: HERO SUB BANNER (60vh SPECIFIC HEIGHT WINDOW)
+   ========================================================= */
+.BlogHeaderBanner {
+  height: 60vh;
+  min-height: 400px;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.BlogHeaderBannerBg {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+  box-sizing: border-box;
+}
+
+.BlogHeaderBreadcrumbStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.BlogHeaderPageTitle {
+  font-size: 3.6rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.BlogBreadcrumbLinksRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.BlogBreadcrumbLink {
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.BlogBreadcrumbLink:hover {
+  color: var(--blog-red);
+}
+
+.BlogBreadcrumbDivider {
+  color: var(--blog-red);
+  font-weight: bold;
+}
+
+.BlogBreadcrumbActive {
+  color: #ffffff;
+}
+
+/* =========================================================
+   COMPONENT 2: CORE SIDEBAR & ARTICLES SPLIT LAYOUT
+   ========================================================= */
+.BlogMainLayoutSection {
+  width: 100%;
+  padding: 90px 10%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.BlogMainLayoutContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  width: 100%;
+}
+
+/* Left Content Posts Stack Column CSS styling fields */
+.BlogPostsContentGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.BlogResponsiveCardsStack {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.BlogPostCardItem {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(44, 62, 80, 0.04);
+  border: 1px solid var(--blog-border-line);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.BlogPostCardItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
+}
+
+.BlogPostCardImageFrame {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+}
+
+.BlogPostCoreAssetImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.BlogPostCardItem:hover .BlogPostCoreAssetImage {
+  transform: scale(1.03);
+}
+
+.BlogPostCategoryFloatingTag {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: var(--blog-red);
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.BlogPostCardDetailsContent {
+  padding: 30px;
+}
+
+.BlogPostMetaDetailsStrip {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.BlogPostMetaElement {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--blog-slate);
+  font-weight: 500;
+}
+
+.BlogPostMetaIcon {
+  color: var(--blog-red);
+}
+
+.BlogPostCardHeadlineTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--blog-navy);
+  margin: 0 0 14px 0;
+  line-height: 1.3;
+}
+
+.BlogPostCardSnippetText {
+  font-size: 0.98rem;
+  color: var(--blog-slate);
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+.BlogPostCardReadMoreActionBtn {
+  background: none;
+  border: none;
+  color: var(--blog-navy);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.BlogPostCardReadMoreActionBtn:hover {
+  color: var(--blog-red);
+}
+
+.BlogPostBtnArrow {
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+/* Custom Nav Pagination Layout Controls Row */
+.BlogPaginationContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.BlogPaginationNavArrow {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid var(--blog-border-line);
+  background-color: #ffffff;
+  color: var(--blog-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.BlogPaginationNavArrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.BlogPaginationNavArrow:not(:disabled):hover {
+  border-color: var(--blog-navy);
+  background-color: var(--blog-navy);
+  color: #ffffff;
+}
+
+.BlogPaginationNumberBtn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid var(--blog-border-line);
+  background-color: #ffffff;
+  color: var(--blog-navy);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.BlogPaginationNumberBtn:hover, 
+.activePageNumber {
+  background-color: var(--blog-red) !important;
+  border-color: var(--blog-red) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(217, 28, 28, 0.2);
+}
+
+/* Right Sidebar Filters Element Panel Layout */
+.BlogSidebarWidgetsStack {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.BlogSidebarWidgetCard {
+  background-color: var(--blog-bg-light);
+  padding: 30px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.BlogWidgetSectionHeading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--blog-navy);
+  margin: 0 0 25px 0;
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--blog-border-line);
+}
+
+/* Search widget field input logic block adjustments */
+.BlogSearchFieldInputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.BlogWidgetSearchInputElement {
+  width: 100%;
+  padding: 16px 55px 16px 24px;
+  border-radius: 40px;
+  border: 1px solid var(--blog-border-line);
+  background-color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+  color: var(--blog-navy);
+}
+
+.BlogWidgetSearchIconButton {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  background-color: var(--blog-navy);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  transition: background-color 0.2s ease;
+}
+
+.BlogWidgetSearchIconButton:hover {
+  background-color: var(--blog-red);
+}
+
+/* Recent posts widget card elements design configuration */
+.BlogSidebarRecentPostsRowsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.BlogSidebarMiniPostRowItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.BlogSidebarMiniPostThumbnail {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: #e2e8f0;
+}
+
+.BlogSidebarMiniPostMetaBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.BlogSidebarMiniPostTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--blog-navy);
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.BlogSidebarMiniPostTitle:hover {
+  color: var(--blog-red);
+}
+
+.BlogSidebarMiniPostDate {
+  font-size: 0.8rem;
+  color: var(--blog-slate);
+  font-weight: 500;
+}
+
+/* Category rows selection logic rules lists mapping layout */
+.BlogSidebarCategoriesListContainer {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.BlogSidebarCategoryListItemRow {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--blog-slate);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.BlogCategoryArrowSymbol {
+  font-size: 0.75rem;
+  color: var(--blog-red);
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.BlogCategoryLabelText {
+  flex-grow: 1;
+}
+
+.BlogCategoryCounterBadge {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.BlogSidebarCategoryListItemRow:hover, 
+.selectedCategoryItem {
+  color: var(--blog-red) !important;
+}
+
+/* Tags cloud list structure block items badges */
+.BlogSidebarTagsCloudFlexGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.BlogSidebarIndividualTagBadge {
+  background-color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blog-slate);
+  cursor: pointer;
+  border: 1px solid var(--blog-border-line);
+  transition: all 0.2s ease;
+}
+
+.BlogSidebarIndividualTagBadge:hover, 
+.activeTagBadge {
+  background-color: var(--blog-navy);
+  color: #ffffff;
+  border-color: var(--blog-navy);
+}
+
+.BlogNoResultsFoundCard {
+  text-align: center;
+  padding: 60px 20px;
+  border: 1px dashed var(--blog-border-line);
+  border-radius: 12px;
+}
+
+.BlogResetFilterBtn {
+  background-color: var(--blog-red);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 20px;
+  margin-top: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* =========================================================
+   COMPONENT 3: UTILITY FOOTER COMPONENT (60vh EXACT BLOCK)
+   ========================================================= */
+.BlogMainApplicationFooter {
+  min-height: 60vh;
+  /* width: 100vw; */
+  background-color: var(--blog-bg-light);
+  /* padding: 80px 10% 30px 10%; */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  border-top: 1px solid var(--blog-border-line);
+}
+
+.BlogFooterColumnsLayoutGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr;
+  gap: 40px;
+  width: 100%;
+}
+
+.BlogFooterBrandIdentityColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.BlogFooterBrandLogoHeadline {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--blog-navy);
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.BlogFooterBrandShortDescription {
+  font-size: 0.95rem;
+  color: var(--blog-slate);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.BlogFooterSocialIconMediaRow {
+  display: flex;
+  gap: 15px;
+}
+
+.BlogFooterSocialMediaCircleAnchor {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blog-navy);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.BlogFooterSocialMediaCircleAnchor:hover {
+  background-color: var(--blog-red);
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.BlogFooterColumnHeadlineTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--blog-navy);
+  margin: 0 0 25px 0;
+}
+
+.BlogFooterLinksWrapperUl {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.BlogFooterLinksWrapperUl li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.BlogFooterLinkArrowIndicator {
+  color: var(--blog-red);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.BlogFooterLinksWrapperUl a {
+  color: var(--blog-slate);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.BlogFooterLinksWrapperUl a:hover,
+.BlogFooterActiveRouteLink {
+  color: var(--blog-red) !important;
+}
+
+/* Core grid layout details stack metrics values */
+.BlogFooterContactBlockRowItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.BlogFooterSquareIconContainerBadge {
+  width: 40px;
+  height: 40px;
+  background-color: var(--blog-red);
+  color: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.BlogFooterStackedTextDetailsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.BlogFooterContactMiniLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--blog-slate);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.BlogFooterContactCoreDetailValue {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--blog-navy);
+  line-height: 1.4;
+}
+
+/* Base horizontal copyright row bar rules */
+.BlogFooterBottomBaseCopyrightSegment {
+  border-top: 1px solid var(--blog-border-line);
+  padding-top: 25px;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.BlogFooterCopyrightLeftMetaText {
+  font-size: 0.9rem;
+  color: var(--blog-slate);
+}
+
+.BlogFooterHighlightThemesBrandTextLink {
+  color: var(--blog-red);
+  font-weight: 600;
+}
+
+.BlogFooterPurchaseActionCopyrightTextLink {
+  color: var(--blog-slate);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Back scroll to top floating button item configuration triggers */
+.BlogFloatingFixedScrollToTopBtn {
+  position: absolute;
+  bottom: 25px;
+  right: 10%;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: var(--blog-red);
+  color: #ffffff;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(217, 28, 28, 0.35);
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.BlogFloatingFixedScrollToTopBtn:hover {
+  background-color: var(--blog-navy);
+  transform: translateY(-4px);
+}
+
+/* =========================================================
+   RESPONSIVE RENDERING OVERRIDES QUERY MATRIX
+   ========================================================= */
+@media (max-width: 1150px) {
+  .BlogMainLayoutContainer {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .BlogFooterColumnsLayoutGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .BlogHeaderPageTitle {
+    font-size: 2.8rem;
+  }
+  .BlogPostCardImageFrame {
+    height: 260px;
+  }
+  .BlogPostCardHeadlineTitle {
+    font-size: 1.5rem;
+  }
+  .BlogMainLayoutSection, .BlogMainApplicationFooter {
+    padding: 60px 5% 30px 5%;
+  }
+  .BlogFooterColumnsLayoutGrid {
+    grid-template-columns: 1fr;
+  }
+  .BlogFloatingFixedScrollToTopBtn {
+    right: 5%;
+  }
+}
