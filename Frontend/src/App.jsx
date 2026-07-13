@@ -23,9 +23,14 @@ import Testimonial from "./pages/Testimonial/Testimonial";
 import Cart from "./pages/Cart/Cart";
 import Cheakout from "./pages/Cheakout/Cheakout";
 import Faq from "./pages/Faq/Faq";
+<<<<<<< HEAD
 import About from "./Pages/About/About";
 
 
+=======
+import MainTeam from "./Pages/MainTeam/MainTeam";
+import GalaryMain from "./Pages/GalaryMain/GalaryMain";
+>>>>>>> caff59ae6fe819a177b1379a3462d0a5bbad0041
 =======
 import Testimonial from "./Pages/Testimonial/Testimonial";
 import Cart from "./Pages/Cart/Cart";
@@ -66,6 +71,16 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/resources/blog" element={<Blog />} />
 
+        {/* Components */}
+        <Route path="/resources/team" element={<MainTeam/>} />
+        <Route path="/resources/gallary" element={<GalaryMain/>} />
+        
+
+        {/* Other Pages */}
+        <Route path="/products/testimonials" element={<Testimonial />} />
+        <Route path="/shop/cart" element={<Cart />} />
+        <Route path="/shop/checkout" element={<Cheakout />} />
+        <Route path="/resources/faqs" element={<Faq />} />
         {/* Resources */}
         <Route path="/resources/faqs" element={<Faq />} />
         <Route path="/resources/team" element={<OurTeam />} />
