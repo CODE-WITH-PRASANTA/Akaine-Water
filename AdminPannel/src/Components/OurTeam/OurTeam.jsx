@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './OurTeam.css';
+import API, { IMG_URL } from "../../api/axios";
 
 const OurTeam = () => {
   // Team Data State
@@ -11,7 +12,9 @@ const OurTeam = () => {
   const [facebook, setFacebook] = useState('');
   const [linkedin, setLinkedin] = useState('');
   const [instagram, setInstagram] = useState('');
-  const [imagePreview, setImagePreview] = useState('');
+  const [imagePreview, setImagePreview] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Editing States
   const [isEditing, setIsEditing] = useState(false);
@@ -24,98 +27,153 @@ const OurTeam = () => {
   // Handle Image Upload & Conversion
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        alert("File size exceeds 2MB limit!");
-        return;
-      }
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Maximum file size is 2MB");
+      return;
+    }
+
+    setImageFile(file);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  // Fetch team data
+  const fetchTeamMembers = async () => {
+    try {
+      const res = await API.get("/team");
+
+      setTeamMembers(res.data.data || []);
+    } catch (error) {
+      console.log(error);
     }
   };
 
+  useEffect(() => {
+    fetchTeamMembers();
+  }, []);
+
   // Form Submit (Create & Update)
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Strict Mandatory Fields Validation
-    if (!imagePreview) {
-      alert("Profile Photo is required!");
-      return;
-    }
+
     if (!fullName.trim()) {
-      alert("Full Name is required!");
+      alert("Full name is required");
       return;
     }
+
     if (!designation.trim()) {
-      alert("Designation is required!");
+      alert("Designation is required");
       return;
     }
 
-    if (isEditing) {
-      // Update Mode
-      setTeamMembers(teamMembers.map(member => 
-        member.id === currentId 
-          ? { ...member, name: fullName, designation, facebook, linkedin, instagram, image: imagePreview }
-          : member
-      ));
-      setIsEditing(false);
-      setCurrentId(null);
-    } else {
-      // Create Mode
-      const newMember = {
-        id: Date.now(),
-        name: fullName,
-        designation,
-        facebook,
-        linkedin,
-        instagram,
-        image: imagePreview
-      };
-      setTeamMembers([...teamMembers, newMember]);
+    if (!imageFile && !isEditing) {
+      alert("Image is required");
+      return;
     }
 
-    resetForm();
+    try {
+      setLoading(true);
+
+      const formData = new FormData();
+
+      formData.append("fullName", fullName);
+      formData.append("designation", designation);
+      formData.append("facebook", facebook);
+      formData.append("linkedin", linkedin);
+      formData.append("instagram", instagram);
+
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
+      if (isEditing) {
+        await API.put(`/team/${currentId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        alert("Team member updated successfully");
+      } else {
+        await API.post("/team", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        alert("Team member created successfully");
+      }
+
+      fetchTeamMembers();
+      resetForm();
+    } catch (error) {
+      console.log(error);
+
+      alert(
+        error.response?.data?.message ||
+          "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Populate fields for Editing
   const handleEdit = (member) => {
     setIsEditing(true);
-    setCurrentId(member.id);
-    setFullName(member.name);
+
+    setCurrentId(member._id);
+
+    setFullName(member.fullName);
     setDesignation(member.designation);
-    setFacebook(member.facebook);
-    setLinkedin(member.linkedin);
-    setInstagram(member.instagram);
-    setImagePreview(member.image);
+    setFacebook(member.facebook || "");
+    setLinkedin(member.linkedin || "");
+    setInstagram(member.instagram || "");
+
+    setImagePreview(
+      `${IMG_URL}/uploads/${member.image}`
+    );
+
+    setImageFile(null);
   };
 
   // Delete Member
-  const handleDelete = (id) => {
-    if(window.confirm("Are you sure you want to delete this member?")) {
-      const filtered = teamMembers.filter(member => member.id !== id);
-      setTeamMembers(filtered);
-      
-      const totalPages = Math.ceil(filtered.length / itemsPerPage);
-      if (currentPage > totalPages && totalPages > 0) {
-        setCurrentPage(totalPages);
-      }
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this member?")) return;
+
+    try {
+      await API.delete(`/team/${id}`);
+
+      fetchTeamMembers();
+
+      alert("Deleted successfully");
+    } catch (error) {
+      console.log(error);
     }
   };
 
   // Clear Form Data
   const resetForm = () => {
-    setFullName('');
-    setDesignation('');
-    setFacebook('');
-    setLinkedin('');
-    setInstagram('');
-    setImagePreview('');
-    setIsEditing(false);
+    setFullName("");
+    setDesignation("");
+    setFacebook("");
+    setLinkedin("");
+    setInstagram("");
+
+    setImagePreview("");
+    setImageFile(null);
+
     setCurrentId(null);
+    setIsEditing(false);
   };
 
   // Pagination Logic
@@ -223,8 +281,8 @@ const OurTeam = () => {
 
               {/* Buttons with Interactive Hovers */}
               <div className="form-actions-buttons">
-                <button type="submit" className="btn btn-submit">
-                  {isEditing ? 'Update Member' : 'Submit'}
+                <button type="submit" className="btn btn-submit" disabled={loading}>
+                  {loading ? 'Processing...' : isEditing ? 'Update Member' : 'Submit'}
                 </button>
                 <button type="button" onClick={resetForm} className="btn btn-cancel">
                   Cancel
@@ -255,12 +313,15 @@ const OurTeam = () => {
                 <tbody>
                   {currentItems.length > 0 ? (
                     currentItems.map((member, index) => (
-                      <tr key={member.id}>
+                      <tr key={member._id}>
                         <td>{indexOfFirstItem + index + 1}</td>
                         <td>
-                          <img src={member.image} alt={member.name} className="table-avatar" />
+                          <img
+                            src={`${IMG_URL}/uploads/${member.image}`}
+                            alt={member.fullName}
+                            className="table-avatar"/>
                         </td>
-                        <td className="font-weight-bold">{member.name}</td>
+                        <td className="font-weight-bold">{member.fullName}</td>
                         <td>{member.designation}</td>
                         <td>
                           <div className="social-links-cell">
@@ -273,7 +334,7 @@ const OurTeam = () => {
                         <td>
                           <div className="table-actions">
                             <button onClick={() => handleEdit(member)} className="action-btn btn-edit">Edit</button>
-                            <button onClick={() => handleDelete(member.id)} className="action-btn btn-delete">Delete</button>
+                            <button onClick={() => handleDelete(member._id)} className="action-btn btn-delete">Delete</button>
                           </div>
                         </td>
                       </tr>

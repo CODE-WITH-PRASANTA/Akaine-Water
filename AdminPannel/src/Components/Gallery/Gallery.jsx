@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import './Gallery.css';
+import API, { IMG_URL } from "../../api/axios";
 
 const Gallery = () => {
   // Gallery Data Store State
   const [galleryItems, setGalleryItems] = useState([]);
+  const [imagePreview, setImagePreview] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   
   // Form Input Element States
   const [imageName, setImageName] = useState('');
-  const [imagePreview, setImagePreview] = useState('');
 
   // Editing Interface Control States
   const [isEditing, setIsEditing] = useState(false);
@@ -17,86 +20,152 @@ const Gallery = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // Process Selected File & Generate Base64 Strings for Preview
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        alert("File size exceeds the allowable 2MB limit!");
-        return;
+  // Fetch Gallery Data
+  useEffect(() => {
+    fetchGallery();
+  }, []);
+
+  const fetchGallery = async () => {
+    try {
+      const response = await API.get("/gallery");
+
+      if (response.data.success) {
+        setGalleryItems(response.data.data);
       }
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+    } catch (error) {
+      console.log(error);
     }
   };
 
+  // Process Selected File & Generate Base64 Strings for Preview
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Image size should be less than 2MB");
+      return;
+    }
+
+    setSelectedFile(file);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   // Form Submission Logic (Creates or Updates an Element)
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Strict Input Validation Fields Verification
-    if (!imagePreview) {
-      alert("A gallery image is required!");
-      return;
-    }
+
     if (!imageName.trim()) {
-      alert("Image Name is required!");
-      return;
+      return alert("Image Name is required");
     }
 
-    if (isEditing) {
-      // Modify/Update Action Path
-      setGalleryItems(galleryItems.map(item => 
-        item.id === currentId 
-          ? { ...item, name: imageName.trim(), image: imagePreview }
-          : item
-      ));
-      setIsEditing(false);
-      setCurrentId(null);
-    } else {
-      // Creation Action Path
-      const newItem = {
-        id: Date.now(),
-        name: imageName.trim(),
-        image: imagePreview
-      };
-      setGalleryItems([...galleryItems, newItem]);
+    if (!selectedFile && !isEditing) {
+      return alert("Please upload image");
     }
 
-    resetForm();
+    try {
+      setLoading(true);
+
+      const formData = new FormData();
+
+      formData.append("imageName", imageName);
+
+      if (selectedFile) {
+        formData.append("image", selectedFile);
+      }
+
+      if (isEditing) {
+        await API.put(
+          `/gallery/${currentId}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        alert("Gallery updated successfully");
+      } else {
+        await API.post(
+          "/gallery",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        alert("Gallery added successfully");
+      }
+
+      resetForm();
+
+      fetchGallery();
+    } catch (error) {
+      console.log(error);
+
+      alert(
+        error.response?.data?.message ||
+        "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Populate Input Controls for Modifying Records
   const handleEdit = (item) => {
     setIsEditing(true);
-    setCurrentId(item.id);
-    setImageName(item.name);
-    setImagePreview(item.image);
+
+    setCurrentId(item._id);
+
+    setImageName(item.imageName);
+
+    setImagePreview(
+      `${IMG_URL}/uploads/gallery/${item.image}`
+    );
+
+    setSelectedFile(null);
   };
 
   // Delete Element from Active State Array
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to remove this item from the gallery?")) {
-      const filtered = galleryItems.filter(item => item.id !== id);
-      setGalleryItems(filtered);
-      
-      // Dynamic Pagination Index Balance Maintenance
-      const totalPages = Math.ceil(filtered.length / itemsPerPage);
-      if (currentPage > totalPages && totalPages > 0) {
-        setCurrentPage(totalPages);
-      }
+  const handleDelete = async (id) => {
+    if (
+      !window.confirm(
+        "Are you sure you want to delete this image?"
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await API.delete(`/gallery/${id}`);
+
+      fetchGallery();
+
+      alert("Gallery deleted successfully");
+    } catch (error) {
+      console.log(error);
     }
   };
 
   // Reset Component Inputs State Tree
   const resetForm = () => {
-    setImageName('');
-    setImagePreview('');
-    setIsEditing(false);
+    setImageName("");
+    setImagePreview("");
+    setSelectedFile(null);
     setCurrentId(null);
+    setIsEditing(false);
   };
 
   // Calculated Segment Indexes for Pagination
@@ -164,9 +233,14 @@ const Gallery = () => {
 
               {/* Functional Interactive Button Components Container */}
               <div className="gallery-action-buttons-row">
-                <button type="submit" className="gallery-btn gallery-btn-submit">
-                  {isEditing ? 'Update Item' : 'Submit'}
-                </button>
+                <button
+                  type="submit"
+                  className="gallery-btn gallery-btn-submit">
+                  {loading
+                    ? "Processing..."
+                    : isEditing
+                    ? "Update Item"
+                    : "Submit"}</button>
                 <button type="button" onClick={resetForm} className="gallery-btn gallery-btn-cancel">
                   Cancel
                 </button>
@@ -194,18 +268,27 @@ const Gallery = () => {
                 <tbody>
                   {currentItems.length > 0 ? (
                     currentItems.map((item, index) => (
-                      <tr key={item.id}>
+                      <tr key={item._id}>
                         <td>{indexOfFirstItem + index + 1}</td>
                         <td>
                           <div className="gallery-table-preview-wrapper">
-                            <img src={item.image} alt={item.name} className="gallery-table-thumbnail" />
+                            <img
+                              src={`${IMG_URL}/uploads/gallery/${item.image}`}
+                              alt={item.imageName}
+                              className="gallery-table-thumbnail"
+                              onError={(e) => {
+                                // Fallback path check if uploads directory doesn't have nested gallery folder
+                                if (!e.target.src.includes('/uploads/gallery/')) return;
+                                e.target.src = `${IMG_URL}/uploads/${item.image}`;
+                              }}
+                            />
                           </div>
                         </td>
-                        <td className="gallery-item-name-cell">{item.name}</td>
+                        <td className="gallery-item-name-cell">{item.imageName}</td>
                         <td>
                           <div className="gallery-row-actions">
                             <button onClick={() => handleEdit(item)} className="row-action-btn btn-action-edit">Edit</button>
-                            <button onClick={() => handleDelete(item.id)} className="row-action-btn btn-action-delete">Delete</button>
+                            <button onClick={() => handleDelete(item._id)} className="row-action-btn btn-action-delete">Delete</button>
                           </div>
                         </td>
                       </tr>
