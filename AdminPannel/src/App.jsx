@@ -15,6 +15,8 @@ import Contact from "./Components/Contact/Contact";
 import "./App.css";
 import BlogManagement from "./Components/BlogManagement/BlogManagement";
 import Testiminial from "./Components/Testiminial/Testiminial";
+import DashboardMain from "./Pages/DashboardMain/DashboardMain";
+import ManageStock from "./Components/ManageStock/ManageStock";
 
 const App = () => {
   return (
@@ -40,6 +42,10 @@ const App = () => {
           <Route path="/products/testimonials" element={<Testiminial />} />
           <Route path="/shop" element={<ShopPosting />} />
           <Route path="/contact" element={<Contact />} />
+
+
+          <Route path="/wdms/dashboard" element={<DashboardMain />} />
+          <Route path="/wdms/stock/manage" element={<ManageStock />} />
 
         </Route>
 
