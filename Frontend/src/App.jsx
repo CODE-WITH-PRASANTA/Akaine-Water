@@ -18,10 +18,15 @@ import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
 
 // Other Pages
-import Testimonial from "./Pages/Testimonial/Testimonial";
-import Cart from "./Pages/Cart/Cart";
-import Cheakout from "./Pages/Cheakout/Cheakout";
-import Faq from "./Pages/Faq/Faq";
+import Testimonial from "./pages/Testimonial/Testimonial";
+import Cart from "./pages/Cart/Cart";
+import Cheakout from "./pages/Cheakout/Cheakout";
+import Faq from "./pages/Faq/Faq";
+import MainTeam from "./Pages/MainTeam/MainTeam";
+import GalaryMain from "./Pages/GalaryMain/GalaryMain";
+import About from "./Pages/About/About";
+import OurServices from "./Pages/OurServices/OurServices";
+
 
 function App() {
   return (
@@ -34,10 +39,11 @@ function App() {
       <Routes>
         {/* Home */}
         <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        
 
         {/* Pricing */}
-        <Route path="/plan" element={<PricingAndPlans />} />
+        
         <Route
           path="/products/pricing"
           element={<PricingAndPlans />}
@@ -48,6 +54,16 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/resources/blog" element={<Blog />} />
 
+        {/* Components */}
+        <Route path="/resources/team" element={<MainTeam/>} />
+        <Route path="/resources/gallary" element={<GalaryMain/>} />
+        
+
+        {/* Other Pages */}
+        <Route path="/products/testimonials" element={<Testimonial />} />
+        <Route path="/shop/cart" element={<Cart />} />
+        <Route path="/shop/checkout" element={<Cheakout />} />
+        <Route path="/resources/faqs" element={<Faq />} />
         {/* Resources */}
         <Route path="/resources/faqs" element={<Faq />} />
         <Route path="/resources/team" element={<OurTeam />} />
@@ -62,6 +78,8 @@ function App() {
         {/* Shop */}
         <Route path="/shop/cart" element={<Cart />} />
         <Route path="/shop/checkout" element={<Cheakout />} />
+        <Route path="/services/all" element={<OurServices />} />
+         
       </Routes>
 
       {/* Footer */}

@@ -1,0 +1,418 @@
+/* Custom Architecture variables mapping */
+:root {
+  --testi-primary-blue: #0284c7;
+  --testi-dark-blue: #0369a1;
+  --testi-light-blue-bg: #f0f9ff;
+  --testi-border-sky: #bae6fd;
+  --testi-bg-white: #ffffff;
+  --testi-text-dark: #334155;
+  --testi-text-gray: #64748b;
+  --testi-shadow-layer: rgba(14, 165, 233, 0.12);
+  --testi-danger-red: #ef4444;
+  --star-gold: #fbbf24;
+}
+
+.testimonial-dashboard-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 30px 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--testi-text-dark);
+  box-sizing: border-box;
+}
+
+.testimonial-dashboard-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.testimonial-form-section,
+.testimonial-table-section {
+  flex: 1 1 calc(50% - 12px);
+  min-width: 320px;
+  box-sizing: border-box;
+}
+
+.testimonial-card {
+  background-color: var(--testi-bg-white);
+  border: 1px solid var(--testi-border-sky);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 25px -5px var(--testi-shadow-layer), 0 8px 10px -6px var(--testi-shadow-layer);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.testimonial-section-title {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--testi-dark-blue);
+  margin-top: 0;
+  margin-bottom: 22px;
+  border-bottom: 2px solid var(--testi-light-blue-bg);
+  padding-bottom: 10px;
+}
+
+.testimonial-required-star {
+  color: var(--testi-danger-red);
+  margin-left: 2px;
+  font-weight: 700;
+}
+
+.testimonial-field-row {
+  display: flex;
+  gap: 16px;
+}
+
+
+.testimonial-input-group,
+.testimonial-upload-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.testimonial-input-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--testi-text-dark);
+}
+
+.testimonial-text-field,
+.testimonial-textarea-field {
+  padding: 11px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+
+.testimonial-text-field:focus,
+.testimonial-textarea-field:focus {
+  border-color: var(--testi-primary-blue);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+.hidden-file-element {
+  display: none;
+}
+
+.testimonial-dropzone-box {
+  width: 100%;
+  height: 140px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.testimonial-dropzone-box:hover {
+  border-color: var(--testi-primary-blue);
+  background-color: var(--testi-light-blue-bg);
+}
+
+.testimonial-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+}
+
+.testimonial-cloud-icon {
+  width: 36px;
+  height: 36px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.testimonial-dropzone-box:hover .testimonial-cloud-icon {
+  color: var(--testi-primary-blue);
+}
+
+.testimonial-click-hint {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.testimonial-meta-hint {
+  font-size: 0.72rem;
+  color: var(--testi-text-gray);
+}
+
+.testimonial-preview-display {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- UPDATED: Star Rating Selector Module System --- */
+.star-rating-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f8fafc;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+.star-button {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  transition: transform 0.1s ease, color 0.15s ease;
+  user-select: none;
+}
+
+.star-button:hover {
+  transform: scale(1.2);
+}
+
+.star-filled {
+  color: var(--star-gold);
+}
+
+.star-empty {
+  color: #ddedd5; /* Clean matching fallback background slate look */
+  color: #cbd5e1; 
+}
+
+.rating-numerical-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--testi-text-gray);
+  margin-left: 12px;
+}
+
+/* Actions Controls */
+.testimonial-action-buttons-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.testimonial-btn {
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.testimonial-btn-submit {
+  background-color: var(--testi-primary-blue);
+  color: white;
+  flex: 2;
+}
+
+.testimonial-btn-submit:hover {
+  background-color: var(--testi-dark-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(2, 132, 199, 0.35);
+}
+
+.testimonial-btn-cancel {
+  background-color: #f1f5f9;
+  color: var(--testi-text-dark);
+  border: 1px solid #cbd5e1;
+  flex: 1;
+}
+
+.testimonial-btn-cancel:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-table-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.testimonial-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.testimonial-data-table th {
+  background-color: var(--testi-primary-blue);
+  color: white;
+  padding: 14px 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.testimonial-data-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+.testimonial-data-table tbody tr:hover {
+  background-color: var(--testi-light-blue-bg);
+}
+
+.testimonial-table-preview-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--testi-border-sky);
+  background-color: #f8fafc;
+}
+
+.testimonial-table-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-bold-cell {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.testimonial-desc-cell {
+  color: #475569;
+  max-width: 220px;
+  white-space: normal;
+  word-break: break-word;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.table-stars-display {
+  color: var(--star-gold);
+  font-size: 1rem;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+.testimonial-row-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.row-action-btn {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-action-edit {
+  background-color: var(--testi-light-blue-bg);
+  color: var(--testi-dark-blue);
+  border: 1px solid var(--testi-border-sky);
+}
+
+.btn-action-edit:hover {
+  background-color: var(--testi-primary-blue);
+  color: white;
+}
+
+.btn-action-delete {
+  background-color: #fef2f2;
+  color: var(--testi-danger-red);
+  border: 1px solid #fee2e2;
+}
+
+.btn-action-delete:hover {
+  background-color: var(--testi-danger-red);
+  color: white;
+}
+
+.testimonial-table-empty {
+  text-align: center;
+  color: var(--testi-text-gray);
+  padding: 50px !important;
+  font-style: italic;
+}
+
+.testimonial-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 2px solid var(--testi-light-blue-bg);
+}
+
+.testimonial-page-nav-btn,
+.testimonial-page-num-btn {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: 1px solid #cbd5e1;
+  background-color: white;
+  color: var(--testi-text-dark);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.testimonial-page-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.testimonial-page-nav-btn:not(:disabled):hover,
+.testimonial-page-num-btn:hover {
+  border-color: var(--testi-primary-blue);
+  color: var(--testi-primary-blue);
+  background-color: var(--testi-light-blue-bg);
+}
+
+.testimonial-page-num-btn.testimonial-page-active {
+  background-color: var(--testi-primary-blue);
+  color: white;
+  border-color: var(--testi-primary-blue);
+}
+
+@media (max-width: 992px) {
+  .testimonial-form-section,
+  .testimonial-table-section {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonial-field-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .testimonial-action-buttons-row {
+    flex-direction: column;
+  }
+}

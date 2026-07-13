@@ -1,0 +1,45 @@
+.ms-container {
+  padding: 80px 10%;
+  font-family: 'Inter', sans-serif;
+  color: #002233;
+  background-color: #ffffff;
+}
+
+.ms-header { text-align: center; margin-bottom: 50px; }
+
+.ms-title { font-size: 2.5rem; line-height: 1.3; font-weight: 600; }
+.ms-highlight { color: #d93025; }
+
+.ms-image-wrapper { width: 100%; display: flex; justify-content: center; margin-bottom: 60px; }
+.ms-mountain-img { max-width: 800px; width: 100%; height: auto; }
+
+.ms-stats-grid { 
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 30px; 
+}
+
+.ms-stat-card { display: flex; flex-direction: column; }
+.ms-stat-value { font-size: 3.5rem; margin: 0; font-weight: 700; }
+.ms-stat-title { font-size: 1.2rem; font-weight: 600; margin: 10px 0; }
+
+.ms-divider { 
+  width: 100%; 
+  height: 2px; 
+  background-color: #d93025; 
+  margin: 15px 0; 
+}
+
+.ms-stat-desc { font-size: 0.9rem; color: #555; line-height: 1.5; }
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .ms-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .ms-title { font-size: 2rem; }
+}
+
+@media (max-width: 600px) {
+  .ms-stats-grid { grid-template-columns: 1fr; }
+  .ms-title { font-size: 1.5rem; }
+  .ms-stat-value { font-size: 2.5rem; }
+}

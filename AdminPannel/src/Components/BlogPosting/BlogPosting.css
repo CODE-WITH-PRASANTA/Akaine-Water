@@ -1,0 +1,35 @@
+/* BlogPosting.css */
+
+.BlogPosting { 
+    padding: 20px; 
+    background: #f4f6f9; 
+    min-height: 100vh;
+}
+
+.BlogPosting__main { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+.BlogPosting__container { 
+    display: flex; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+}
+
+.BlogPosting__form, .BlogPosting__list { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    flex: 1; 
+    min-width: 300px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+form { display: flex; flex-direction: column; gap: 10px; }
+input, textarea { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+button { padding: 10px; background: #0d6efd; color: white; border: none; cursor: pointer; border-radius: 4px; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background: #0d6efd; color: white; }
