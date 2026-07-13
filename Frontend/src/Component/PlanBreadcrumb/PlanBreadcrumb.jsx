@@ -9,13 +9,7 @@ const PlanBreadcrumb = () => {
       
       {/* Invisible semantic SEO block for search engine indexing */}
       <section className="PlanBreadcrumb-seo-content">
-        <h1>Alka Drops - Best Bhubaneswar Water Supplier</h1>
-        <h2>Best Water Supplier in Odisha & Premium Wellness Water Provider</h2>
-        <p>
-          Discover affordable alkaline and pure wellness water subscription plans by Alka Drops. 
-          As the leading water supplier in Bhubaneswar and throughout Odisha, we deliver healthy, 
-          mineral-rich hydration solutions direct to your doorstep.
-        </p>
+      
       </section>
 
       {/* --- HERO BANNER BACKGROUND --- */}

@@ -1,0 +1,123 @@
+/* ===============================
+   Our Team Banner
+================================= */
+
+.ourteam-banner-section {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-image: url("../../assets/akin-12.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.ourteam-banner-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+
+.ourteam-banner-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 20px;
+}
+
+.ourteam-main-title {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.ourteam-breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.ourteam-home-link {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.ourteam-home-link:hover {
+  color: #d93838;
+}
+
+.ourteam-breadcrumb-separator {
+  margin: 0 12px;
+  color: #d93838;
+  font-weight: 700;
+}
+
+.ourteam-current-text {
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* ===============================
+   Responsive
+================================= */
+
+@media (max-width: 992px) {
+  .ourteam-banner-section {
+    height: 260px;
+  }
+
+  .ourteam-main-title {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ourteam-banner-section {
+    height: 220px;
+  }
+
+  .ourteam-main-title {
+    font-size: 34px;
+    margin-bottom: 8px;
+  }
+
+  .ourteam-breadcrumb-nav {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ourteam-banner-section {
+    height: 180px;
+  }
+
+  .ourteam-main-title {
+    font-size: 28px;
+  }
+
+  .ourteam-breadcrumb-separator {
+    margin: 0 8px;
+  }
+}

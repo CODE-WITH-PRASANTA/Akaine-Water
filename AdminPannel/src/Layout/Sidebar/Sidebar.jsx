@@ -44,28 +44,19 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
       text: 'Products',
       subItems: [
         
-        { text: 'Pricing', path: '/products/pricing' },
+       
         { text: 'Testimonials', path: '/products/testimonials' },
       
       ],
     },
-    {
-      type: 'dropdown',
-      icon: <Layers size={20} />,
-      text: 'Services',
-      subItems: [
-        { text: 'All Services', path: '/services/all' },
-        { text: 'Service Packages', path: '/services/packages' },
-        { text: 'Request Service', path: '/services/request' },
-      ],
-    },
+    
     {
       type: 'dropdown',
       icon: <BookOpen size={20} />,
       text: 'Resources',
       subItems: [
        
-        { text: 'FAQs', path: '/resources/faqs' },
+       
         { text: 'Our Team', path: '/resources/team' },
         { text: 'Gallery', path: '/resources/gallary' },
       ],
@@ -76,9 +67,9 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
       text: 'Shop',
       subItems: [
         { text: 'Shop Main', path: '/shop' },
-        { text: 'Cart', path: '/shop/cart' },
-        { text: 'Checkout', path: '/shop/checkout' },
-        { text: 'My Account', path: '/shop/account' },
+        // { text: 'Cart', path: '/shop/cart' },
+        // { text: 'Checkout', path: '/shop/checkout' },
+        // { text: 'My Account', path: '/shop/account' },
       ],
     },
     { type: 'link', icon: <Phone size={20} />, text: 'Contact', path: '/contact' },
