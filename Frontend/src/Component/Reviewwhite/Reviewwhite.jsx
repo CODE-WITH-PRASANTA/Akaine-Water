@@ -1,90 +1,155 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Reviewwhite.css";
-
-const reviewDataList = [
-  {
-    id: 1,
-    stars: 4,
-    headline: "I've had the Best Experience",
-    reviewText: "We are extremely happy with Aguapure's service. They are very prompt. Billing always correct. And they give plenty of notice of the next delivery it is very easy.",
-    authorName: "RODHA THELMA",
-    location: "California",
-    avatarUrl: "https://randomuser.me/api/portraits/women/44.jpg"
-  },
-  {
-    id: 2,
-    stars: 3,
-    headline: "Great Tasting Water & Awesome",
-    reviewText: "Have used their service for five years & can say the service has always been amazing. The delivery driver is friendly. The water tastes really good & we ...",
-    authorName: "LILLIAN GRACE",
-    location: "California",
-    avatarUrl: "https://randomuser.me/api/portraits/men/32.jpg"
-  },
-  {
-    id: 3,
-    stars: 5,
-    headline: "Team was Very Professional",
-    reviewText: "I went to the Aguapure water office to speak with someone in person about Aguapure services. The team was very professional and answered all my questions.",
-    authorName: "LUKE NOBERT",
-    location: "Los Angeles",
-    avatarUrl: "https://randomuser.me/api/portraits/women/68.jpg"
-  },
-  {
-    id: 4,
-    stars: 5,
-    headline: "Excellent and Timely Deliveries",
-    reviewText: "The setup was quick, and the system works flawlessly. Their team responds instantly to updates, making management tasks simple and efficient.",
-    authorName: "MARK STEVENS",
-    location: "New York",
-    avatarUrl: "https://randomuser.me/api/portraits/men/46.jpg"
-  }
-];
+import API, { IMG_URL } from "../../api/axios";
 
 const Reviewwhite = () => {
-  // Utility rating star glyph builder
+  const [reviewDataList, setReviewDataList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // Track failed images to switch path rules seamlessly on fallback triggers
+  const [imageFallbacks, setImageFallbacks] = useState({});
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    try {
+      const response = await API.get("/testimonial");
+
+      if (response.data.success) {
+        // Fetch latest 10 testimonials
+        const latestTestimonials = response.data.data.slice(0, 10);
+        setReviewDataList(latestTestimonials);
+      }
+    } catch (error) {
+      console.error("Testimonial Fetch Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Rating Stars Builder
   const buildStarsRow = (filledCount) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <span key={i} className={i < filledCount ? "rw-star-blue" : "rw-star-dim"}>
+      <span
+        key={i}
+        className={
+          i < filledCount
+            ? "rw-star-blue"
+            : "rw-star-dim"
+        }
+      >
         ★
       </span>
     ));
   };
 
+  // Image URL Generator
+  const getImageUrl = (image, id) => {
+    if (!image) {
+      return "https://placehold.co/120x120?text=User";
+    }
+
+    // Already full URL
+    if (image.startsWith("http")) {
+      return image;
+    }
+
+    // Dynamic alternate routing block triggered during operational fallback cycles
+    if (imageFallbacks[id]) {
+      return `${IMG_URL}/uploads/${image}`;
+    }
+
+    // filename.webp
+    return `${IMG_URL}/testimonial/${image}`;
+  };
+
+  if (loading) {
+    return (
+      <div className="rw-testimonial-section">
+        <div
+          style={{
+            textAlign: "center",
+            padding: "60px 0",
+            fontSize: "18px",
+          }}
+        >
+          Loading testimonials...
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="rw-testimonial-section">
       <div className="rw-viewport-slider-container">
-        
-        {/* Track deck elements cloned twice to achieve seamless non-breaking continuous auto infinite translation */}
+
         <div className="rw-track-animate-slider">
-          {[...reviewDataList, ...reviewDataList].map((review, index) => (
-            <div className="rw-review-card" key={`${review.id}-${index}`}>
-              
-              {/* Floating avatar circle header with pointing dialogue speech indicator tail */}
-              <div className="rw-avatar-header-holder">
-                <img src={review.avatarUrl} alt={review.authorName} />
-                <div className="rw-speech-pointer-tail"></div>
+          {reviewDataList.length > 0 ? (
+            // Changed from duplicated array syntax to mapping directly over data array
+            reviewDataList.map((review, index) => (
+              <div
+                className="rw-review-card"
+                key={`${review._id}-${index}`}
+              >
+                {/* Avatar */}
+                <div className="rw-avatar-header-holder">
+                  <img
+                    src={getImageUrl(review.image, review._id)}
+                    alt={review.name}
+                    onError={(e) => {
+                      if (!imageFallbacks[review._id]) {
+                        setImageFallbacks((prev) => ({ ...prev, [review._id]: true }));
+                      } else {
+                        e.target.src = "https://placehold.co/120x120?text=User";
+                      }
+                    }}
+                  />
+
+                  <div className="rw-speech-pointer-tail"></div>
+                </div>
+
+                {/* Stars */}
+                <div className="rw-stars-row-layout">
+                  {buildStarsRow(review.rating)}
+                </div>
+
+                {/* Headline */}
+                <h3 className="rw-card-title-headline">
+                  {review.name}
+                </h3>
+
+                {/* Description */}
+                <p className="rw-card-body-paragraph">
+                  {review.description}
+                </p>
+
+                {/* Footer */}
+                <div className="rw-card-footer-author-meta">
+                  <span className="rw-author-name-txt">
+                    {review.name},
+                  </span>
+
+                  <span className="rw-location-link-txt">
+                    {" "}
+                    {review.address}
+                  </span>
+                </div>
               </div>
-
-              {/* Content body rows */}
-              <div className="rw-stars-row-layout">
-                {buildStarsRow(review.stars)}
-              </div>
-
-              <h3 className="rw-card-title-headline">{review.headline}</h3>
-              
-              <p className="rw-card-body-paragraph">
-                {review.reviewText}
-              </p>
-
-              <div className="rw-card-footer-author-meta">
-                <span className="rw-author-name-txt">{review.authorName}, </span>
-                <span className="rw-location-link-txt">{review.location}</span>
-              </div>
-
+            ))
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                textAlign: "center",
+                padding: "40px 0",
+                fontSize: "16px",
+              }}
+            >
+              No testimonials available.
             </div>
-          ))}
+          )}
         </div>
-
       </div>
     </div>
   );

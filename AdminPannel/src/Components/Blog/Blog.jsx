@@ -6,8 +6,20 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [editingId, setEditingId] = useState(null); // Track ID for editing
   const [formData, setFormData] = useState({
-    name: '', designation: '', title: '', category: '', date: '', description: ''
+    name: '', designation: '', title: '', category: '', date: '', description: '', image: ''
   });
+
+  // Handle image conversion to Base64 (Without rendering a preview in the form)
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, image: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +31,11 @@ const Blog = () => {
       // Create new
       setBlogs([...blogs, { ...formData, id: Date.now() }]);
     }
-    setFormData({ name: '', designation: '', title: '', category: '', date: '', description: '' });
+    setFormData({ name: '', designation: '', title: '', category: '', date: '', description: '', image: '' });
+    
+    // Reset file input element manually because it's an uncontrolled native element
+    const fileInput = document.getElementById('blog-image-input');
+    if (fileInput) fileInput.value = '';
   };
 
   const handleEdit = (blog) => {
@@ -51,6 +67,15 @@ const Blog = () => {
           <label>Date</label>
           <input type="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} />
 
+          {/* Image Upload Input (Preview Removed) */}
+          <label>Upload Image</label>
+          <input 
+            id="blog-image-input"
+            type="file" 
+            accept="image/*" 
+            onChange={handleImageChange} 
+          />
+
           <label>Description</label>
           <Editor
             apiKey='8hswbe7bfeeneui9eb9gjgsym8ku30nx5gwre9808ajdzniu'
@@ -68,12 +93,31 @@ const Blog = () => {
         <div className="table-wrapper">
           <table>
             <thead>
-              <tr><th>Name</th><th>Designation</th><th>Title</th><th>Category</th><th>Date</th><th>Actions</th></tr>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
             </thead>
             <tbody>
               {blogs.map((b) => (
                 <tr key={b.id}>
-                  <td>{b.name}</td><td>{b.designation}</td><td>{b.title}</td><td>{b.category}</td><td>{b.date}</td>
+                  <td>
+                    {b.image ? (
+                      <img src={b.image} alt={b.title} className="table-thumbnail" />
+                    ) : (
+                      <span className="no-image-placeholder">No Image</span>
+                    )}
+                  </td>
+                  <td>{b.name}</td>
+                  <td>{b.designation}</td>
+                  <td>{b.title}</td>
+                  <td>{b.category}</td>
+                  <td>{b.date}</td>
                   <td className="actions-cell">
                     <button className="btn-edit" onClick={() => handleEdit(b)}>Edit</button>
                     <button className="btn-delete" onClick={() => handleDelete(b.id)}>Delete</button>

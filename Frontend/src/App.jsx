@@ -19,13 +19,14 @@ import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
 import MainTeam from "./Pages/MainTeam/MainTeam";
 import GalaryMain from "./Pages/GalaryMain/GalaryMain";
+import OurServices from "./Pages/OurServices/OurServices";
+import WhiteQuartz from "./Pages/WhiteQuartz/WhiteQuartz";
 
 // Other Pages
 import Testimonial from "./Pages/Testimonial/Testimonial";
 import Cart from "./Pages/Cart/Cart";
 import Cheakout from "./Pages/Cheakout/Cheakout";
 import Faq from "./Pages/Faq/Faq";
-import WhiteQuartz from "./Pages/WhiteQuartz/WhiteQuartz";
 
 function App() {
   return (
@@ -36,15 +37,16 @@ function App() {
 
       {/* Routes */}
       <Routes>
-        {/* Main Pages */}
+        {/* Home */}
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+
+        {/* Main Pages */}
         <Route path="/about" element={<About />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/contact" element={<Contact />} />
 
         {/* Pricing */}
-        <Route path="/plan" element={<PricingAndPlans />} />
         <Route
           path="/products/pricing"
           element={<PricingAndPlans />}
@@ -53,13 +55,9 @@ function App() {
         {/* Blog */}
         <Route path="/resources/blog" element={<Blog />} />
 
-        {/* Team */}
+        {/* Resources */}
         <Route path="/resources/team" element={<MainTeam />} />
-
-        {/* Gallery */}
         <Route path="/resources/gallary" element={<GalaryMain />} />
-
-        {/* FAQs */}
         <Route path="/resources/faqs" element={<Faq />} />
 
         {/* Testimonials */}
@@ -68,16 +66,22 @@ function App() {
           element={<Testimonial />}
         />
 
-        {/* Cart & Checkout */}
+        {/* Shop */}
         <Route path="/shop/cart" element={<Cart />} />
         <Route path="/shop/checkout" element={<Cheakout />} />
 
-        {/* Product Pages */}
+        {/* Services */}
+        <Route path="/services/all" element={<OurServices />} />
+
+        {/* Product */}
         <Route path="/whitequartz" element={<WhiteQuartz />} />
 
         {/* Optional Components */}
         <Route path="/team-component" element={<OurTeam />} />
-        <Route path="/gallery-component" element={<AkaineGalary />} />
+        <Route
+          path="/gallery-component"
+          element={<AkaineGalary />}
+        />
       </Routes>
 
       {/* Footer */}
