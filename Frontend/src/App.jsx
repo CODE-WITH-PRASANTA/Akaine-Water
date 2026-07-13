@@ -3,6 +3,9 @@ import { useState } from 'react';
 import "./App.css";
 import Home from "./Pages/Home/Home";
 import PricingAndPlans from './Pages/PricingAndPlans/PricingAndPlans';
+import Topbar from "./Component/Topbar/Topbar";
+import Navbar from "./Component/Navbar/Navbar";
+import Footer from "./Component/Footer/Footer";
 
 function App() {
   return (
@@ -11,7 +14,7 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route path="/Home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/plan" element={<PricingAndPlans />} />
         
       
