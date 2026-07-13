@@ -18,6 +18,7 @@ import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
 
 // Other Pages
+<<<<<<< HEAD
 import Testimonial from "./pages/Testimonial/Testimonial";
 import Cart from "./pages/Cart/Cart";
 import Cheakout from "./pages/Cheakout/Cheakout";
@@ -25,6 +26,13 @@ import Faq from "./pages/Faq/Faq";
 import About from "./Pages/About/About";
 
 
+=======
+import Testimonial from "./Pages/Testimonial/Testimonial";
+import Cart from "./Pages/Cart/Cart";
+import Cheakout from "./Pages/Cheakout/Cheakout";
+import Faq from "./Pages/Faq/Faq";
+import About from "./Pages/About/About";
+>>>>>>> faf7d3c0c5098345fae848ed9ed5c82e7752a596
 
 function App() {
   return (
@@ -38,12 +46,16 @@ function App() {
         {/* Home */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+<<<<<<< HEAD
       
        
         <Route path="/home" element={<Home />} />
+=======
+        
+>>>>>>> faf7d3c0c5098345fae848ed9ed5c82e7752a596
 
         {/* Pricing */}
-        <Route path="/plan" element={<PricingAndPlans />} />
+        
         <Route
           path="/products/pricing"
           element={<PricingAndPlans />}
