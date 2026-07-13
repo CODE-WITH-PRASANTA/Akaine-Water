@@ -37,11 +37,9 @@ const App = () => {
           <Route path="/testimonial" element={<Testimonial />} />
           <Route path="/shop" element={<ShopPosting />} />
           <Route path="/contact" element={<Contact />} />
-<<<<<<< HEAD
           <Route path="/blog" element={<Blog />} />
         
     
-=======
           <Route path="/blog-management" element={<BlogManagement />} />
          
 
@@ -50,7 +48,6 @@ const App = () => {
           <Route path="/products/testimonials" element={<Testiminial />} />
           <Route path="/shop" element={<ShopPosting />} />
           <Route path="/contact" element={<Contact />} />
->>>>>>> 40f9ea368375c01937174bbf1385ac85da1187b1
 
         </Route>
 
