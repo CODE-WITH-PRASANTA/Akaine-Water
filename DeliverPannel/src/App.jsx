@@ -21,6 +21,9 @@ const App = () => {
      
         {/* Main Layout */}
         <Route path="/" element={<MainLayout />}>
+<<<<<<< HEAD
+        <Route path="/wdms/empty-return"  element={<EmptyReturn/>}/>
+=======
          <Route path="/wdms/customers" element={<Customers />} />
       <Route path="/wdms/vehicle-stock" element={<VehicleStock />} />
       <Route path="/wdms/payments" element={<Payment />} />
@@ -28,6 +31,7 @@ const App = () => {
       <Route path="/wdms/orders" element={<Orders />} />
           
         <Route path="/emptyreturn"  element={<EmptyReturn/>}/>
+>>>>>>> 8f0e09c88b66a240447443e0cd1ccaf43857289c
 
          <Route path="/wdms/route-planner" element={<RoutePlanner />} />
 
