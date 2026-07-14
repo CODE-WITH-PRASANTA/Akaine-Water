@@ -1,0 +1,266 @@
+/* Container reset properties to guarantee zero horizontal bleed */
+.rp-wrapper {
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.rp-card {
+  width: 100%;
+  max-width: 1300px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header Styles */
+.rp-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.rp-badge-step {
+  background: #2f60ff;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.rp-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1d1f;
+  margin: 0;
+}
+
+/* Core Main Layout Split */
+.rp-main-layout {
+  display: flex;
+  flex-direction: column; /* Default: stacked for small mobile widths */
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Map CSS */
+.rp-map-container {
+  width: 100%;
+  height: 300px; /* Fallback baseline height for mobile */
+  position: relative;
+  overflow: hidden;
+}
+
+.rp-leaflet-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Stops Directory Styles */
+.rp-stops-list {
+  width: 100%;
+  background: #fbfbfc;
+  border-top: 1px solid #f0f0f0;
+}
+
+.rp-stops-scroll-container {
+  max-height: 280px;
+  overflow-y: auto;
+  overflow-x: hidden; /* Blocks all horizontal scrolls */
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+/* Stop item styling */
+.rp-stop-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #edf0f2;
+}
+
+.rp-stop-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rp-stop-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1d1f;
+  margin: 0;
+}
+
+.rp-stop-orders {
+  font-size: 12px;
+  color: #6f767e;
+}
+
+.rp-stop-distance {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2f60ff;
+  background: #f0f4ff;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Custom Marker Styling injection for Leaflet */
+.custom-stop-icon {
+  background: none;
+  border: none;
+}
+
+.map-stop-marker {
+  width: 24px;
+  height: 24px;
+  background: #2f60ff;
+  border: 2px solid #ffffff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(47, 96, 255, 0.4);
+}
+
+.custom-hub-icon {
+  background: none;
+  border: none;
+}
+
+.map-hub-marker {
+  width: 28px;
+  height: 28px;
+  background: #27ae60;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.4);
+}
+
+/* Summary Panel */
+.rp-summary-panel {
+  display: flex;
+  gap: 24px;
+  padding: 20px;
+  background: #fdfdfd;
+  border-top: 1px solid #f0f0f0;
+}
+
+.rp-metric {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.rp-icon {
+  width: 16px;
+  height: 16px;
+  color: #6f767e;
+}
+
+.rp-metric-label {
+  color: #6f767e;
+  font-weight: 500;
+}
+
+.rp-metric-val {
+  color: #1a1d1f;
+  font-weight: 600;
+}
+
+/* Action Trigger Button */
+.rp-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 20px 20px;
+  padding: 14px;
+  background: #2f60ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rp-nav-btn:hover {
+  background: #1d4ed8;
+}
+
+.rp-nav-btn.active {
+  background: #10b981;
+}
+
+.rp-btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Webkit scrollbar customization for stops column */
+.rp-stops-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.rp-stops-scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+/* ==========================================================
+   DESKTOP / FULL SCREEN VIEW
+   Installs side-by-side view & completely forbids horizontal scroll
+   ========================================================== */
+@media (min-width: 768px) {
+  .rp-main-layout {
+    flex-direction: row; /* Horizontal split on desktop screens */
+  }
+
+  .rp-map-container {
+    flex: 1;
+    height: 400px; /* Lock visual map area */
+  }
+
+  .rp-stops-list {
+    width: 320px; /* Locked width sidebar on desktop */
+    border-top: none;
+    border-left: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rp-stops-scroll-container {
+    height: 400px; /* Strict height locks layout, forcing vertical scroll */
+    max-height: 400px;
+  }
+}
