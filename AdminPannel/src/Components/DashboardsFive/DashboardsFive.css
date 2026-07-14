@@ -1,0 +1,232 @@
+/* Card Container wrapper */
+.dash-five-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: #f8fafc;
+  min-height: 450px;
+  width: 100%;
+  box-sizing: border-box;
+}
+ 
+/* Card Wrapper Styling */
+.dash-five-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 16px -6px rgba(0, 0, 0, 0.03);
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 520px; /* Exact native card scaling proportions */
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header UI Elements */
+.dash-five-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dash-five-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.dash-five-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: transparent;
+  border: none;
+  color: #ff3d00; /* Custom orange accent matching image UI */
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: opacity 0.2s;
+}
+
+.dash-five-link:hover {
+  opacity: 0.8;
+}
+
+.dash-five-arrow {
+  width: 14px;
+  height: 14px;
+}
+
+/* Gauge Positioning and SVG Construction */
+.dash-five-visualization {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin: 0 auto 1.5rem auto;
+}
+
+.gauge-wrapper {
+  position: relative;
+  width: 85%;
+  max-width: 360px;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SVG Circle Properties */
+.gauge-track-bg,
+.gauge-track-fill {
+  fill: none;
+  stroke-width: 8px; /* Thickness of gauge arc paths */
+  stroke-linecap: square;
+  transform: rotate(180deg);
+  transform-origin: 110px 110px; /* Center alignment matrix anchor point */
+}
+
+/* Background track color shade */
+.gauge-track-bg {
+  stroke: #f1f5f9;
+}
+
+/* Color Arc Segments assignment */
+.fill-red { stroke: #ff4d2d; }
+.fill-green { stroke: #76e12e; }
+.fill-yellow { stroke: #fcd519; }
+
+/* Interactive Hover States */
+.gauge-track-fill {
+  transition: stroke-dasharray 0.7s cubic-bezier(0.4, 0, 0.2, 1), stroke-width 0.2s ease;
+  cursor: pointer;
+}
+
+.gauge-track-fill:hover {
+  stroke-width: 10px; /* Slight scale enhancement upon hovering track line */
+}
+
+/* Center Content Metrics */
+.gauge-center-content {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  padding-bottom: 8px;
+  width: 80%;
+  justify-content: center;
+}
+
+.center-house-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.center-text-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.center-metric-number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.center-metric-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Bottom Legend UI Styling Layout */
+.dash-five-legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding: 0 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+/* Smooth legend item cross-highlight tracking link effects */
+.legend-item:hover {
+  background-color: #f8fafc;
+}
+
+.legend-label-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-red { background-color: #ff4d2d; }
+.dot-green { background-color: #76e12e; }
+.dot-yellow { background-color: #fcd519; }
+
+.legend-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.legend-caption {
+  font-size: 0.775rem;
+  color: #94a3b8;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Responsive Adaptive Viewport Adjustments */
+@media (max-width: 400px) {
+  .dash-five-card {
+    padding: 1.25rem;
+  }
+  
+  .center-metric-number {
+    font-size: 1.5rem;
+  }
+  
+  .center-house-icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .legend-value {
+    font-size: 1rem;
+  }
+  
+  .legend-caption {
+    font-size: 0.7rem;
+  }
+}

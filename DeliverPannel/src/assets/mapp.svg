@@ -1,0 +1,43 @@
+<svg width="900" height="560" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="560" fill="#eef0ea"/>
+  <rect x="0" y="0" width="900" height="560" fill="#e9ebe3"/>
+  <!-- park blocks -->
+  <rect x="640" y="30" width="220" height="140" fill="#cfe3c8"/>
+  <rect x="700" y="330" width="180" height="130" fill="#cfe3c8"/>
+  <rect x="20" y="380" width="150" height="120" fill="#cfe3c8"/>
+  <!-- city blocks -->
+  <g fill="#f5f6f1" stroke="#dcdfd5" stroke-width="2">
+    <rect x="40" y="40" width="120" height="90"/>
+    <rect x="200" y="40" width="140" height="90"/>
+    <rect x="380" y="40" width="120" height="90"/>
+    <rect x="520" y="40" width="90" height="90"/>
+    <rect x="40" y="160" width="120" height="90"/>
+    <rect x="200" y="160" width="140" height="90"/>
+    <rect x="380" y="160" width="120" height="90"/>
+    <rect x="520" y="160" width="90" height="90"/>
+    <rect x="40" y="280" width="120" height="80"/>
+    <rect x="200" y="280" width="140" height="80"/>
+    <rect x="380" y="280" width="120" height="80"/>
+    <rect x="520" y="280" width="90" height="80"/>
+    <rect x="200" y="400" width="140" height="90"/>
+    <rect x="380" y="400" width="120" height="90"/>
+    <rect x="520" y="400" width="90" height="90"/>
+  </g>
+  <!-- main roads -->
+  <g stroke="#ffffff" stroke-width="10">
+    <line x1="0" y1="150" x2="900" y2="150"/>
+    <line x1="0" y1="270" x2="900" y2="270"/>
+    <line x1="0" y1="390" x2="900" y2="390"/>
+    <line x1="180" y1="0" x2="180" y2="560"/>
+    <line x1="370" y1="0" x2="370" y2="560"/>
+    <line x1="510" y1="0" x2="510" y2="560"/>
+    <line x1="630" y1="0" x2="630" y2="560"/>
+  </g>
+  <!-- highway accent -->
+  <g stroke="#f6d675" stroke-width="8">
+    <line x1="700" y1="0" x2="780" y2="560"/>
+  </g>
+  <g stroke="#eec24a" stroke-width="2" stroke-dasharray="10 8">
+    <line x1="700" y1="0" x2="780" y2="560"/>
+  </g>
+</svg>
