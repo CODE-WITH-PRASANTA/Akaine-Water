@@ -1,167 +1,211 @@
-/* Container Base Styles */
-.OurBlog-container {
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #ffffff;
-  padding: 40px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Wrapper to constrain layout width */
-.OurBlog-wrapper {
-  width: 100%;
-  max-width: 820px; /* Matches the exact width layout from your reference */
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px; /* Spacing between the list cards */
-}
-
-/* Main Card Style */
-.OurBlog-card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border: 1px solid #f0f1f3;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Responsive Image Area */
-.OurBlog-image-wrapper {
+/* Base container layout */
+.OurBlog {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9; /* Keeps standard landscape layout */
-  overflow: hidden;
-}
-
-.OurBlog-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Custom Folded-style Badge */
-.OurBlog-badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background-color: #0050a3; /* Royal Blue */
-  color: #ffffff;
-  padding: 8px 15px;
-  border-radius: 4px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.OurBlog-badge-icon {
-  font-size: 0.85rem;
-}
-
-/* Card Body Area */
-.OurBlog-card-body {
-  padding: 35px 30px;
-}
-
-/* Post Title */
-.OurBlog-card-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 14px 0;
-  line-height: 1.35;
-  letter-spacing: -0.5px;
-}
-
-/* Metadata Bar */
-.OurBlog-card-meta {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 25px;
-  font-size: 0.8rem;
-  color: #929396;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  background-color: #fcfcfc; /* Extremely soft off-white canvas */
 }
 
-.OurBlog-meta-item {
-  display: inline-flex;
+/* Floating palette action icon styling (consistent with the entire page UI) */
+
+
+.OurBlog-palette-container:hover {
+  transform: scale(1.05);
+}
+
+.OurBlog-palette-icon {
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+/* Card Container styling matching the clean shadows and borders */
+.OurBlog-card {
+  background-color: #ffffff;
+  border: 1px solid #ebf1f6;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  padding: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box;
+}
+
+/* Header heading */
+.OurBlog-heading {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0a101d;
+  margin: 0 0 30px 0;
+}
+
+/* Form structure */
+.OurBlog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Row wrapper for Name and Email fields */
+.OurBlog-input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Inputs with clean pill border-radius */
+.OurBlog-input {
+  width: 100%;
+  height: 52px;
+  background-color: #ffffff;
+  border: 1px solid #e1e7ec;
+  border-radius: 26px; /* High radius makes perfect pill inputs */
+  padding: 0 25px;
+  font-size: 0.95rem;
+  color: #333333;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.OurBlog-input:focus {
+  border-color: #004fc6;
+  box-shadow: 0 0 8px rgba(0, 79, 198, 0.1);
+}
+
+.OurBlog-input::placeholder {
+  color: #7d8898;
+}
+
+/* Textarea with slightly softer pill-box rounded shape */
+.OurBlog-textarea {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e1e7ec;
+  border-radius: 20px; /* Consistent rounded edges */
+  padding: 20px 25px;
+  font-size: 0.95rem;
+  color: #333333;
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.OurBlog-textarea:focus {
+  border-color: #004fc6;
+  box-shadow: 0 0 8px rgba(0, 79, 198, 0.1);
+}
+
+.OurBlog-textarea::placeholder {
+  color: #7d8898;
+}
+
+/* Distinctive button with light blue accent on the right edge */
+.OurBlog-submit-btn {
+  position: relative;
+  overflow: hidden; /* Clips the background right-accent graphic cleanly */
+  width: fit-content;
+  min-width: 200px;
+  height: 54px;
+  background-color: #004fc6; /* Main brand blue */
+  border: none;
+  border-radius: 27px; /* Pill profile */
+  cursor: pointer;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: flex-start;
+  padding: 0 45px 0 35px;
+  box-shadow: 0 4px 15px rgba(0, 79, 198, 0.15);
+  transition: all 0.3s ease;
 }
 
-.OurBlog-meta-icon {
-  font-size: 0.85rem;
-  color: #b0b3b8;
+/* Highlighted light-blue circle on the right side of the button */
+.OurBlog-submit-btn::after {
+  content: '';
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15); /* Accent circle overlay */
+  pointer-events: none;
+  transition: transform 0.3s ease;
 }
 
-.OurBlog-meta-separator {
-  color: #e0e0e0;
-  font-weight: 300;
+.OurBlog-submit-btn:hover {
+  background-color: #003da1;
 }
 
-/* Excerpt Description Paragraph */
-.OurBlog-card-excerpt {
-  font-size: 0.92rem;
-  line-height: 1.75;
-  color: #666666;
-  margin: 0 0 25px 0;
+.OurBlog-submit-btn:hover::after {
+  transform: translateY(-50%) scale(1.1);
 }
 
-/* Read More Custom Trigger button */
-.OurBlog-readmore-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #111111;
-  font-weight: 800;
-  font-size: 0.75rem;
-  text-decoration: none;
+.OurBlog-submit-text {
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
   letter-spacing: 0.5px;
-  transition: color 0.2s ease;
+  position: relative;
+  z-index: 2; /* Sits above the pseudo highlight overlay */
 }
 
-.OurBlog-readmore-btn:hover {
-  color: #02a9df; /* Bright Blue Hover state */
-}
+/* --- Responsive Media Queries --- */
 
-.OurBlog-readmore-arrow {
-  font-size: 0.55rem; /* Standard minor play icon size */
-  vertical-align: middle;
-}
-
-/* Mobile responsive breakpoints styling */
+/* Tablets and medium viewports */
 @media (max-width: 768px) {
-  .OurBlog-wrapper {
-    padding: 0 15px;
-    gap: 40px;
+  .OurBlog {
+    padding: 40px 15px;
   }
 
-  .OurBlog-card-body {
-    padding: 25px 20px;
+  .OurBlog-card {
+    padding: 30px;
   }
 
-  .OurBlog-card-title {
-    font-size: 1.45rem;
+  .OurBlog-heading {
+    font-size: 1.7rem;
+    margin-bottom: 24px;
   }
 
-  .OurBlog-card-meta {
-    flex-wrap: wrap;
-    gap: 8px;
+  .OurBlog-palette-container {
+    display: none; /* Hide floating palettes on small device widths to preserve text canvas */
+  }
+}
+
+/* Small Mobiles */
+@media (max-width: 540px) {
+  .OurBlog-input-group {
+    grid-template-columns: 1fr; /* Stacks inputs vertically */
+    gap: 15px;
   }
 
-  .OurBlog-meta-separator {
-    display: none; /* Hide delimiters on stacked line metadata */
+  .OurBlog-card {
+    padding: 20px 15px;
   }
 
-  .OurBlog-card-meta .OurBlog-meta-item {
-    margin-right: 10px;
+  .OurBlog-heading {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .OurBlog-submit-btn {
+    width: 100%; /* Fully responsive block button on screens under 540px */
+    justify-content: center;
+    padding: 0;
+  }
+
+  .OurBlog-submit-btn::after {
+    display: none; /* Removes decoration on tiny viewports for standard styling alignment */
   }
 }
