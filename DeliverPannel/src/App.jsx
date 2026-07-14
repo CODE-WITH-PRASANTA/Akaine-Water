@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./Layout/MainLayout/MainLayout";
+import RoutePlanner from "./Component/RoutePlanner/RoutePlanner";
 
 
 
@@ -13,7 +14,9 @@ const App = () => {
       <Routes>
         {/* Main Layout */}
         <Route path="/" element={<MainLayout />}>
-          
+
+         <Route path="/wdms/route-planner" element={<RoutePlanner />} />
+
         </Route>
 
              
