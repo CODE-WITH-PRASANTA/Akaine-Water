@@ -1,0 +1,287 @@
+/* Container reset and base setup */
+.empty-return-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #f4f7fc;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 50/50 responsive grid layout */
+.empty-return-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+@media (min-width: 868px) {
+  .empty-return-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Card layout */
+.empty-return-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e1e8f5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Header style with round badge */
+.empty-return-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+
+
+.empty-return-title {
+  color: #0b2265;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Form interior layout (Split inputs and Jar Illustration) */
+.empty-return-form-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+  flex-grow: 1;
+}
+
+@media (min-width: 480px) {
+  .empty-return-form-content {
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 16px;
+  }
+}
+
+.empty-return-form-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 2;
+}
+
+.empty-return-form-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Water Jar illustration styling */
+.empty-return-jar-img {
+  max-width: 140px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.95;
+}
+
+@media (max-width: 479px) {
+  .empty-return-form-right {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    opacity: 0.15; /* Becomes a subtle watermark background on very narrow viewports */
+    pointer-events: none;
+  }
+}
+
+/* Form Fields Styling */
+.empty-return-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.empty-return-label {
+  color: #5c6b88;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.empty-return-input,
+.empty-return-select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d3dcfa;
+  font-size: 14px;
+  color: #1e293b;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.empty-return-input:focus,
+.empty-return-select:focus {
+  border-color: #1253d6;
+}
+
+/* Counter Control (from Ref Image 3) */
+.empty-return-counter {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d3dcfa;
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+  background-color: #ffffff;
+}
+
+.empty-return-counter-btn {
+  background: none;
+  border: none;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b2265;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.empty-return-counter-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.empty-return-counter-value {
+  min-width: 42px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0b2265;
+  border-left: 1px solid #e1e8f5;
+  border-right: 1px solid #e1e8f5;
+  padding: 0 8px;
+}
+
+/* Total Amount display */
+.empty-return-amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0b2265;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #e1e8f5;
+}
+
+/* Horizontal Radio & Checkbox Alignments */
+.empty-return-checkbox-group,
+.empty-return-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.empty-return-checkbox-label,
+.empty-return-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.empty-return-checkbox,
+.empty-return-radio {
+  accent-color: #1253d6;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Button UI styling matching reference blue buttons */
+.empty-return-submit-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+/* 1. Forces both form contents to stretch to the exact same height and push buttons down */
+.empty-return-form-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+  flex-grow: 1;
+  height: 100%; /* Force the form to fill the card height */
+}
+
+@media (min-width: 480px) {
+  .empty-return-form-content {
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 16px;
+  }
+}
+
+/* 2. Modified Submit Button class for identical size & alignment */
+.empty-return-submit-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 48px; /* Force an identical explicit height */
+  margin-top: auto; /* Pushes the buttons to the very bottom of both cards */
+  padding: 12px 0; /* Clear vertical padding overrides */
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-sizing: border-box;
+}
+
+/* 3. Small fix to make sure cards have matching heights in the flex wrapper */
+.empty-return-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e1e8f5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Keeps top header and form content aligned */
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 480px; /* Ensures both cards default to the same minimum footprint */
+}
+
+.blue-btn {
+  background-color: #1253d6;
+}
+
+.blue-btn:hover {
+  background-color: #0e42ab;
+}
+
+.blue-btn:active {
+  transform: scale(0.99);
+}
