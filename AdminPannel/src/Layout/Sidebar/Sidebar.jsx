@@ -9,7 +9,16 @@ import {
   Users,
   Package,
   ClipboardList,
-  Truck
+  Truck,
+  UserPlus,      // Added for Customer
+  Boxes,         // Added for Inventory
+  Tag,           // Added for Product & Price
+  DollarSign,    // Added for Payment
+  TrendingDown,  // Added for Expenses
+  BarChart3,     // Added for Report Analysis
+  Map,           // Added for Route Management
+  Car,           // Added for Vehicle
+  Settings       // Added for Settings
 } from "lucide-react";
 import './Sidebar.css';
 
@@ -57,6 +66,14 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
 
     { type: 'link', icon: <Home size={20} />, text: 'WDMS Dashboard', path: '/wdms/dashboard' },
 
+    // Single Links for WDMS Features
+    { type: 'link', icon: <UserPlus size={20} />, text: 'Customer Management', path: '/wdms/customer' },
+    
+    { type: 'link', icon: <Boxes size={20} />, text: 'Inventory', path: '/wdms/inventory' },
+    
+    { type: 'link', icon: <Tag size={20} />, text: 'Product & Price', path: '/wdms/products-pricing' },
+
+    // Kept as Dropdown (Only Stock Management)
     {
       type: 'dropdown',
       icon: <Package size={20} />,
@@ -69,7 +86,19 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
 
     { type: 'link', icon: <ClipboardList size={20} />, text: 'Order Management', path: '/wdms/orders' },
 
+    { type: 'link', icon: <DollarSign size={20} />, text: 'Payment Management', path: '/wdms/payments' },
+
+    { type: 'link', icon: <TrendingDown size={20} />, text: 'Expenses', path: '/wdms/expenses' },
+
     { type: 'link', icon: <Truck size={20} />, text: 'Delivery Boy Assign', path: '/wdms/assign-delivery' },
+
+    { type: 'link', icon: <Map size={20} />, text: 'Route Management', path: '/wdms/route-management' },
+
+    { type: 'link', icon: <Car size={20} />, text: 'Vehicle Management', path: '/wdms/vehicles' },
+
+    { type: 'link', icon: <BarChart3 size={20} />, text: 'Report Analysis', path: '/wdms/reports' },
+
+    { type: 'link', icon: <Settings size={20} />, text: 'Settings', path: '/wdms/settings' },
   ];
 
   return (
