@@ -1,8 +1,11 @@
 import React from 'react'
+import Orderlist from '../../Component/Orderlist/Orderlist'
 
 const OrderPage = () => {
   return (
-    <div>OrderPage</div>
+    <div>
+      <Orderlist/>
+    </div>
   )
 }
 

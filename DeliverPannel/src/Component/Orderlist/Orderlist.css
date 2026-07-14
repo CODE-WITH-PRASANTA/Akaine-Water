@@ -1,0 +1,462 @@
+/* Core Styling Variables matching Reference Images */
+:root {
+  --primary-blue: #1a56db;
+  --light-blue-bg: #f4f7fe;
+  --white: #ffffff;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  
+  /* Status Colors */
+  --green-bg: #e6f7ed;
+  --green-text: #15803d;
+  --orange-bg: #fff7ed;
+  --orange-text: #c2410c;
+  --red-bg: #fef2f2;
+  --red-text: #b91c1c;
+}
+
+.order-dashboard-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding: 24px;
+  background-color: var(--light-blue-bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: var(--text-dark);
+}
+
+/* Panel Layout Box Style styling matching standard components */
+.order-card-wrapper {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  width: 100%;
+  max-width: 1000px;
+  border: 1px solid var(--border-color);
+}
+
+.section-title {
+  color: var(--primary-blue);
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* Custom Search Box Bar */
+.search-container {
+  position: relative;
+  margin-bottom: 20px;
+  max-width: 320px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px 10px 36px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  background-color: #fafafa;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--primary-blue);
+  background-color: var(--white);
+}
+
+/* Layout Data Table View Adjustments */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.order-table th {
+  padding: 14px 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.order-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.order-id-cell {
+  color: var(--text-muted);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.customer-cell {
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.customer-cell:hover, .order-id-cell:hover {
+  text-decoration: underline;
+  color: var(--primary-blue);
+}
+
+.bold-text {
+  font-weight: 700;
+}
+
+/* Dynamic State Badges Alignment */
+.status-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+}
+
+.status-pending {
+  background-color: var(--orange-bg);
+  color: var(--orange-text);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+.status-delivered {
+  background-color: var(--green-bg);
+  color: var(--green-text);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.status-rejected {
+  background-color: var(--red-bg);
+  color: var(--red-text);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Action Control Row Buttons Styling */
+.action-buttons-cell {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: opacity 0.2s;
+}
+
+.btn-action:hover {
+  opacity: 0.85;
+}
+
+.btn-deliver { background-color: var(--green-text); color: var(--white); }
+.btn-pending { background-color: var(--orange-text); color: var(--white); }
+.btn-reject { background-color: var(--red-text); color: var(--white); }
+
+/* Global Footers and Interactive Components */
+.view-all-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: transparent;
+  color: var(--primary-blue);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.view-all-btn:hover {
+  background-color: var(--light-blue-bg);
+}
+
+/* Standard Simple Pagination controls */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 10px;
+}
+
+.pagination-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 4px;
+}
+
+.page-number-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.page-number-btn.active {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border-color: var(--primary-blue);
+}
+
+/* Popups / Modals Container System Elements */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-content-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+/* Profile Elements inside Popup View UI */
+.customer-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.avatar-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--light-blue-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--primary-blue);
+}
+
+.avatar-icon {
+  font-size: 28px;
+}
+
+.customer-meta h3 {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  color: var(--text-dark);
+}
+
+.phone-text {
+  margin: 0 0 4px 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.address-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Order specifications rows values */
+.order-details-body h4, .payment-method-section h4 {
+  margin: 16px 0 10px 0;
+  font-size: 14px;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.amount-value {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.paid-tag {
+  color: var(--primary-blue);
+  font-size: 11px;
+  margin-left: 6px;
+  font-weight: 600;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+/* Grid Call / Message Navigation Action Panel Layout */
+.grid-action-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.grid-btn {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dark);
+  transition: background-color 0.2s;
+}
+
+.grid-btn:hover {
+  background-color: var(--light-blue-bg);
+}
+
+.btn-icon {
+  font-size: 18px;
+}
+
+/* Secondary lower utility grids row */
+.grid-secondary-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.secondary-btn {
+  background: #fafafa;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 4px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.secondary-btn:hover {
+  background-color: #f1f5f9;
+  color: var(--text-dark);
+}
+
+/* Primary Execution Button Bottom Layer */
+.primary-submit-btn {
+  width: 100%;
+  padding: 14px;
+  color: var(--white);
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.primary-submit-btn:hover {
+  opacity: 0.9;
+}
+
+.status-bg-delivered { background-color: var(--green-text) !important; }
+.status-bg-pending { background-color: var(--primary-blue) !important; }
+.status-bg-rejected { background-color: var(--red-text) !important; }
+
+/* Responsive adjustments across small Viewport Handsets */
+@media (max-width: 600px) {
+  .order-dashboard-container {
+    padding: 12px;
+  }
+  
+  .order-card-wrapper {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .order-table th, .order-table td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .action-buttons-cell {
+    flex-direction: column;
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

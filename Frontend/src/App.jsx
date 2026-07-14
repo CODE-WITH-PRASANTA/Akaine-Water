@@ -28,6 +28,7 @@ import Cart from "./Pages/Cart/Cart";
 import Cheakout from "./Pages/Cheakout/Cheakout";
 import Faq from "./Pages/Faq/Faq";
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -78,10 +79,9 @@ function App() {
 
         {/* Optional Components */}
         <Route path="/team-component" element={<OurTeam />} />
-        <Route
-          path="/gallery-component"
-          element={<AkaineGalary />}
-        />
+        <Route path="/gallery-component" element={<AkaineGalary />}/>
+      
+  
       </Routes>
 
       {/* Footer */}
