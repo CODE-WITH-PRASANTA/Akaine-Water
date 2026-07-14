@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap');
+
+/* Main Wrapper */
+.expense-container {
+  font-family: 'Public Sans', sans-serif;
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  border: 1px solid #e1e9f4;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box;
+}
+
+/* Header Text */
+.expense-title {
+  color: #0b3fa9;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+/* Summary Grid Row */
+.expense-summary-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Top Summary Cards */
+.expense-card {
+  background: #ffffff;
+  border: 1px solid #eef2f8;
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+}
+
+.expense-card-title {
+  font-size: 14px;
+  color: #4a5568;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.expense-card-amount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+/* Table Card Wrapper (to allow inner scrolling on mobile) */
+.expense-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #eef2f8;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+/* Table Element */
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 600px; /* Ensures text doesn't collapse on smaller screens */
+}
+
+.expense-table th, 
+.expense-table td {
+  padding: 14px 18px;
+  font-size: 14px;
+  border-bottom: 1px solid #eef2f8;
+}
+
+.expense-table th {
+  background-color: #ffffff;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+.expense-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.expense-table td {
+  color: #2d3748;
+}
+
+/* Category Cell Alignments */
+.expense-category-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.expense-category-icon {
+  font-size: 18px;
+  color: #4a5568;
+}
+
+.expense-amount-cell {
+  font-weight: 500;
+}
+
+/* Footer Section & Button */
+.expense-footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.expense-view-btn {
+  background-color: #0b57d0;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 48px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.expense-view-btn:hover {
+  background-color: #0842a0;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .expense-summary-row {
+    grid-template-columns: 1fr; /* Stack summary cards on smaller viewports */
+    gap: 12px;
+  }
+  
+  .expense-container {
+    padding: 16px;
+  }
+
+  .expense-card {
+    padding: 14px;
+  }
+
+  .expense-card-amount {
+    font-size: 21px;
+  }
+}

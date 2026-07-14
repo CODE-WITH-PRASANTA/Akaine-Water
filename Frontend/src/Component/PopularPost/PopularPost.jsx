@@ -1,25 +1,53 @@
 import React, { useEffect, useState } from "react";
-import "./PopularPost.css";
+import API, { IMG_URL } from "../../api/axios";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
   FaCalendarAlt,
   FaUser,
   FaRegComment,
-  FaArrowRight,
-  FaFolderOpen,
-  FaRegEnvelopeOpen,
-  FaSearch
+  FaSearch,
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaPinterestP,
+  FaInstagram,
+  FaSkype,
+  FaArrowRight
 } from "react-icons/fa";
 
-import { useNavigate } from "react-router-dom";
-import API, { IMG_URL } from "../../api/axios";
+import { ImQuotesLeft } from "react-icons/im";
+import { IoColorPaletteSharp } from "react-icons/io5";
+import { HiOutlineMailOpen } from "react-icons/hi";
+
+import "./PopularPost.css";
 
 const PopularPost = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  // ================= FETCH BLOGS =================
+  const [blog, setBlog] = useState(null);
+  const [blogs, setBlogs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+
+  useEffect(() => {
+    fetchBlog();
+    fetchBlogs();
+    window.scrollTo(0, 0); 
+  }, [id]);
+
+  const fetchBlog = async () => {
+    try {
+      const res = await API.get(`/blog/${id}`);
+      if (res.data.success) {
+        setBlog(res.data.blog);
+      }
+    } catch (error) {
+      console.error("Error fetching absolute blog post:", error);
+    }
+  };
+
   const fetchBlogs = async () => {
     try {
       const res = await API.get("/blog/all");
@@ -27,176 +55,270 @@ const PopularPost = () => {
         setBlogs(res.data.blogs);
       }
     } catch (error) {
-      console.log("Popular blog error:", error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching all blogs:", error);
     }
   };
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
-
-  // ================= DATE FORMAT =================
-  const formatDate = (date) => {
-    if (!date) return "Recent";
-    return new Date(date).toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!emailInput) return alert("Please enter a valid email address.");
+    alert(`Thank you for subscribing with: ${emailInput}`);
+    setEmailInput("");
   };
 
-  // ================= TEXT CLEAN =================
-  const shortText = (text) => {
-    if (!text) return "";
-    return text.replace(/<[^>]*>?/gm, "").slice(0, 220) + "...";
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    alert(`Searching for: ${searchQuery}`);
   };
 
-  // Latest 3 sidebar posts
-  const popularBlogs = blogs.slice(0, 3);
+  if (!blog) {
+    return (
+      <div className="loading-container">
+        Loading...
+      </div>
+    );
+  }
+
+  const otherBlogs = blogs.filter(item => item._id !== id);
+
+  const filteredBlogs = otherBlogs.filter(item =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const categories = [...new Set(blogs.map(item => item.category))];
+
+  const currentIdx = blogs.findIndex(item => item._id === id);
+  const nextPost = currentIdx !== -1 && blogs[currentIdx + 1] ? blogs[currentIdx + 1] : blogs[0];
 
   return (
-    <div className="PopularPost-container">
-      <div className="PopularPost-layout-wrapper">
-        <div className="PopularPost-grid">
-          {/* ================= SIDEBAR ================= */}
-          <aside className="PopularPost-sidebar">
-            <div className="PopularPost-sidebar-inner">
-              {/* POPULAR POST */}
-              <div className="PopularPost-widget">
-                <h3 className="PopularPost-widget-title">Popular Posts</h3>
-                <div className="PopularPost-wave-divider" />
+    <div className="PopularPost">
 
-                <div className="PopularPost-list">
-                  {loading ? (
-                    <h4>Loading...</h4>
-                  ) : (
-                    popularBlogs.map((item) => (
-                      <div
-                        key={item._id}
-                        className="PopularPost-item"
-                        onClick={() => navigate(`/blogdetails/${item._id}`)}
-                      >
-                        <img
-                          src={`${IMG_URL}${item.image}`}
-                          alt={item.title}
-                          className="PopularPost-item-img"
-                        />
-                        <div className="PopularPost-item-info">
-                          <span className="PopularPost-item-date">
-                            <FaCalendarAlt />
-                            {formatDate(item.date)}
-                          </span>
-                          <h4 className="PopularPost-item-title">
-                            {item.title}
-                          </h4>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
+      <div className="PopularPost-palette-sticky" onClick={() => alert("Palette options coming soon!")}>
+        <IoColorPaletteSharp />
+      </div>
 
-              {/* TAG CLOUD */}
-              <div className="PopularPost-widget">
-                <h3 className="PopularPost-widget-title">Tag Cloud</h3>
-                <div className="PopularPost-wave-divider" />
-                <div className="PopularPost-tag-cloud">
-                  {[
-                    "Water",
-                    "Technology",
-                    "Delivery",
-                    "Service",
-                    "Quality",
-                    "Industry",
-                    "Expert",
-                    "Business",
-                  ].map((tag) => (
-                    <span key={tag}>#{tag}</span>
-                  ))}
-                </div>
-              </div>
+      <div className="PopularPost-container">
 
-              {/* SUBSCRIBE */}
-              <div className="PopularPost-widget">
-                <h3 className="PopularPost-widget-title">Subscribe Us</h3>
-                <div className="PopularPost-wave-divider" />
-                <div className="PopularPost-subscribe-card">
-                  <div className="PopularPost-subscribe-icon-wrap">
-                    <FaRegEnvelopeOpen className="PopularPost-subscribe-icon" />
-                  </div>
-                  <h3>Stay Updated</h3>
-                  <p>Subscribe to get latest articles, news and updates.</p>
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="PopularPost-subscribe-input"
-                  />
-                  <button className="PopularPost-subscribe-btn">
-                    SUBSCRIBE
-                  </button>
-                </div>
+        <main className="PopularPost-main-content">
+
+          <article className="PopularPost-article-card">
+
+            <div className="PopularPost-main-img-container">
+              <img
+                src={`${IMG_URL}${blog.image}`}
+                alt={blog.title}
+                className="PopularPost-main-img"
+              />
+
+              <div className="PopularPost-badge">
+                📁 {blog.category}
               </div>
             </div>
-          </aside>
 
-          {/* ================= MAIN BLOG ================= */}
-          <main className="PopularPost-main-content">
-            {loading ? (
-              <h2>Loading Blogs...</h2>
-            ) : blogs.length === 0 ? (
-              <h2>No Blogs Available</h2>
-            ) : (
-              blogs.map((blog) => (
-                <article key={blog._id} className="PopularPost-card">
-                  <div className="PopularPost-card-image-wrapper">
-                    <img
-                      src={`${IMG_URL}${blog.image}`}
-                      alt={blog.title}
-                      className="PopularPost-card-img"
-                    />
-                    <div className="PopularPost-post-badge">
-                      <FaFolderOpen />
-                      {blog.category || "General"}
-                    </div>
-                  </div>
+            <div className="PopularPost-meta-row">
+              <span className="PopularPost-meta-item">
+                <FaCalendarAlt className="PopularPost-meta-icon" />
+                {blog.date}
+              </span>
 
-                  <div className="PopularPost-card-body">
-                    <h2 className="PopularPost-card-title">{blog.title}</h2>
+              <span className="PopularPost-meta-divider">|</span>
 
-                    <div className="PopularPost-card-meta">
-                      <span>
-                        <FaCalendarAlt />
-                        {formatDate(blog.date)}
-                      </span>
-                      <span>
-                        <FaUser />
-                        {blog.name || "Admin"}
-                      </span>
-                      <span>
-                        <FaRegComment />
-                        {blog.designation || "Blog"}
-                      </span>
-                    </div>
+              <span className="PopularPost-meta-item">
+                <FaUser className="PopularPost-meta-icon" />
+                {blog.name}
+              </span>
 
-                    <p className="PopularPost-card-excerpt">
-                      {shortText(blog.description)}
-                    </p>
+              <span className="PopularPost-meta-divider">|</span>
 
-                    <button
-                      className="PopularPost-readmore-link"
-                      onClick={() => navigate(`/blogdetails/${blog._id}`)}
-                    >
-                      <FaArrowRight />
-                      READ MORE
-                    </button>
-                  </div>
-                </article>
-              ))
+              <span className="PopularPost-meta-item">
+                <FaRegComment className="PopularPost-meta-icon" />
+                0 Comments
+              </span>
+            </div>
+
+            <h1 className="PopularPost-section-heading">{blog.title}</h1>
+
+            {/* Clean presentation of the full blog description body */}
+            <div 
+              className="PopularPost-paragraph"
+              dangerouslySetInnerHTML={{ __html: blog.description }} 
+            />
+
+            <blockquote className="PopularPost-quote-block">
+              <div className="PopularPost-quote-icon-box">
+                <ImQuotesLeft className="PopularPost-quote-svg" />
+              </div>
+
+              <div className="PopularPost-quote-text-container">
+                <p className="PopularPost-quote-text">
+                  "A river seems a magic thing. A magic, moving, living part of the very earth itself."
+                </p>
+                <cite className="PopularPost-quote-author">— {blog.name}</cite>
+              </div>
+            </blockquote>
+
+            <div className="PopularPost-share-bar">
+              <div className="PopularPost-tags-inline">
+                <span className="PopularPost-label">Category:</span>
+                <span className="PopularPost-pill-tag">
+                  {blog.category}
+                </span>
+              </div>
+
+              <div className="PopularPost-social-inline">
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="PopularPost-social-circle">
+                  <FaFacebookF />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noreferrer" className="PopularPost-social-circle">
+                  <FaTwitter />
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="PopularPost-social-circle">
+                  <FaLinkedinIn />
+                </a>
+                <a href="https://pinterest.com" target="_blank" rel="noreferrer" className="PopularPost-social-circle">
+                  <FaPinterestP />
+                </a>
+              </div>
+            </div>
+
+            {nextPost && nextPost._id !== id && (
+              <div className="PopularPost-nav-link-box" onClick={() => navigate(`/blog/${nextPost._id}`)}>
+                <span className="PopularPost-nav-sub">
+                  NEXT POST
+                  <FaArrowRight className="PopularPost-nav-arrow" />
+                </span>
+                <h4 className="PopularPost-nav-title">
+                  {nextPost.title}
+                </h4>
+              </div>
             )}
-          </main>
-        </div>
+
+          </article>
+
+          <div className="PopularPost-author-card">
+            <div className="PopularPost-author-avatar-box">
+              <img
+                src={`${IMG_URL}${blog.image}`}
+                alt={blog.name}
+                className="PopularPost-author-avatar"
+              />
+            </div>
+
+            <div className="PopularPost-author-info">
+              <h3 className="PopularPost-author-name">{blog.name}</h3>
+              <h5>{blog.designation || "Author / Contributor"}</h5>
+              <p className="PopularPost-author-bio">
+                {blog.description ? `${blog.description.replace(/<[^>]*>/g, '').slice(0, 180)}...` : "Professional content creator sharing strategic domain updates."}
+              </p>
+
+              <div className="PopularPost-author-socials">
+                <a href="#!"><FaFacebookF /></a>
+                <a href="#!"><FaInstagram /></a>
+                <a href="#!"><FaSkype /></a>
+                <a href="#!"><FaTwitter /></a>
+              </div>
+            </div>
+          </div>
+
+        </main>
+
+        <aside className="PopularPost-sidebar">
+
+          {/* Search */}
+          <div className="PopularPost-widget">
+            <h3 className="PopularPost-widget-title">Search</h3>
+            <form onSubmit={handleSearchSubmit} className="PopularPost-search-box">
+              <input
+                type="text"
+                className="PopularPost-search-input"
+                placeholder="Search Blog..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button type="submit" className="PopularPost-search-btn">
+                <FaSearch />
+              </button>
+            </form>
+          </div>
+
+          {/* Categories */}
+          <div className="PopularPost-widget">
+            <h3 className="PopularPost-widget-title">Categories</h3>
+            <ul className="PopularPost-category-list">
+              {categories.map((category, index) => (
+                <li 
+                  key={index} 
+                  className="PopularPost-category-item"
+                  onClick={() => setSearchQuery(category)}
+                >
+                  📁 {category}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Popular Blogs */}
+          <div className="PopularPost-widget">
+            <h3 className="PopularPost-widget-title">Popular Posts</h3>
+            <div className="PopularPost-sidebar-posts">
+              {filteredBlogs.slice(0, 5).map(item => (
+                <div
+                  key={item._id}
+                  className="PopularPost-item"
+                  onClick={() => navigate(`/blog/${item._id}`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="PopularPost-img-container">
+                    <img
+                      src={`${IMG_URL}${item.image}`}
+                      alt={item.title}
+                      className="PopularPost-thumb"
+                    />
+                  </div>
+
+                  <div className="PopularPost-info">
+                    <div className="PopularPost-date-wrapper">
+                      <FaCalendarAlt className="PopularPost-calendar-icon" />
+                      {item.date}
+                    </div>
+                    <h4 className="PopularPost-title">{item.title}</h4>
+                  </div>
+                </div>
+              ))}
+              {filteredBlogs.length === 0 && <p style={{ fontSize: "0.85rem", color: "#8c95a5" }}>No matching posts found.</p>}
+            </div>
+          </div>
+
+          {/* Subscribe */}
+          <div className="PopularPost-widget">
+            <div className="PopularPost-subscribe-card">
+              <div className="PopularPost-sub-icon-circle">
+                <HiOutlineMailOpen />
+              </div>
+
+              <h4 className="PopularPost-sub-title">Subscribe Us</h4>
+              <p className="PopularPost-sub-desc">
+                Subscribe us & get latest news & articles to inbox.
+              </p>
+
+              <form onSubmit={handleSubscribe} className="PopularPost-sub-form">
+                <input
+                  type="email"
+                  className="PopularPost-sub-input"
+                  placeholder="Email Address"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  required
+                />
+                <button type="submit" className="PopularPost-sub-btn">
+                  SUBSCRIBE
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </aside>
+
       </div>
     </div>
   );
