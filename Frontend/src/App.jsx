@@ -18,14 +18,6 @@ import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
 
 // Other Pages
-<<<<<<< HEAD
-import MainTeam from "./Pages/MainTeam/MainTeam";
-import GalaryMain from "./Pages/GalaryMain/GalaryMain";
-import Testimonial from "./Pages/Testimonial/Testimonial";
-import Cart from "./Pages/Cart/Cart";
-import Cheakout from "./Pages/Cheakout/Cheakout";
-import Faq from "./Pages/Faq/Faq";
-=======
 import Testimonial from "./pages/Testimonial/Testimonial";
 import Cart from "./pages/Cart/Cart";
 import Cheakout from "./pages/Cheakout/Cheakout";
@@ -35,7 +27,6 @@ import GalaryMain from "./Pages/GalaryMain/GalaryMain";
 import About from "./Pages/About/About";
 import OurServices from "./Pages/OurServices/OurServices";
 
->>>>>>> 636a591157501d20f4bd3c355af302f9070c5d87
 
 function App() {
   return (
@@ -48,15 +39,8 @@ function App() {
       <Routes>
         {/* Home */}
         <Route path="/" element={<Home />} />
-<<<<<<< HEAD
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/contact" element={<Contact />} />
-=======
         <Route path="/about" element={<About />} />
         
->>>>>>> 636a591157501d20f4bd3c355af302f9070c5d87
 
         {/* Pricing */}
         
@@ -94,15 +78,8 @@ function App() {
         {/* Shop */}
         <Route path="/shop/cart" element={<Cart />} />
         <Route path="/shop/checkout" element={<Cheakout />} />
-<<<<<<< HEAD
-
-        {/* Individual Components */}
-        <Route path="/team-component" element={<OurTeam />} />
-        <Route path="/gallery-component" element={<AkaineGalary />} />
-=======
         <Route path="/services/all" element={<OurServices />} />
          
->>>>>>> 636a591157501d20f4bd3c355af302f9070c5d87
       </Routes>
 
       {/* Footer */}
