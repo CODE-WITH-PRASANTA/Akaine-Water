@@ -45,7 +45,7 @@ function App() {
         {/* Pricing */}
         
         <Route
-          path="/products/pricing"
+          path="/plan"
           element={<PricingAndPlans />}
         />
 
