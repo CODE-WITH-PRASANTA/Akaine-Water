@@ -1,100 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { IoColorPaletteSharp } from 'react-icons/io5'; // Floating palette icon on the left
 import './OurBlog.css';
-import { 
-  FaCalendarAlt, 
-  FaUser, 
-  FaRegComment, 
-  FaFolderOpen, 
-  FaPlay 
-} from 'react-icons/fa';
-
-// Assuming your images are saved in src/assets
-import deliveryImg from '../../assets/blog-v3-4.jpg'; // For the delivery/person image (Card 1)
-import bottlesImg from '../../assets/blog-v3-5.jpg';  // For the blue water bottles image (Card 2)
 
 const OurBlog = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    comment: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log('Submitted Comment:', formData);
+  };
+
   return (
-    <div className="OurBlog-container">
-      <div className="OurBlog-wrapper">
+    <div className="OurBlog">
+      {/* Optional Left Floating Theme Icon (matches the visual system across your screenshots) */}
+      <div className="OurBlog-palette-container">
+        <IoColorPaletteSharp className="OurBlog-palette-icon" />
+      </div>
+
+      {/* Main Comment Form Card */}
+      <div className="OurBlog-card">
+        <h2 className="OurBlog-heading">Leave A Comment</h2>
         
-        {/* Card 1: Aguapure Water */}
-        <article className="OurBlog-card">
-          <div className="OurBlog-image-wrapper">
-            <img src={deliveryImg} alt="Water delivery service" className="OurBlog-card-img" />
-            <div className="OurBlog-badge">
-              <FaFolderOpen className="OurBlog-badge-icon" /> WATER COOLERS
-            </div>
+        <form className="OurBlog-form" onSubmit={handleSubmit}>
+          <div className="OurBlog-input-group">
+            <input
+              type="text"
+              name="name"
+              className="OurBlog-input"
+              placeholder="Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              className="OurBlog-input"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
           </div>
-          <div className="OurBlog-card-body">
-            <h2 className="OurBlog-card-title">Aguapure Water: Never Wait for Rain Again</h2>
-            
-            <div className="OurBlog-card-meta">
-              <span className="OurBlog-meta-item">
-                <FaCalendarAlt className="OurBlog-meta-icon" /> August 21, 2021
-              </span>
-              <span className="OurBlog-meta-separator">|</span>
-              <span className="OurBlog-meta-item">
-                <FaUser className="OurBlog-meta-icon" /> By admin
-              </span>
-              <span className="OurBlog-meta-separator">|</span>
-              <span className="OurBlog-meta-item">
-                <FaRegComment className="OurBlog-meta-icon" /> 0 Comments
-              </span>
-            </div>
 
-            <p className="OurBlog-card-excerpt">
-              That they cannot forest the pain trouble that are bound to ensue equal demoralized by the
-              charms of pleasure of the moment so blinded by desire. To take a trivial example which of
-              ever undertakes laborious cases are perfectly simple and easy to distinguish. In a free hour,
-              when our power. Foresee the pain and trouble that are bound ensue and equal blame belongs 
-              our power of choice untrammelled and when nothing prevents what like best we denounces 
-              righteous indignation [...]
-            </p>
+          <textarea
+            name="comment"
+            className="OurBlog-textarea"
+            placeholder="Type Comment Here"
+            rows="6"
+            value={formData.comment}
+            onChange={handleChange}
+            required
+          ></textarea>
 
-            <a href="#read" className="OurBlog-readmore-btn">
-              <FaPlay className="OurBlog-readmore-arrow" /> READ MORE
-            </a>
-          </div>
-        </article>
-
-        {/* Card 2: Discover The Beauties of Bulk Bottled Water */}
-        <article className="OurBlog-card">
-          <div className="OurBlog-image-wrapper">
-            <img src={bottlesImg} alt="Bulk water bottles production" className="OurBlog-card-img" />
-            <div className="OurBlog-badge">
-              <FaFolderOpen className="OurBlog-badge-icon" /> OUR BLOG
-            </div>
-          </div>
-          <div className="OurBlog-card-body">
-            <h2 className="OurBlog-card-title">Discover The Beauties of Bulk Bottled Water</h2>
-            
-            <div className="OurBlog-card-meta">
-              <span className="OurBlog-meta-item">
-                <FaCalendarAlt className="OurBlog-meta-icon" /> August 21, 2021
-              </span>
-              <span className="OurBlog-meta-separator">|</span>
-              <span className="OurBlog-meta-item">
-                <FaUser className="OurBlog-meta-icon" /> By admin
-              </span>
-              <span className="OurBlog-meta-separator">|</span>
-              <span className="OurBlog-meta-item">
-                <FaRegComment className="OurBlog-meta-icon" /> 0 Comments
-              </span>
-            </div>
-
-            <p className="OurBlog-card-excerpt">
-              To take a trivial example which of ever undertakes laborious cases are perfectly simple and
-              easy to distinguish. In a free hour, when our power. Foresee the pain and trouble that are
-              bound ensue and equal blame belongs our power of choice untrammelled and when nothing
-              prevents what like best we denounces righteous indignation and [...]
-            </p>
-
-            <a href="#read" className="OurBlog-readmore-btn">
-              <FaPlay className="OurBlog-readmore-arrow" /> READ MORE
-            </a>
-          </div>
-        </article>
-
+          <button type="submit" className="OurBlog-submit-btn">
+            <span className="OurBlog-submit-text">POST COMMENT</span>
+          </button>
+        </form>
       </div>
     </div>
   );
