@@ -7,14 +7,12 @@ dotenv.config();
 
 const connectDB = require("./src/config/db");
 
-// Routes
-
+// Routes Imports
 const teamRoutes = require("./src/routes/teamRoutes");
 const galleryRoutes = require("./src/routes/galleryRoutes");
-const testimonialRoutes = require(
-  "./src/routes/testimonialRoutes");
-const contactRoutes= require("./src/routes/contactRoutes");
-
+const testimonialRoutes = require("./src/routes/testimonialRoutes");
+const contactRoutes = require("./src/routes/contactRoutes");
+const blogRoutes = require("./src/routes/blogRoutes");
 
 // Connect Database
 connectDB();
@@ -22,28 +20,19 @@ connectDB();
 const app = express();
 
 // ================= Middleware =================
-
 app.use(cors());
-
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
 // ================= Static Folder =================
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ================= API Routes =================
-
 app.use("/api/team", teamRoutes);
 app.use("/api/gallery", galleryRoutes);
-app.use(
-  "/api/testimonial",
-  testimonialRoutes
-);
+app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/contact", contactRoutes);
-
-
-
+app.use("/api/blog", blogRoutes);
 
 // ================= Home Route =================
 app.get("/", (req, res) => {
@@ -53,12 +42,39 @@ app.get("/", (req, res) => {
   });
 });
 
-// ================= 404 Route =================
-// Express 5 Compatible
-app.use((req, res) => {
+// ================= 404 Route Handler =================
+app.use((req, res, next) => {
   res.status(404).json({
     success: false,
     message: "Route Not Found",
+  });
+});
+
+// ================= Global Error-Handling Middleware =================
+// This catches file upload structure, Multer, limits, and runtime engine crashes
+app.use((err, req, res, next) => {
+  console.error("GLOBAL SERVER ERROR:", err);
+  
+  // If Multer error occurs (e.g. invalid file, file limit exceeded)
+  if (err instanceof require("multer").MulterError) {
+    return res.status(400).json({
+      success: false,
+      message: `File Upload Error: ${err.message}`
+    });
+  }
+
+  // If we passed an error inside multer filter validation manually
+  if (err.message && err.message.includes("Only JPG, JPEG, PNG")) {
+    return res.status(400).json({
+      success: false,
+      message: err.message
+    });
+  }
+
+  // Fallback for any other unexpected system crashes
+  res.status(500).json({
+    success: false,
+    message: err.message || "An unexpected system error occurred"
   });
 });
 
