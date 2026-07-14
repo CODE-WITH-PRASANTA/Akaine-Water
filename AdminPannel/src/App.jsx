@@ -19,6 +19,8 @@ import BlogManagement from "./Components/BlogManagement/BlogManagement";
 
 import DashboardMain from "./Pages/DashboardMain/DashboardMain";
 import ManageStock from "./Components/ManageStock/ManageStock";
+import Expense from "./Components/Expense/Expense";
+import ReportsAnalytics from "./Components/ReportsAnalytics/ReportsAnalytics";
 
 const App = () => {
   return (
@@ -28,7 +30,8 @@ const App = () => {
         <Route element={<MainLayout />}>
           {/* Home */}
           <Route path="/" element={<Testimonial />} />
-
+          <Route path="wdms/expenses" element={<Expense/>}/>
+          <Route path="wdms/reports" element={<ReportsAnalytics/>}/>
           {/* Main Pages */}
           <Route path="/team" element={<OurTeam />} />
           <Route path="/gallery" element={<Gallery />} />
