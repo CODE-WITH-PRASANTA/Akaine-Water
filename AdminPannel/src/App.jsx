@@ -19,6 +19,9 @@ import BlogManagement from "./Components/BlogManagement/BlogManagement";
 
 import DashboardMain from "./Pages/DashboardMain/DashboardMain";
 import ManageStock from "./Components/ManageStock/ManageStock";
+import DeliveryBoyassign from "./Components/DeliveryBoyassign/DeliveryBoyassign";
+import DamagedStock from "./Components/DamagedStock/DamagedStock";
+
 
 const App = () => {
   return (
@@ -54,6 +57,8 @@ const App = () => {
 
           <Route path="/wdms/dashboard" element={<DashboardMain />} />
           <Route path="/wdms/stock/manage" element={<ManageStock />} />
+          <Route path="/wdms/assign-delivery" element={<DeliveryBoyassign />} />
+          <Route path="/wdms/damage-stock" element={<DamagedStock />} />
 
           <Route path="/resources/gallery" element={<Gallery />} />
           <Route
