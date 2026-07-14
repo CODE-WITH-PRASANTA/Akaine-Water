@@ -1,172 +1,328 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './PopularPost.css';
+
+// React Icons Imports
 import { 
-  FaSearch, 
   FaCalendarAlt, 
   FaUser, 
   FaRegComment, 
-  FaArrowRight, 
-  FaFolderOpen, 
-  FaRegEnvelopeOpen 
+  FaSearch, 
+  FaFacebookF, 
+  FaTwitter, 
+  FaLinkedinIn, 
+  FaPinterestP, 
+  FaInstagram, 
+  FaSkype, 
+  FaArrowRight 
 } from 'react-icons/fa';
+import { ImQuotesLeft } from 'react-icons/im';
+import { IoColorPaletteSharp } from 'react-icons/io5';
+import { TfiClose } from 'react-icons/tfi'; 
+import { HiOutlineMailOpen } from 'react-icons/hi';
 
-// Import images from your src/assets folder
-import bannerImg from '../../assets/popular1.jpg';       // Main Top Banner background
-import post1Img from '../../assets/popular1.jpg';       // Image for 1st Blog Post
-import post2Img from '../../assets/popular1.jpg';    // Image for 2nd Blog Post (laptop/pitcher)
-import post3Img from '../../assets/popular2.jpg'; // Image for 3rd Blog Post (blue water bottles)
-
-// Sidebar small thumbnails
-import thumb1 from '../../assets/popular2.jpg';
-import thumb2 from '../../assets/blog-v3-1.jpg';
-import thumb3 from '../../assets/blog-v3-4.jpg';
+// Image Asset Imports
+import mainBlogImg from '../../assets/popular2.jpg';
+import authorAvatar from '../../assets/blog-v3-4.jpg';
+import postImg1 from '../../assets/blog-v3-4.jpg';
+import postImg2 from '../../assets/popular2.jpg';
+import postImg3 from '../../assets/popular1.jpg';
 
 const PopularPost = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+
+  const popularPostsList = [
+    {
+      id: 1,
+      image: postImg1,
+      date: 'August 17, 2021',
+      title: 'PACKAGED WATER: WHAT THINGS TO CONSIDER?'
+    },
+    {
+      id: 2,
+      image: postImg2,
+      date: 'August 17, 2021',
+      title: 'DISCOVER THE BEAUTIES OF BULK BOTTLED WATER'
+    },
+    {
+      id: 3,
+      image: postImg3,
+      date: 'August 17, 2021',
+      title: 'AGUAPURE WATER: NEVER WAIT FOR RAIN AGAIN'
+    }
+  ];
+
+  const categories = [
+    'BOTTLED WATER',
+    'LATEST NEWS',
+    'OUR BLOG',
+    'WATER COOLERS'
+  ];
+
+  const tags = [
+    'Bottle', 'Coolers', 'Delivery', 'Home', 'Mineral', 'Office', 'Safety', 'Sports', 'Water Quality'
+  ];
+
   return (
-    <div className="PopularPost-container">
-      {/* 1. Header Banner */}
-      <div 
-        className="PopularPost-banner" 
-        style={{ backgroundImage: `url(${bannerImg})` }}
-      >
-       
+    <div className="PopularPost">
+      {/* Theme/Palette Fixed Side Action Indicator */}
+      <div className="PopularPost-palette-sticky">
+        <IoColorPaletteSharp />
       </div>
 
-      {/* 2. Page Layout wrapper */}
-      <div className="PopularPost-layout-wrapper">
-        <div className="PopularPost-grid">
+      <div className="PopularPost-container">
+        
+        {/* ================= LEFT MAIN CONTENT REGION ================= */}
+        <main className="PopularPost-main-content">
           
-          {/* LEFT SIDEBAR (Sticky) */}
-          <aside className="PopularPost-sidebar">
-            <div className="PopularPost-sidebar-inner">
-              
-              {/* Widget: Search */}
-              
-
-              {/* Widget: Category */}
-             
-
-              {/* Widget: Popular Post list */}
-              <div className="PopularPost-widget">
-                <h3 className="PopularPost-widget-title">Popular Post</h3>
-                <div className="PopularPost-wave-divider"></div>
-                <div className="PopularPost-list">
-                  
-                  <div className="PopularPost-item">
-                    <img src={thumb3} alt="Thumb 1" className="PopularPost-item-img" />
-                    <div className="PopularPost-item-info">
-                      <span className="PopularPost-item-date"><FaCalendarAlt /> August 17, 2021</span>
-                      <h4 className="PopularPost-item-title">PACKAGED WATER: WHAT THINGS TO CONSIDER?</h4>
-                    </div>
-                  </div>
-
-                  <div className="PopularPost-item">
-                    <img src={thumb1} alt="Thumb 2" className="PopularPost-item-img" />
-                    <div className="PopularPost-item-info">
-                      <span className="PopularPost-item-date"><FaCalendarAlt /> August 17, 2021</span>
-                      <h4 className="PopularPost-item-title">DISCOVER THE BEAUTIES OF BULK BOTTLED WATER</h4>
-                    </div>
-                  </div>
-
-                  <div className="PopularPost-item">
-                    <img src={thumb2} alt="Thumb 3" className="PopularPost-item-img" />
-                    <div className="PopularPost-item-info">
-                      <span className="PopularPost-item-date"><FaCalendarAlt /> August 17, 2021</span>
-                      <h4 className="PopularPost-item-title">AGUAPURE WATER: NEVER WAIT FOR RAIN AGAIN</h4>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              {/* Widget: Tag Cloud */}
-              <div className="PopularPost-widget">
-                <h3 className="PopularPost-widget-title">Tag Cloud</h3>
-                <div className="PopularPost-wave-divider"></div>
-                <div className="PopularPost-tag-cloud">
-                  <span>Bottle</span>
-                  <span>Coolers</span>
-                  <span>Delivery</span>
-                  <span>Home</span>
-                  <span>Mineral</span>
-                  <span>Office</span>
-                  <span>Safety</span>
-                  <span>Sports</span>
-                  <span>Water Quality</span>
-                </div>
-              </div>
-
-              {/* Widget: Subscribe Us Box */}
-              <div className="PopularPost-widget">
-                <h3 className="PopularPost-widget-title">Subscribe Us</h3>
-                <div className="PopularPost-wave-divider"></div>
-                <div className="PopularPost-subscribe-card">
-                  <div className="PopularPost-subscribe-icon-wrap">
-                    <FaRegEnvelopeOpen className="PopularPost-subscribe-icon" />
-                  </div>
-                  <h3>Subscribe Us</h3>
-                  <p>Subscribe us &amp; get latest news &amp; articles to inbox.</p>
-                  <input type="email" placeholder="email address" className="PopularPost-subscribe-input" />
-                  <button className="PopularPost-subscribe-btn">SUBSCRIBE</button>
-                </div>
-              </div>
-
-            </div>
-          </aside>
-
-          {/* RIGHT BLOG CONTENT LIST */}
-          <main className="PopularPost-main-content">
+          {/* Article Card Wrapper */}
+          <article className="PopularPost-article-card">
             
-            {/* Post 1 */}
-           
-            {/* Post 2 */}
-            <article className="PopularPost-card">
-              <div className="PopularPost-card-image-wrapper">
-                <img src={post2Img} alt="Water Coolers App" className="PopularPost-card-img" />
-                <div className="PopularPost-post-badge"><FaFolderOpen /> WATER COOLERS</div>
+            {/* Header Image with Tag Banner Overlay */}
+            <div className="PopularPost-main-img-container">
+              <img src={mainBlogImg} alt="Water Bottles" className="PopularPost-main-img" />
+              <div className="PopularPost-badge">
+                <span className="PopularPost-badge-icon">📁</span> LATEST NEWS
               </div>
-              <div className="PopularPost-card-body">
-                <h2 className="PopularPost-card-title">Top Benefits of Having Our Mobile App</h2>
-                <div className="PopularPost-card-meta">
-                  <span><FaCalendarAlt /> August 21, 2021</span>
-                  <span><FaUser /> By admin</span>
-                  <span><FaRegComment /> 0 Comments</span>
-                </div>
-                <p className="PopularPost-card-excerpt">
-                  To take a trivial example which of ever undertakes laborious cases are perfectly simple and 
-                  easy to distinguish. In a free hour, when our power. Foresee the pain and trouble that are 
-                  bound ensue and equal blame belongs our power of choice untrammelled [...]
+            </div>
+
+            {/* Meta Attributes Panel */}
+            <div className="PopularPost-meta-row">
+              <span className="PopularPost-meta-item">
+                <FaCalendarAlt className="PopularPost-meta-icon" /> August 12, 2021
+              </span>
+              <span className="PopularPost-meta-divider">|</span>
+              <span className="PopularPost-meta-item">
+                <FaUser className="PopularPost-meta-icon" /> By admin
+              </span>
+              <span className="PopularPost-meta-divider">|</span>
+              <span className="PopularPost-meta-item">
+                <FaRegComment className="PopularPost-meta-icon" /> 0 Comments
+              </span>
+            </div>
+
+            {/* Article Paragraphs */}
+            <p className="PopularPost-paragraph">
+              That they cannot forest the pain trouble that are bound to ensue equal. Foresee the pain and trouble that are bound ensue and equal blame belongs our power of choice untrammelled and when nothing prevents what like best we denounces righteous indignation and dislike men christmas beguiled and demoralized by the charms of pleasure of the moment so that they cannot foresee the pain and trouble that are bound to ensue.
+            </p>
+
+            <h2 className="PopularPost-section-heading">Experience the Difference</h2>
+            
+            <p className="PopularPost-paragraph">
+              Bound ensue and equal blame belongs our power of choice untrammelled when nothing prevents what like best we denounces righteous indignation and dislike men christmas beguiled demoralized by the charms of pleasure of the moment.
+            </p>
+            <p className="PopularPost-paragraph">
+              Indignation and dislike men who are so beguiled and demoralized the charms of pleasure moment so blinded by desire, that they cannot foresee the pain and trouble.
+            </p>
+            <p className="PopularPost-paragraph">
+              Fault with a man who chooses to enjoy a pleasure that annoying consequences who avoids.
+            </p>
+
+            {/* Quote Blockout Section */}
+            <blockquote className="PopularPost-quote-block">
+              <div className="PopularPost-quote-icon-box">
+                <ImQuotesLeft className="PopularPost-quote-svg" />
+              </div>
+              <div className="PopularPost-quote-text-container">
+                <p className="PopularPost-quote-text">
+                  A river seems a magic thing. A magic, moving, living part of the very earth itself.
                 </p>
-                <a href="#read" className="PopularPost-readmore-link"><FaArrowRight /> READ MORE</a>
+                <cite className="PopularPost-quote-author">STEPHEN JONES</cite>
               </div>
-            </article>
+            </blockquote>
 
-            {/* Post 3 */}
-            <article className="PopularPost-card">
-              <div className="PopularPost-card-image-wrapper">
-                <img src={post3Img} alt="Hydration Tips" className="PopularPost-card-img" />
-                <div className="PopularPost-post-badge"><FaFolderOpen /> BOTTLED WATER</div>
+            <h2 className="PopularPost-section-heading">Is Safe to Drink?</h2>
+            
+            <p className="PopularPost-paragraph">
+              Mistaken idea of denouncing pleasure and praising pain was born and we will give you a complete account of the systems, and expounds the actual teachings of the great explorers of the truth that master-builder of human happiness one rejects dislikes.
+            </p>
+
+            {/* Custom Icon List Group */}
+            <ul className="PopularPost-feature-list">
+              <li className="PopularPost-feature-item">
+                <span className="PopularPost-list-bullet"><TfiClose /></span>
+                Obligations of business it will frequently occur that pleasures.
+              </li>
+              <li className="PopularPost-feature-item">
+                <span className="PopularPost-list-bullet"><TfiClose /></span>
+                Foresee the pain and trouble that are bound.
+              </li>
+              <li className="PopularPost-feature-item">
+                <span className="PopularPost-list-bullet"><TfiClose /></span>
+                Foresee the pain and trouble that are bound.
+              </li>
+              <li className="PopularPost-feature-item">
+                <span className="PopularPost-list-bullet"><TfiClose /></span>
+                Foresee the pain and trouble that are bound.
+              </li>
+            </ul>
+
+            {/* Tags & Social Share Footer Row */}
+            <div className="PopularPost-share-bar">
+              <div className="PopularPost-tags-inline">
+                <span className="PopularPost-label">Tags:</span>
+                <span className="PopularPost-pill-tag">Coolers</span>
+                <span className="PopularPost-pill-tag">Sports</span>
               </div>
-              <div className="PopularPost-card-body">
-                <h2 className="PopularPost-card-title">Five Tips to Keep Your Body Hydrated</h2>
-                <div className="PopularPost-card-meta">
-                  <span><FaCalendarAlt /> August 21, 2021</span>
-                  <span><FaUser /> By admin</span>
-                  <span><FaRegComment /> 0 Comments</span>
+              <div className="PopularPost-social-inline">
+                <span className="PopularPost-label">Share:</span>
+                <a href="#/" className="PopularPost-social-circle"><FaFacebookF /></a>
+                <a href="#/" className="PopularPost-social-circle"><FaTwitter /></a>
+                <a href="#/" className="PopularPost-social-circle"><FaLinkedinIn /></a>
+                <a href="#/" className="PopularPost-social-circle"><FaPinterestP /></a>
+              </div>
+            </div>
+
+            {/* Next Post Navigation Bar */}
+            <div className="PopularPost-nav-link-box">
+              <span className="PopularPost-nav-sub">NEXT POST <FaArrowRight className="PopularPost-nav-arrow" /></span>
+              <h4 className="PopularPost-nav-title">Top Benefits of Having Our Mobile App</h4>
+            </div>
+
+          </article>
+
+          {/* Author Card Profile */}
+          <div className="PopularPost-author-card">
+            <div className="PopularPost-author-avatar-box">
+              <img src={authorAvatar} alt="Admin" className="PopularPost-author-avatar" />
+            </div>
+            <div className="PopularPost-author-info">
+              <h3 className="PopularPost-author-name">admin</h3>
+              <p className="PopularPost-author-bio">
+                They cannot foresee the pain and trouble that are bound to ensue and equal blame belongs to those who fail in their duty through all weakness of will, which is the same as saying.
+              </p>
+              <div className="PopularPost-author-socials">
+                <a href="#/"><FaFacebookF /></a>
+                <a href="#/"><FaInstagram /></a>
+                <a href="#/"><FaSkype /></a>
+                <a href="#/"><FaTwitter /></a>
+              </div>
+            </div>
+          </div>
+
+        </main>
+
+        {/* ================= RIGHT UNIFIED SIDEBAR ================= */}
+        <aside className="PopularPost-sidebar">
+          
+          {/* 1. Search Block */}
+          <div className="PopularPost-widget">
+            <h3 className="PopularPost-widget-title">Search</h3>
+            <div className="PopularPost-wave-decoration">
+              <svg viewBox="0 0 56 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 4.5C3.5 4.5 5.5 1.5 8 1.5C10.5 1.5 12.5 4.5 15 4.5C17.5 4.5 19.5 1.5 22 1.5C24.5 1.5 26.5 4.5 29 4.5C31.5 4.5 33.5 1.5 36 1.5C38.5 1.5 40.5 4.5 43 4.5C45.5 4.5 47.5 1.5 50 1.5C52.5 1.5 54.5 4.5 57 4.5" stroke="#00C3FF" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div className="PopularPost-search-box">
+              <input 
+                type="text" 
+                placeholder="Search" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="PopularPost-search-input" 
+              />
+              <button className="PopularPost-search-btn">
+                <FaSearch />
+              </button>
+            </div>
+            
+            <div className="PopularPost-widget-wave-divider"></div>
+          </div>
+
+          {/* 2. Category Block */}
+          <div className="PopularPost-widget">
+            <h3 className="PopularPost-widget-title">Category</h3>
+            <div className="PopularPost-wave-decoration">
+              <svg viewBox="0 0 56 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 4.5C3.5 4.5 5.5 1.5 8 1.5C10.5 1.5 12.5 4.5 15 4.5C17.5 4.5 19.5 1.5 22 1.5C24.5 1.5 26.5 4.5 29 4.5C31.5 4.5 33.5 1.5 36 1.5C38.5 1.5 40.5 4.5 43 4.5C45.5 4.5 47.5 1.5 50 1.5C52.5 1.5 54.5 4.5 57 4.5" stroke="#00C3FF" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <ul className="PopularPost-category-list">
+              {categories.map((cat, index) => (
+                <li key={index} className="PopularPost-category-item">
+                  {cat}
+                </li>
+              ))}
+            </ul>
+
+            <div className="PopularPost-widget-wave-divider"></div>
+          </div>
+
+          {/* 3. Popular Posts Block */}
+          <div className="PopularPost-widget">
+            <h3 className="PopularPost-widget-title">Popular Post</h3>
+            <div className="PopularPost-wave-decoration">
+              <svg viewBox="0 0 56 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 4.5C3.5 4.5 5.5 1.5 8 1.5C10.5 1.5 12.5 4.5 15 4.5C17.5 4.5 19.5 1.5 22 1.5C24.5 1.5 26.5 4.5 29 4.5C31.5 4.5 33.5 1.5 36 1.5C38.5 1.5 40.5 4.5 43 4.5C45.5 4.5 47.5 1.5 50 1.5C52.5 1.5 54.5 4.5 57 4.5" stroke="#00C3FF" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div className="PopularPost-sidebar-posts">
+              {popularPostsList.map((post) => (
+                <div key={post.id} className="PopularPost-item">
+                  <div className="PopularPost-img-container">
+                    <img src={post.image} alt={post.title} className="PopularPost-thumb" />
+                  </div>
+                  <div className="PopularPost-info">
+                    <div className="PopularPost-date-wrapper">
+                      <FaCalendarAlt className="PopularPost-calendar-icon" />
+                      <span className="PopularPost-date">{post.date}</span>
+                    </div>
+                    <h4 className="PopularPost-title">{post.title}</h4>
+                  </div>
                 </div>
-                <p className="PopularPost-card-excerpt">
-                  Foresee the pain and trouble that are bound ensue and equal blame belongs our power of 
-                  choice untrammelled and when nothing prevents what like best we denounces righteous 
-                  indignation and dislike men christmas beguiled and demoralized by the charms of pleasure 
-                  of the moment so that they cannot foresee the pain and trouble that are [...]
-                </p>
-                <a href="#read" className="PopularPost-readmore-link"><FaArrowRight /> READ MORE</a>
+              ))}
+            </div>
+
+            <div className="PopularPost-widget-wave-divider"></div>
+          </div>
+
+          {/* 4. Tag Cloud Block */}
+          <div className="PopularPost-widget">
+            <h3 className="PopularPost-widget-title">Tag Cloud</h3>
+            <div className="PopularPost-wave-decoration">
+              <svg viewBox="0 0 56 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 4.5C3.5 4.5 5.5 1.5 8 1.5C10.5 1.5 12.5 4.5 15 4.5C17.5 4.5 19.5 1.5 22 1.5C24.5 1.5 26.5 4.5 29 4.5C31.5 4.5 33.5 1.5 36 1.5C38.5 1.5 40.5 4.5 43 4.5C45.5 4.5 47.5 1.5 50 1.5C52.5 1.5 54.5 4.5 57 4.5" stroke="#00C3FF" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div className="PopularPost-tags-cloud">
+              {tags.map((tag, index) => (
+                <span key={index} className="PopularPost-cloud-pill">{tag}</span>
+              ))}
+            </div>
+
+            <div className="PopularPost-widget-wave-divider"></div>
+          </div>
+
+          {/* 5. Subscribe Widget Block */}
+          <div className="PopularPost-widget">
+            <h3 className="PopularPost-widget-title">Subscribe Us</h3>
+            <div className="PopularPost-wave-decoration">
+              <svg viewBox="0 0 56 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 4.5C3.5 4.5 5.5 1.5 8 1.5C10.5 1.5 12.5 4.5 15 4.5C17.5 4.5 19.5 1.5 22 1.5C24.5 1.5 26.5 4.5 29 4.5C31.5 4.5 33.5 1.5 36 1.5C38.5 1.5 40.5 4.5 43 4.5C45.5 4.5 47.5 1.5 50 1.5C52.5 1.5 54.5 4.5 57 4.5" stroke="#00C3FF" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div className="PopularPost-subscribe-card">
+              <div className="PopularPost-sub-icon-circle">
+                <HiOutlineMailOpen />
               </div>
-            </article>
+              <h4 className="PopularPost-sub-title">Subscribe Us</h4>
+              <p className="PopularPost-sub-desc">Subscribe us & get latest news & articles to inbox.</p>
+              
+              <div className="PopularPost-sub-form">
+                <input 
+                  type="email" 
+                  placeholder="email address" 
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  className="PopularPost-sub-input" 
+                />
+                <button className="PopularPost-sub-btn">SUBSCRIBE</button>
+              </div>
+            </div>
+          </div>
 
-          </main>
+        </aside>
 
-        </div>
       </div>
     </div>
   );
