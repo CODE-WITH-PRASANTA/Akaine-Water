@@ -49,7 +49,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/plan" element={<PricingAndPlans />} />
-        <Route path="/blogdetails" element={<BlogDetails/>}/>
+        <Route path="/blogdetails/:id" element={<BlogDetails/>}/>
 
         {/* Pricing */}
         <Route

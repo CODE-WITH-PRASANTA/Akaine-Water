@@ -1,171 +1,201 @@
-import React from 'react';
-import './PopularPost.css';
-import { 
-  FaSearch, 
-  FaCalendarAlt, 
-  FaUser, 
-  FaRegComment, 
-  FaArrowRight, 
-  FaFolderOpen, 
-  FaRegEnvelopeOpen 
-} from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import "./PopularPost.css";
 
-// Import images from your src/assets folder
-import bannerImg from '../../assets/popular1.jpg';       // Main Top Banner background
-import post1Img from '../../assets/popular1.jpg';       // Image for 1st Blog Post
-import post2Img from '../../assets/popular1.jpg';    // Image for 2nd Blog Post (laptop/pitcher)
-import post3Img from '../../assets/popular2.jpg'; // Image for 3rd Blog Post (blue water bottles)
+import {
+  FaCalendarAlt,
+  FaUser,
+  FaRegComment,
+  FaArrowRight,
+  FaFolderOpen,
+  FaRegEnvelopeOpen,
+  FaSearch
+} from "react-icons/fa";
 
-// Sidebar small thumbnails
-import thumb1 from '../../assets/popular2.jpg';
-import thumb2 from '../../assets/blog-v3-1.jpg';
-import thumb3 from '../../assets/blog-v3-4.jpg';
+import { useNavigate } from "react-router-dom";
+import API, { IMG_URL } from "../../api/axios";
 
 const PopularPost = () => {
+  const navigate = useNavigate();
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // ================= FETCH BLOGS =================
+  const fetchBlogs = async () => {
+    try {
+      const res = await API.get("/blog/all");
+      if (res.data.success) {
+        setBlogs(res.data.blogs);
+      }
+    } catch (error) {
+      console.log("Popular blog error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  // ================= DATE FORMAT =================
+  const formatDate = (date) => {
+    if (!date) return "Recent";
+    return new Date(date).toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
+  // ================= TEXT CLEAN =================
+  const shortText = (text) => {
+    if (!text) return "";
+    return text.replace(/<[^>]*>?/gm, "").slice(0, 220) + "...";
+  };
+
+  // Latest 3 sidebar posts
+  const popularBlogs = blogs.slice(0, 3);
+
   return (
     <div className="PopularPost-container">
-      {/* 1. Header Banner */}
-      <div 
-        className="PopularPost-banner" 
-        style={{ backgroundImage: `url(${bannerImg})` }}
-      >
-       
-      </div>
-
-      {/* 2. Page Layout wrapper */}
       <div className="PopularPost-layout-wrapper">
         <div className="PopularPost-grid">
-          
-          {/* LEFT SIDEBAR (Sticky) */}
+          {/* ================= SIDEBAR ================= */}
           <aside className="PopularPost-sidebar">
             <div className="PopularPost-sidebar-inner">
-              
-              {/* Widget: Search */}
-              
-
-              {/* Widget: Category */}
-             
-
-              {/* Widget: Popular Post list */}
+              {/* POPULAR POST */}
               <div className="PopularPost-widget">
-                <h3 className="PopularPost-widget-title">Popular Post</h3>
-                <div className="PopularPost-wave-divider"></div>
+                <h3 className="PopularPost-widget-title">Popular Posts</h3>
+                <div className="PopularPost-wave-divider" />
+
                 <div className="PopularPost-list">
-                  
-                  <div className="PopularPost-item">
-                    <img src={thumb3} alt="Thumb 1" className="PopularPost-item-img" />
-                    <div className="PopularPost-item-info">
-                      <span className="PopularPost-item-date"><FaCalendarAlt /> August 17, 2021</span>
-                      <h4 className="PopularPost-item-title">PACKAGED WATER: WHAT THINGS TO CONSIDER?</h4>
-                    </div>
-                  </div>
-
-                  <div className="PopularPost-item">
-                    <img src={thumb1} alt="Thumb 2" className="PopularPost-item-img" />
-                    <div className="PopularPost-item-info">
-                      <span className="PopularPost-item-date"><FaCalendarAlt /> August 17, 2021</span>
-                      <h4 className="PopularPost-item-title">DISCOVER THE BEAUTIES OF BULK BOTTLED WATER</h4>
-                    </div>
-                  </div>
-
-                  <div className="PopularPost-item">
-                    <img src={thumb2} alt="Thumb 3" className="PopularPost-item-img" />
-                    <div className="PopularPost-item-info">
-                      <span className="PopularPost-item-date"><FaCalendarAlt /> August 17, 2021</span>
-                      <h4 className="PopularPost-item-title">AGUAPURE WATER: NEVER WAIT FOR RAIN AGAIN</h4>
-                    </div>
-                  </div>
-
+                  {loading ? (
+                    <h4>Loading...</h4>
+                  ) : (
+                    popularBlogs.map((item) => (
+                      <div
+                        key={item._id}
+                        className="PopularPost-item"
+                        onClick={() => navigate(`/blogdetails/${item._id}`)}
+                      >
+                        <img
+                          src={`${IMG_URL}${item.image}`}
+                          alt={item.title}
+                          className="PopularPost-item-img"
+                        />
+                        <div className="PopularPost-item-info">
+                          <span className="PopularPost-item-date">
+                            <FaCalendarAlt />
+                            {formatDate(item.date)}
+                          </span>
+                          <h4 className="PopularPost-item-title">
+                            {item.title}
+                          </h4>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
 
-              {/* Widget: Tag Cloud */}
+              {/* TAG CLOUD */}
               <div className="PopularPost-widget">
                 <h3 className="PopularPost-widget-title">Tag Cloud</h3>
-                <div className="PopularPost-wave-divider"></div>
+                <div className="PopularPost-wave-divider" />
                 <div className="PopularPost-tag-cloud">
-                  <span>Bottle</span>
-                  <span>Coolers</span>
-                  <span>Delivery</span>
-                  <span>Home</span>
-                  <span>Mineral</span>
-                  <span>Office</span>
-                  <span>Safety</span>
-                  <span>Sports</span>
-                  <span>Water Quality</span>
+                  {[
+                    "Water",
+                    "Technology",
+                    "Delivery",
+                    "Service",
+                    "Quality",
+                    "Industry",
+                    "Expert",
+                    "Business",
+                  ].map((tag) => (
+                    <span key={tag}>#{tag}</span>
+                  ))}
                 </div>
               </div>
 
-              {/* Widget: Subscribe Us Box */}
+              {/* SUBSCRIBE */}
               <div className="PopularPost-widget">
                 <h3 className="PopularPost-widget-title">Subscribe Us</h3>
-                <div className="PopularPost-wave-divider"></div>
+                <div className="PopularPost-wave-divider" />
                 <div className="PopularPost-subscribe-card">
                   <div className="PopularPost-subscribe-icon-wrap">
                     <FaRegEnvelopeOpen className="PopularPost-subscribe-icon" />
                   </div>
-                  <h3>Subscribe Us</h3>
-                  <p>Subscribe us &amp; get latest news &amp; articles to inbox.</p>
-                  <input type="email" placeholder="email address" className="PopularPost-subscribe-input" />
-                  <button className="PopularPost-subscribe-btn">SUBSCRIBE</button>
+                  <h3>Stay Updated</h3>
+                  <p>Subscribe to get latest articles, news and updates.</p>
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="PopularPost-subscribe-input"
+                  />
+                  <button className="PopularPost-subscribe-btn">
+                    SUBSCRIBE
+                  </button>
                 </div>
               </div>
-
             </div>
           </aside>
 
-          {/* RIGHT BLOG CONTENT LIST */}
+          {/* ================= MAIN BLOG ================= */}
           <main className="PopularPost-main-content">
-            
-            {/* Post 1 */}
-           
-            {/* Post 2 */}
-            <article className="PopularPost-card">
-              <div className="PopularPost-card-image-wrapper">
-                <img src={post2Img} alt="Water Coolers App" className="PopularPost-card-img" />
-                <div className="PopularPost-post-badge"><FaFolderOpen /> WATER COOLERS</div>
-              </div>
-              <div className="PopularPost-card-body">
-                <h2 className="PopularPost-card-title">Top Benefits of Having Our Mobile App</h2>
-                <div className="PopularPost-card-meta">
-                  <span><FaCalendarAlt /> August 21, 2021</span>
-                  <span><FaUser /> By admin</span>
-                  <span><FaRegComment /> 0 Comments</span>
-                </div>
-                <p className="PopularPost-card-excerpt">
-                  To take a trivial example which of ever undertakes laborious cases are perfectly simple and 
-                  easy to distinguish. In a free hour, when our power. Foresee the pain and trouble that are 
-                  bound ensue and equal blame belongs our power of choice untrammelled [...]
-                </p>
-                <a href="#read" className="PopularPost-readmore-link"><FaArrowRight /> READ MORE</a>
-              </div>
-            </article>
+            {loading ? (
+              <h2>Loading Blogs...</h2>
+            ) : blogs.length === 0 ? (
+              <h2>No Blogs Available</h2>
+            ) : (
+              blogs.map((blog) => (
+                <article key={blog._id} className="PopularPost-card">
+                  <div className="PopularPost-card-image-wrapper">
+                    <img
+                      src={`${IMG_URL}${blog.image}`}
+                      alt={blog.title}
+                      className="PopularPost-card-img"
+                    />
+                    <div className="PopularPost-post-badge">
+                      <FaFolderOpen />
+                      {blog.category || "General"}
+                    </div>
+                  </div>
 
-            {/* Post 3 */}
-            <article className="PopularPost-card">
-              <div className="PopularPost-card-image-wrapper">
-                <img src={post3Img} alt="Hydration Tips" className="PopularPost-card-img" />
-                <div className="PopularPost-post-badge"><FaFolderOpen /> BOTTLED WATER</div>
-              </div>
-              <div className="PopularPost-card-body">
-                <h2 className="PopularPost-card-title">Five Tips to Keep Your Body Hydrated</h2>
-                <div className="PopularPost-card-meta">
-                  <span><FaCalendarAlt /> August 21, 2021</span>
-                  <span><FaUser /> By admin</span>
-                  <span><FaRegComment /> 0 Comments</span>
-                </div>
-                <p className="PopularPost-card-excerpt">
-                  Foresee the pain and trouble that are bound ensue and equal blame belongs our power of 
-                  choice untrammelled and when nothing prevents what like best we denounces righteous 
-                  indignation and dislike men christmas beguiled and demoralized by the charms of pleasure 
-                  of the moment so that they cannot foresee the pain and trouble that are [...]
-                </p>
-                <a href="#read" className="PopularPost-readmore-link"><FaArrowRight /> READ MORE</a>
-              </div>
-            </article>
+                  <div className="PopularPost-card-body">
+                    <h2 className="PopularPost-card-title">{blog.title}</h2>
 
+                    <div className="PopularPost-card-meta">
+                      <span>
+                        <FaCalendarAlt />
+                        {formatDate(blog.date)}
+                      </span>
+                      <span>
+                        <FaUser />
+                        {blog.name || "Admin"}
+                      </span>
+                      <span>
+                        <FaRegComment />
+                        {blog.designation || "Blog"}
+                      </span>
+                    </div>
+
+                    <p className="PopularPost-card-excerpt">
+                      {shortText(blog.description)}
+                    </p>
+
+                    <button
+                      className="PopularPost-readmore-link"
+                      onClick={() => navigate(`/blogdetails/${blog._id}`)}
+                    >
+                      <FaArrowRight />
+                      READ MORE
+                    </button>
+                  </div>
+                </article>
+              ))
+            )}
           </main>
-
         </div>
       </div>
     </div>

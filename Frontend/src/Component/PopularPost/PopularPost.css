@@ -2,45 +2,13 @@
 .PopularPost-container {
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: #333333;
-  background-color: #ffffff;
+  background-color: #f8f9fa;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
-/* 1. Header Top Banner */
-
-
-
-.PopularPost-banner-title {
-  font-size: 3.2rem;
-  font-weight: 700;
-  color: #1c2a38;
-  margin: 0 0 10px 0;
-}
-
-.PopularPost-breadcrumbs {
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #666666;
-  display: flex;
-  gap: 8px;
-}
-
-.PopularPost-breadcrumb-home {
-  color: #555555;
-  cursor: pointer;
-}
-
-.PopularPost-breadcrumb-separator {
-  color: #999999;
-}
-
-.PopularPost-breadcrumb-current {
-  color: #333333;
-}
-
-/* 2. Responsive Main Layout */
+/* 1. Responsive Main Layout */
 .PopularPost-layout-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -156,6 +124,8 @@
   gap: 15px;
   border-bottom: 1px solid #f0f0f0;
   padding-bottom: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .PopularPost-item:last-child {
@@ -163,17 +133,23 @@
   padding-bottom: 0;
 }
 
+.PopularPost-item:hover {
+  transform: translateY(-5px);
+}
+
 .PopularPost-item-img {
   width: 75px;
   height: 75px;
   object-fit: cover;
   border-radius: 6px;
+  flex-shrink: 0;
 }
 
 .PopularPost-item-info {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  flex: 1;
 }
 
 .PopularPost-item-date {
@@ -246,7 +222,10 @@
 .PopularPost-subscribe-icon-wrap::after {
   content: '';
   position: absolute;
-  top: -4px; left: -4px; right: -4px; bottom: -4px;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
 }
@@ -307,18 +286,34 @@
 .PopularPost-card {
   background-color: #ffffff;
   border-radius: 8px;
-  padding: 40px;
   overflow: hidden;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.03);
   border: 1px solid #eeeff2;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.PopularPost-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .PopularPost-card-image-wrapper {
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
+.PopularPost-card-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
 
+.PopularPost-card:hover .PopularPost-card-img {
+  transform: scale(1.03);
+}
 
 .PopularPost-post-badge {
   position: absolute;
@@ -335,7 +330,9 @@
   gap: 6px;
 }
 
-
+.PopularPost-card-body {
+  padding: 30px;
+}
 
 .PopularPost-card-title {
   font-size: 1.9rem;
@@ -376,6 +373,11 @@
   font-size: 0.8rem;
   text-decoration: none;
   letter-spacing: 0.5px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+  transition: color 0.3s ease;
 }
 
 .PopularPost-readmore-link:hover {
@@ -383,9 +385,15 @@
 }
 
 /* 4. Devices Responsiveness Breakpoints */
+@media (max-width: 1200px) {
+  .PopularPost-layout-wrapper {
+    padding: 40px 20px;
+  }
+}
+
 @media (max-width: 992px) {
   .PopularPost-grid {
-    flex-direction: column-reverse; /* Sidebar moves under on tablet/mobile views */
+    flex-direction: column-reverse;
     gap: 60px;
   }
 
@@ -403,13 +411,82 @@
   }
 }
 
-@media (max-width: 576px) {
-  
-  .PopularPost-banner-title {
-    font-size: 2.2rem;
+@media (max-width: 768px) {
+  .PopularPost-card-body {
+    padding: 20px;
   }
-  
+
   .PopularPost-card-title {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+  }
+
+  .PopularPost-card-img {
+    height: 220px;
+  }
+
+  .PopularPost-card-meta {
+    gap: 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .PopularPost-layout-wrapper {
+    padding: 30px 15px;
+  }
+
+  .PopularPost-card-title {
+    font-size: 1.2rem;
+  }
+
+  .PopularPost-card-img {
+    height: 180px;
+  }
+
+  .PopularPost-card-body {
+    padding: 15px;
+  }
+
+  .PopularPost-card-excerpt {
+    font-size: 0.85rem;
+  }
+
+  .PopularPost-item-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .PopularPost-subscribe-card {
+    padding: 30px 20px;
+  }
+
+  .PopularPost-subscribe-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .PopularPost-sidebar-inner {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .PopularPost-card-title {
+    font-size: 1rem;
+  }
+
+  .PopularPost-card-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .PopularPost-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .PopularPost-item-img {
+    width: 80px;
+    height: 80px;
   }
 }
