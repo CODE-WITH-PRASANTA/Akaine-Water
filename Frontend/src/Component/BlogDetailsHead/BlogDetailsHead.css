@@ -1,0 +1,329 @@
+/* Base Container Styles */
+.BlogDetailsHead-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+/* 1. Header/Banner Styling */
+.BlogDetailsHead-banner {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 320px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.BlogDetailsHead-banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7); /* Translucent light overlay */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.BlogDetailsHead-banner-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 10px 0;
+}
+
+.BlogDetailsHead-breadcrumbs {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #666666;
+  display: flex;
+  gap: 8px;
+}
+
+.BlogDetailsHead-breadcrumb-home {
+  color: #555555;
+  cursor: pointer;
+}
+
+.BlogDetailsHead-breadcrumb-separator {
+  color: #999999;
+}
+
+.BlogDetailsHead-breadcrumb-current {
+  color: #444444;
+}
+
+/* 2. Main Layout Grid Setup */
+.BlogDetailsHead-layout-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.BlogDetailsHead-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+/* Sticky Sidebar styling */
+.BlogDetailsHead-sidebar {
+  flex: 0 0 300px;
+  width: 300px;
+}
+
+.BlogDetailsHead-sidebar-inner {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 30px; /* Adjust this value depending on top navigation bars */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background-color: #ffffff;
+  border-left: 2px solid #02a9df; /* Bright blue accent border shown in mockup */
+  padding-left: 25px;
+}
+
+/* Widgets & Wavy Decorative Dividers */
+.BlogDetailsHead-widget-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1c2a38;
+  margin: 0 0 8px 0;
+}
+
+/* Wavy underline using an inline SVG repeat pattern to perfectly replicate the mockup */
+.BlogDetailsHead-wave-divider {
+  width: 50px;
+  height: 6px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4' width='16' height='4'%3E%3Cpath d='M0,3 Q5,0 10,3 T20,3' fill='none' stroke='%2302a9df' stroke-width='2'/%3E%3C/svg%3E") repeat-x;
+  margin-bottom: 25px;
+}
+
+/* Search Box styling */
+.BlogDetailsHead-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.BlogDetailsHead-search-box input {
+  width: 100%;
+  padding: 14px 50px 14px 20px;
+  border: 1px solid #eef2f5;
+  border-radius: 30px;
+  background-color: #f4f7f9;
+  font-size: 0.95rem;
+  color: #333333;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.BlogDetailsHead-search-box input:focus {
+  border-color: #02a9df;
+  box-shadow: 0 0 8px rgba(2, 169, 223, 0.1);
+}
+
+.BlogDetailsHead-search-btn {
+  position: absolute;
+  right: 6px;
+  background-color: #004d9c; /* Dark blue button styling */
+  border: none;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.BlogDetailsHead-search-btn:hover {
+  background-color: #02a9df;
+}
+
+/* Category styling */
+.BlogDetailsHead-category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.BlogDetailsHead-category-list li {
+  border-bottom: 1px solid #ededed;
+}
+
+.BlogDetailsHead-category-list li:last-child {
+  border-bottom: none;
+}
+
+.BlogDetailsHead-category-list a {
+  display: block;
+  padding: 14px 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #777777;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.BlogDetailsHead-category-list a:hover {
+  color: #02a9df;
+}
+
+/* 3. Main Content Card Area styling */
+.BlogDetailsHead-main-content {
+  flex: 1;
+}
+
+.BlogDetailsHead-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+}
+
+.BlogDetailsHead-card-image-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.BlogDetailsHead-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition-delay: .1s;
+ transition-timing-function: ease-in-out;
+transition-duration: .7s;
+transition-property: all;
+}
+
+/* Category badge styled relative inside the card image wrapper */
+.BlogDetailsHead-post-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #00539c; /* Blue background */
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* Card Body Content styling */
+
+
+.BlogDetailsHead-card-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 15px 0;
+  line-height: 1.3;
+}
+
+/* Meta Tags styling */
+.BlogDetailsHead-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  color: #888888;
+}
+
+.BlogDetailsHead-card-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.BlogDetailsHead-card-excerpt {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #666666;
+  margin-bottom: 25px;
+}
+
+/* Read More Button Link */
+.BlogDetailsHead-readmore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #1a1a1a;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  letter-spacing: 1px;
+}
+
+.BlogDetailsHead-readmore-link:hover {
+  color: #02a9df;
+}
+
+.BlogDetailsHead-readmore-link svg {
+  font-size: 0.9rem;
+}
+
+/* 4. Responsive Media Queries */
+@media (max-width: 992px) {
+  .BlogDetailsHead-grid {
+    flex-direction: column-reverse; /* Put sidebar below the blog details on tablets */
+    gap: 50px;
+  }
+
+  .BlogDetailsHead-sidebar {
+    width: 100%;
+    flex: none;
+  }
+
+  .BlogDetailsHead-sidebar-inner {
+    position: static;
+    border-left: none;
+    border-top: 2px solid #02a9df;
+    padding-left: 0;
+    padding-top: 25px;
+  }
+
+  .BlogDetailsHead-banner-title {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .BlogDetailsHead-banner {
+    height: 240px;
+  }
+
+  .BlogDetailsHead-banner-title {
+    font-size: 2.2rem;
+  }
+
+
+
+  .BlogDetailsHead-card-title {
+    font-size: 1.45rem;
+  }
+}
