@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import API, { IMG_URL } from "../../api/axios";
 import './Testiminial.css';
 
 const Testiminial = () => {
@@ -12,115 +13,162 @@ const Testiminial = () => {
   
   // REAL RATING TRICK: Initialize to 0 so all stars start completely empty
   const [rating, setRating] = useState(0); 
-  const [imagePreview, setImagePreview] = useState('');
+  const [imagePreview, setImagePreview] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [hoverRating, setHoverRating] = useState(0);
 
   // Controller states for editing modes
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState(null);
 
-  // Pagination Controller Engine State (5 rows per page)
+  // Pagination Controller Engine State (6 rows per page)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6; 
 
-  // Local File Upload Stream Conversion
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        alert("File size bounds exceed the 2MB capability limit!");
-        return;
+  // Fetch testimonials on load
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    try {
+      const res = await API.get("/testimonial");
+
+      if (res.data.success) {
+        setTestimonials(res.data.data);
       }
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  // Process and Submit Active Record Matrix
-  const handleSubmit = (e) => {
+  // Local File Upload Stream Conversion with safety rules applied
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Image size must be less than 2MB");
+      return;
+    }
+
+    setImageFile(file);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  // Process and Submit Active Record Matrix via Server API Connections
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Form field mandatory evaluations
-    if (!imagePreview) {
-      alert("Profile picture is mandatory!");
-      return;
-    }
-    if (!name.trim()) {
-      alert("Name field is mandatory!");
-      return;
-    }
-    if (!address.trim()) {
-      alert("Address field is mandatory!");
-      return;
-    }
-    if (rating === 0) {
-      alert("Please select a star rating between 1 and 5!");
-      return;
-    }
-    if (!description.trim()) {
-      alert("Description/Feedback text is mandatory!");
-      return;
+
+    if (!name.trim()) return alert("Name is required");
+    if (!address.trim()) return alert("Address is required");
+    if (!description.trim()) return alert("Description is required");
+    if (rating === 0) return alert("Select rating");
+
+    if (!imageFile && !isEditing) {
+      return alert("Image is required");
     }
 
-    if (isEditing) {
-      // Modify record update sequence
-      setTestimonials(testimonials.map(item => 
-        item.id === currentId 
-          ? { ...item, name: name.trim(), address: address.trim(), description: description.trim(), rating, image: imagePreview }
-          : item
-      ));
-      setIsEditing(false);
-      setCurrentId(null);
-    } else {
-      // Generation setup routine
-      const newTestimonial = {
-        id: Date.now(),
-        name: name.trim(),
-        address: address.trim(),
-        description: description.trim(),
-        rating,
-        image: imagePreview
-      };
-      setTestimonials([...testimonials, newTestimonial]);
-    }
+    try {
+      setLoading(true);
 
-    resetForm();
+      const formData = new FormData();
+
+      formData.append("name", name);
+      formData.append("address", address);
+      formData.append("description", description);
+      formData.append("rating", rating);
+
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
+      if (isEditing) {
+        await API.put(
+          `/testimonial/${currentId}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      } else {
+        await API.post(
+          "/testimonial",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      }
+
+      fetchTestimonials();
+      resetForm();
+    } catch (error) {
+      console.log(error);
+      alert("Operation failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Populate form input elements for modifying records
   const handleEdit = (item) => {
     setIsEditing(true);
-    setCurrentId(item.id);
+
+    setCurrentId(item._id);
+
     setName(item.name);
     setAddress(item.address);
     setDescription(item.description);
     setRating(item.rating);
-    setImagePreview(item.image);
+
+    setImagePreview(
+      `${IMG_URL}/testimonial/${item.image}`
+    );
+
+    setImageFile(null);
   };
 
-  // Purge selected record from current hooks list state tree
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this customer testimonial?")) {
-      const filtered = testimonials.filter(item => item.id !== id);
-      setTestimonials(filtered);
-      
-      const totalPages = Math.ceil(filtered.length / itemsPerPage);
-      if (currentPage > totalPages && totalPages > 0) {
-        setCurrentPage(totalPages);
-      }
+  // Purge selected record from live system hooks array
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Delete this testimonial?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/testimonial/${id}`);
+
+      fetchTestimonials();
+    } catch (error) {
+      console.log(error);
     }
   };
 
   // Restore defaults to baseline form settings
   const resetForm = () => {
-    setName('');
-    setAddress('');
-    setDescription('');
-    setRating(0); // Clear stars completely on cancel/reset
-    setImagePreview('');
+    setName("");
+    setAddress("");
+    setDescription("");
+    setRating(0);
+
+    setImagePreview("");
+    setImageFile(null);
+
     setIsEditing(false);
     setCurrentId(null);
   };
@@ -219,7 +267,6 @@ const Testiminial = () => {
                       key={starIndex}
                       className={`star-button ${(hoverRating || rating) >= starIndex ? 'star-filled' : 'star-empty'}`}
                       onClick={() => setRating(starIndex)}
-                      // onMouseEnter={() => setHoverRating(starIndex)}
                       onMouseLeave={() => setHoverRating(0)}
                     >
                       ★
@@ -245,10 +292,10 @@ const Testiminial = () => {
                 ></textarea>
               </div>
 
-              {/* Form Action Controls Container Buttons with Hovers */}
+              {/* Form Action Controls Container Buttons */}
               <div className="testimonial-action-buttons-row">
-                <button type="submit" className="testimonial-btn testimonial-btn-submit">
-                  {isEditing ? 'Update Review' : 'Submit'}
+                <button type="submit" disabled={loading} className="testimonial-btn testimonial-btn-submit">
+                  {loading ? 'Processing...' : isEditing ? 'Update Review' : 'Submit'}
                 </button>
                 <button type="button" onClick={resetForm} className="testimonial-btn testimonial-btn-cancel">
                   Cancel
@@ -280,11 +327,20 @@ const Testiminial = () => {
                 <tbody>
                   {currentItems.length > 0 ? (
                     currentItems.map((item, index) => (
-                      <tr key={item.id}>
+                      <tr key={item._id}>
                         <td>{indexOfFirstItem + index + 1}</td>
                         <td>
                           <div className="testimonial-table-preview-wrapper">
-                            <img src={item.image} alt={item.name} className="testimonial-table-avatar" />
+                            <img
+                              src={`${IMG_URL}/testimonial/${item.image}`}
+                              alt={item.name}
+                              className="testimonial-table-avatar"
+                              onError={(e) => {
+                                // Fallback option if your server stores upload folder directly without explicit directory prefixes
+                                if (!e.target.src.includes('/testimonial/')) return;
+                                e.target.src = `${IMG_URL}/uploads/${item.image}`;
+                              }}
+                            />
                           </div>
                         </td>
                         <td className="testimonial-bold-cell">{item.name}</td>
@@ -296,7 +352,7 @@ const Testiminial = () => {
                         <td>
                           <div className="testimonial-row-actions">
                             <button onClick={() => handleEdit(item)} className="row-action-btn btn-action-edit">Edit</button>
-                            <button onClick={() => handleDelete(item.id)} className="row-action-btn btn-action-delete">Delete</button>
+                            <button onClick={() => handleDelete(item._id)} className="row-action-btn btn-action-delete">Delete</button>
                           </div>
                         </td>
                       </tr>

@@ -1,0 +1,673 @@
+/* --- Base Theme Setup (White & Blue) --- */
+.customers-container {
+  max-width: 100%;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1e293b;
+}
+
+/* Header & Search UI */
+.customers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.header-title {
+  font-size: 2rem;
+  color: #0b4ab1;
+  margin: 0;
+  font-weight: 700;
+}
+
+.search-wrapper {
+  flex: 1;
+  max-width: 380px;
+  min-width: 260px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  background-color: #ffffff;
+  transition: all 0.25s ease;
+}
+
+.search-input:focus {
+  border-color: #145ad2;
+  box-shadow: 0 0 0 3px rgba(20, 90, 210, 0.15);
+}
+
+/* Customers Stack Layout */
+.customers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Interactive Customer Row Card */
+.customer-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 1.2rem 1.8rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.customer-card:hover {
+  transform: translateY(-2px);
+  border-color: #145ad2;
+  box-shadow: 0 10px 15px -3px rgba(11, 74, 177, 0.08);
+}
+
+.card-left-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.customer-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+  background-color: #f8fafc;
+}
+
+.customer-identity-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 530px;
+  gap: 1.5rem;
+}
+
+.identity-primary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.customer-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.customer-id {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-family: monospace;
+}
+
+.customer-location-middle {
+  font-size: 0.95rem;
+  color: #334155;
+  background-color: #f8fafc;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid #f1f5f9;
+  white-space: nowrap;
+}
+
+.card-right-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: 1.5rem;
+}
+
+.status-badge-pill {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-align: center;
+  min-width: 75px;
+}
+
+.status-badge-pill.active {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.status-badge-pill.inactive {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+/* Actions Menu Trigger styling */
+.action-menu-container {
+  position: relative;
+}
+
+.action-trigger {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 0.2rem 0.6rem;
+  color: #94a3b8;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.action-trigger:hover {
+  color: #145ad2;
+  background: #eff6ff;
+}
+
+.action-dropdown {
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  overflow: hidden;
+  min-width: 140px;
+}
+
+.dropdown-item {
+  width: 100%;
+  border: none;
+  padding: 0.7rem 1rem;
+  background: none;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #334155;
+  cursor: pointer;
+}
+
+.dropdown-item:hover:not(.disabled) {
+  background-color: #eff6ff;
+  color: #145ad2;
+}
+
+.dropdown-item.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Pagination Control rules */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+}
+
+.page-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #334155;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: #145ad2;
+  color: #145ad2;
+  background: #eff6ff;
+}
+
+.page-btn.active {
+  background-color: #145ad2;
+  color: #ffffff;
+  border-color: #145ad2;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --- Exact Image-Matched Popup Details Form --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 1.5rem 1.2rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.85rem;
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #94a3b8;
+  line-height: 1;
+  z-index: 10;
+}
+
+/* Header Section matching Image style layout */
+.modal-user-profile-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-user-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+}
+
+.modal-user-info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-user-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.modal-user-phone {
+  font-size: 0.95rem;
+  color: #334155;
+  font-weight: 600;
+  margin-top: 0.1rem;
+}
+
+.modal-user-sublocation {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.2rem;
+}
+
+/* Details Content Layout wrapper */
+.modal-details-container {
+  margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 0 0 1rem 0;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.payment-method-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.detail-label {
+  color: #475569;
+  font-weight: 600;
+}
+
+.detail-value {
+  color: #0f172a;
+  text-align: right;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.method-type {
+  text-align: left;
+}
+
+/* Branded inline value status highlights */
+.badge-paid {
+  font-size: 0.75rem;
+  background-color: #e0f2fe;
+  color: #2563eb;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+}
+
+/* Three Columns Grid Core Links Row */
+.action-button-grid-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.grid-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem 0.5rem;
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  transition: background 0.2s;
+}
+
+.grid-action-btn:hover {
+  background: #f8fafc;
+}
+
+.grid-action-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.icon-blue { color: #1d4ed8; }
+.icon-green { color: #16a34a; }
+
+/* Secondary Sub-Actions Utility Strip Row */
+.utility-buttons-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.util-btn {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 0.55rem 0.25rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.util-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Large Footer Interactive Primary Trigger Action */
+.footer-submit-btn {
+  width: 100%;
+  background-color: #1d59cc;
+  color: #ffffff;
+  border: none;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(29, 89, 204, 0.2);
+  transition: background 0.2s;
+}
+
+.footer-submit-btn:hover {
+  background-color: #174aa8;
+}
+
+/* --- Sub-Popup Form Custom Alignments --- */
+.form-layout-with-image {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding-bottom: 4.5rem; /* Leaves room for absolute bottom submit button */
+}
+
+.form-left-inputs {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.form-right-graphics {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.5rem;
+  max-width: 120px;
+}
+
+.jar-display-graphic {
+  width: 100px;
+  max-height: 140px;
+  object-fit: contain;
+  opacity: 0.95;
+  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.15));
+}
+
+.jar-display-graphic.handles-variant {
+  width: 105px;
+}
+
+/* Sub Form Controls */
+.sub-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sub-form-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.sub-form-input {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.sub-form-input.static-input {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+  color: #334155;
+  font-weight: 500;
+}
+
+/* Functional Incremental Counter Box */
+.counter-container {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  width: fit-content;
+  background: #ffffff;
+}
+
+.counter-btn {
+  background: none;
+  border: none;
+  padding: 0.4rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.counter-btn:hover {
+  background: #f1f5f9;
+}
+
+.counter-value {
+  padding: 0 0.8rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  min-width: 25px;
+  text-align: center;
+}
+
+/* Total Dynamic Amount Output Label */
+.sub-form-amount {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.sub-form-static-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Styled HTML Select Picker Dropdown */
+.sub-form-select {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #334155;
+  outline: none;
+  cursor: pointer;
+}
+
+/* horizontal Radio Selectors Container */
+.radio-horizontal-group {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+.radio-label-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+}
+
+.radio-label-pill input[type="radio"] {
+  accent-color: #1d59cc;
+  width: 16px;
+  height: 16px;
+}
+
+/* Absolute positioned blue button setup across all modal variants */
+.blue-action-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* --- Mobile Breakpoints Responsive Layout Adjustments --- */
+@media (max-width: 680px) {
+  .customer-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    position: relative;
+    padding: 1.2rem;
+  }
+
+  .card-left-section {
+    width: 100%;
+  }
+
+  .customer-identity-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .card-right-section {
+    width: 100%;
+    margin-left: 0;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+    justify-content: space-between;
+  }
+
+  .action-dropdown {
+    right: 0;
+    bottom: 120%;
+    top: auto;
+  }
+
+  .form-right-graphics {
+    display: none; /* Hide illustrative graphics on tiny mobile layouts */
+  }
+}

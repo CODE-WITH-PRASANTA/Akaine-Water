@@ -1,0 +1,258 @@
+/* QuartzAddToCart.css */
+
+.quartz-container {
+  font-family: sans-serif; /* Start with a base font, adjust as needed */
+  padding: 50px 20px; /* Base padding */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-layout {
+  display: flex;
+  gap: 60px; /* Space between columns */
+  align-items: start;
+}
+
+.image-column {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Center image within its column */
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.details-column {
+  flex: 1;
+  text-align: left; /* Left align text content */
+}
+
+.rating-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: #c90000; /* Red stars */
+}
+
+.star-muted {
+  color: #ddd; /* Muted star */
+}
+
+.review-count {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.product-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.price-section {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.price-symbol {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.price-value {
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.product-description {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.action-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.quantity-selector {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.qty-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.qty-input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  font-size: 1.1rem;
+  padding: 10px 0;
+  moz-appearance: textfield; /* Hide number spinners for Firefox */
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Hide number spinners for Chrome/Safari */
+  margin: 0;
+}
+
+.add-to-cart-btn {
+  background-color: #d92323; /* Original red from image */
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #b91d1d; /* Darker red on hover */
+}
+
+/* Specific user request: make the cart button blue when it's active/working */
+/* Example adding an 'active' state or just applying the colour *instead* */
+/* For this demonstration, we'll make the default state blue as requested, but the reference image was red. */
+/* If the user meant 'the logic works, and the button is blue', we'll make it blue. */
+/* If they wanted to *simulate* a working state with blue, we'd add another class, but 'working in blue colour' implies the button itself is blue and works. */
+/* The base class now has the red from the image. Let's make it blue as requested. */
+/* The original design was a clear design choice. I will adhere to the 'blue color' request. */
+.add-to-cart-btn {
+  background-color: #0056b3; /* A common blue */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #004494; /* Darker blue on hover */
+}
+
+.meta-section {
+  color: #777;
+  font-size: 0.9rem;
+  margin-bottom: 50px;
+}
+
+.meta-item {
+  margin: 5px 0;
+}
+
+.meta-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.info-grid {
+  display: flex;
+  gap: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 40px;
+}
+
+.info-block {
+  flex: 1;
+}
+
+.info-block h3 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.info-block p {
+  color: #555;
+  margin: 5px 0;
+}
+
+.shipping p:last-child {
+  color: #0056b3; /* Blue text from reference for Other Countries */
+}
+
+.payment-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  /* Simplified text icons for demo */
+}
+
+.payment-icons span {
+  font-size: 0.8rem;
+  color: #555;
+  border: 1px solid #ddd;
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .product-layout {
+    flex-direction: column; /* Stack image and details on smaller screens */
+    gap: 40px;
+    align-items: center; /* Center everything */
+  }
+
+  .details-column {
+    text-align: center; /* Center details on smaller screens */
+    width: 100%;
+  }
+
+  .rating-section,
+  .price-section,
+  .action-row,
+  .meta-section,
+  .info-grid {
+    justify-content: center;
+  }
+
+  .info-grid {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .info-block {
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-title {
+    font-size: 2.2rem;
+  }
+
+  .price-value {
+    font-size: 1.8rem;
+  }
+
+  .add-to-cart-btn {
+    width: 100%; /* Full width button on very small screens */
+  }
+}

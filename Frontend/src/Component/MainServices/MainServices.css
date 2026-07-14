@@ -1,0 +1,414 @@
+/* ==========================================================================
+   MainServices Stylesheet (Featuring Increased Card Heights)
+   ========================================================================== */
+
+.MainServices-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 100px 0 160px 0;
+  background-color: #ffffff;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.MainServices-bg-pattern {
+  position: absolute;
+  top: 0;
+  margin-top: 96px;
+  right: 0;
+  width: 54%;
+  height: 100%;
+  background-color: #d1d3d4;
+  border-top-left-radius: 90px;
+  z-index: 1;
+  background-image: radial-gradient(#e2e8f0 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  opacity: 0.7;
+}
+
+.MainServices-container {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  z-index: 2;
+}
+
+/* --- HEADER SEGMENTS --- */
+.MainServices-header {
+  max-width: 520px;
+  margin-bottom: 70px;
+}
+
+.MainServices-subtitle {
+  color: #0056b3;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.MainServices-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.15;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.5px;
+}
+
+.MainServices-wave-divider {
+  width: 65px;
+  height: 14px;
+}
+
+/* --- GRIDS AND ELONGATED CARD DESIGN --- */
+.MainServices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+.MainServices-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  
+  /* Increased layout height properties */
+  min-height: 560px; 
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.MainServices-card-banner {
+  position: relative;
+  height: 205px;
+  background: linear-gradient(135deg, #6fd6f6 0%, #b6dbf8 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  border-bottom-left-radius: 50% 24px;
+  border-bottom-right-radius: 50% 24px;
+}
+
+.MainServices-image-frame {
+  position: relative;
+  width: 156px;
+  height: 156px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  transform: translateY(35px);
+  z-index: 3;
+}
+
+.MainServices-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* --- ICON BADGE HOVER ACTIONS --- */
+.MainServices-icon-badge {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.MainServices-badge-icon {
+  font-size: 1.4rem;
+  color: #0056b3;
+  transition: color 0.3s ease;
+  display: block;
+}
+
+/* Hover States for Cards */
+.MainServices-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.09);
+}
+
+.MainServices-card:hover .MainServices-icon-badge {
+  background-color: #0056b3; 
+  border-color: #ffffff;     
+}
+
+.MainServices-card:hover .MainServices-badge-icon {
+  color: #ffffff;            
+}
+
+/* --- TEXT CONTENT AND INTERIOR SPACE TWEAKS --- */
+.MainServices-card-content {
+  /* Added more bottom/top spacing inside the container padding to extend spatial aesthetics */
+  padding: 65px 30px 45px 30px;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.MainServices-card-content h3 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 16px 0;
+}
+
+.MainServices-card-content p {
+  font-size: 0.96rem;
+  color: #526071;
+  line-height: 1.75;
+  margin: 0 0 32px 0;
+  flex-grow: 1;
+}
+
+.MainServices-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #111111;
+  text-decoration: none;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-top: auto;
+  transition: color 0.2s ease;
+}
+
+.MainServices-link:hover {
+  color: #0056b3;
+}
+
+.MainServices-link-arrow {
+  font-size: 0.7rem;
+}
+
+/* --- SCROLL COMPONENT BUTTON --- */
+.MainServices-scroll-top {
+  position: absolute;
+  bottom: -45px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #0056b3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, background-color 0.2s;
+}
+
+.MainServices-scroll-top:hover {
+  background-color: #f8fafc;
+  transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .MainServices-grid {
+    gap: 24px;
+  }
+  .MainServices-card {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 768px) {
+  .MainServices-wrapper {
+    padding: 60px 0 110px 0;
+  }
+  .MainServices-bg-pattern {
+    width: 100%;
+    height: 65%;
+    top: auto;
+    bottom: 0;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+  
+  }
+  .MainServices-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .MainServices-card {
+    min-height: auto; /* Fallback fluid scaling on pure mobile screens */
+  }
+  .MainServices-header {
+    text-align: center;
+    margin: 0 auto 45px auto;
+  }
+  .MainServices-wave-divider {
+    margin: 0 auto;
+  }
+}  .MainServices-bg-pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.7;
+  
+  /* Highly decreased height to 8px for a super tight vertical gap */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='8' viewBox='0 0 80 8'%3E%3Cpath d='M0 4 Q 20 1, 40 4 T 80 4' fill='none' stroke='%23dbe3ec' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 80px 8px;
+}/* ==========================================================
+   SEO CONTENT SECTION
+========================================================== */
+
+.MainServices-seo-content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 80px auto 0;
+  padding: 0 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.MainServices-seo-content h3 {
+  font-size: clamp(1.8rem, 2vw, 2.4rem);
+  font-weight: 700;
+  color: #0b3d91;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.MainServices-seo-content p {
+  max-width: 900px;
+  margin: 0 auto 18px;
+  color: #5f6368;
+  font-size: 1rem;
+  line-height: 1.9;
+  font-weight: 400;
+}
+
+.MainServices-seo-tags {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 35px;
+}
+
+.MainServices-seo-tags span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 50px;
+  background: #eef6ff;
+  border: 1px solid rgba(0, 86, 179, 0.15);
+  color: #0056b3;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: all 0.35s ease;
+  cursor: default;
+}
+
+.MainServices-seo-tags span:hover {
+  background: #0056b3;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 86, 179, 0.2);
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 992px) {
+  .MainServices-seo-content {
+    margin-top: 70px;
+  }
+
+  .MainServices-seo-content h3 {
+    font-size: 1.9rem;
+  }
+
+  .MainServices-seo-content p {
+    font-size: 0.98rem;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 768px) {
+  .MainServices-seo-content {
+    margin-top: 60px;
+    padding: 0 18px;
+  }
+
+  .MainServices-seo-content h3 {
+    font-size: 1.6rem;
+  }
+
+  .MainServices-seo-content p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .MainServices-seo-tags {
+    gap: 10px;
+  }
+
+  .MainServices-seo-tags span {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .MainServices-seo-content {
+    margin-top: 50px;
+    padding: 0 15px;
+  }
+
+  .MainServices-seo-content h3 {
+    font-size: 1.4rem;
+  }
+
+  .MainServices-seo-content p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+
+  .MainServices-seo-tags {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .MainServices-seo-tags span {
+    padding: 7px 14px;
+    font-size: 0.8rem;
+  }
+}

@@ -1,97 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import './OurTeam.css';
-
-// Importing your local assets
-import ourteam1 from '../../assets/ourteam1.webp';
-import ourteam2 from '../../assets/ourteam2.webp';
-import ourteam3 from '../../assets/ourteam3.webp';
-import ourteam4 from '../../assets/ourteam4.webp';
-import ourteam5 from '../../assets/ourteam5.webp';
-import ourteam6 from '../../assets/ourteam6.webp';
-import ourteam7 from '../../assets/ourteam7.webp';
-import ourteam8 from '../../assets/ourteam8.webp';
+import API, { IMG_URL } from "../../api/axios";
 
 const OurTeam = () => {
-  const teamMembers = [
-    {
-      id: 1,
-      name: 'BALDWIN CALEB',
-      role: 'Founder',
-      image: ourteam1,
-      facebook: 'https://facebook.com',
-      linkedin: 'https://linkedin.com',
-      instagram: 'https://instagram.com',
-    },
-    {
-      id: 2,
-      name: 'DALE HAROLD',
-      role: 'Manager',
-      image: ourteam2,
-      facebook: 'https://facebook.com',
-      linkedin: 'https://linkedin.com',
-      instagram: 'https://instagram.com',
-    },
-    {
-      id: 3,
-      name: 'AMELIA ISABELLA',
-      role: 'Quality Head',
-      image: ourteam3,
-      facebook: 'https://facebook.com',
-      linkedin: 'https://linkedin.com',
-      instagram: 'https://instagram.com',
-    },
-    {
-      id: 4,
-      name: 'FABIAN BARRIE',
-      role: 'Operator',
-      image: ourteam4,
-      facebook: 'https://facebook.com',
-      linkedin: 'https://linkedin.com',
-      instagram: 'https://instagram.com',
-    },
-    {
-      id: 5,
-      name: 'DALE HAROLD',
-      role: 'Manager',
-      image: ourteam5,
-      facebook: 'https://facebook.com',
-      linkedin: 'https://linkedin.com',
-      instagram: 'https://instagram.com',
-    },
-    {
-      id: 6,
-      name: 'FABIAN BARRIE',
-      role: 'Operator',
-      image: ourteam6,
-      facebook: 'https://facebook.com',
-      linkedin: 'https://linkedin.com',
-      instagram: 'https://instagram.com',
-    },
-    {
-      id: 7,
-      name: 'BALDWIN CALEB',
-      role: 'Founder',
-      image: ourteam7,
-      facebook: 'https://facebook.com',
-      linkedin: 'https://linkedin.com',
-      instagram: 'https://instagram.com',
-    },
-    {
-      id: 8,
-      name: 'FABIAN BARRIE',
-      role: 'Operator',
-      image: ourteam8,
-      facebook: 'https://facebook.com',
-      linkedin: 'https://linkedin.com',
-      instagram: 'https://instagram.com',
-    },
-  ];
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchTeamMembers();
+  }, []);
+
+  const fetchTeamMembers = async () => {
+    try {
+      const response = await API.get("/team");
+
+      if (response.data.success) {
+        setTeamMembers(response.data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="team-container">
+        <p>Loading team members...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="team-container">
       <div className="team-grid">
         {teamMembers.map((member) => (
-          <TeamCard key={member.id} member={member} />
+          <TeamCard key={member._id || member.id} member={member} />
         ))}
       </div>
     </div>
@@ -104,7 +49,9 @@ const TeamCard = ({ member }) => {
   return (
     <div className="team-card">
       <div className="image-box">
-        <img src={member.image} alt={member.name} />
+        <img
+          src={`${IMG_URL}/uploads/${member.image}`}
+          alt={member.fullName}/>
 
         {/* Dark overlay */}
         <div className={`dark-overlay ${isShareActive ? 'dimmed' : ''}`}></div>
@@ -170,8 +117,8 @@ const TeamCard = ({ member }) => {
 
         {/* Member Info */}
         <div className="info-box">
-          <h3 className="member-name">{member.name}</h3>
-          <p className="member-role">{member.role}</p>
+          <h3 className="member-name">{member.fullName}</h3>
+          <p className="member-role">{member.designation}</p>
         </div>
       </div>
     </div>

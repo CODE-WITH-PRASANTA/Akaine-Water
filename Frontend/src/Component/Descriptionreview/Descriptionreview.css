@@ -1,0 +1,354 @@
+/* मुख्य कंटेनर - 90% विंडो अलाइनमेंट के लिए */
+.dr-container {
+  max-width: 90%;
+  width: 1320px;
+  margin: 40px auto;
+  padding: 0 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+/* टैब हेडर */
+.dr-tab-header {
+  display: flex;
+  gap: 35px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid transparent;
+}
+
+.dr-tab-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  font-weight: 500;
+  color: #1e3a5f; /* नेवी ब्लूिश हिंट जैसा रेफरेंस में है */
+  cursor: pointer;
+  padding: 0 0 10px 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.dr-tab-btn.active {
+  color: #0d233a;
+}
+
+.dr-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #b02a2a; /* रेफरेंस रेड */
+}
+
+/* टेक्स्ट पैराग्राफ स्टाइल्स */
+.dr-lead-text {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.dr-body-text {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  text-align: justify;
+}
+
+/* ---------------------------------------------------- */
+/* RELATED PRODUCTS SECTION (इमेज 1 डिज़ाइन) */
+/* ---------------------------------------------------- */
+.dr-related-section {
+  margin-top: 60px;
+  padding-top: 20px;
+}
+
+.dr-related-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1a365d;
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.dr-products-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.dr-product-card {
+  flex: 1;
+  min-width: 280px;
+  max-width: 340px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* प्रोडक्ट इमेज और होवर कार्ट इफ़ेक्ट */
+.dr-product-img-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.dr-product-img {
+  max-height: 350px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+/* होवर पर कार्ट सिंबल शो करने के लिए स्टाइल */
+.dr-cart-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dr-product-img-wrapper:hover .dr-cart-overlay {
+  opacity: 1;
+}
+
+.dr-cart-icon {
+  background-color: #cc1e1e;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* प्रोडक्ट डिटेल्स */
+.dr-product-stars {
+  margin-bottom: 8px;
+}
+
+.star {
+  font-size: 16px;
+  margin: 0 1px;
+}
+
+.star.filled { color: #f2b01e; }
+.star.muted { color: #e0e0e0; }
+
+.dr-product-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin: 5px 0 10px 0;
+}
+
+.dr-product-desc {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  padding: 0 10px;
+}
+
+.dr-product-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* ---------------------------------------------------- */
+/* REVIEWS SECTION (इमेज 2 डिज़ाइन) */
+/* ---------------------------------------------------- */
+.dr-existing-review {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 30px;
+  margin-bottom: 50px;
+}
+
+.dr-admin-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.dr-review-details {
+  flex: 1;
+}
+
+.dr-review-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.dr-review-author {
+  font-weight: 700;
+  color: #333;
+}
+
+.dr-review-date {
+  color: #888;
+  font-size: 14px;
+}
+
+.dr-review-stars-display {
+  margin-left: auto;
+  color: #f2b01e;
+  font-size: 14px;
+}
+
+/* Add Review Form Styles */
+.dr-add-review-section {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px auto;
+}
+
+.dr-add-title {
+  font-size: 24px;
+  color: #1a365d;
+  margin-bottom: 8px;
+}
+
+.dr-form-warning {
+  font-size: 14px;
+  color: #cc2e2e;
+  margin-bottom: 25px;
+}
+
+.dr-rating-input-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.dr-rating-label {
+  font-size: 14px;
+  color: #555;
+}
+
+.dr-stars-interactive {
+  display: flex;
+  gap: 5px;
+}
+
+.interactive-star {
+  font-size: 22px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.interactive-star.active {
+  color: #0b2240; /* डार्क ब्लू-ब्लैक स्टार्स जैसे इमेज 2 में हैं */
+}
+
+/* फॉर्म इनपुट्स */
+.dr-review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+}
+
+.dr-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dr-form-group label {
+  font-size: 14px;
+  color: #444;
+}
+
+.dr-form-group textarea,
+.dr-form-group input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 25px; /* पिल-शेप राउंडेड बॉर्डर्स जैसे इमेज में हैं */
+  padding: 12px 20px;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.dr-form-group textarea {
+  border-radius: 20px;
+  resize: vertical;
+}
+
+.dr-form-group textarea:focus,
+.dr-form-group input:focus {
+  border-color: #1a365d;
+}
+
+/* सबमिट बटन वर्किंग इन ब्लू कलर (Blue Submit Button) */
+.dr-submit-btn-blue {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.dr-submit-btn-blue:hover {
+  background-color: #003d82;
+}
+
+/* ---------------------------------------------------- */
+/* RESPONSIVE MEDIA QUERIES */
+/* ---------------------------------------------------- */
+@media (max-width: 900px) {
+  .dr-products-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dr-container {
+    max-width: 95%;
+  }
+  
+  .dr-tab-btn {
+    font-size: 18px;
+  }
+
+  .dr-review-stars-display {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 5px;
+  }
+}
