@@ -15,7 +15,7 @@ const App = () => {
       <Routes>
         {/* Main Layout */}
         <Route path="/" element={<MainLayout />}>
-        <Route path="/emptyreturn"  element={<EmptyReturn/>}/>
+        <Route path="/wdms/empty-return"  element={<EmptyReturn/>}/>
 
          <Route path="/wdms/route-planner" element={<RoutePlanner />} />
 
