@@ -1,0 +1,94 @@
+.dashboardsecond-layout {
+  width: 100%;
+  min-height: 50vh;
+  background-color: #f9f9f9;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.dashboardsecond-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+@media (min-width: 768px) {
+  .dashboardsecond-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.dashboardsecond-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ececec;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 12px;
+}
+
+.icon-box.circle {
+  border-radius: 50%;
+}
+
+/* Specific Card Color Specs */
+.bg-framer { background-color: #ffebe7; }
+.bg-behance { background-color: #fff9e6; }
+.bg-peace { background-color: #ebfcee; }
+.bg-speed { background-color: #ff2d00; }
+
+.icon-framer { color: #ff4122; font-size: 24px; }
+.icon-peace { color: #4cd964; font-size: 24px; }
+.icon-speed { color: #ffffff; font-size: 24px; }
+.behance-text-icon { color: #ffcc00; font-weight: 900; font-size: 26px; letter-spacing: -1px; user-select: none; }
+
+.content-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.badge-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.text-muted { color: #7a7a7a; }
+.text-trend { color: #4cd964; display: flex; align-items: center; gap: 2px; }
+.trend-arrow { font-size: 12px; stroke-width: 3; }
+
+.card-heading {
+  color: #1a1a1a;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 2px 0;
+  letter-spacing: -0.5px;
+}
+
+.card-subheading {
+  color: #9a9a9a;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}

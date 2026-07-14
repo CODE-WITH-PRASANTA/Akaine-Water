@@ -1,0 +1,118 @@
+
+.faq-banner-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px; 
+  background-image: url('../../assets/akin-12.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+
+.faq-banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  z-index: 1;
+}
+
+
+.faq-content-box {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+
+  padding: 20px 40px;
+  border-radius: 12px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 90%;
+}
+
+/* मुख्य बड़ा अक्षर "FAQ" */
+.faq-main-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #222222;
+  margin: 0 0 6px 0;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ब्रेडक्रंब नेविगेशन का स्टाइल */
+.faq-breadcrumb-nav {
+  font-size: 15px;
+  font-weight: 600;
+  color: #555555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* होम बटन का लिंक */
+.faq-home-link {
+  color: #0056b3;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.faq-home-link:hover {
+  color: #003366;
+  text-decoration: underline;
+}
+
+/* ब्रेडक्रंब स्लैश विभाजक */
+.faq-breadcrumb-slash {
+  margin: 0 8px;
+  color: #888888;
+}
+
+/* वर्तमान पेज (Faqs) का टेक्स्ट */
+.faq-current-page {
+  color: #444444;
+}
+
+/* --- रेस्पॉन्सिव सेटिंग्स (Responsive for all devices) --- */
+
+/* टैबलेट और मध्यम स्क्रीन के लिए */
+@media (max-width: 768px) {
+  .faq-banner-wrapper {
+    height: 220px; /* मोबाइल और टैबलेट पर बैनर की हाइट एडजस्ट होगी */
+  }
+  
+  .faq-content-box {
+    padding: 15px 25px;
+    max-width: 85%;
+  }
+  
+  .faq-main-title {
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+  
+  .faq-breadcrumb-nav {
+    font-size: 13px;
+  }
+}
+
+/* छोटे मोबाइल फ़ोन्स के लिए */
+@media (max-width: 480px) {
+  .faq-banner-wrapper {
+    height: 180px;
+  }
+  
+  .faq-main-title {
+    font-size: 24px;
+  }
+}

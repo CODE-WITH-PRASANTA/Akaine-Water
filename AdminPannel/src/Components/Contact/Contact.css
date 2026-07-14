@@ -1,0 +1,265 @@
+/* Core Viewport Container */
+.contact-admin-container {
+  padding: 30px;
+  background-color: #f4f7fc;
+  min-height: 100vh;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Base reset to safeguard alignments */
+.contact-admin-container *, 
+.contact-admin-container *::before, 
+.contact-admin-container *::after {
+  box-sizing: border-box;
+}
+
+.contact-admin-main-title {
+  color: #0f2c59;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+/* Responsive Flexbox Configuration (50% / 50% Desktop distribution) */
+.contact-admin-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Left & Right Container Structural Balancing */
+.contact-form-section, 
+.contact-table-section {
+  width: 50%;
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.contact-section-title {
+  color: #1e40af;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Form Styles */
+.contact-admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-input-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Individual Styles Applied to each input element */
+.contact-field-input, 
+.contact-field-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  outline: none;
+  background-color: #f8fafc;
+  color: #334155;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Specific item adjustments for unique inputs */
+.contact-field-name {
+  border-left: 3px solid #3b82f6;
+}
+
+.contact-field-phone {
+  letter-spacing: 0.5px;
+}
+
+.contact-field-email {
+  border-left: 3px solid #2563eb;
+}
+
+.contact-field-subject {
+  font-weight: 400;
+}
+
+.contact-field-message {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Input Focus Glow states for uniform white & blue design */
+.contact-field-input:focus, 
+.contact-field-textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background-color: #ffffff;
+}
+
+/* Form Action Buttons styling */
+.contact-submit-btn {
+  padding: 12px;
+  background-color: #1d4ed8;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.2s;
+}
+
+.contact-submit-btn:hover {
+  background-color: #1e40af;
+}
+
+.contact-cancel-btn {
+  padding: 9px;
+  background-color: #e2e8f0;
+  color: #334155;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.contact-cancel-btn:hover {
+  background-color: #cbd5e1;
+}
+
+/* Table Area Layout Configurations */
+.contact-table-responsive-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.contact-admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.contact-table-header-row {
+  background-color: #eff6ff;
+  border-bottom: 2px solid #bfdbfe;
+}
+
+.contact-table-th {
+  padding: 12px;
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.contact-table-body-row {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.15s;
+}
+
+.contact-table-body-row:hover {
+  background-color: #f8fafc;
+}
+
+.contact-table-td {
+  padding: 12px;
+  font-size: 13.5px;
+  color: #334155;
+  vertical-align: middle;
+}
+
+/* Utility constraints within structural table components */
+.contact-td-name {
+  color: #0f2c59;
+}
+
+.contact-td-email-block {
+  display: block;
+  font-weight: 500;
+}
+
+.contact-td-phone-block {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.contact-td-message {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-table-td-empty {
+  padding: 24px;
+  text-align: center;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Admin Action Controls */
+.contact-action-btn-group {
+  display: flex;
+  gap: 6px;
+}
+
+.contact-action-edit-btn, 
+.contact-action-delete-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  transition: transform 0.1s;
+}
+
+.contact-action-edit-btn {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.contact-action-edit-btn:hover {
+  background-color: #bfdbfe;
+}
+
+.contact-action-delete-btn {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.contact-action-delete-btn:hover {
+  background-color: #fecaca;
+}
+
+/* Responsive Breakpoint Query Rule (All devices optimization) */
+@media (max-width: 1024px) {
+  .contact-admin-layout {
+    flex-direction: column;
+  }
+  .contact-form-section, 
+  .contact-table-section {
+    width: 100%;
+  }
+}
