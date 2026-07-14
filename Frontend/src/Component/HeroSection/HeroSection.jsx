@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./HeroSection.css";
 
-// Assets
+// Assets (बैकग्राउंड और स्प्लैश)
 import bgImg from "../../assets/bg-img.jpg";
-import waterBottles from "../../assets/water-1.png";
 import waterSplash from "../../assets/main-1.jpg";
+
+// 3 अलग-अलग बोतल इमेजेस इम्पोर्ट करें
+import waterBottles1 from "../../assets/water-1.png"; 
+import waterBottles2 from "../../assets/shop-20.png"; 
+import waterBottles3 from "../../assets/shop-21.png"; 
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // SEO Friendly Hero Content
+  // SEO Friendly Hero Content (इमेज प्रॉपर्टी के साथ)
   const slidesData = [
     {
       id: 1,
@@ -17,6 +21,7 @@ const HeroSection = () => {
       subheading:
         "Alka Drops is a trusted alkaline drinking water brand in Bhubaneswar, delivering clean, mineral-rich, and hygienically packaged water for homes, offices, schools, and businesses.",
       price: "₹25",
+      image: waterBottles1, // पहली इमेज यहाँ असाइन की गई
     },
     {
       id: 2,
@@ -24,6 +29,7 @@ const HeroSection = () => {
       subheading:
         "Enjoy fresh alkaline mineral water with advanced purification technology and doorstep delivery across Bhubaneswar. Pure taste, balanced minerals, and uncompromised quality.",
       price: "₹20",
+      image: waterBottles2, // दूसरी इमेज यहाँ असाइन की गई
     },
     {
       id: 3,
@@ -31,6 +37,7 @@ const HeroSection = () => {
       subheading:
         "Choose Alka Drops for safe, refreshing, and premium bottled water. We proudly serve families, corporate offices, hotels, restaurants, events, and institutions in Bhubaneswar.",
       price: "₹30",
+      image: waterBottles3, // तीसरी इमेज यहाँ असाइन की गई
     },
   ];
 
@@ -72,8 +79,6 @@ const HeroSection = () => {
             <div className="HeroSection-slide" key={slide.id}>
               {/* Left Content */}
               <div className="HeroSection-contentColumn">
-               
-
                 <h1 className="HeroSection-heading">
                   {slide.heading.split("\n").map((line, i) => (
                     <span key={i}>
@@ -86,8 +91,6 @@ const HeroSection = () => {
                 <p className="HeroSection-subheading">
                   {slide.subheading}
                 </p>
-
-                
 
                 <div className="HeroSection-actionsRow">
                   <button className="HeroSection-btnReadMore">
@@ -132,10 +135,10 @@ const HeroSection = () => {
                   }}
                 ></div>
 
-                {/* Bottles */}
+                {/* Dynamic Bottles */}
                 <div className="HeroSection-bottleWrapper">
                   <img
-                    src={waterBottles}
+                    src={slide.image} /* यहाँ अब डायनामिक इमेज लोड होगी */
                     alt="Alka Drops Premium Alkaline Drinking Water Bottles"
                     className="HeroSection-bottlesImage"
                   />
@@ -154,9 +157,6 @@ const HeroSection = () => {
                       Starting Price
                     </span>
                   </div>
-
-                  {/* Floating Tags */}
-                  
                 </div>
               </div>
             </div>
