@@ -1,0 +1,167 @@
+/* Container Base Styles */
+.OurBlog-container {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #ffffff;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Wrapper to constrain layout width */
+.OurBlog-wrapper {
+  width: 100%;
+  max-width: 820px; /* Matches the exact width layout from your reference */
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px; /* Spacing between the list cards */
+}
+
+/* Main Card Style */
+.OurBlog-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f1f3;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Responsive Image Area */
+.OurBlog-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Keeps standard landscape layout */
+  overflow: hidden;
+}
+
+.OurBlog-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Custom Folded-style Badge */
+.OurBlog-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #0050a3; /* Royal Blue */
+  color: #ffffff;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.OurBlog-badge-icon {
+  font-size: 0.85rem;
+}
+
+/* Card Body Area */
+.OurBlog-card-body {
+  padding: 35px 30px;
+}
+
+/* Post Title */
+.OurBlog-card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 14px 0;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+
+/* Metadata Bar */
+.OurBlog-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  font-size: 0.8rem;
+  color: #929396;
+}
+
+.OurBlog-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.OurBlog-meta-icon {
+  font-size: 0.85rem;
+  color: #b0b3b8;
+}
+
+.OurBlog-meta-separator {
+  color: #e0e0e0;
+  font-weight: 300;
+}
+
+/* Excerpt Description Paragraph */
+.OurBlog-card-excerpt {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: #666666;
+  margin: 0 0 25px 0;
+}
+
+/* Read More Custom Trigger button */
+.OurBlog-readmore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #111111;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
+}
+
+.OurBlog-readmore-btn:hover {
+  color: #02a9df; /* Bright Blue Hover state */
+}
+
+.OurBlog-readmore-arrow {
+  font-size: 0.55rem; /* Standard minor play icon size */
+  vertical-align: middle;
+}
+
+/* Mobile responsive breakpoints styling */
+@media (max-width: 768px) {
+  .OurBlog-wrapper {
+    padding: 0 15px;
+    gap: 40px;
+  }
+
+  .OurBlog-card-body {
+    padding: 25px 20px;
+  }
+
+  .OurBlog-card-title {
+    font-size: 1.45rem;
+  }
+
+  .OurBlog-card-meta {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .OurBlog-meta-separator {
+    display: none; /* Hide delimiters on stacked line metadata */
+  }
+
+  .OurBlog-card-meta .OurBlog-meta-item {
+    margin-right: 10px;
+  }
+}
