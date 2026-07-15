@@ -55,13 +55,13 @@ function App() {
 
         {/* Pricing */}
         <Route
-          path="/products/pricing"
+          path="/plan"
           element={<PricingAndPlans />}
         />
 
         {/* Blog */}
         <Route path="/resources/blog" element={<Blog />} />
-         <Route path="/blogdetails" element={<BlogDetails/>}/>
+        <Route path="/blogdetails/:id" element={<BlogDetails />} />
         {/* Resources */}
         <Route path="/resources/team" element={<MainTeam />} />
         <Route path="/resources/gallary" element={<GalaryMain />} />

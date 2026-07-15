@@ -9,6 +9,7 @@ import {
   FiRotateCcw,
 } from "react-icons/fi";
 import API, { IMG_URL } from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 import "./Blog.css";
 
 const BlogBannerBg = "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1600&auto=format&fit=crop&q=80";
@@ -20,6 +21,7 @@ const Blog = () => {
   const [selectedTag, setSelectedTag] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchBlogs();
@@ -156,9 +158,12 @@ const Blog = () => {
                         }}
                       />
                       
-                      <button className="BlogPostCardReadMoreActionBtn">
-                        Read more <span className="BlogPostBtnArrow">&gt;&gt;</span>
-                      </button>
+                     <button
+  className="BlogPostCardReadMoreActionBtn"
+  onClick={() => navigate(`/blogdetails/${post._id}`)}
+>
+  Read more <span className="BlogPostBtnArrow">&gt;&gt;</span>
+</button>
                     </div>
                   </article>
                 ))}

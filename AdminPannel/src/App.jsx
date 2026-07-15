@@ -21,6 +21,10 @@ import DashboardMain from "./Pages/DashboardMain/DashboardMain";
 import ManageStock from "./Components/ManageStock/ManageStock";
 import Paymentmanagement from "./Components/Paymentmanagement/Paymentmanagement";
 import ProductandPrice from "./Components/ProductandPrice/ProductandPrice";
+import InvoiceManagement from "./Components/InvoiceManagement/InvoiceManagement";
+import DeliveryBoyassign from "./Components/DeliveryBoyassign/DeliveryBoyassign";
+import DamagedStock from "./Components/DamagedStock/DamagedStock";
+
 import Expense from "./Components/Expense/Expense";
 import ReportsAnalytics from "./Components/ReportsAnalytics/ReportsAnalytics";
 import Orders from "./Pages/Orders/Orders";
@@ -69,8 +73,11 @@ const App = () => {
           <Route path="/wdms/stock/manage" element={<ManageStock />} />
           <Route path="/wdms/payments" element={<Paymentmanagement/>}/>
           <Route path="/wdms/products-pricing" element={<ProductandPrice/>}/>
+          <Route path="/wdms/assign-delivery" element={<DeliveryBoyassign />} />
+          <Route path="/wdms/damage-stock" element={<DamagedStock />} />
 
           <Route path="/resources/gallery" element={<Gallery />} />
+          <Route path="/invoice" element={<InvoiceManagement />} />
           <Route
             path="/products/testimonials"
             element={<Testiminial />}
