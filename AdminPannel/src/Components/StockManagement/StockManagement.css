@@ -1,0 +1,499 @@
+/* Container Base Settings Layout */
+.stock-management-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Header Content Row Layout styling */
+.stock-management-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stock-management-title-block h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.6rem;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.stock-management-title-block p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.stock-management-global-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.stock-management-btn-export, 
+.stock-management-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stock-management-btn-export {
+  background-color: #ffffff;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.stock-management-btn-export:hover {
+  background-color: #f1f5f9;
+}
+
+.stock-management-btn-primary {
+  background-color: #0b57d0;
+  color: #ffffff;
+  border: none;
+}
+
+.stock-management-btn-primary:hover {
+  background-color: #0842a0;
+}
+
+/* Four Column Grid Statistics KPIs */
+.stock-management-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stock-management-kpi-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stock-management-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Palette variations according to reference */
+.stock-management-icon-wrapper.blue-theme { background-color: #e8f0fe; color: #1a73e8; }
+.stock-management-icon-wrapper.green-theme { background-color: #e6f4ea; color: #137333; }
+.stock-management-icon-wrapper.purple-theme { background-color: #f3e8ff; color: #7e22ce; }
+.stock-management-icon-wrapper.orange-theme { background-color: #fef7e0; color: #b06000; }
+
+.stock-management-rupee-symbol {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.stock-management-kpi-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.stock-management-kpi-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.stock-management-kpi-details h3 {
+  margin: 2px 0;
+  font-size: 1.4rem;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.stock-management-kpi-subtext {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Control and Filter Toolbar Styling Elements */
+.stock-management-filter-wrapper {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px 12px 0 0;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: none;
+}
+
+.stock-management-filter-left-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stock-management-input-icon-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.stock-management-input-icon-group input {
+  padding: 9px 12px 9px 36px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: #475569;
+  background-color: #ffffff;
+  width: 200px;
+}
+
+.field-icon-left {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+}
+
+.pointer-cursor input {
+  cursor: pointer;
+}
+
+.stock-management-dropdown-select {
+  padding: 9px 32px 9px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: #475569;
+  background-color: #ffffff;
+  cursor: pointer;
+  outline: none;
+  min-width: 150px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+}
+
+.stock-management-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.stock-management-search-wrapper input {
+  padding: 9px 12px 9px 36px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  width: 240px;
+  outline: none;
+}
+
+.stock-management-search-icon {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+}
+
+/* Data Table Container and Structure Layout Styles */
+.stock-management-table-container {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-bottom: none;
+  overflow-x: auto;
+}
+
+.stock-management-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 1000px;
+}
+
+.stock-management-data-table th {
+  background-color: #ffffff;
+  color: #1e293b;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 14px 16px;
+  border-bottom: 2px solid #edf2f7;
+}
+
+.stock-management-data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #edf2f7;
+  color: #475569;
+  font-size: 0.88rem;
+  vertical-align: middle;
+}
+
+.stock-management-data-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.stock-management-semibold-text {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.stock-management-products-column {
+  color: #0b57d0;
+}
+
+/* Payment Badges System design */
+.stock-management-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.badge-paid { background-color: #e6f4ea; color: #137333; }
+.badge-partial { background-color: #fef7e0; color: #b06000; }
+.badge-unpaid { background-color: #fce8e6; color: #c5221f; }
+
+/* Table Action Cell Custom Options buttons styling */
+.stock-management-action-cell-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.stock-management-action-btn {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stock-management-action-btn.edit { color: #0b57d0; }
+.stock-management-action-btn.edit:hover { background-color: #e8f0fe; border-color: #1a73e8; }
+.stock-management-action-btn.delete { color: #dc2626; }
+.stock-management-action-btn.delete:hover { background-color: #fce8e6; border-color: #c5221f; }
+
+.stock-management-no-records {
+  text-align: center;
+  padding: 40px !important;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Pagination Control Section layout styling */
+.stock-management-pagination-section {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0 0 12px 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stock-management-pagination-info {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.stock-management-pagination-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.stock-management-pagination-number, 
+.stock-management-pagination-arrow {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #475569;
+  padding: 0 6px;
+  transition: all 0.2s ease;
+}
+
+.stock-management-pagination-number:hover, 
+.stock-management-pagination-arrow:hover {
+  background-color: #f1f5f9;
+}
+
+.stock-management-pagination-number.actively-selected {
+  background-color: #e8f0fe;
+  border-color: #1a73e8;
+  color: #0b57d0;
+  font-weight: 600;
+}
+
+/* Overlay Dialog Form Container Box Styles */
+.stock-management-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.stock-management-modal-dialog {
+  background-color: #ffffff;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 550px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stock-management-modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stock-management-modal-header h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.15rem;
+}
+
+.stock-management-modal-close {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.stock-management-modal-form {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group-row {
+  display: flex;
+  gap: 16px;
+}
+
+.stock-management-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.stock-management-field-wrapper label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.stock-management-field-wrapper input, 
+.stock-management-modal-select {
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.stock-management-field-wrapper input:focus, 
+.stock-management-modal-select:focus {
+  border-color: #0b57d0;
+}
+
+.stock-management-modal-actions-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.btn-secondary-action, 
+.btn-primary-action {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-secondary-action { background-color: #f1f5f9; color: #475569; }
+.btn-primary-action { background-color: #0b57d0; color: #ffffff; }
+
+/* Micro responsive breakdown rule definitions */
+@media (max-width: 1024px) {
+  .stock-management-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .stock-management-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .stock-management-header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .stock-management-filter-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .stock-management-search-wrapper input {
+    width: 100%;
+  }
+  .form-group-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
