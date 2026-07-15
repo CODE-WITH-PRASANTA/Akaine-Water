@@ -5,8 +5,8 @@ import "./App.css";
 import Topbar from "./Component/Topbar/Topbar";
 import Navbar from "./Component/Navbar/Navbar";
 import Footer from "./Component/Footer/Footer";
-import BlogDetailsHead from "./Component/BlogDetailsHead/BlogDetailsHead";
-import BlogDetails from "./Pages/BlogDetails/BlogDetails";
+
+
 
 // Components
 import AkaineGalary from "./Component/AkaineGalary/AkaineGalary";
@@ -29,6 +29,7 @@ import Testimonial from "./Pages/Testimonial/Testimonial";
 import Cart from "./Pages/Cart/Cart";
 import Cheakout from "./Pages/Cheakout/Cheakout";
 import Faq from "./Pages/Faq/Faq";
+import BlogDetails from "./Pages/BlogDetails/BlogDetails";
 
 function App() {
   return (
@@ -49,7 +50,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/plan" element={<PricingAndPlans />} />
-        <Route path="/blogdetails" element={<BlogDetails/>}/>
+        
 
         {/* Pricing */}
         <Route
@@ -59,7 +60,7 @@ function App() {
 
         {/* Blog */}
         <Route path="/resources/blog" element={<Blog />} />
-
+        <Route path="/blogdetails/:id" element={<BlogDetails />} />
         {/* Resources */}
         <Route path="/resources/team" element={<MainTeam />} />
         <Route path="/resources/gallary" element={<GalaryMain />} />
