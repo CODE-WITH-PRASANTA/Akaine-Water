@@ -1,29 +1,31 @@
-/* Color token layout config properties mapping exactly to .waterly template screens */
 :root {
-  --blog-navy: #2c3e50;
-  --blog-red: #d91c1c;
-  --blog-slate: #6e7a8a;
-  --blog-bg-light: #f4f7f9;
+  --blog-navy: #1e293b;
+  --blog-navy-light: #334155;
+  --blog-red: #ef4444;
+  --blog-red-hover: #dc2626;
+  --blog-slate: #64748b;
+  --blog-bg-light: #f8fafc;
   --blog-border-line: #e2e8f0;
+  --blog-shadow-subtle: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --blog-shadow-premium: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .Blog {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--blog-navy);
   background-color: #ffffff;
-  overflow-x: hidden;
   width: 100%;
 }
 
 /* =========================================================
-   COMPONENT 1: HERO SUB BANNER (60vh SPECIFIC HEIGHT WINDOW)
+   COMPONENT 1: HERO SUB BANNER
    ========================================================= */
 .BlogHeaderBanner {
-  height: 60vh;
-  min-height: 400px;
-  width: 100vw;
+  height: 45vh;
+  min-height: 350px;
+  width: 100%;
   position: relative;
-  overflow: hidden;
 }
 
 .BlogHeaderBannerBg {
@@ -40,34 +42,34 @@
 .BlogHeaderBreadcrumbStack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .BlogHeaderPageTitle {
-  font-size: 3.6rem;
-  font-weight: 900;
+  font-size: 3.2rem;
+  font-weight: 800;
   color: #ffffff;
   margin: 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  letter-spacing: -1px;
 }
 
 .BlogBreadcrumbLinksRow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  font-weight: 600;
+  gap: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
   color: #ffffff;
 }
 
 .BlogBreadcrumbLink {
-  color: #cbd5e1;
+  color: #94a3b8;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: var(--transition-smooth);
 }
 
 .BlogBreadcrumbLink:hover {
-  color: var(--blog-red);
+  color: #ffffff;
 }
 
 .BlogBreadcrumbDivider {
@@ -80,119 +82,130 @@
 }
 
 /* =========================================================
-   COMPONENT 2: CORE SIDEBAR & ARTICLES SPLIT LAYOUT
+   COMPONENT 2: SPLIT LAYOUT CORNER
    ========================================================= */
 .BlogMainLayoutSection {
   width: 100%;
-  padding: 90px 10%;
+  padding: 80px 10%;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: #fafafa;
 }
 
 .BlogMainLayoutContainer {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 60px;
+  gap: 50px;
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Left Content Posts Stack Column CSS styling fields */
+/* Left Area Grid Layout */
 .BlogPostsContentGrid {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 40px;
 }
 
 .BlogResponsiveCardsStack {
   display: flex;
   flex-direction: column;
-  gap: 45px;
+  gap: 40px;
 }
 
 .BlogPostCardItem {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(44, 62, 80, 0.04);
+  box-shadow: var(--blog-shadow-subtle);
   border: 1px solid var(--blog-border-line);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: var(--transition-smooth);
 }
 
 .BlogPostCardItem:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
+  transform: translateY(-6px);
+  box-shadow: var(--blog-shadow-premium);
 }
 
 .BlogPostCardImageFrame {
   position: relative;
   width: 100%;
-  height: 380px;
+  height: 400px;
   overflow: hidden;
+  background-color: #ebebeb;
 }
 
 .BlogPostCoreAssetImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .BlogPostCardItem:hover .BlogPostCoreAssetImage {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .BlogPostCategoryFloatingTag {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background-color: var(--blog-red);
+  top: 20px;
+  right: 20px;
+  background-color: var(--blog-navy);
   color: #ffffff;
   padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
 .BlogPostCardDetailsContent {
-  padding: 30px;
+  padding: 40px;
 }
 
 .BlogPostMetaDetailsStrip {
   display: flex;
   align-items: center;
   gap: 24px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
 }
 
 .BlogPostMetaElement {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.88rem;
+  gap: 8px;
+  font-size: 0.85rem;
   color: var(--blog-slate);
   font-weight: 500;
 }
 
 .BlogPostMetaIcon {
   color: var(--blog-red);
+  font-size: 1rem;
 }
 
 .BlogPostCardHeadlineTitle {
-  font-size: 1.8rem;
-  font-weight: 800;
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--blog-navy);
-  margin: 0 0 14px 0;
+  margin: 0 0 16px 0;
   line-height: 1.3;
+  transition: color 0.2s ease;
+}
+
+.BlogPostCardHeadlineTitle:hover {
+  color: var(--blog-red);
 }
 
 .BlogPostCardSnippetText {
-  font-size: 0.98rem;
+  font-size: 1rem;
   color: var(--blog-slate);
-  line-height: 1.6;
-  margin: 0 0 24px 0;
+  line-height: 1.7;
+  margin: 0 0 28px 0;
 }
 
 .BlogPostCardReadMoreActionBtn {
@@ -204,32 +217,30 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   padding: 0;
-  transition: color 0.2s ease;
+  transition: var(--transition-smooth);
 }
 
 .BlogPostCardReadMoreActionBtn:hover {
   color: var(--blog-red);
+  gap: 12px;
 }
 
-.BlogPostBtnArrow {
-  font-size: 0.75rem;
-  font-weight: 900;
-}
-
-/* Custom Nav Pagination Layout Controls Row */
+/* Pagination Segment Layout */
 .BlogPaginationContainer {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
   margin-top: 20px;
 }
 
-.BlogPaginationNavArrow {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+.BlogPaginationNavArrow, 
+.BlogPaginationNumberBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   border: 1px solid var(--blog-border-line);
   background-color: #ffffff;
   color: var(--blog-navy);
@@ -237,8 +248,8 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  transition: var(--transition-smooth);
 }
 
 .BlogPaginationNavArrow:disabled {
@@ -247,22 +258,9 @@
 }
 
 .BlogPaginationNavArrow:not(:disabled):hover {
-  border-color: var(--blog-navy);
   background-color: var(--blog-navy);
   color: #ffffff;
-}
-
-.BlogPaginationNumberBtn {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 1px solid var(--blog-border-line);
-  background-color: #ffffff;
-  color: var(--blog-navy);
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  border-color: var(--blog-navy);
 }
 
 .BlogPaginationNumberBtn:hover, 
@@ -270,34 +268,47 @@
   background-color: var(--blog-red) !important;
   border-color: var(--blog-red) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(217, 28, 28, 0.2);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
 }
 
-/* Right Sidebar Filters Element Panel Layout */
+/* =========================================================
+   RIGHT SIDEBAR ELEMENTS
+   ========================================================= */
 .BlogSidebarWidgetsStack {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
 }
 
 .BlogSidebarWidgetCard {
-  background-color: var(--blog-bg-light);
+  background-color: #ffffff;
   padding: 30px;
-  border-radius: 12px;
-  box-sizing: border-box;
+  border-radius: 20px;
+  border: 1px solid var(--blog-border-line);
+  box-shadow: var(--blog-shadow-subtle);
 }
 
 .BlogWidgetSectionHeading {
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: 1.2rem;
+  font-weight: 700;
   color: var(--blog-navy);
-  margin: 0 0 25px 0;
+  margin: 0 0 20px 0;
   position: relative;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--blog-border-line);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--blog-bg-light);
 }
 
-/* Search widget field input logic block adjustments */
+.BlogWidgetSectionHeading::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: var(--blog-red);
+}
+
+/* Search widget field */
 .BlogSearchFieldInputWrapper {
   position: relative;
   width: 100%;
@@ -305,70 +316,77 @@
 
 .BlogWidgetSearchInputElement {
   width: 100%;
-  padding: 16px 55px 16px 24px;
-  border-radius: 40px;
+  padding: 14px 50px 14px 20px;
+  border-radius: 12px;
   border: 1px solid var(--blog-border-line);
-  background-color: #ffffff;
+  background-color: var(--blog-bg-light);
   font-size: 0.95rem;
   outline: none;
   box-sizing: border-box;
   color: var(--blog-navy);
+  transition: var(--transition-smooth);
+}
+
+.BlogWidgetSearchInputElement:focus {
+  border-color: var(--blog-navy-light);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(51, 65, 85, 0.08);
 }
 
 .BlogWidgetSearchIconButton {
   position: absolute;
-  right: 6px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
-  background-color: var(--blog-navy);
-  color: #ffffff;
+  background: none;
+  color: var(--blog-slate);
   border: none;
-  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.05rem;
-  transition: background-color 0.2s ease;
+  font-size: 1.1rem;
 }
 
-.BlogWidgetSearchIconButton:hover {
-  background-color: var(--blog-red);
-}
-
-/* Recent posts widget card elements design configuration */
+/* Recent posts */
 .BlogSidebarRecentPostsRowsList {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .BlogSidebarMiniPostRowItem {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--blog-bg-light);
+}
+
+.BlogSidebarMiniPostRowItem:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .BlogSidebarMiniPostThumbnail {
-  width: 70px;
-  height: 70px;
+  width: 64px;
+  height: 64px;
   object-fit: cover;
-  border-radius: 8px;
-  background-color: #e2e8f0;
+  border-radius: 10px;
+  background-color: var(--blog-bg-light);
 }
 
 .BlogSidebarMiniPostMetaBlock {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
+  flex: 1;
 }
 
 .BlogSidebarMiniPostTitle {
   font-size: 0.95rem;
-  font-weight: 700;
-  line-height: 1.3;
+  font-weight: 600;
+  line-height: 1.4;
   margin: 0;
   color: var(--blog-navy);
   cursor: pointer;
@@ -376,6 +394,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: var(--transition-smooth);
 }
 
 .BlogSidebarMiniPostTitle:hover {
@@ -385,34 +404,44 @@
 .BlogSidebarMiniPostDate {
   font-size: 0.8rem;
   color: var(--blog-slate);
-  font-weight: 500;
 }
 
-/* Category rows selection logic rules lists mapping layout */
+/* Category structure lists */
 .BlogSidebarCategoriesListContainer {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
 }
 
 .BlogSidebarCategoryListItemRow {
   display: flex;
   align-items: center;
   font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--blog-slate);
+  font-weight: 500;
+  color: var(--blog-navy-light);
   cursor: pointer;
-  transition: all 0.2s ease;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: var(--transition-smooth);
+}
+
+.BlogSidebarCategoryListItemRow:hover {
+  background-color: var(--blog-bg-light);
+  color: var(--blog-red);
+}
+
+.selectedCategoryItem {
+  background-color: rgba(239, 68, 68, 0.08) !important;
+  color: var(--blog-red) !important;
+  font-weight: 600;
 }
 
 .BlogCategoryArrowSymbol {
   font-size: 0.75rem;
-  color: var(--blog-red);
-  margin-right: 10px;
-  font-weight: bold;
+  margin-right: 12px;
 }
 
 .BlogCategoryLabelText {
@@ -420,294 +449,105 @@
 }
 
 .BlogCategoryCounterBadge {
-  color: #94a3b8;
+  color: var(--blog-slate);
   font-size: 0.85rem;
 }
 
-.BlogSidebarCategoryListItemRow:hover, 
-.selectedCategoryItem {
-  color: var(--blog-red) !important;
-}
-
-/* Tags cloud list structure block items badges */
+/* Tags Cloud Flex Layout */
 .BlogSidebarTagsCloudFlexGroup {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .BlogSidebarIndividualTagBadge {
-  background-color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 6px;
+  background-color: var(--blog-bg-light);
+  padding: 6px 14px;
+  border-radius: 8px;
   font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--blog-slate);
+  font-weight: 500;
+  color: var(--blog-navy-light);
   cursor: pointer;
-  border: 1px solid var(--blog-border-line);
-  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  transition: var(--transition-smooth);
 }
 
-.BlogSidebarIndividualTagBadge:hover, 
+.BlogSidebarIndividualTagBadge:hover {
+  background-color: #ffffff;
+  border-color: var(--blog-border-line);
+  color: var(--blog-red);
+}
+
 .activeTagBadge {
-  background-color: var(--blog-navy);
-  color: #ffffff;
-  border-color: var(--blog-navy);
+  background-color: var(--blog-red) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
 }
 
+/* Empty UI State */
 .BlogNoResultsFoundCard {
   text-align: center;
-  padding: 60px 20px;
-  border: 1px dashed var(--blog-border-line);
-  border-radius: 12px;
+  padding: 60px 40px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 2px dashed var(--blog-border-line);
+}
+
+.NoResultsIconContainer {
+  font-size: 2.5rem;
+  color: var(--blog-slate);
+  margin-bottom: 16px;
+}
+
+.BlogNoResultsFoundCard h3 {
+  font-size: 1.4rem;
+  margin: 0 0 8px 0;
+}
+
+.BlogNoResultsFoundCard p {
+  color: var(--blog-slate);
+  margin: 0 0 24px 0;
 }
 
 .BlogResetFilterBtn {
-  background-color: var(--blog-red);
+  background-color: var(--blog-navy);
   color: white;
   border: none;
-  padding: 10px 24px;
-  border-radius: 20px;
-  margin-top: 15px;
-  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.BlogResetFilterBtn:hover {
+  background-color: var(--blog-red);
 }
 
 /* =========================================================
-   COMPONENT 3: UTILITY FOOTER COMPONENT (60vh EXACT BLOCK)
+   RESPONSIVE MATRIX MEDIA OVERRIDES
    ========================================================= */
-.BlogMainApplicationFooter {
-  min-height: 60vh;
-  /* width: 100vw; */
-  background-color: var(--blog-bg-light);
-  /* padding: 80px 10% 30px 10%; */
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  border-top: 1px solid var(--blog-border-line);
-}
-
-.BlogFooterColumnsLayoutGrid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr;
-  gap: 40px;
-  width: 100%;
-}
-
-.BlogFooterBrandIdentityColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.BlogFooterBrandLogoHeadline {
-  font-size: 2.4rem;
-  font-weight: 900;
-  color: var(--blog-navy);
-  margin: 0;
-  letter-spacing: -1px;
-}
-
-.BlogFooterBrandShortDescription {
-  font-size: 0.95rem;
-  color: var(--blog-slate);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.BlogFooterSocialIconMediaRow {
-  display: flex;
-  gap: 15px;
-}
-
-.BlogFooterSocialMediaCircleAnchor {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--blog-navy);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.BlogFooterSocialMediaCircleAnchor:hover {
-  background-color: var(--blog-red);
-  color: #ffffff;
-  transform: translateY(-3px);
-}
-
-.BlogFooterColumnHeadlineTitle {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--blog-navy);
-  margin: 0 0 25px 0;
-}
-
-.BlogFooterLinksWrapperUl {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.BlogFooterLinksWrapperUl li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
-}
-
-.BlogFooterLinkArrowIndicator {
-  color: var(--blog-red);
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-.BlogFooterLinksWrapperUl a {
-  color: var(--blog-slate);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.BlogFooterLinksWrapperUl a:hover,
-.BlogFooterActiveRouteLink {
-  color: var(--blog-red) !important;
-}
-
-/* Core grid layout details stack metrics values */
-.BlogFooterContactBlockRowItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  margin-bottom: 22px;
-}
-
-.BlogFooterSquareIconContainerBadge {
-  width: 40px;
-  height: 40px;
-  background-color: var(--blog-red);
-  color: #ffffff;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.BlogFooterStackedTextDetailsBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.BlogFooterContactMiniLabel {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--blog-slate);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.BlogFooterContactCoreDetailValue {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--blog-navy);
-  line-height: 1.4;
-}
-
-/* Base horizontal copyright row bar rules */
-.BlogFooterBottomBaseCopyrightSegment {
-  border-top: 1px solid var(--blog-border-line);
-  padding-top: 25px;
-  margin-top: 50px;
-  width: 100%;
-}
-
-.BlogFooterCopyrightLeftMetaText {
-  font-size: 0.9rem;
-  color: var(--blog-slate);
-}
-
-.BlogFooterHighlightThemesBrandTextLink {
-  color: var(--blog-red);
-  font-weight: 600;
-}
-
-.BlogFooterPurchaseActionCopyrightTextLink {
-  color: var(--blog-slate);
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-/* Back scroll to top floating button item configuration triggers */
-.BlogFloatingFixedScrollToTopBtn {
-  position: absolute;
-  bottom: 25px;
-  right: 10%;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  background-color: var(--blog-red);
-  color: #ffffff;
-  border: none;
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(217, 28, 28, 0.35);
-  transition: all 0.3s ease;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.BlogFloatingFixedScrollToTopBtn:hover {
-  background-color: var(--blog-navy);
-  transform: translateY(-4px);
-}
-
-/* =========================================================
-   RESPONSIVE RENDERING OVERRIDES QUERY MATRIX
-   ========================================================= */
-@media (max-width: 1150px) {
+@media (max-width: 1200px) {
   .BlogMainLayoutContainer {
     grid-template-columns: 1fr;
-    gap: 50px;
-  }
-  .BlogFooterColumnsLayoutGrid {
-    grid-template-columns: 1fr 1fr;
     gap: 40px;
+  }
+  .BlogMainLayoutSection {
+    padding: 60px 5%;
   }
 }
 
 @media (max-width: 768px) {
   .BlogHeaderPageTitle {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
   }
   .BlogPostCardImageFrame {
-    height: 260px;
+    height: 280px;
+  }
+  .BlogPostCardDetailsContent {
+    padding: 24px;
   }
   .BlogPostCardHeadlineTitle {
-    font-size: 1.5rem;
-  }
-  .BlogMainLayoutSection, .BlogMainApplicationFooter {
-    padding: 60px 5% 30px 5%;
-  }
-  .BlogFooterColumnsLayoutGrid {
-    grid-template-columns: 1fr;
-  }
-  .BlogFloatingFixedScrollToTopBtn {
-    right: 5%;
+    font-size: 1.6rem;
   }
 }

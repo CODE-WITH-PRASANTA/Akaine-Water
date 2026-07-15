@@ -19,6 +19,7 @@ import BlogManagement from "./Components/BlogManagement/BlogManagement";
 
 import DashboardMain from "./Pages/DashboardMain/DashboardMain";
 import ManageStock from "./Components/ManageStock/ManageStock";
+import InvoiceManagement from "./Components/InvoiceManagement/InvoiceManagement";
 
 const App = () => {
   return (
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/wdms/stock/manage" element={<ManageStock />} />
 
           <Route path="/resources/gallery" element={<Gallery />} />
+          <Route path="/invoice" element={<InvoiceManagement />} />
           <Route
             path="/products/testimonials"
             element={<Testiminial />}
