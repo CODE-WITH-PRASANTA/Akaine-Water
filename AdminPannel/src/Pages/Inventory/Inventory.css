@@ -1,0 +1,170 @@
+/* Scoped Component Design Token Ecosystem variables */
+:root {
+  --inv-blue-primary: #1d4ed8;
+  --inv-blue-hover: #1e40af;
+  --inv-surface-base: #ffffff;
+  --inv-surface-alt: #f8fafc;
+  --inv-border-color: #e2e8f0;
+  
+  --inv-txt-main: #0f172a;
+  --inv-txt-muted: #64748b;
+  
+  /* Layout Metrics Hex Colors matching exact dashboard images */
+  --color-calibrated: #1d4ed8;
+  --color-washed: #15803d;
+  --color-ready: #16a34a;
+  --color-broken: #dc2626;
+  --color-missing: #e11d48;
+}
+
+/* Master Layout Frame Container Wrapper */
+.inv-dashboard {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 100%;
+  margin: 24px auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Metrics Top Summary Bar layout configuration */
+.inv-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.inv-metric-card {
+  background-color: var(--inv-surface-base);
+  border: 1px solid var(--inv-border-color);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+  text-align: center;
+}
+
+.inv-metric-card__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--inv-txt-muted);
+}
+
+.inv-metric-card__value {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Custom Modifiers for Metrics Value classes */
+.inv-metric-card__value--calibrated { color: var(--color-calibrated); }
+.inv-metric-card__value--washed { color: var(--color-washed); }
+.inv-metric-card__value--ready { color: var(--color-ready); }
+.inv-metric-card__value--broken { color: var(--color-broken); }
+.inv-metric-card__value--missing { color: var(--color-missing); }
+
+/* Main Lower Display Container Element Card */
+.inv-content-card {
+  background-color: var(--inv-surface-base);
+  border: 1px solid var(--inv-border-color);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+}
+
+/* Data Distribution Grid Table presentation structures */
+.inv-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+.inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 600px;
+}
+
+.inv-table th {
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--inv-txt-muted);
+  border-bottom: 1px solid var(--inv-border-color);
+  background-color: transparent;
+}
+
+.inv-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: var(--inv-txt-main);
+  border-bottom: 1px solid #f1f5f9;
+  font-weight: 500;
+}
+
+.inv-table__row:hover {
+  background-color: var(--inv-surface-alt);
+}
+
+/* Column Specific Structural weights overrides */
+.inv-cell-title {
+  font-weight: 600;
+  color: var(--inv-txt-main);
+}
+
+.inv-cell-highlight {
+  font-weight: 600;
+}
+
+/* Action Trigger Element Button Footer blocks alignment */
+.inv-footer-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.inv-footer-action__btn {
+  background-color: var(--inv-blue-primary);
+  color: #ffffff;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 10px rgba(29, 78, 216, 0.15);
+}
+
+.inv-footer-action__btn:hover {
+  background-color: var(--inv-blue-hover);
+}
+
+.inv-footer-action__btn:active {
+  transform: scale(0.99);
+}
+
+/* Mobile Responsive Breakpoints Layout updates */
+@media (max-width: 768px) {
+  .inv-metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .inv-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .inv-content-card {
+    padding: 14px;
+  }
+}

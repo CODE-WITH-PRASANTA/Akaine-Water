@@ -18,7 +18,9 @@ import {
   BarChart3,     // Added for Report Analysis
   Map,           // Added for Route Management
   Car,           // Added for Vehicle
-  Settings       // Added for Settings
+  Settings,       // Added for Settings
+  BookmarkCheckIcon,
+  BoxIcon
 } from "lucide-react";
 import './Sidebar.css';
 
@@ -95,6 +97,12 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
     { type: 'link', icon: <Map size={20} />, text: 'Route Management', path: '/wdms/route-management' },
 
     { type: 'link', icon: <Car size={20} />, text: 'Vehicle Management', path: '/wdms/vehicles' },
+
+    { type: 'link', icon: <BookOpen size={20} />, text: 'Invoice Management', path: '/wdms/invoice' },
+
+    { type: 'link', icon: <BookmarkCheckIcon size={20} />, text: 'Damage Stock Management', path: '/wdms/damage-stock' },
+
+    { type: 'link', icon: <BoxIcon size={20} />, text: 'Supplier Management', path: '/wdms/supplier' },
 
     { type: 'link', icon: <BarChart3 size={20} />, text: 'Report Analysis', path: '/wdms/reports' },
 

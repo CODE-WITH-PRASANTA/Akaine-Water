@@ -21,6 +21,12 @@ import DashboardMain from "./Pages/DashboardMain/DashboardMain";
 import ManageStock from "./Components/ManageStock/ManageStock";
 import Paymentmanagement from "./Components/Paymentmanagement/Paymentmanagement";
 import ProductandPrice from "./Components/ProductandPrice/ProductandPrice";
+import Expense from "./Components/Expense/Expense";
+import ReportsAnalytics from "./Components/ReportsAnalytics/ReportsAnalytics";
+import Orders from "./Pages/Orders/Orders";
+import CustomerManage from "./Pages/CustomerManage/CustomerManage";
+import RouteManagement from "./Pages/RouteManagement/RouteManagement";
+import Inventory from "./Pages/Inventory/Inventory";
 
 const App = () => {
   return (
@@ -30,7 +36,8 @@ const App = () => {
         <Route element={<MainLayout />}>
           {/* Home */}
           <Route path="/" element={<Testimonial />} />
-
+          <Route path="wdms/expenses" element={<Expense/>}/>
+          <Route path="wdms/reports" element={<ReportsAnalytics/>}/>
           {/* Main Pages */}
           <Route path="/team" element={<OurTeam />} />
           <Route path="/gallery" element={<Gallery />} />
@@ -52,6 +59,10 @@ const App = () => {
           <Route path="/products/testimonials" element={<Testiminial />} />
           <Route path="/shop" element={<ShopPosting />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/wdms/orders" element={<Orders />} />
+          <Route path="/wdms/customer" element={<CustomerManage/>} />
+          <Route path="/wdms/route-management" element={<RouteManagement/>} />
+          <Route path="/wdms/inventory" element={<Inventory/>} />
 
 
           <Route path="/wdms/dashboard" element={<DashboardMain />} />
