@@ -33,6 +33,7 @@ import RouteManagement from "./Pages/RouteManagement/RouteManagement";
 import Inventory from "./Pages/Inventory/Inventory";
 import Vehicles from "./Components/Vehicles/Vehicles";
 import StockManagement from "./Components/StockManagement/StockManagement";
+import AddExpense from "./Components/AddExpense/AddExpense";
 
 const App = () => {
   return (
@@ -69,7 +70,7 @@ const App = () => {
           <Route path="/wdms/customer" element={<CustomerManage/>} />
           <Route path="/wdms/route-management" element={<RouteManagement/>} />
           <Route path="/wdms/inventory" element={<Inventory/>} />
-
+          <Route path="/wdms/add-expenses" element={<AddExpense/>}/>
 
           <Route path="/wdms/dashboard" element={<DashboardMain />} />
           <Route path="/wdms/stock/manage" element={<ManageStock />} />
