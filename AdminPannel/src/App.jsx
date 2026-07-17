@@ -9,87 +9,46 @@ import MainLayout from "./Layout/MainLayout/MainLayout";
 import OurTeam from "./Components/OurTeam/OurTeam";
 import Gallery from "./Components/Gallery/Gallery";
 import Testimonial from "./pages/Testimonial/Testimonial";
-<<<<<<< HEAD
 import Testiminial from "./Components/Testiminial/Testiminial";
-=======
->>>>>>> ddc2b35b615bad704ad4c42fae2847764e6a13e5
 import ShopPosting from "./Components/ShopPosting/ShopPosting";
 import Contact from "./Components/Contact/Contact";
 import Dashboards from "./Pages/Dashboards/Dashboards";
 import Blog from "./Components/Blog/Blog";
-<<<<<<< HEAD
-=======
 import BlogPosting from "./Components/BlogPosting/BlogPosting";
->>>>>>> ddc2b35b615bad704ad4c42fae2847764e6a13e5
 import BlogManagement from "./Components/BlogManagement/BlogManagement";
-<<<<<<< HEAD
-=======
-import Testiminial from "./Components/Testiminial/Testiminial";
 import DashboardMain from "./Pages/DashboardMain/DashboardMain";
 import ManageStock from "./Components/ManageStock/ManageStock";
->>>>>>> 942a4c912a544d8b7492ee337ce8989b69feab24
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-<<<<<<< HEAD
-        {/* Routes with Main Layout */}
+        {/* Main Layout Wrapper */}
         <Route element={<MainLayout />}>
-          {/* Home */}
-          <Route path="/" element={<OurTeam />} />
-
-          {/* Main Routes */}
-=======
-        {/* All pages using Main Layout */}
-        <Route element={<MainLayout />}>
-          {/* Home */}
+          {/* Home Page */}
           <Route path="/" element={<Testimonial />} />
 
           {/* Main Pages */}
->>>>>>> ddc2b35b615bad704ad4c42fae2847764e6a13e5
           <Route path="/team" element={<OurTeam />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/testimonial" element={<Testimonial />} />
           <Route path="/shop" element={<ShopPosting />} />
           <Route path="/contact" element={<Contact />} />
-<<<<<<< HEAD
           <Route path="/blog" element={<Blog />} />
-          <Route
-            path="/blog-management"
-            element={<BlogManagement />}
-          />
-
-          {/* Additional Routes */}
-          <Route path="/resources/team" element={<OurTeam />} />
-          <Route path="/resources/gallary" element={<Gallery />} />
-=======
-          <Route path="/dashboard" element={<Dashboards />} />
-          <Route path="/blog" element={<Blog />} />
-
-          {/* Blog Posting */}
+          
+          {/* Blog Routes */}
           <Route path="/blog-posting" element={<BlogPosting />} />
-
-          {/* Blog Management */}
           <Route path="/blog-management" element={<BlogManagement />} />
 
-          {/* Additional Pages */}
+          {/* Dashboard & Resources */}
+          <Route path="/dashboard" element={<Dashboards />} />
           <Route path="/resources/team" element={<OurTeam />} />
-          <Route path="/resources/gallary" element={<Gallery />} />
+          <Route path="/resources/gallery" element={<Gallery />} />
           <Route path="/products/testimonials" element={<Testiminial />} />
-          <Route path="/shop" element={<ShopPosting />} />
-          <Route path="/contact" element={<Contact />} />
 
-
+          {/* WDMS Routes */}
           <Route path="/wdms/dashboard" element={<DashboardMain />} />
           <Route path="/wdms/stock/manage" element={<ManageStock />} />
-
-          <Route path="/resources/gallery" element={<Gallery />} />
->>>>>>> ddc2b35b615bad704ad4c42fae2847764e6a13e5
-          <Route
-            path="/products/testimonials"
-            element={<Testiminial />}
-          />
         </Route>
       </Routes>
     </BrowserRouter>
