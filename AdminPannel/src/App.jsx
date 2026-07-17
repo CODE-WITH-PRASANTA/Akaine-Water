@@ -81,7 +81,7 @@ const App = () => {
         <Route path="wdms/vehicles" element={<Vehicles/>}/>
         <Route path="wdms/stock/purchase-history" element={<StockManagement/>}/>
           <Route path="/resources/gallery" element={<Gallery />} />
-          <Route path="/invoice" element={<InvoiceManagement />} />
+          <Route path="/wdms/invoice" element={<InvoiceManagement />} />
           <Route
             path="/products/testimonials"
             element={<Testiminial />}

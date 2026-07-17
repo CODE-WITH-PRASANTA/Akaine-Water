@@ -1,11 +1,11 @@
 /* Container reset and base setup */
-.pay-container.full-page-view {
+.extra-stock-container.full-page-view {
   width: 100%;
   min-height: 100vh;
   padding: 24px;
   background-color: #f4f7fc;
   box-sizing: border-box;
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -13,7 +13,7 @@
 }
 
 /* 100% block stack structural architecture layout */
-.pay-wrapper.full-width-stack {
+.extra-stock-wrapper.full-width-stack {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -22,11 +22,11 @@
 }
 
 /* Form Card Setup stretching 100% width profile layout */
-.pay-card.full-size-card {
-  background: white;
-  border-radius: 24px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+.extra-stock-card.full-size-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e1e8f5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   padding: 32px;
   display: flex;
   flex-direction: column;
@@ -36,57 +36,66 @@
   width: 100%;
 }
 
-.pay-card-header {
+.extra-stock-card-header {
   display: flex;
   align-items: center;
   margin-bottom: 24px;
 }
 
-.pay-title {
-  margin: 0;
-  color: #1e293b;
-  font-weight: 700;
+.extra-stock-title {
+  color: #0b2265;
   font-size: 20px;
+  font-weight: 700;
+  margin: 0;
 }
 
-/* Split grid layout for dynamic inputs and visualization */
-.pay-content {
+/* Split grid container logic layout */
+.extra-stock-form-content {
   display: grid;
   grid-template-columns: 1fr;
   position: relative;
 }
 
-.pay-left {
+.extra-stock-form-left {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 18px;
   z-index: 2;
 }
 
-.pay-form-group {
+.extra-stock-form-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.extra-stock-jar-img {
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.95;
+}
+
+/* Input Fields styling components */
+.extra-stock-form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.section-label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #475569;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.extra-stock-label {
+  color: #5c6b88;
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.mt-20 {
-  margin-top: 0.5rem;
-}
-
-/* Form controls styling inputs fields */
-.pay-input {
+.extra-stock-input,
+.extra-stock-select {
   width: 100%;
   padding: 12px 14px;
   border-radius: 8px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #d3dcfa;
   font-size: 14px;
   color: #1e293b;
   background-color: #ffffff;
@@ -95,114 +104,82 @@
   box-sizing: border-box;
 }
 
-.pay-input:focus {
-  border-color: #2563eb;
+.extra-stock-input:focus,
+.extra-stock-select:focus {
+  border-color: #1253d6;
 }
 
-/* Split input container logic layout grids */
-.amount-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  background: #f8fafc;
-  padding: 1.2rem;
-  border-radius: 16px;
-  border: 1px solid #edf2f7;
-}
-
-.text-blue {
-  color: #2563eb;
-  font-weight: 600;
-}
-
-/* Dynamic payment horizontal radio matrices options styles */
-.radio-group-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 4px 0;
-}
-
-.radio-label {
-  display: flex;
+/* Counter setup selectors */
+.extra-stock-counter {
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  cursor: pointer;
-  color: #475569;
-  font-size: 0.95rem;
-  padding: 6px 14px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d3dcfa;
   border-radius: 8px;
-  background: #ffffff;
-  transition: all 0.2s;
+  overflow: hidden;
+  width: fit-content;
+  background-color: #ffffff;
 }
 
-.radio-label input[type="radio"] {
-  accent-color: #2563eb;
-  cursor: pointer;
-}
-
-.radio-label.active {
-  color: #2563eb;
-  font-weight: 600;
-  border-color: #2563eb;
-  background: #eff6ff;
-}
-
-.status-select {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  cursor: pointer;
-  font-size: 14px;
-  background: #fff;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.status-select:focus {
-  border-color: #2563eb;
-}
-
-/* Form asset visualization container alignments */
-.pay-right {
+.extra-stock-counter-btn {
+  background: none;
+  border: none;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  color: #0b2265;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.wallet-img {
-  max-width: 320px;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+.extra-stock-counter-btn:hover {
+  background-color: #f1f5f9;
 }
 
-/* Action button configurations layout rules */
-.save-btn {
+.extra-stock-counter-value {
+  min-width: 46px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0b2265;
+  border-left: 1px solid #e1e8f5;
+  border-right: 1px solid #e1e8f5;
+  padding: 0 8px;
+}
+
+/* Dynamic Pricing parameters */
+.extra-stock-amount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1253d6; /* The visual price highlights */
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #e1e8f5;
+  width: fit-content;
+}
+
+/* Call to Action Button styling configurations */
+.extra-stock-submit-btn {
   grid-column: 1 / -1;
   width: 100%;
-  padding: 1.1rem;
-  margin-top: 2rem;
+  height: 48px;
+  margin-top: 24px;
+  border-radius: 8px;
   border: none;
-  color: white;
+  font-size: 15px;
   font-weight: 600;
-  font-size: 1rem;
-  border-radius: 16px;
+  color: #ffffff;
   cursor: pointer;
-  transition: all 0.2s, transform 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
   box-sizing: border-box;
 }
 
 .blue-btn {
-  background: #2563eb;
+  background-color: #1253d6;
 }
 
 .blue-btn:hover {
-  background: #1d4ed8;
-  transform: translateY(-1px);
+  background-color: #0e42ab;
 }
 
 .edit-mode-btn {
@@ -213,7 +190,7 @@
   background-color: #ca8a04;
 }
 
-.save-btn:active {
+.extra-stock-submit-btn:active {
   transform: scale(0.99);
 }
 
@@ -229,7 +206,7 @@
 }
 
 .table-section-title {
-  color: #1e293b;
+  color: #0b2265;
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 20px 0;
@@ -246,7 +223,7 @@
   border-collapse: collapse;
   text-align: left;
   font-size: 14px;
-  min-width: 800px; /* Safeguard structural data boundaries on table matrices */
+  min-width: 700px; /* Protects data row metrics from breaking on dynamic scaling */
 }
 
 .custom-data-table th {
@@ -269,13 +246,8 @@
   background-color: #f8fafc;
 }
 
-.text-blue-cell {
-  color: #2563eb;
-  font-weight: 600;
-}
-
-/* Status Settlement Badges Custom Specs Styles */
-.status-badge {
+/* Context Reason Badge Chips Styling */
+.reason-badge {
   display: inline-block;
   padding: 4px 10px;
   border-radius: 12px;
@@ -283,22 +255,22 @@
   font-weight: 600;
 }
 
-.status-badge.status-paid {
-  background-color: #ecfdf5;
-  color: #059669;
+.reason-badge.reason-customer-requested {
+  background-color: #eff6ff;
+  color: #2563eb;
 }
 
-.status-badge.status-advance {
-  background-color: #f0fdfa;
-  color: #0d9488;
+.reason-badge.reason-event---party {
+  background-color: #faf5ff;
+  color: #7c3aed;
 }
 
-.status-badge.status-unpaid {
-  background-color: #fef2f2;
-  color: #dc2626;
+.reason-badge.reason-damaged-replacement {
+  background-color: #fff7ed;
+  color: #ea580c;
 }
 
-/* Operations management controllers button items */
+/* Table Item Operations Buttons */
 .table-actions-cell {
   display: flex;
   gap: 10px;
@@ -323,7 +295,7 @@
 
 .edit-action:hover {
   background-color: #f1f5f9;
-  color: #2563eb;
+  color: #1253d6;
 }
 
 .delete-action {
@@ -342,7 +314,7 @@
   font-style: italic;
 }
 
-/* Pagination Control Mechanics Row Architecture Styling specs */
+/* Pagination Row Architecture Styling specs */
 .table-pagination-container {
   display: flex;
   justify-content: space-between;
@@ -405,8 +377,8 @@
 }
 
 .pagination-number-btn.active-page {
-  background-color: #2563eb;
-  border-color: #2563eb;
+  background-color: #1253d6;
+  border-color: #1253d6;
   color: #ffffff;
 }
 
@@ -416,30 +388,20 @@
 
 /* 1. Mobile Viewports (Phones/Handsets: 0px to 649px) */
 @media (max-width: 649px) {
-  .pay-container.full-page-view {
+  .extra-stock-container.full-page-view {
     padding: 12px;
   }
 
-  .pay-card.full-size-card {
+  .extra-stock-card.full-size-card {
     padding: 20px;
   }
 
-  .amount-grid {
-    grid-template-columns: 1fr; /* Stacks Total Amount and Collected fields */
-    gap: 0.8rem;
-    padding: 14px;
-  }
-
-  .pay-right {
+  .extra-stock-form-right {
     position: absolute;
-    right: 5px;
-    top: 25px;
-    opacity: 0.08; /* Blends visual illustration out on phone widths */
+    right: 10px;
+    top: 30px;
+    opacity: 0.10; /* Clean background watermark configuration */
     pointer-events: none;
-  }
-
-  .wallet-img {
-    max-width: 180px;
   }
 
   .table-section-card {
@@ -454,23 +416,19 @@
 
 /* 2. Tablet Viewports (Medium Screens: 650px to 991px) */
 @media (min-width: 650px) {
-  .pay-content {
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 24px;
-  }
-
-  .wallet-img {
-    max-width: 260px;
+  .extra-stock-form-content {
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 32px;
   }
 }
 
-/* 3. Laptop & Large High-Res Monitors (992px and up) */
+/* 3. Laptop & Workstation High-Res Screens (992px and up) */
 @media (min-width: 992px) {
-  .pay-card.full-size-card {
+  .extra-stock-card.full-size-card {
     padding: 40px;
   }
   
-  .pay-title {
+  .extra-stock-title {
     font-size: 22px;
   }
 }

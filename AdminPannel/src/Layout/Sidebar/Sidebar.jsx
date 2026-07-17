@@ -86,11 +86,21 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
       ],
     },
 
+    {
+      type: 'dropdown',
+      icon: <Package size={20} />,
+      text: 'Wallet',
+      subItems: [
+        { text: 'Expenses', path: '/wdms/expenses' },
+        { text: 'Add Expenses', path: '/wdms/add-expenses' },
+      ],
+    },
+
     { type: 'link', icon: <ClipboardList size={20} />, text: 'Order Management', path: '/wdms/orders' },
 
     { type: 'link', icon: <DollarSign size={20} />, text: 'Payment Management', path: '/wdms/payments' },
 
-    { type: 'link', icon: <TrendingDown size={20} />, text: 'Expenses', path: '/wdms/expenses' },
+   
 
     { type: 'link', icon: <Truck size={20} />, text: 'Delivery Boy Assign', path: '/wdms/assign-delivery' },
 
