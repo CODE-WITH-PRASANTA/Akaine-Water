@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Components & Pages
 
 import MainLayout from "./Layout/MainLayout/MainLayout";
-import MainLayout from "./Layout/MainLayout/MainLayout";
 
 import Customers from "./Pages/Customers/Customers";
 import VehicleStock from "./Pages/VehicleStock/VehicleStock";
