@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   FiFileText, 
   FiUser, 
@@ -19,6 +20,7 @@ import {
   FiFile,
   FiTrash2,
   FiDownload // Imported download icon
+  FiTrash2
 } from 'react-icons/fi';
 import './AddExpense.css';
 
@@ -28,6 +30,7 @@ const VISUAL_CATEGORIES = [
   { id: 'transportation', title: 'Transportation', desc: 'Delivery, Fuel, Vehicle etc.', icon: FiTruck },
   { id: 'salary', title: 'Salary / Wages', desc: 'Staff salary, wages etc.', icon: FiBriefcase },
   { id: 'utilities', title: 'Utilities', desc: 'Electricity, Water, Internet etc.', icon: FiSun },
+  { id: 'utilities', title: 'Utilities', desc: 'Electricity, Water, Internet etc.', icon:FiSun },
   { id: 'rent', title: 'Rent', desc: 'Shop, Warehouse Rent etc.', icon: FiHome },
   { id: 'others', title: 'Others', desc: 'Other miscellaneous expenses', icon: FiMoreHorizontal }
 ];
@@ -56,6 +59,7 @@ const AddExpense = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isDragActive, setIsDragActive] = useState(false);
   const fileInputRef = React.useRef(null); // Adjusted inline reference trigger binding safely
+  const fileInputRef = useRef(null);
 
   // Form input change engine with automated precision floating point math calculation maps
   const handleInputChange = (e) => {
