@@ -88,10 +88,49 @@ const Vehicles = () => {
     }
   };
 
+  // डाउनलोड फ़ंक्शन जो डेटा को CSV में बदल कर डाउनलोड करता है
+  const handleDownload = () => {
+    if (vehicles.length === 0) {
+      alert("No vehicle data available to download!");
+      return;
+    }
+
+    const headers = ['Vehicle No.', 'Driver', 'Capacity', 'Status'];
+    const rows = vehicles.map(vehicle => [
+      vehicle.number,
+      vehicle.driver,
+      vehicle.capacity,
+      vehicle.status
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(val => `"${val}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'Vehicle_Management_Report.csv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="vehicles-container">
       <div className="vehicles-card">
-        <h2 className="vehicles-title">VEHICLE MANAGEMENT</h2>
+        {/* टाइटल और डाउनलोड बटन के लिए हेडर रैपर */}
+        <div className="vehicles-header">
+          <h2 className="vehicles-title">VEHICLE MANAGEMENT</h2>
+          <button className="vehicles-download-btn" onClick={handleDownload}>
+            Download
+          </button>
+        </div>
         
         <div className="vehicles-table-wrapper">
           <table className="vehicles-table">

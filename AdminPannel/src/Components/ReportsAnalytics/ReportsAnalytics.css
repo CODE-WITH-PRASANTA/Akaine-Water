@@ -12,14 +12,38 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.015);
 }
 
+/* हेडर लेआउट ताकि डाउनलोड बटन सही स्थान पर रहे */
+.reports-analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
 /* Header Text Style */
 .reports-analytics-title {
   color: #0b3fa9;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  margin-top: 0;
-  margin-bottom: 24px;
+  margin: 0; /* margin-bottom को हेडर पैरेंट में शिफ्ट किया गया है */
+}
+
+/* नया वर्किंग डाउनलोड बटन स्टाइल */
+.reports-analytics-download-btn {
+  background-color: #0b57d0;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.reports-analytics-download-btn:hover {
+  background-color: #0842a0;
 }
 
 /* Three Columns Grid Layout */
@@ -159,7 +183,7 @@
 }
 
 .reports-analytics-dot.orange { background-color: #ff6d00; }
-.reports-analytics-dot.light-green { background-color: #00b0ff; /* Corresponds to Sales */ } 
+.reports-analytics-dot.light-green { background-color: #00b0ff; } 
 .reports-analytics-dot.light-blue { background-color: #42a5f5; }
 .reports-analytics-dot.dark-green { background-color: #1b5e20; }
 
@@ -173,7 +197,6 @@
   margin-bottom: 20px;
 }
 
-/* Pure CSS conic-gradient to draw the pie chart proportions in image */
 .reports-analytics-donut-chart {
   width: 130px;
   height: 130px;
@@ -189,7 +212,6 @@
   align-items: center;
 }
 
-/* Inner white circle turning pie chart to Donut */
 .reports-analytics-donut-hole {
   width: 60px;
   height: 60px;
@@ -247,10 +269,9 @@
   gap: 12px;
 }
 
-/* Delivery boy avatar matching reference image style */
 .reports-analytics-user-avatar {
   font-size: 28px;
-  color: #1d4ed8; /* Soft deep blue matching the graphic */
+  color: #1d4ed8; 
   background: #eff6ff;
   border-radius: 50%;
 }
@@ -294,15 +315,26 @@
 
 /* --- RESPONSIVE DEVICE QUERIES --- */
 
-/* Medium Devices (Tablets, Laptops) */
 @media (max-width: 1024px) {
   .reports-analytics-grid {
-    grid-template-columns: 1fr; /* Stack columns vertically on mid-low-end tablets/mobile */
+    grid-template-columns: 1fr; 
     gap: 16px;
   }
 }
 
-/* Mobile Devices */
+@media (max-width: 768px) {
+  .reports-analytics-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .reports-analytics-download-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 @media (max-width: 480px) {
   .reports-analytics-container {
     padding: 16px;

@@ -38,7 +38,8 @@ const ManageStock = () => {
   );
 
   // Open modal for adding new item
-  const handleAddClick = () => {
+  const handleAddClick = (e) => {
+    e.preventDefault();
     setEditingItem(null);
     setFormData({ product: '', opening: '', received: '', sold: '', current: '', unit: 'Pcs' });
     setIsModalOpen(true);
@@ -93,6 +94,33 @@ const ManageStock = () => {
     setIsModalOpen(false);
   };
 
+  // CSV डाउनलोड करने का वर्किंग फंक्शन
+  const handleDownloadCSV = () => {
+    const headers = ['Product', 'Opening', 'Received', 'Sold', 'Current', 'Unit'];
+    
+    const csvRows = stockList.map(item => 
+      [
+        `"${item.product}"`, 
+        item.opening, 
+        item.received, 
+        item.sold, 
+        item.current, 
+        item.unit
+      ].join(',')
+    );
+    
+    const csvContent = [headers.join(','), ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'stock_report.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="stock-container-wrapper">
       {/* Main Stock Card Container */}
@@ -101,15 +129,31 @@ const ManageStock = () => {
         {/* Header Section */}
         <div className="stock-header">
           <div className="stock-title-badge">
-             STOCK MANAGEMENT & FRESH WATER STOCK
+              STOCK MANAGEMENT & FRESH WATER STOCK
           </div>
           
-          <button onClick={handleAddClick} className="btn-add-stock">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
-            Add Stock
-          </button>
+          {/* राइट साइड एक्शन बटन्स कंटेनर */}
+          <div className="stock-header-actions">
+            <button 
+              type="button" 
+              className="btn-download-csv"
+              onClick={handleDownloadCSV}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="download-btn-icon">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download CSV
+            </button>
+
+            <button type="button" onClick={handleAddClick} className="btn-add-stock">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+              Add Stock
+            </button>
+          </div>
         </div>
 
         <div className="stock-body">
@@ -164,12 +208,12 @@ const ManageStock = () => {
                     <td className="text-center unit-cell">{item.unit}</td>
                     <td className="text-right actions-cell">
                       <div className="actions-group">
-                        <button onClick={() => handleEditClick(item)} className="btn-action edit" title="Edit">
+                        <button type="button" onClick={() => handleEditClick(item)} className="btn-action edit" title="Edit">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                           </svg>
                         </button>
-                        <button onClick={() => handleDeleteClick(item.id)} className="btn-action delete" title="Delete">
+                        <button type="button" onClick={() => handleDeleteClick(item.id)} className="btn-action delete" title="Delete">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                           </svg>
@@ -191,7 +235,7 @@ const ManageStock = () => {
 
           {/* Centered Footer Action Button */}
           <div className="footer-action">
-            <button className="btn-view-report">
+            <button type="button" className="btn-view-report">
               View Full Stock Report
             </button>
           </div>
@@ -201,12 +245,12 @@ const ManageStock = () => {
 
       {/* Pop-up Modal Form */}
       {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-container">
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
             
             <div className="modal-header">
               <h3>{editingItem ? 'Edit Product Stock' : 'Add New Water Stock'}</h3>
-              <button onClick={() => setIsModalOpen(false)} className="btn-modal-close">
+              <button type="button" onClick={() => setIsModalOpen(false)} className="btn-modal-close">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>

@@ -20,7 +20,7 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   margin-top: 0;
-  margin-bottom: 24px;
+  margin-bottom: 0px; /* Wrapper controls padding now */
 }
 
 /* Summary Grid Row */
@@ -153,4 +153,58 @@
   .expense-card-amount {
     font-size: 21px;
   }
+
+  .expense-header-wrapper {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 16px;
+  }
+}
+
+/* ==========================================================================
+   ADDITIONS: New CSS for Download Button Alignment (Upper Right Corner)
+   ========================================================================== */
+.expense-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.expense-header-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.expense-download-csv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #2d3748;
+  border: 1px solid #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.expense-download-csv-btn:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0b3fa9;
+}
+
+.expense-download-csv-btn:active {
+  transform: scale(0.98);
+}
+
+.expense-download-icon {
+  width: 16px;
+  height: 16px;
+  color: #4a5568;
 }

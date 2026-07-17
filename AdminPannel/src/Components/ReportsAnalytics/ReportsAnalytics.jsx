@@ -23,10 +23,48 @@ const ReportsAnalytics = () => {
     { label: "17 Oct", height: "50%" },
   ];
 
+  // कार्यशील डाउनलोड हैंडलर फ़ंक्शन
+  const handleDownload = () => {
+    const headers = ['Type', 'Name/Label', 'Value/Height'];
+    const rows = [];
+
+    // Daily Sales डेटा जोड़ना
+    barData.forEach(bar => {
+      rows.push(['Daily Sales Bar', bar.label, bar.height]);
+    });
+
+    // Top Delivery Boys डेटा जोड़ना
+    deliveryBoys.forEach(boy => {
+      rows.push(['Top Delivery Boy', boy.name, boy.earnings]);
+    });
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(val => `"${val}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'Reports_and_Analytics_Report.csv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="reports-analytics-container">
-      {/* Title */}
-      <h2 className="reports-analytics-title">REPORTS &amp; ANALYTICS</h2>
+      {/* टाइटल और डाउनलोड बटन के लिए हेडर रैपर */}
+      <div className="reports-analytics-header">
+        <h2 className="reports-analytics-title">REPORTS &amp; ANALYTICS</h2>
+        <button className="reports-analytics-download-btn" onClick={handleDownload}>
+          Download
+        </button>
+      </div>
 
       {/* Grid Layout of the Three Cards */}
       <div className="reports-analytics-grid">

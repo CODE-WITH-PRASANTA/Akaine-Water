@@ -113,18 +113,62 @@ const CustomerManage = () => {
     setSelectedCustomerForSub(null);
   };
 
+  // Working function to download current customer table grid as a CSV file
+  const handleDownloadCSV = (e) => {
+    e.stopPropagation();
+    const headers = ["Customer Name", "Phone", "Address", "Total Orders", "Status", "Sub Start Date", "Sub End Date"];
+    const csvRows = [headers.join(",")];
+
+    customers.forEach(c => {
+      const values = [
+        `"${c.name.replace(/"/g, '""')}"`,
+        c.phone,
+        `"${c.address.replace(/"/g, '""')}"`,
+        c.totalOrders,
+        c.status,
+        c.subStartDate || 'N/A',
+        c.subEndDate || 'N/A'
+      ];
+      csvRows.push(values.join(","));
+    });
+
+    const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "customer_management_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="cm-dashboard-card">
       {/* Upper Brand Control Headers */}
       <div className="cm-header-bar">
         <h2 className="cm-header-bar__title">Customer Management</h2>
-        <button 
-          className="cm-header-bar__plus-btn"
-          onClick={() => setShowAddModal(true)}
-          title="Add New Customer"
-        >
-          ＋
-        </button>
+        
+        {/* Container Row hosting both header actions side-by-side */}
+        <div className="cm-header-bar__actions">
+          <button 
+            className="cm-header-bar__download-btn"
+            onClick={handleDownloadCSV}
+            title="Download CSV Report"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+          <button 
+            className="cm-header-bar__plus-btn"
+            onClick={() => setShowAddModal(true)}
+            title="Add New Customer"
+          >
+            ＋
+          </button>
+        </div>
       </div>
 
       {/* Filter and Input Elements Panel */}
@@ -302,7 +346,7 @@ const CustomerManage = () => {
         </div>
       )}
 
-      {/* POPUP 2: Small Subscription Popup (Triggered by entire row click) */}
+      {/* POPUP 2: Small Subscription Popup */}
       {selectedCustomerForSub && (
         <div className="cm-modal-overlay" onClick={() => setSelectedCustomerForSub(null)}>
           <div className="cm-modal cm-modal--mini animate-modal" onClick={(e) => e.stopPropagation()}>
@@ -342,5 +386,5 @@ const CustomerManage = () => {
     </div>
   );
 };
-
+ 
 export default CustomerManage;
