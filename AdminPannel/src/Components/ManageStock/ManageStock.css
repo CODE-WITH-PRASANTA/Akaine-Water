@@ -264,7 +264,7 @@
   align-items: center !important;
   justify-content: center !important;
   padding: 1rem !important;
-  z-index: 999999 !important; /* किसी भी फ्रेमवर्क ओवरले के ऊपर दिखने के लिए */
+  z-index: 999999 !important; 
 }
 
 .modal-container {

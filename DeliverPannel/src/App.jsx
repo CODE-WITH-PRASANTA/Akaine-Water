@@ -15,6 +15,8 @@ import EmptyReturn from "./Component/EmptyReturn/EmptyReturn";
 import RoutePlanner from "./Component/RoutePlanner/RoutePlanner";
 import FailedDelivery from "./Component/FailedDelivery/FailedDelivery"
 import Dashboard from "./Component/Dashboard/Dashboard"
+import ExtraStock from "./Component/ExtraStock/ExtraStock";
+import Settings from "./Component/Settings/Settings";
 
 
 const App = () => {
@@ -31,10 +33,12 @@ const App = () => {
           
           {/* WDMS Routes */}
           <Route path="wdms/empty-return" element={<EmptyReturn />} />
+          <Route path="wdms/extra-stock" element={<ExtraStock/>} />
           <Route path="wdms/customers" element={<Customers />} />
           <Route path="wdms/vehicle-stock" element={<VehicleStock />} />
           <Route path="wdms/payments" element={<Payment />} />
           <Route path="wdms/reports" element={<Reports />} />
+          <Route path="wdms/settings" element={<Settings/>} />
           <Route path="wdms/orders" element={<Orders />} />
           <Route path="wdms/empty-return" element={<EmptyReturn />} />
           <Route path="wdms/route-planner" element={<RoutePlanner />} />

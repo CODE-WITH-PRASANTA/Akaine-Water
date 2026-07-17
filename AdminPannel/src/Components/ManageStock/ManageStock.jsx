@@ -37,13 +37,20 @@ const ManageStock = () => {
     { opening: 0, received: 0, sold: 0, current: 0 }
   );
 
-  // Open modal for adding new item
-  const handleAddClick = (e) => {
-    e.preventDefault();
-    setEditingItem(null);
-    setFormData({ product: '', opening: '', received: '', sold: '', current: '', unit: 'Pcs' });
-    setIsModalOpen(true);
-  };
+ const handleAddClick = (e) => {
+  e.preventDefault();
+  console.log("Add Stock Clicked");
+  setEditingItem(null);
+  setFormData({
+    product: '',
+    opening: '',
+    received: '',
+    sold: '',
+    current: '',
+    unit: 'Pcs'
+  });
+  setIsModalOpen(true);
+};
 
   // Open modal for editing an existing item
   const handleEditClick = (item) => {
