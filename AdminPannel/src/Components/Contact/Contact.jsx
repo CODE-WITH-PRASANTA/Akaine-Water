@@ -1,96 +1,148 @@
-import React, { useState } from 'react';
-import './Contact.css'; // Importing the separate CSS file
+import React, { useEffect, useState } from "react";
+import API from "../../api/axios";
+import "./Contact.css";
 
 const Contact = () => {
-  // Initial structural sample data
-  const [submissions, setSubmissions] = useState([
-    {
-      id: 1,
-      name: 'Saroj Sahoo',
-      phone: '+9-500-025-200',
-      email: 'support@emailaddress.com',
-      subject: 'VPN Query',
-      message: 'Our service allows you to hide your geolocation, bypass blocking...',
-    },
-  ]);
+  const [submissions, setSubmissions] = useState([]);
 
-  // Form State fields matching your component data exactly
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    phone: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const [editingId, setEditingId] = useState(null);
 
-  // Handle Input Changes across all elements
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
+  const fetchContacts = async () => {
+    try {
+      const response = await API.get("/contact");
+
+      if (response.data.success) {
+        setSubmissions(response.data.data);
+      }
+    } catch (error) {
+      console.log("Fetch Error:", error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  // Form handling (Submission & Table storage)
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email) {
-      alert('Name and Email fields are required!');
-      return;
-    }
+  const resetForm = () => {
+    setEditingId(null);
 
-    if (editingId) {
-      setSubmissions(
-        submissions.map((item) =>
-          item.id === editingId ? { ...item, ...formData } : item
-        )
-      );
-      setEditingId(null);
-    } else {
-      setSubmissions([...submissions, { id: Date.now(), ...formData }]);
-    }
-
-    setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
-  };
-
-  const handleEdit = (item) => {
-    setEditingId(item.id);
     setFormData({
-      name: item.name,
-      phone: item.phone,
-      email: item.email,
-      subject: item.subject,
-      message: item.message,
+      name: "",
+      phone: "",
+      email: "",
+      subject: "",
+      message: "",
     });
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Delete this record entry?')) {
-      setSubmissions(submissions.filter((item) => item.id !== id));
-      if (editingId === id) {
-        setEditingId(null);
-        setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name.trim()) {
+      return alert("Name is required");
+    }
+
+    if (!formData.email.trim()) {
+      return alert("Email is required");
+    }
+
+    try {
+      if (editingId) {
+        await API.put(
+          `/contact/${editingId}`,
+          formData
+        );
+      } else {
+        await API.post(
+          "/contact",
+          formData
+        );
       }
+
+      await fetchContacts();
+
+      resetForm();
+
+    } catch (error) {
+      console.log("Submit Error:", error);
+    }
+  };
+
+  const handleEdit = (item) => {
+    setEditingId(item._id);
+
+    setFormData({
+      name: item.name || "",
+      phone: item.phone || "",
+      email: item.email || "",
+      subject: item.subject || "",
+      message: item.message || "",
+    });
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Delete this record entry?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/contact/${id}`);
+
+      await fetchContacts();
+
+      if (editingId === id) {
+        resetForm();
+      }
+    } catch (error) {
+      console.log("Delete Error:", error);
     }
   };
 
   return (
     <div className="contact-admin-container">
-      <h2 className="contact-admin-main-title">Contact Form Management Dashboard</h2>
-      
+      <h2 className="contact-admin-main-title">
+        Contact Form Management Dashboard
+      </h2>
+
       <div className="contact-admin-layout">
-        
-        {/* LEFT COMPONENT SIDE: INPUT FORM (50% WIDTH) */}
+
+        {/* LEFT FORM */}
         <div className="contact-form-section">
           <h3 className="contact-section-title">
-            {editingId ? 'Modify System Entry' : 'Create Contact Entry'}
+            {editingId
+              ? "Modify System Entry"
+              : "Create Contact Entry"}
           </h3>
-          
-          <form className="contact-admin-form" onSubmit={handleSubmit}>
+
+          <form
+            className="contact-admin-form"
+            onSubmit={handleSubmit}
+          >
             <div className="contact-form-group">
-              <label className="contact-input-label" htmlFor="contact-input-name">Your Name</label>
+              <label className="contact-input-label">
+                Your Name
+              </label>
+
               <input
-                id="contact-input-name"
                 className="contact-field-input contact-field-name"
                 type="text"
                 name="name"
@@ -102,9 +154,11 @@ const Contact = () => {
             </div>
 
             <div className="contact-form-group">
-              <label className="contact-input-label" htmlFor="contact-input-phone">Phone Number</label>
+              <label className="contact-input-label">
+                Phone Number
+              </label>
+
               <input
-                id="contact-input-phone"
                 className="contact-field-input contact-field-phone"
                 type="text"
                 name="phone"
@@ -115,9 +169,11 @@ const Contact = () => {
             </div>
 
             <div className="contact-form-group">
-              <label className="contact-input-label" htmlFor="contact-input-email">Your Email</label>
+              <label className="contact-input-label">
+                Your Email
+              </label>
+
               <input
-                id="contact-input-email"
                 className="contact-field-input contact-field-email"
                 type="email"
                 name="email"
@@ -129,9 +185,11 @@ const Contact = () => {
             </div>
 
             <div className="contact-form-group">
-              <label className="contact-input-label" htmlFor="contact-input-subject">Subject</label>
+              <label className="contact-input-label">
+                Subject
+              </label>
+
               <input
-                id="contact-input-subject"
                 className="contact-field-input contact-field-subject"
                 type="text"
                 name="subject"
@@ -142,9 +200,11 @@ const Contact = () => {
             </div>
 
             <div className="contact-form-group">
-              <label className="contact-input-label" htmlFor="contact-input-message">Message</label>
+              <label className="contact-input-label">
+                Message
+              </label>
+
               <textarea
-                id="contact-input-message"
                 className="contact-field-textarea contact-field-message"
                 name="message"
                 value={formData.message}
@@ -154,18 +214,20 @@ const Contact = () => {
               />
             </div>
 
-            <button type="submit" className="contact-submit-btn">
-              {editingId ? 'Update Record Data' : 'Send Message Log'}
+            <button
+              type="submit"
+              className="contact-submit-btn"
+            >
+              {editingId
+                ? "Update Record Data"
+                : "Send Message Log"}
             </button>
-            
+
             {editingId && (
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="contact-cancel-btn"
-                onClick={() => {
-                  setEditingId(null);
-                  setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
-                }}
+                onClick={resetForm}
               >
                 Cancel Action
               </button>
@@ -173,44 +235,72 @@ const Contact = () => {
           </form>
         </div>
 
-        {/* RIGHT COMPONENT SIDE: DATA LOG TABLE (50% WIDTH) */}
+        {/* RIGHT TABLE */}
         <div className="contact-table-section">
-          <h3 className="contact-section-title">Submitted Database Logs</h3>
+          <h3 className="contact-section-title">
+            Submitted Database Logs
+          </h3>
+
           <div className="contact-table-responsive-wrapper">
             <table className="contact-admin-table">
               <thead>
                 <tr className="contact-table-header-row">
-                  <th className="contact-table-th">Name</th>
-                  <th className="contact-table-th">Contact Info</th>
-                  <th className="contact-table-th">Subject</th>
-                  <th className="contact-table-th">Message</th>
-                  <th className="contact-table-th">Actions</th>
+                  <th>Name</th>
+                  <th>Contact Info</th>
+                  <th>Subject</th>
+                  <th>Message</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
+
               <tbody>
                 {submissions.length > 0 ? (
                   submissions.map((item) => (
-                    <tr key={item.id} className="contact-table-body-row">
-                      <td className="contact-table-td contact-td-name"><strong>{item.name}</strong></td>
+                    <tr
+                      key={item._id}
+                      className="contact-table-body-row"
+                    >
+                      <td className="contact-table-td contact-td-name">
+                        <strong>{item.name}</strong>
+                      </td>
+
                       <td className="contact-table-td contact-td-info">
-                        <span className="contact-td-email-block">{item.email}</span>
-                        <span className="contact-td-phone-block">{item.phone}</span>
+                        <span className="contact-td-email-block">
+                          {item.email}
+                        </span>
+
+                        <span className="contact-td-phone-block">
+                          {item.phone}
+                        </span>
                       </td>
-                      <td className="contact-table-td contact-td-subject">{item.subject || '-'}</td>
-                      <td className="contact-table-td contact-td-message" title={item.message}>
-                        {item.message || '-'}
+
+                      <td className="contact-table-td contact-td-subject">
+                        {item.subject || "-"}
                       </td>
+
+                      <td
+                        className="contact-table-td contact-td-message"
+                        title={item.message}
+                      >
+                        {item.message || "-"}
+                      </td>
+
                       <td className="contact-table-td contact-td-actions">
                         <div className="contact-action-btn-group">
-                          <button 
-                            className="contact-action-edit-btn" 
-                            onClick={() => handleEdit(item)}
+                          <button
+                            className="contact-action-edit-btn"
+                            onClick={() =>
+                              handleEdit(item)
+                            }
                           >
                             Edit
                           </button>
-                          <button 
-                            className="contact-action-delete-btn" 
-                            onClick={() => handleDelete(item.id)}
+
+                          <button
+                            className="contact-action-delete-btn"
+                            onClick={() =>
+                              handleDelete(item._id)
+                            }
                           >
                             Delete
                           </button>
@@ -220,8 +310,12 @@ const Contact = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="contact-table-td-empty">
-                      No matching records found in admin storage.
+                    <td
+                      colSpan="5"
+                      className="contact-table-td-empty"
+                    >
+                      No matching records found in
+                      admin storage.
                     </td>
                   </tr>
                 )}

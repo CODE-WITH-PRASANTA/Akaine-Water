@@ -1,0 +1,244 @@
+.Sidebar {
+  width: 260px;
+  height: 100vh;
+  background-color: #ffffff;
+  color: #004c99; /* Changed from #333333 to theme blue */
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #e2e8f0; /* Slightly thicker border for crispness */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* CRITICAL FIX: Prevents horizontal scrollbars during animations or text overflow */
+  overflow-x: hidden; 
+}
+
+.Sidebar.collapsed {
+  width: 70px;
+}
+
+.Sidebar-logo {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 2px solid #e2e8f0;
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* Added helper to perfectly center icons when the sidebar is collapsed */
+.Sidebar.collapsed .Sidebar-logo {
+  padding: 0;
+  justify-content: center;
+}
+
+.Sidebar-logo-icon {
+  background-color: #0066cc;
+  color: #ffffff;
+  font-weight: 900; /* Bolder logo icon text */
+  font-size: 20px;
+  min-width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.Sidebar-logo-text {
+  font-size: 18px;
+  font-weight: 900; /* Increased to ultra bold */
+  color: #003366; /* Deepened blue for contrast */
+  white-space: nowrap;
+}
+
+.Sidebar-logo-text span {
+  color: #0066cc;
+}
+
+.Sidebar-nav {
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  overflow-y: auto;
+  /* CRITICAL FIX: Ensures nested layout changes won't prompt horizontal scrolls */
+  overflow-x: hidden; 
+}
+
+/* Added helper to center nav link icons neatly when collapsed */
+.Sidebar.collapsed .Sidebar-link {
+  padding: 12px 0;
+  justify-content: center;
+}
+
+.Sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  color: #0055b3; /* Swapped gray for a strong theme blue */
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  gap: 12px;
+  white-space: nowrap;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 700; /* Bold text applied */
+}
+
+.Sidebar-link:hover {
+  background-color: #f0f7ff;
+  color: #0066cc;
+}
+
+.Sidebar-dropdown-toggle {
+  justify-content: flex-start;
+}
+
+.Sidebar-chevron {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+  color: #0066cc; /* Swapped from gray to theme blue */
+  font-weight: 900; /* Made chevron glyph bold */
+}
+
+.Sidebar-chevron.rotated {
+  transform: rotate(180deg);
+  color: #004c99;
+}
+
+.Sidebar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+}
+
+.Sidebar-section-wrapper {
+  margin: 16px 0 8px 0;
+  padding: 0 16px;
+}
+
+.Sidebar-divider {
+  border: 0;
+  border-top: 1px solid rgba(0, 102, 204, 0.15); /* Updated divider to use a blue tint */
+  margin-bottom: 8px;
+}
+
+.Sidebar-section-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 800; /* Increased from 700 to 800 for extra bold punch */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #0066cc; /* Swapped gray for vibrant theme blue */
+  padding-left: 4px;
+}
+
+/* Ensure icons/text blend smoothly on collapsed states */
+.Sidebar.collapsed .Sidebar-section-wrapper {
+  padding: 0 8px;
+}
+
+/* Light Blue Dropdowns Panel Styling */
+.Sidebar-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease-out;
+  display: flex;
+  flex-direction: column;
+  padding-left: 36px;
+  margin: 2px 0;
+  background-color: #f4f9ff; /* Soft light blue menu accent matching dropdown requirement */
+  border-radius: 6px;
+}
+
+.Sidebar-dropdown-wrapper.is-open .Sidebar-submenu {
+  max-height: 250px; /* Ensures dynamic accordion height limit expansions fit seamlessly */
+  padding: 6px 6px 6px 36px;
+}
+
+.Sidebar-submenu-link {
+  padding: 8px 12px;
+  font-size: 13.5px;
+  color: #004c99;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-weight: 700; /* Bold text applied */
+}
+
+.Sidebar-submenu-link:hover {
+  background-color: #0066cc;
+  color: #ffffff;
+}
+
+/* Profile Card Styling Fixes */
+.Sidebar-profile {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-top: 2px solid #e2e8f0; 
+  gap: 12px;
+  background-color: #ffffff;
+  overflow: hidden; /* Safeguards profile content when compressed */
+}
+
+.Sidebar-profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0; /* Keeps avatar square when sidebar collapses */
+  border: 2px solid #0066cc; /* Added blue frame ring around user profile */
+}
+
+.Sidebar-profile-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.Sidebar-profile-name {
+  font-size: 14px;
+  font-weight: 800; /* Set to extra bold */
+  color: #003366; /* Set to dark blue text */
+  white-space: nowrap;
+}
+
+.Sidebar-profile-role {
+  font-size: 12px;
+  font-weight: 700; /* Bold text applied */
+  color: #0066cc; /* Swapped gray for mid-tone blue text */
+  white-space: nowrap;
+}
+
+/* Collapsed profile state adjustments */
+.Sidebar.collapsed .Sidebar-profile {
+  justify-content: center;
+  padding: 16px 0;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .Sidebar {
+    left: -260px;
+  }
+  .Sidebar.mobile-open {
+    left: 0;
+    width: 260px;
+  }
+  .Sidebar.collapsed {
+    left: -260px;
+  }
+}

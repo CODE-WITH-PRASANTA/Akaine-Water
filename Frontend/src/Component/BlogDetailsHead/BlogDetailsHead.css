@@ -1,0 +1,129 @@
+/* Container styling with overlay */
+.BlogDetailsHead {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 40px 20px;
+}
+
+/* Semi-transparent white mist overlay matching the reference image */
+.BlogDetailsHead::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.45); 
+  backdrop-filter: blur(1px); /* Subtly blends the background details */
+  z-index: 1;
+}
+
+/* Centered content block */
+.BlogDetailsHead-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Main title header typography */
+.BlogDetailsHead-title {
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+  line-height: 1.25;
+}
+
+/* Breadcrumb Navigation container */
+.BlogDetailsHead-breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.BlogDetailsHead-crumb-link {
+  color: #666666;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.BlogDetailsHead-crumb-link:hover {
+  color: #000000;
+}
+
+.BlogDetailsHead-separator {
+  color: #999999;
+}
+
+.BlogDetailsHead-crumb-current {
+  color: #333333;
+}
+
+/* Floating palette action icon styling */
+
+
+.BlogDetailsHead-icon-wrapper:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.BlogDetailsHead-palette-icon {
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+/* --- Responsive Media Queries --- */
+
+/* Tablets and Smaller Screens */
+@media (max-width: 768px) {
+  .BlogDetailsHead {
+    min-height: 320px;
+    padding: 60px 20px 40px 20px; /* Leave space for shifting elements if needed */
+  }
+
+  .BlogDetailsHead-title {
+    font-size: 2.2rem;
+  }
+
+  .BlogDetailsHead-icon-wrapper {
+    top: 20px;
+    left: 20px;
+    transform: none;
+  }
+  
+  .BlogDetailsHead-icon-wrapper:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+  .BlogDetailsHead {
+    min-height: 260px;
+  }
+
+  .BlogDetailsHead-title {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+
+  .BlogDetailsHead-breadcrumbs {
+    font-size: 0.75rem;
+    flex-wrap: wrap; /* Keeps text inside bounds on narrow screens */
+  }
+}

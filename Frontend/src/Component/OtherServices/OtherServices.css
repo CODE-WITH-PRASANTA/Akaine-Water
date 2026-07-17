@@ -1,0 +1,212 @@
+/* ==========================================================================
+   OtherServices Stylesheet
+   ========================================================================== */
+
+.OtherServices-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 100px 0 160px 0;
+  background-color: #ffffff;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.OtherServices-bg-pattern {
+  position: absolute;
+  top: 0;
+  margin-top: 96px;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #d1d3d4;
+   border-top-left-radius: 90px;
+  z-index: 1;
+  opacity: 0.7;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='8' viewBox='0 0 80 8'%3E%3Cpath d='M0 4 Q 20 1, 40 4 T 80 4' fill='none' stroke='%23dbe3ec' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 80px 8px;
+}
+
+.OtherServices-container {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  z-index: 2;
+}
+
+/* --- HEADER SEGMENTS --- */
+.OtherServices-header {
+  max-width: 520px;
+  margin-bottom: 70px;
+}
+
+.OtherServices-subtitle {
+  color: #0056b3;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.OtherServices-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.15;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.5px;
+}
+
+.OtherServices-wave-divider {
+  width: 65px;
+  height: 14px;
+}
+
+/* --- GRIDS AND CARD DESIGN --- */
+.OtherServices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+.OtherServices-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.OtherServices-card-banner {
+  position: relative;
+  height: 205px;
+  background: linear-gradient(135deg, #6fd6f6 0%, #b6dbf8 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  border-bottom-left-radius: 50% 24px;
+  border-bottom-right-radius: 50% 24px;
+}
+
+.OtherServices-image-frame {
+  position: relative;
+  width: 156px;
+  height: 156px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  transform: translateY(35px);
+  z-index: 3;
+}
+
+.OtherServices-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* --- ICON BADGE HOVER ACTIONS --- */
+.OtherServices-icon-badge {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.OtherServices-badge-icon {
+  font-size: 1.4rem;
+  color: #0056b3;
+  transition: color 0.3s ease;
+  display: block;
+}
+
+.OtherServices-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.09);
+}
+
+.OtherServices-card:hover .OtherServices-icon-badge {
+  background-color: #0056b3; 
+  border-color: #ffffff;    
+}
+
+.OtherServices-card:hover .OtherServices-badge-icon {
+  color: #ffffff;            
+}
+
+/* --- TEXT CONTENT --- */
+.OtherServices-card-content {
+  padding: 65px 30px 45px 30px;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.OtherServices-card-content h3 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 16px 0;
+}
+
+.OtherServices-card-content p {
+  font-size: 0.96rem;
+  color: #526071;
+  line-height: 1.75;
+  margin: 0 0 32px 0;
+  flex-grow: 1;
+}
+
+.OtherServices-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #111111;
+  text-decoration: none;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-top: auto;
+  transition: color 0.2s ease;
+}
+
+.OtherServices-link:hover {
+  color: #0056b3;
+}
+
+/* --- RESPONSIVE ADAPTATIONS --- */
+@media (max-width: 1024px) {
+  .OtherServices-grid { gap: 24px; }
+  .OtherServices-card { min-height: 520px; }
+}
+
+@media (max-width: 768px) {
+  .OtherServices-wrapper { padding: 60px 0 110px 0; }
+  .OtherServices-bg-pattern { width: 100%; height: 65%; top: auto; bottom: 0; }
+  .OtherServices-grid { grid-template-columns: 1fr; gap: 60px; }
+  .OtherServices-card { min-height: auto; }
+  .OtherServices-header { text-align: center; margin: 0 auto 45px auto; }
+  .OtherServices-wave-divider { margin: 0 auto; }
+}

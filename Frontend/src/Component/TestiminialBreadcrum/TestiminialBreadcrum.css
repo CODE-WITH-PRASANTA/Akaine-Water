@@ -1,9 +1,8 @@
-/* मुख्य बैनर कंटेनर - जो आपकी संदर्भ छवि को बैकग्राउंड में सेट करेगा */
 .testimonial-banner-wrapper {
   position: relative;
   width: 100%;
-  height: 320px; /* डेस्कटॉप स्क्रीन्स के लिए परफेक्ट बैनर हाइट */
-  background-image: url('../../assets/akin-12.png'); /* अपनी इमेज का पाथ यहाँ सेट करें */
+  height: 320px; 
+  background-image: url('../../assets/akin-12.png'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -13,7 +12,7 @@
   user-select: none;
 }
 
-/* हल्का सा ट्रांसपेरेंट ओवरले ताकि टेक्स्ट बैकग्राउंड के ऊपर बिल्कुल साफ़ दिखे */
+
 .testimonial-banner-overlay {
   position: absolute;
   top: 0;
@@ -24,7 +23,6 @@
   z-index: 1;
 }
 
-/* टेक्स्ट और ब्रेडक्रंब को बिल्कुल बीच (Horizontal & Vertical Center) में रखने के लिए बॉक्स */
 .testimonial-content-box {
   position: relative;
   z-index: 2;
@@ -40,7 +38,6 @@
   max-width: 90%;
 }
 
-/* मुख्य बड़ा अक्षर "TESTIMONIALS" */
 .testimonial-main-title {
   font-size: 36px;
   font-weight: 800;
@@ -50,7 +47,6 @@
   text-transform: uppercase;
 }
 
-/* ब्रेडक्रंब नेविगेशन का स्टाइल */
 .testimonial-breadcrumb-nav {
   font-size: 15px;
   font-weight: 600;
@@ -60,7 +56,6 @@
   justify-content: center;
 }
 
-/* होम बटन का लिंक */
 .testimonial-home-link {
   color: #0056b3;
   text-decoration: none;
@@ -72,23 +67,18 @@
   text-decoration: underline;
 }
 
-/* ब्रेडक्रंब स्लैश विभाजक */
 .testimonial-breadcrumb-slash {
   margin: 0 8px;
   color: #888888;
 }
 
-/* वर्तमान पेज (Testimonial) का टेक्स्ट */
 .testimonial-current-page {
   color: #444444;
 }
 
-/* --- रेस्पॉन्सिव सेटिंग्स (Responsive for all devices) --- */
-
-/* टैबलेट और मध्यम स्क्रीन के लिए */
 @media (max-width: 768px) {
   .testimonial-banner-wrapper {
-    height: 220px; /* मोबाइल और टैबलेट पर बैनर की हाइट एडजस्ट होगी */
+    height: 220px; 
   }
   
   .testimonial-content-box {
@@ -106,7 +96,7 @@
   }
 }
 
-/* छोटे मोबाइल फ़ोन्स के लिए */
+
 @media (max-width: 480px) {
   .testimonial-banner-wrapper {
     height: 180px;

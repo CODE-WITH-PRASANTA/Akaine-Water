@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
-import { 
-  Home, 
-  Info, 
-  ShoppingBag, 
-  Layers, 
-  BookOpen, 
-  Store, 
-  Phone, 
-  ChevronDown 
-} from 'lucide-react';
+import {
+  Home,
+  BookOpen,
+  Store,
+  Phone,
+  ChevronDown,
+  FileText,
+  Users,
+  Package,
+  ClipboardList,
+  Truck,
+  UserPlus,      // Added for Customer
+  Boxes,         // Added for Inventory
+  Tag,           // Added for Product & Price
+  DollarSign,    // Added for Payment
+  TrendingDown,  // Added for Expenses
+  BarChart3,     // Added for Report Analysis
+  Map,           // Added for Route Management
+  Car,           // Added for Vehicle
+  Settings,       // Added for Settings
+  BookmarkCheckIcon,
+  BoxIcon
+} from "lucide-react";
 import './Sidebar.css';
 
 const Sidebar = ({ isCollapsed, isMobileOpen }) => {
-  // Track open states for dropdown menus inside the sidebar
   const [openDropdowns, setOpenDropdowns] = useState({});
 
   const toggleDropdown = (title) => {
@@ -24,55 +36,87 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
 
   const menuItems = [
     { type: 'link', icon: <Home size={20} />, text: 'Dashboard', path: '/' },
-
+    
     {
       type: 'dropdown',
-      icon: <ShoppingBag size={20} />,
+      icon: <FileText size={20} />,
       text: 'Blog Posting',
       subItems: [
-        
         { text: 'Blog', path: '/blog' },
         { text: 'Blog Management', path: '/blog-management' },
-      
       ],
     },
-     
-   
-    {
-      type: 'dropdown',
-      icon: <ShoppingBag size={20} />,
-      text: 'Products',
-      subItems: [
-        
-       
-        { text: 'Testimonials', path: '/products/testimonials' },
-      
-      ],
-    },
+    
+    { type: 'link', icon: <Users size={20} />, text: 'Testimonials', path: '/products/testimonials' },
     
     {
       type: 'dropdown',
       icon: <BookOpen size={20} />,
       text: 'Resources',
       subItems: [
-       
-       
         { text: 'Our Team', path: '/resources/team' },
         { text: 'Gallery', path: '/resources/gallary' },
       ],
     },
+    
+    { type: 'link', icon: <Store size={20} />, text: 'Shop Main', path: '/shop' },
+    
+    { type: 'link', icon: <Phone size={20} />, text: 'Contact', path: '/contact' },
+    
+    // --- DIVIDER WITH SECTION HEADING: WDMS ---
+    { type: 'section-heading', text: 'WDMS' },
+
+    { type: 'link', icon: <Home size={20} />, text: 'WDMS Dashboard', path: '/wdms/dashboard' },
+
+    // Single Links for WDMS Features
+    { type: 'link', icon: <UserPlus size={20} />, text: 'Customer Management', path: '/wdms/customer' },
+    
+    { type: 'link', icon: <Boxes size={20} />, text: 'Inventory', path: '/wdms/inventory' },
+    
+    { type: 'link', icon: <Tag size={20} />, text: 'Product & Price', path: '/wdms/products-pricing' },
+
+    // Kept as Dropdown (Only Stock Management)
     {
       type: 'dropdown',
-      icon: <Store size={20} />,
-      text: 'Shop',
+      icon: <Package size={20} />,
+      text: 'Stock Management',
       subItems: [
-        { text: 'Shop Main', path: '/shop' },
-        // { text: 'Cart', path: '/shop/cart' },
-        // { text: 'Checkout', path: '/shop/checkout' },
-        // { text: 'My Account', path: '/shop/account' },
+        { text: 'Manage Stock', path: '/wdms/stock/manage' },
+        { text: 'Purchase History', path: '/wdms/stock/purchase-history' },
       ],
     },
-    { type: 'link', icon: <Phone size={20} />, text: 'Contact', path: '/contact' },
+
+    {
+      type: 'dropdown',
+      icon: <Package size={20} />,
+      text: 'Wallet',
+      subItems: [
+        { text: 'Expenses', path: '/wdms/expenses' },
+        { text: 'Add Expenses', path: '/wdms/add-expenses' },
+      ],
+    },
+
+    { type: 'link', icon: <ClipboardList size={20} />, text: 'Order Management', path: '/wdms/orders' },
+
+    { type: 'link', icon: <DollarSign size={20} />, text: 'Payment Management', path: '/wdms/payments' },
+
+   
+
+    { type: 'link', icon: <Truck size={20} />, text: 'Delivery Boy Assign', path: '/wdms/assign-delivery' },
+
+    { type: 'link', icon: <Map size={20} />, text: 'Route Management', path: '/wdms/route-management' },
+
+    { type: 'link', icon: <Car size={20} />, text: 'Vehicle Management', path: '/wdms/vehicles' },
+
+    { type: 'link', icon: <BookOpen size={20} />, text: 'Invoice Management', path: '/wdms/invoice' },
+
+    { type: 'link', icon: <BookmarkCheckIcon size={20} />, text: 'Damage Stock Management', path: '/wdms/damage-stock' },
+
+    { type: 'link', icon: <BoxIcon size={20} />, text: 'Supplier Management', path: '/wdms/supplier' },
+
+    { type: 'link', icon: <BarChart3 size={20} />, text: 'Report Analysis', path: '/wdms/reports' },
+
+    { type: 'link', icon: <Settings size={20} />, text: 'Settings', path: '/wdms/settings' },
   ];
 
   return (
@@ -84,6 +128,17 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
       
       <nav className="Sidebar-nav">
         {menuItems.map((item, index) => {
+          // Handle Section Heading with Divider
+          if (item.type === 'section-heading') {
+            return (
+              <div key={index} className="Sidebar-section-wrapper">
+                <hr className="Sidebar-divider" />
+                {!isCollapsed && <span className="Sidebar-section-title">{item.text}</span>}
+              </div>
+            );
+          }
+
+          // Handle Standard Links
           if (item.type === 'link') {
             return (
               <a key={index} href={item.path} className="Sidebar-link">
@@ -93,7 +148,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
             );
           }
 
-          // Render Dropdown item grouping
+          // Handle Dropdown Menus
           const isDropdownOpen = !!openDropdowns[item.text];
           return (
             <div key={index} className={`Sidebar-dropdown-wrapper ${isDropdownOpen ? 'is-open' : ''}`}>
@@ -110,7 +165,6 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
                 )}
               </button>
               
-              {/* Dropdown Items (Hidden on hover when sidebar is collapsed completely) */}
               {!isCollapsed && (
                 <div className="Sidebar-submenu">
                   {item.subItems.map((subItem, subIndex) => (

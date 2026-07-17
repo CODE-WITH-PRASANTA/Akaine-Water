@@ -1,0 +1,270 @@
+/* Component Scoped UI Variables Customizations */
+:root {
+  --rm-blue-primary: #1d4ed8;
+  --rm-blue-hover: #1e40af;
+  --rm-blue-bg-light: #eff6ff;
+  
+  --rm-surface-base: #ffffff;
+  --rm-surface-alt: #f8fafc;
+  --rm-border-color: #e2e8f0;
+  
+  --rm-txt-main: #0f172a;
+  --rm-txt-muted: #64748b;
+  --rm-success-green: #16a34a;
+}
+
+/* Base Wrapper Card Structure matching design exactly */
+.rm-dashboard-card {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 100%;
+  margin: 30px auto;
+  padding: 24px;
+  background-color: var(--rm-surface-base);
+  border-radius: 12px;
+  border: 1px solid var(--rm-border-color);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+}
+
+/* Header Layout Styles */
+.rm-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rm-header-bar__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--rm-txt-main);
+}
+
+.rm-header-bar__plus-btn {
+  background-color: var(--rm-blue-primary);
+  color: #ffffff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.rm-header-bar__plus-btn:hover {
+  background-color: var(--rm-blue-hover);
+  transform: scale(1.03);
+}
+
+/* Google Map Viewport Container Block */
+.rm-map-viewport {
+  width: 100%;
+  height: 480px; /* Highly detailed map view spacing */
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--rm-border-color);
+  background-color: var(--rm-surface-alt);
+}
+
+.rm-map-viewport__frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Contextual tracking updates tray status bar */
+.rm-status-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--rm-surface-alt);
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-top: 14px;
+  border: 1px solid var(--rm-border-color);
+}
+
+.rm-status-footer__dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--rm-success-green);
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulseTracking 2s infinite ease-in-out;
+}
+
+.rm-status-footer__text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--rm-txt-muted);
+}
+
+@keyframes pulseTracking {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* Popup Onboarding Form Dialog Overlay styles */
+.rm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  padding: 16px;
+}
+
+.rm-modal {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--rm-border-color);
+  padding: 24px;
+}
+
+.animate-modal-slide {
+  animation: slideInUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.rm-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--rm-border-color);
+  padding-bottom: 12px;
+}
+
+.rm-modal__header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--rm-txt-main);
+}
+
+.rm-modal__close {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--rm-txt-muted);
+  line-height: 1;
+}
+
+/* Form Input Element Styling Trees */
+.rm-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rm-modal-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rm-modal-form__field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rm-txt-main);
+}
+
+.rm-modal-form__field input,
+.rm-modal-form__field select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--rm-border-color);
+  font-size: 14px;
+  color: var(--rm-txt-main);
+  outline: none;
+  background-color: #ffffff;
+}
+
+.rm-modal-form__field input:focus,
+.rm-modal-form__field select:focus {
+  border-color: var(--rm-blue-primary);
+}
+
+.rm-modal-form__help-text {
+  font-size: 11px;
+  color: var(--rm-txt-muted);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* Modal Form Actions Layout buttons footer */
+.rm-modal-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.rm-modal-form__btn-cancel {
+  background-color: transparent;
+  border: 1px solid var(--rm-border-color);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--rm-txt-muted);
+}
+
+.rm-modal-form__btn-cancel:hover {
+  background-color: var(--rm-surface-alt);
+}
+
+.rm-modal-form__btn-submit {
+  background-color: var(--rm-blue-primary);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.rm-modal-form__btn-submit:hover {
+  background-color: var(--rm-blue-hover);
+}
+
+/* Mobile Layout Responsive Media Configurations */
+@media (max-width: 600px) {
+  .rm-dashboard-card {
+    margin: 10px;
+    padding: 16px;
+  }
+
+  .rm-map-viewport {
+    height: 350px;
+  }
+
+  .rm-modal {
+    align-self: flex-end;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}

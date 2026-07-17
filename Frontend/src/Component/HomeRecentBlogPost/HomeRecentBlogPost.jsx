@@ -2,7 +2,7 @@ import React from 'react';
 import './HomeRecentBlogPost.css';
 
 // --- PLACE YOUR PROJECT IMAGE ASSETS HERE ---
-import blogImg1 from '../../assets/shop-6.jpg'; 
+import blogImg1 from '../../assets/shop-5.jpg'; 
 import blogImg2 from '../../assets/shop-7.jpg'; 
 import blogImg3 from '../../assets/shop-8.jpg'; 
 

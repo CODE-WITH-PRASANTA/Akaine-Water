@@ -1,0 +1,244 @@
+/* ==========================================================================
+   ServiceBreadcrumb Stylesheet
+   ========================================================================== */
+
+.ServiceBreadcrumb-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Invisible semantic SEO block for search engine indexing */
+.ServiceBreadcrumb-seo-content {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- HERO BANNER BACKGROUND --- */
+.ServiceBreadcrumb-banner {
+  position: relative;
+  width: 100%;
+  height: 260px; /* Adjust height based on your layout needs */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+/* Text and Nav Controls Container */
+.ServiceBreadcrumb-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Breadcrumb Main Title */
+.ServiceBreadcrumb-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a202c; /* Adjust text color to match your design palette */
+  margin: 0;
+}
+
+/* Navigation Links Container */
+.ServiceBreadcrumb-navigation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Home Link */
+.ServiceBreadcrumb-link-home {
+  color: #4a5568;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ServiceBreadcrumb-link-home:hover {
+  color: #3182ce; /* Primary brand accent color on hover */
+}
+
+/* Divider Symbol (/) */
+.ServiceBreadcrumb-divider {
+  color: #a0aec0;
+}
+
+/* Current Active Page Text */
+.ServiceBreadcrumb-link-current {
+  color: #3182ce; /* Highlight color for active state */
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+  .ServiceBreadcrumb-banner {
+    height: 200px;
+  }
+
+  .ServiceBreadcrumb-title {
+    font-size: 2rem;
+  }
+}/* --- HERO BANNER BACKGROUND --- */
+.ServiceBreadcrumb-banner {
+  position: relative;
+  width: 100%;
+  height: 400px; /* 1. Increased height from 260px to 400px */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centering the container horizontally */
+}
+
+/* Text and Nav Controls Container */
+.ServiceBreadcrumb-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center; /* 2. Centers the text elements horizontally */
+  text-align: center;   /* 3. Ensures text wraps nicely centered if on small screens */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .ServiceBreadcrumb-banner {
+    height: 280px; /* Scale down smoothly on smaller devices */
+  }
+
+  .ServiceBreadcrumb-title {
+    font-size: 2.2rem;
+  }
+}/* ==========================================================================
+   ServiceBreadcrumb Stylesheet
+   Refactored for layout and typography based on reference image
+   ========================================================================== */
+
+.ServiceBreadcrumb-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Invisible semantic SEO block for search engine indexing */
+.ServiceBreadcrumb-seo-content {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- HERO BANNER BACKGROUND --- */
+.ServiceBreadcrumb-banner {
+  position: relative;
+  width: 100%;
+  /* Increased height to provide centered spacing for large text */
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center; /* Vertically center the container */
+  justify-content: center; /* Horizontally center the container */
+}
+
+/* Text and Nav Controls Container */
+.ServiceBreadcrumb-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  /* Reduced gap to match the tight vertical spacing in image_0.png */
+  gap: 8px;
+  align-items: center; /* Horizontally center all children */
+  text-align: center; /* Ensure text wraps centered on small screens */
+}
+
+/* Breadcrumb Main Title: Big, Bold, and Dark */
+.ServiceBreadcrumb-title {
+  /* Match the large, bold font style from image_0.png */
+  font-size: 3.5rem; /* Larger font size */
+  font-weight: 800; /* Extra bold */
+  /* Very dark, almost black color for strong contrast */
+  color: #111111;
+  margin: 0;
+  letter-spacing: -1px; /* Tighter letter spacing */
+}
+
+/* Navigation Links Container */
+.ServiceBreadcrumb-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Sufficient space between links and divider */
+  /* Small, light grey font for the menu */
+  font-size: 0.85rem;
+  font-weight: 500;
+  /* Use uppercase as seen in image_0.png */
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Wide letter spacing */
+  color: #666666; /* Muted grey color for the menu */
+}
+
+/* Home Link */
+.ServiceBreadcrumb-link-home {
+  color: inherit; /* Inherit muted grey from parent */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ServiceBreadcrumb-link-home:hover {
+  /* subtle blue accent on hover */
+  color: #3182ce;
+}
+
+/* Divider Symbol (/) */
+.ServiceBreadcrumb-divider {
+  /* Keep divider consistent with the muted menu color */
+  color: inherit;
+}
+
+/* Current Active Page Text */
+.ServiceBreadcrumb-link-current {
+  /* Subtle blue color for the active "VIEW ALL SERVICES" text */
+  color: #3182ce;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+  .ServiceBreadcrumb-banner {
+    /* Scale down the banner height for smaller devices */
+    height: 300px;
+  }
+
+  .ServiceBreadcrumb-title {
+    /* Reduce title size to avoid overflow on phones */
+    font-size: 2.8rem;
+  }
+}

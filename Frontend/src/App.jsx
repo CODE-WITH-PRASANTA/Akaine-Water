@@ -6,44 +6,31 @@ import Topbar from "./Component/Topbar/Topbar";
 import Navbar from "./Component/Navbar/Navbar";
 import Footer from "./Component/Footer/Footer";
 
+
+
 // Components
 import AkaineGalary from "./Component/AkaineGalary/AkaineGalary";
 import OurTeam from "./Component/OurTeam/OurTeam";
 
-// Pages
+// Main Pages
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Shop from "./Pages/Shop/Shop";
 import Contact from "./Pages/Contact/Contact";
 import Blog from "./Pages/Blog/Blog";
 import PricingAndPlans from "./Pages/PricingAndPlans/PricingAndPlans";
-<<<<<<< HEAD
-
-// Other Pages
-<<<<<<< HEAD
-import Testimonial from "./pages/Testimonial/Testimonial";
-import Cart from "./pages/Cart/Cart";
-import Cheakout from "./pages/Cheakout/Cheakout";
-import Faq from "./pages/Faq/Faq";
-<<<<<<< HEAD
-import About from "./Pages/About/About";
-
-
-=======
 import MainTeam from "./Pages/MainTeam/MainTeam";
 import GalaryMain from "./Pages/GalaryMain/GalaryMain";
->>>>>>> caff59ae6fe819a177b1379a3462d0a5bbad0041
-=======
-=======
-import MainTeam from "./Pages/MainTeam/MainTeam";
-import GalaryMain from "./Pages/GalaryMain/GalaryMain";
+import OurServices from "./Pages/OurServices/OurServices";
+import WhiteQuartz from "./Pages/WhiteQuartz/WhiteQuartz";
 
 // Other Pages
->>>>>>> 40f9ea368375c01937174bbf1385ac85da1187b1
 import Testimonial from "./Pages/Testimonial/Testimonial";
 import Cart from "./Pages/Cart/Cart";
 import Cheakout from "./Pages/Cheakout/Cheakout";
 import Faq from "./Pages/Faq/Faq";
+import BlogDetails from "./Pages/BlogDetails/BlogDetails";
+
 
 function App() {
   return (
@@ -54,39 +41,30 @@ function App() {
 
       {/* Routes */}
       <Routes>
-        {/* Main Pages */}
+        {/* Home */}
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-<<<<<<< HEAD
-<<<<<<< HEAD
-      
-       
         <Route path="/home" element={<Home />} />
-=======
-        
->>>>>>> faf7d3c0c5098345fae848ed9ed5c82e7752a596
-=======
+
+        {/* Main Pages */}
+        <Route path="/about" element={<About />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/contact" element={<Contact />} />
->>>>>>> 40f9ea368375c01937174bbf1385ac85da1187b1
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/plan" element={<PricingAndPlans />} />
+        
 
         {/* Pricing */}
-        <Route path="/plan" element={<PricingAndPlans />} />
         <Route
-          path="/products/pricing"
+          path="/plan"
           element={<PricingAndPlans />}
         />
 
         {/* Blog */}
         <Route path="/resources/blog" element={<Blog />} />
-
-        {/* Team */}
+        <Route path="/blogdetails/:id" element={<BlogDetails />} />
+        {/* Resources */}
         <Route path="/resources/team" element={<MainTeam />} />
-
-        {/* Gallery */}
         <Route path="/resources/gallary" element={<GalaryMain />} />
-
-        {/* FAQs */}
         <Route path="/resources/faqs" element={<Faq />} />
 
         {/* Testimonials */}
@@ -95,13 +73,21 @@ function App() {
           element={<Testimonial />}
         />
 
-        {/* Cart & Checkout */}
+        {/* Shop */}
         <Route path="/shop/cart" element={<Cart />} />
         <Route path="/shop/checkout" element={<Cheakout />} />
 
-        {/* Individual Components (Optional) */}
+        {/* Services */}
+        <Route path="/services/all" element={<OurServices />} />
+
+        {/* Product */}
+        <Route path="/whitequartz" element={<WhiteQuartz />} />
+
+        {/* Optional Components */}
         <Route path="/team-component" element={<OurTeam />} />
-        <Route path="/gallery-component" element={<AkaineGalary />} />
+        <Route path="/gallery-component" element={<AkaineGalary />}/>
+      
+  
       </Routes>
 
       {/* Footer */}
