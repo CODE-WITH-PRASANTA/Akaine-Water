@@ -13,6 +13,7 @@ import {
   LogOut
 } from "lucide-react";
 import './Sidebar.css';
+import { FaWineBottle } from 'react-icons/fa';
 
 const Sidebar = ({ isCollapsed, isMobileOpen }) => {
   // Menu items taken exactly from the provided Water Delivery dashboard image
@@ -23,11 +24,13 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
     { type: 'link', icon: <Users size={20} />, text: 'Customers', path: '/wdms/customers' },
     { type: 'link', icon: <Truck size={20} />, text: 'Vehicle Stock', path: '/wdms/vehicle-stock' },
     { type: 'link', icon: <RotateCcw size={20} />, text: 'Empty Return', path: '/wdms/empty-return' },
+
+    { type: 'link', icon: <FaWineBottle size={20} />, text: 'Extra Stock', path: '/wdms/extra-stock' },
     { type: 'link', icon: <CreditCard size={20} />, text: 'Payments', path: '/wdms/payments' },
     { type: 'link', icon: <BarChart3 size={20} />, text: 'Reports', path: '/wdms/reports' },
-    { type: 'link', icon: <Bell size={20} />, text: 'Notifications', path: '/wdms/notifications' },
+  
     { type: 'link', icon: <Settings size={20} />, text: 'Settings', path: '/wdms/settings' },
-    { type: 'link', icon: <LogOut size={20} />, text: 'Logout', path: '/logout' },
+  
   ];
 
   return (
