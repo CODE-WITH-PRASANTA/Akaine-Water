@@ -19,6 +19,8 @@ import BlogManagement from "./Components/BlogManagement/BlogManagement";
 
 import DashboardMain from "./Pages/DashboardMain/DashboardMain";
 import ManageStock from "./Components/ManageStock/ManageStock";
+import Paymentmanagement from "./Components/Paymentmanagement/Paymentmanagement";
+import ProductandPrice from "./Components/ProductandPrice/ProductandPrice";
 import InvoiceManagement from "./Components/InvoiceManagement/InvoiceManagement";
 import DeliveryBoyassign from "./Components/DeliveryBoyassign/DeliveryBoyassign";
 import DamagedStock from "./Components/DamagedStock/DamagedStock";
@@ -29,6 +31,8 @@ import Orders from "./Pages/Orders/Orders";
 import CustomerManage from "./Pages/CustomerManage/CustomerManage";
 import RouteManagement from "./Pages/RouteManagement/RouteManagement";
 import Inventory from "./Pages/Inventory/Inventory";
+import Vehicles from "./Components/Vehicles/Vehicles";
+import StockManagement from "./Components/StockManagement/StockManagement";
 
 const App = () => {
   return (
@@ -69,9 +73,12 @@ const App = () => {
 
           <Route path="/wdms/dashboard" element={<DashboardMain />} />
           <Route path="/wdms/stock/manage" element={<ManageStock />} />
+          <Route path="/wdms/payments" element={<Paymentmanagement/>}/>
+          <Route path="/wdms/products-pricing" element={<ProductandPrice/>}/>
           <Route path="/wdms/assign-delivery" element={<DeliveryBoyassign />} />
           <Route path="/wdms/damage-stock" element={<DamagedStock />} />
-
+        <Route path="wdms/vehicles" element={<Vehicles/>}/>
+        <Route path="wdms/stock/purchase-history" element={<StockManagement/>}/>
           <Route path="/resources/gallery" element={<Gallery />} />
           <Route path="/invoice" element={<InvoiceManagement />} />
           <Route
