@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+
 import React, { useState, useRef } from 'react';
 import { 
   FiFileText, 
@@ -19,8 +19,8 @@ import {
   FiCheck,
   FiFile,
   FiTrash2,
-  FiDownload // Imported download icon
-  FiTrash2
+  FiDownload,
+  
 } from 'react-icons/fi';
 import './AddExpense.css';
 
@@ -58,7 +58,7 @@ const AddExpense = () => {
   const [expenseData, setExpenseData] = useState(INITIAL_STATE);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isDragActive, setIsDragActive] = useState(false);
-  const fileInputRef = React.useRef(null); // Adjusted inline reference trigger binding safely
+  // Adjusted inline reference trigger binding safely
   const fileInputRef = useRef(null);
 
   // Form input change engine with automated precision floating point math calculation maps
