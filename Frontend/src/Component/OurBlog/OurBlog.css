@@ -1,0 +1,211 @@
+/* Base container layout */
+.OurBlog {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  background-color: #fcfcfc; /* Extremely soft off-white canvas */
+}
+
+/* Floating palette action icon styling (consistent with the entire page UI) */
+
+
+.OurBlog-palette-container:hover {
+  transform: scale(1.05);
+}
+
+.OurBlog-palette-icon {
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+/* Card Container styling matching the clean shadows and borders */
+.OurBlog-card {
+  background-color: #ffffff;
+  border: 1px solid #ebf1f6;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  padding: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box;
+}
+
+/* Header heading */
+.OurBlog-heading {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0a101d;
+  margin: 0 0 30px 0;
+}
+
+/* Form structure */
+.OurBlog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Row wrapper for Name and Email fields */
+.OurBlog-input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Inputs with clean pill border-radius */
+.OurBlog-input {
+  width: 100%;
+  height: 52px;
+  background-color: #ffffff;
+  border: 1px solid #e1e7ec;
+  border-radius: 26px; /* High radius makes perfect pill inputs */
+  padding: 0 25px;
+  font-size: 0.95rem;
+  color: #333333;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.OurBlog-input:focus {
+  border-color: #004fc6;
+  box-shadow: 0 0 8px rgba(0, 79, 198, 0.1);
+}
+
+.OurBlog-input::placeholder {
+  color: #7d8898;
+}
+
+/* Textarea with slightly softer pill-box rounded shape */
+.OurBlog-textarea {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e1e7ec;
+  border-radius: 20px; /* Consistent rounded edges */
+  padding: 20px 25px;
+  font-size: 0.95rem;
+  color: #333333;
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.OurBlog-textarea:focus {
+  border-color: #004fc6;
+  box-shadow: 0 0 8px rgba(0, 79, 198, 0.1);
+}
+
+.OurBlog-textarea::placeholder {
+  color: #7d8898;
+}
+
+/* Distinctive button with light blue accent on the right edge */
+.OurBlog-submit-btn {
+  position: relative;
+  overflow: hidden; /* Clips the background right-accent graphic cleanly */
+  width: fit-content;
+  min-width: 200px;
+  height: 54px;
+  background-color: #004fc6; /* Main brand blue */
+  border: none;
+  border-radius: 27px; /* Pill profile */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 45px 0 35px;
+  box-shadow: 0 4px 15px rgba(0, 79, 198, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Highlighted light-blue circle on the right side of the button */
+.OurBlog-submit-btn::after {
+  content: '';
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15); /* Accent circle overlay */
+  pointer-events: none;
+  transition: transform 0.3s ease;
+}
+
+.OurBlog-submit-btn:hover {
+  background-color: #003da1;
+}
+
+.OurBlog-submit-btn:hover::after {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.OurBlog-submit-text {
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2; /* Sits above the pseudo highlight overlay */
+}
+
+/* --- Responsive Media Queries --- */
+
+/* Tablets and medium viewports */
+@media (max-width: 768px) {
+  .OurBlog {
+    padding: 40px 15px;
+  }
+
+  .OurBlog-card {
+    padding: 30px;
+  }
+
+  .OurBlog-heading {
+    font-size: 1.7rem;
+    margin-bottom: 24px;
+  }
+
+  .OurBlog-palette-container {
+    display: none; /* Hide floating palettes on small device widths to preserve text canvas */
+  }
+}
+
+/* Small Mobiles */
+@media (max-width: 540px) {
+  .OurBlog-input-group {
+    grid-template-columns: 1fr; /* Stacks inputs vertically */
+    gap: 15px;
+  }
+
+  .OurBlog-card {
+    padding: 20px 15px;
+  }
+
+  .OurBlog-heading {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .OurBlog-submit-btn {
+    width: 100%; /* Fully responsive block button on screens under 540px */
+    justify-content: center;
+    padding: 0;
+  }
+
+  .OurBlog-submit-btn::after {
+    display: none; /* Removes decoration on tiny viewports for standard styling alignment */
+  }
+}

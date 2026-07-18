@@ -1,0 +1,475 @@
+/* Blue Theme Styling Ecosystem */
+:root {
+  --blue-bg-container: #ffffff;
+  --blue-bg-surface: #f4f8fa;
+  --blue-bg-surface-hover: #eaf2f6;
+  
+  --blue-text-primary: #0f2d4a;
+  --blue-text-secondary: #426786;
+  --blue-text-muted: #6284a2;
+  
+  --blue-brand-primary: #0284c7;
+  --blue-brand-hover: #0369a1;
+  --blue-brand-light: #e0f2fe;
+  --blue-border-color: #d0e1ed;
+
+  /* Accent status colors tinted blue */
+  --blue-pending-bg: #fef3c7;
+  --blue-pending-txt: #b45309;
+  --blue-delivered-bg: #e0f2fe;
+  --blue-delivered-txt: #0369a1;
+  --blue-returned-bg: #f1f5f9;
+  --blue-returned-txt: #475569;
+  --blue-rejected-bg: #fee2e2;
+  --blue-rejected-txt: #b91c1c;
+}
+
+/* Container Structure */
+.orders-theme-blue-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 100%;
+  margin: 24px auto;
+  padding: 20px;
+  background-color: var(--blue-bg-container);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(2, 132, 199, 0.05);
+  border: 1px solid var(--blue-border-color);
+}
+
+/* Search Box Group */
+.orders-blue-search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--blue-bg-surface);
+  border: 1px solid var(--blue-border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+
+.orders-blue-search-wrapper:focus-within {
+  border-color: var(--blue-brand-primary);
+}
+
+.blue-search-icon {
+  color: var(--blue-text-muted);
+  margin-right: 10px;
+}
+
+.orders-blue-search-input {
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: var(--blue-text-primary);
+}
+
+.orders-blue-search-input::placeholder {
+  color: var(--blue-text-muted);
+}
+
+/* Table Architecture */
+.orders-blue-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.orders-blue-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.orders-blue-table th {
+  padding: 14px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue-text-secondary);
+  border-bottom: 2px solid var(--blue-border-color);
+  background-color: var(--blue-bg-surface);
+}
+
+.orders-blue-table td {
+  padding: 16px 10px;
+  font-size: 14px;
+  color: var(--blue-text-primary);
+  border-bottom: 1px solid var(--blue-border-color);
+  vertical-align: middle;
+}
+
+.order-blue-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.order-blue-row:hover {
+  background-color: var(--blue-bg-surface-hover);
+}
+
+.order-blue-id {
+  color: var(--blue-brand-primary);
+  font-weight: 600;
+}
+
+.customer-blue-name {
+  font-weight: 700;
+  color: var(--blue-text-primary);
+}
+
+.order-blue-items {
+  font-weight: 600;
+}
+
+.order-blue-amount {
+  font-weight: 700;
+  color: var(--blue-text-primary);
+}
+
+/* Blue-Themed Badges */
+.blue-status-badge {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.blue-status-badge.status-blue-pending {
+  background-color: var(--blue-pending-bg);
+  color: var(--blue-pending-txt);
+}
+
+.blue-status-badge.status-blue-delivered {
+  background-color: var(--blue-delivered-bg);
+  color: var(--blue-delivered-txt);
+}
+
+.blue-status-badge.status-blue-returned {
+  background-color: var(--blue-returned-bg);
+  color: var(--blue-returned-txt);
+}
+
+.blue-status-badge.status-blue-rejected {
+  background-color: var(--blue-rejected-bg);
+  color: var(--blue-rejected-txt);
+}
+
+/* Table Dropdown Engine */
+.action-blue-cell {
+  position: relative;
+}
+
+.action-blue-trigger-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: var(--blue-text-secondary);
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.action-blue-trigger-btn:hover {
+  background-color: var(--blue-border-color);
+}
+
+.action-blue-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: #ffffff;
+  border: 1px solid var(--blue-border-color);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(15, 45, 74, 0.15);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  overflow: hidden;
+}
+
+.action-blue-dropdown-menu button {
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--blue-text-primary);
+  font-weight: 500;
+}
+
+.action-blue-dropdown-menu button:hover {
+  background-color: var(--blue-brand-light);
+  color: var(--blue-brand-hover);
+}
+
+.blue-text-right {
+  text-align: right;
+}
+
+/* Master Actions Footer */
+.view-all-blue-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  background-color: transparent;
+  border: 1px solid var(--blue-brand-primary);
+  color: var(--blue-brand-primary);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-all-blue-btn:hover {
+  background-color: var(--blue-brand-primary);
+  color: #ffffff;
+}
+
+/* Blue Overlay & Popups */
+.modal-blue-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 45, 74, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal-blue-content {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 18px;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(15, 45, 74, 0.25);
+  padding: 24px;
+  border: 1px solid var(--blue-border-color);
+  animation: slideUpBlue 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpBlue {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-blue-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 26px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--blue-text-muted);
+}
+
+/* Profile Panel Inside Drawer */
+.modal-blue-profile-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  background-color: var(--blue-bg-surface);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--blue-border-color);
+}
+
+.profile-blue-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--blue-brand-primary);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.profile-blue-details h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--blue-text-primary);
+}
+
+.profile-blue-phone {
+  margin: 2px 0;
+  font-size: 13px;
+  color: var(--blue-text-secondary);
+  font-weight: 600;
+}
+
+.profile-blue-area {
+  margin: 0;
+  font-size: 12px;
+  color: var(--blue-text-muted);
+}
+
+/* Data Metric Layouts inside modal */
+.modal-blue-order-details {
+  border-top: 1px solid var(--blue-border-color);
+  padding-top: 18px;
+}
+
+.modal-blue-order-details h4 {
+  margin: 0 0 14px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue-text-primary);
+}
+
+.details-blue-grid-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.blue-grid-label {
+  color: var(--blue-text-secondary);
+}
+
+.blue-grid-label.sub-blue-heading {
+  font-weight: 700;
+  margin-top: 10px;
+  color: var(--blue-text-primary);
+}
+
+.blue-grid-value {
+  color: var(--blue-text-primary);
+}
+
+.font-blue-semibold { font-weight: 600; }
+.font-blue-bold { font-weight: 700; color: var(--blue-brand-hover); }
+.mt-blue-12 { margin-top: 12px; }
+
+.amount-blue-paid-wrapper {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.paid-blue-badge {
+  color: var(--blue-brand-primary);
+  font-size: 11px;
+  font-weight: 700;
+  background-color: var(--blue-brand-light);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* Utility Contact Options Group */
+.modal-blue-contact-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.contact-blue-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--blue-border-color);
+  background-color: var(--blue-bg-surface);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--blue-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.contact-blue-btn:hover {
+  background-color: var(--blue-brand-light);
+  color: var(--blue-brand-hover);
+  border-color: var(--blue-brand-primary);
+}
+
+/* Auxiliary Function buttons */
+.modal-blue-utility-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.utility-blue-btn {
+  border: 1px solid var(--blue-border-color);
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue-text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.utility-blue-btn:hover {
+  background-color: var(--blue-bg-surface-hover);
+  border-color: var(--blue-text-muted);
+}
+
+/* Master Submission Button inside modal */
+.modal-blue-submit-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px;
+  background-color: var(--blue-brand-primary);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+}
+
+.modal-blue-submit-btn:hover {
+  background-color: var(--blue-brand-hover);
+}
+
+/* Mobile Media Adaptations */
+@media (max-width: 520px) {
+  .orders-theme-blue-container {
+    margin: 8px;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .modal-blue-content {
+    align-self: flex-end;
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    animation: slideUpBottomBlue 0.25s ease-out;
+  }
+
+  @keyframes slideUpBottomBlue {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+}

@@ -1,0 +1,645 @@
+/* Container Layout Setup */
+.PopularPost {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-family: 'Poppins', sans-serif;
+  color: #004eb3;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Floating Palette Icon */
+.PopularPost-palette-sticky {
+  position: fixed;
+  left: 0;
+  top: 180px;
+  background-color: #000000;
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: 0 50% 50% 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 100;
+  transition: transform 0.2s ease;
+}
+
+.PopularPost-palette-sticky:hover {
+  transform: scale(1.05);
+}
+
+.PopularPost-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 8fr 4fr;
+  gap: 40px;
+}
+
+/* ================= LEFT CONTENT COLUMN STYLING ================= */
+.PopularPost-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.PopularPost-article-card {
+  width: 100%;
+}
+
+/* Main Post Image and Banner Badge styling */
+.PopularPost-main-img-container {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+}
+
+.PopularPost-main-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.PopularPost-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #004eb3;
+  color: #ffffff;
+  padding: 8px 15px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Metadata Row */
+.PopularPost-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 25px 0;
+  font-family: 'Roboto', sans-serif;
+  color: #8c95a5;
+  font-size: 0.85rem;
+}
+
+.PopularPost-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.PopularPost-meta-icon {
+  color: #00c3ff;
+}
+
+.PopularPost-meta-divider {
+  color: #e2e8f0;
+}
+
+/* Prose and Headings inside Article */
+.PopularPost-paragraph {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #5d6778;
+  margin-bottom: 25px;
+}
+
+.PopularPost-section-heading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #0c1c3f;
+  margin: 15px 0 20px 0;
+  line-height: 1.3;
+}
+
+/* Quote Graphic blockout styling */
+.PopularPost-quote-block {
+  background-color: #004eb3;
+  border-radius: 10px;
+  padding: 40px;
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+  margin: 40px 0;
+}
+
+.PopularPost-quote-icon-box {
+  background-color: rgba(255, 255, 255, 0.12);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.PopularPost-quote-svg {
+  color: #ffffff;
+  font-size: 1.25rem;
+}
+
+.PopularPost-quote-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.PopularPost-quote-text {
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.PopularPost-quote-author {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: normal;
+}
+
+/* Tag/Share footer bar */
+.PopularPost-share-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ebf1f6;
+  padding-bottom: 25px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.PopularPost-tags-inline,
+.PopularPost-social-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.PopularPost-label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0c1c3f;
+}
+
+.PopularPost-pill-tag {
+  border: 1px solid #e1e7ec;
+  padding: 6px 16px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  color: #7d8898;
+  font-family: 'Roboto', sans-serif;
+}
+
+.PopularPost-social-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #e1e7ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7d8898;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.PopularPost-social-circle:hover {
+  background-color: #004eb3;
+  color: #ffffff;
+  border-color: #004eb3;
+}
+
+/* Next Post link item */
+.PopularPost-nav-link-box {
+  margin: 35px 0;
+  text-align: center;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.PopularPost-nav-link-box:hover {
+  background-color: #f1f5f9;
+}
+
+.PopularPost-nav-sub {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #7d8898;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.PopularPost-nav-arrow {
+  font-size: 0.7rem;
+}
+
+.PopularPost-nav-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #0c1c3f;
+  margin: 8px 0 0 0;
+  line-height: 1.4;
+}
+
+/* Author Profile card block styling */
+.PopularPost-author-card {
+  display: flex;
+  gap: 25px;
+  background-color: #f8fafc;
+  border: 1px solid #ebf1f6;
+  border-radius: 12px;
+  padding: 35px;
+  box-sizing: border-box;
+}
+
+.PopularPost-author-avatar-box {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #e2e8f0;
+}
+
+.PopularPost-author-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.PopularPost-author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.PopularPost-author-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #0c1c3f;
+  margin: 0 0 4px 0;
+}
+
+.PopularPost-author-info h5 {
+  margin: 0 0 10px 0;
+  font-family: 'Poppins', sans-serif;
+  color: #004eb3;
+  font-weight: 600;
+}
+
+.PopularPost-author-bio {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #5d6778;
+  margin: 0 0 15px 0;
+}
+
+.PopularPost-author-socials {
+  display: flex;
+  gap: 15px;
+}
+
+.PopularPost-author-socials a {
+  color: #7d8898;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.PopularPost-author-socials a:hover {
+  color: #004eb3;
+}
+
+/* ================= RIGHT SIDEBAR WIDGETS STYLING ================= */
+.PopularPost-sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #ebf1f6;
+  border-top: 3px solid #00c3ff;
+  border-radius: 10px;
+  padding: 35px 25px;
+  box-sizing: border-box;
+  height: fit-content;
+  gap: 40px;
+}
+
+.PopularPost-widget {
+  width: 100%;
+}
+
+.PopularPost-widget-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #0c1c3f;
+  margin: 0 0 20px 0;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.PopularPost-widget-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #004eb3;
+}
+
+/* 1. Search Box input widget */
+.PopularPost-search-box {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.PopularPost-search-input {
+  width: 100%;
+  height: 48px;
+  background-color: #f0f3f6;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  padding: 0 55px 0 20px;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  color: #333333;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.PopularPost-search-input:focus {
+  border-color: #004eb3;
+  background-color: #ffffff;
+}
+
+.PopularPost-search-btn {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #004eb3;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. Category styling */
+.PopularPost-category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.PopularPost-category-item {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #7d8898;
+  padding: 12px 0;
+  border-bottom: 1px solid #ebf1f6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.PopularPost-category-item:last-child {
+  border-bottom: none;
+}
+
+.PopularPost-category-item:hover {
+  color: #004eb3;
+  padding-left: 5px;
+}
+
+/* 3. Popular Posts layout in Sidebar */
+.PopularPost-sidebar-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.PopularPost-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #e4e7ee;
+}
+
+.PopularPost-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.PopularPost-img-container {
+  width: 70px;
+  height: 70px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.PopularPost-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.PopularPost-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.PopularPost-date-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #a2a7b5;
+  font-family: 'Roboto', sans-serif;
+}
+
+.PopularPost-calendar-icon {
+  color: #00c3ff;
+}
+
+.PopularPost-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #0c1c3f;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.PopularPost-title:hover {
+  color: #004eb3;
+}
+
+/* 4. Subscription Widget Box */
+.PopularPost-subscribe-card {
+  background-color: #004eb3;
+  border-radius: 8px;
+  padding: 40px 25px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.PopularPost-sub-icon-circle {
+  background-color: rgba(255, 255, 255, 0.15);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.PopularPost-sub-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+}
+
+.PopularPost-sub-desc {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin: 0 0 25px 0;
+}
+
+.PopularPost-sub-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.PopularPost-sub-input {
+  width: 100%;
+  height: 44px;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 22px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-size: 0.85rem;
+  color: #333333;
+  outline: none;
+  text-align: center;
+}
+
+.PopularPost-sub-btn {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  height: 44px;
+  border-radius: 22px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease;
+}
+
+.PopularPost-sub-btn:hover {
+  background-color: #1a1a1a;
+}
+
+/* ================= RESPONSIVE VIEWPORTS ================= */
+
+/* Medium screen layouts (e.g. Tablets) */
+@media (max-width: 992px) {
+  .PopularPost-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+}
+
+/* Small Device Screen Layouts (e.g. Mobiles) */
+@media (max-width: 600px) {
+  .PopularPost {
+    padding: 40px 12px;
+  }
+  
+  .PopularPost-quote-block {
+    padding: 25px 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .PopularPost-section-heading {
+    font-size: 1.6rem;
+  }
+
+  .PopularPost-author-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px 15px;
+  }
+
+  .PopularPost-share-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .PopularPost-palette-sticky {
+    display: none;
+  }
+}
