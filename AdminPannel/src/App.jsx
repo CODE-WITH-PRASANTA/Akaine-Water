@@ -1,11 +1,13 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 
 // Layout
 import MainLayout from "./Layout/MainLayout/MainLayout";
 
-// Components / Pages
+// Components (Imports kept the same)
+import Login from "./Components/Login/Login";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import OurTeam from "./Components/OurTeam/OurTeam";
 import Gallery from "./Components/Gallery/Gallery";
 import Testimonial from "./pages/Testimonial/Testimonial";
@@ -31,45 +33,58 @@ import RouteManagement from "./Pages/RouteManagement/RouteManagement";
 import Inventory from "./Pages/Inventory/Inventory";
 import Vehicles from "./Components/Vehicles/Vehicles";
 import StockManagement from "./Components/StockManagement/StockManagement";
+import AddExpense from "./Components/AddExpense/AddExpense";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Main Layout Wrapper */}
-        <Route element={<MainLayout />}>
-          {/* Home / Root */}
-          <Route path="/" element={<Testimonial />} />
-          
-          {/* Dashboard & Main Pages */}
-          <Route path="/dashboard" element={<Dashboards />} />
-          <Route path="/team" element={<OurTeam />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/testimonial" element={<Testimonial />} />
-          <Route path="/shop" element={<ShopPosting />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog-posting" element={<BlogPosting />} />
-          <Route path="/blog-management" element={<BlogManagement />} />
-          <Route path="/invoice" element={<InvoiceManagement />} />
-          <Route path="/products/testimonials" element={<Testiminial />} />
+        {/* Public Routes */}
+        <Route path="/login" element={<Login />} />
 
-          {/* WDMS Routes */}
-          <Route path="/wdms/dashboard" element={<DashboardMain />} />
-          <Route path="/wdms/orders" element={<Orders />} />
-          <Route path="/wdms/customer" element={<CustomerManage />} />
-          <Route path="/wdms/route-management" element={<RouteManagement />} />
-          <Route path="/wdms/inventory" element={<Inventory />} />
-          <Route path="/wdms/expenses" element={<Expense />} />
-          <Route path="/wdms/reports" element={<ReportsAnalytics />} />
-          <Route path="/wdms/stock/manage" element={<ManageStock />} />
-          <Route path="/wdms/stock/purchase-history" element={<StockManagement />} />
-          <Route path="/wdms/payments" element={<Paymentmanagement />} />
-          <Route path="/wdms/products-pricing" element={<ProductandPrice />} />
-          <Route path="/wdms/assign-delivery" element={<DeliveryBoyassign />} />
-          <Route path="/wdms/damage-stock" element={<DamagedStock />} />
-          <Route path="/wdms/vehicles" element={<Vehicles />} />
+        {/* Protected Routes (Wrapped in ProtectedRoute and MainLayout) */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Navigate to="/wdms/dashboard" replace />} />
+            
+            {/* Dashboard & Main Pages */}
+            <Route path="/dashboard" element={<Dashboards />} />
+            <Route path="/team" element={<OurTeam />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/testimonial" element={<Testimonial />} />
+            <Route path="/shop" element={<ShopPosting />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog-posting" element={<BlogPosting />} />
+            <Route path="/blog-management" element={<BlogManagement />} />
+            
+            {/* WDMS Routes */}
+            <Route path="/wdms/dashboard" element={<DashboardMain />} />
+            <Route path="/wdms/orders" element={<Orders />} />
+            <Route path="/wdms/customer" element={<CustomerManage />} />
+            <Route path="/wdms/route-management" element={<RouteManagement />} />
+            <Route path="/wdms/inventory" element={<Inventory />} />
+            <Route path="/wdms/expenses" element={<Expense />} />
+            <Route path="/wdms/add-expenses" element={<AddExpense />} />
+            <Route path="/wdms/reports" element={<ReportsAnalytics />} />
+            <Route path="/wdms/stock/manage" element={<ManageStock />} />
+            <Route path="/wdms/stock/purchase-history" element={<StockManagement />} />
+            <Route path="/wdms/payments" element={<Paymentmanagement />} />
+            <Route path="/wdms/products-pricing" element={<ProductandPrice />} />
+            <Route path="/wdms/assign-delivery" element={<DeliveryBoyassign />} />
+            <Route path="/wdms/damage-stock" element={<DamagedStock />} />
+            <Route path="/wdms/vehicles" element={<Vehicles />} />
+            <Route path="/wdms/invoice" element={<InvoiceManagement />} />
+            
+            {/* Cleanup: Combined duplicates and fixed typos */}
+            <Route path="/resources/team" element={<OurTeam />} />
+            <Route path="/resources/gallery" element={<Gallery />} />
+            <Route path="/products/testimonials" element={<Testiminial />} />
+          </Route>
         </Route>
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
   );

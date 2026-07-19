@@ -1,0 +1,434 @@
+/* Container reset and base setup */
+.extra-stock-container.full-page-view {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #f4f7fc;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* 100% block stack structural architecture layout */
+.extra-stock-wrapper.full-width-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Form Card Setup stretching 100% width profile layout */
+.extra-stock-card.full-size-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e1e8f5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.extra-stock-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.extra-stock-title {
+  color: #0b2265;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Split grid container logic layout */
+.extra-stock-form-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+
+.extra-stock-form-left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 2;
+}
+
+.extra-stock-form-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.extra-stock-jar-img {
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.95;
+}
+
+/* Input Fields styling components */
+.extra-stock-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.extra-stock-label {
+  color: #5c6b88;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.extra-stock-input,
+.extra-stock-select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d3dcfa;
+  font-size: 14px;
+  color: #1e293b;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.extra-stock-input:focus,
+.extra-stock-select:focus {
+  border-color: #1253d6;
+}
+
+/* Counter setup selectors */
+.extra-stock-counter {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d3dcfa;
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+  background-color: #ffffff;
+}
+
+.extra-stock-counter-btn {
+  background: none;
+  border: none;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b2265;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.extra-stock-counter-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.extra-stock-counter-value {
+  min-width: 46px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0b2265;
+  border-left: 1px solid #e1e8f5;
+  border-right: 1px solid #e1e8f5;
+  padding: 0 8px;
+}
+
+/* Dynamic Pricing parameters */
+.extra-stock-amount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1253d6; /* The visual price highlights */
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #e1e8f5;
+  width: fit-content;
+}
+
+/* Call to Action Button styling configurations */
+.extra-stock-submit-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 48px;
+  margin-top: 24px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-sizing: border-box;
+}
+
+.blue-btn {
+  background-color: #1253d6;
+}
+
+.blue-btn:hover {
+  background-color: #0e42ab;
+}
+
+.edit-mode-btn {
+  background-color: #eab308;
+}
+
+.edit-mode-btn:hover {
+  background-color: #ca8a04;
+}
+
+.extra-stock-submit-btn:active {
+  transform: scale(0.99);
+}
+
+/* ================= CRUD DATA TABLE STYLING ================= */
+.table-section-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e1e8f5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  padding: 24px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.table-section-title {
+  color: #0b2265;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.custom-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+  min-width: 700px; /* Protects data row metrics from breaking on dynamic scaling */
+}
+
+.custom-data-table th {
+  background-color: #f8fafc;
+  color: #5c6b88;
+  font-weight: 600;
+  padding: 14px 16px;
+  border-bottom: 2px solid #edf2f7;
+  white-space: nowrap;
+}
+
+.custom-data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #edf2f7;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.custom-data-table tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Context Reason Badge Chips Styling */
+.reason-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.reason-badge.reason-customer-requested {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.reason-badge.reason-event---party {
+  background-color: #faf5ff;
+  color: #7c3aed;
+}
+
+.reason-badge.reason-damaged-replacement {
+  background-color: #fff7ed;
+  color: #ea580c;
+}
+
+/* Table Item Operations Buttons */
+.table-actions-cell {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.edit-action {
+  color: #475569;
+}
+
+.edit-action:hover {
+  background-color: #f1f5f9;
+  color: #1253d6;
+}
+
+.delete-action {
+  color: #475569;
+}
+
+.delete-action:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.empty-table-placeholder {
+  text-align: center;
+  color: #94a3b8;
+  padding: 40px 0 !important;
+  font-style: italic;
+}
+
+/* Pagination Row Architecture Styling specs */
+.table-pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pagination-info-text {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.pagination-button-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pagination-nav-btn {
+  background-color: #ffffff;
+  border: 1px solid #d3dcfa;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0b2265;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.pagination-nav-btn:hover:not(:disabled) {
+  background-color: #f1f5f9;
+}
+
+.pagination-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-number-btn {
+  background-color: #ffffff;
+  border: 1px solid #d3dcfa;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b2265;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-number-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.pagination-number-btn.active-page {
+  background-color: #1253d6;
+  border-color: #1253d6;
+  color: #ffffff;
+}
+
+/* ==========================================================
+   RESPONSIVE DESIGN MEDIA QUERIES (ALWAYS AT THE BOTTOM)
+   ========================================================== */
+
+/* 1. Mobile Viewports (Phones/Handsets: 0px to 649px) */
+@media (max-width: 649px) {
+  .extra-stock-container.full-page-view {
+    padding: 12px;
+  }
+
+  .extra-stock-card.full-size-card {
+    padding: 20px;
+  }
+
+  .extra-stock-form-right {
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    opacity: 0.10; /* Clean background watermark configuration */
+    pointer-events: none;
+  }
+
+  .table-section-card {
+    padding: 16px;
+  }
+
+  .table-pagination-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* 2. Tablet Viewports (Medium Screens: 650px to 991px) */
+@media (min-width: 650px) {
+  .extra-stock-form-content {
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 32px;
+  }
+}
+
+/* 3. Laptop & Workstation High-Res Screens (992px and up) */
+@media (min-width: 992px) {
+  .extra-stock-card.full-size-card {
+    padding: 40px;
+  }
+  
+  .extra-stock-title {
+    font-size: 22px;
+  }
+}

@@ -1,138 +1,97 @@
 import React, { useState } from 'react';
-import { FaPlus, FaMinus } from 'react-icons/fa';
+import { FaPlus, FaMinus, FaEdit, FaTrashAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import './EmptyReturn.css';
-
-// Importing jar images from src/assets as requested
-import jarLeft from '../../assets/jar.jpg'; // Update path if needed based on your folder structure
-import jarRight from '../../assets/jar.jpg'; 
+import jarRight from '../../assets/jar.jpg'; // Path matching your project setup
 
 const EmptyReturn = () => {
-  // --- Left Card State (Add Extra Stock) ---
-  const [extraProduct, setExtraProduct] = useState('20L');
-  const [extraQty, setExtraQty] = useState(1);
-  const [reason, setReason] = useState('Customer Requested');
-
-  // Pricing helper based on selected size
-  const getPricePerJar = (size) => {
-    if (size === '20L') return 80;
-    if (size === '15L') return 60;
-    return 40; // 10L
-  };
-
-  const totalAmount = extraQty * getPricePerJar(extraProduct);
-
-  const handleExtraStockSubmit = (e) => {
-    e.preventDefault();
-    console.log('Add Extra Stock Submitted:', {
-      productSize: extraProduct,
-      quantity: extraQty,
-      totalAmount,
-      reason
-    });
-    alert(`Extra Stock Added!\nProduct: ${extraProduct}\nQty: ${extraQty}\nTotal: ₹${totalAmount}`);
-  };
-
-  // --- Right Card State (Empty Bottle Return) ---
+  // --- Form State ---
   const [customerId, setCustomerId] = useState('');
   const [returnProduct, setReturnProduct] = useState('20L');
   const [returnQty, setReturnQty] = useState(1);
   const [condition, setCondition] = useState('Good');
   const [remarks, setRemarks] = useState('');
+  
+  // --- CRUD & Edit Mode State ---
+  const [returnsList, setReturnsList] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
 
+  // --- Pagination State ---
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  // Handle Form Submit (Create or Update)
   const handleEmptyReturnSubmit = (e) => {
     e.preventDefault();
-    console.log('Empty Return Submitted:', {
-      customerId,
-      productSize: returnProduct,
-      quantity: returnQty,
-      condition,
-      remarks
-    });
-    alert(`Return Saved!\nCustomer ID: ${customerId}\nQty: ${returnQty} Jars (${returnProduct})\nCondition: ${condition}`);
+
+    if (isEditing) {
+      // Update item logic
+      setReturnsList(prevList =>
+        prevList.map(item =>
+          item.id === editId
+            ? { ...item, customerId, productSize: returnProduct, quantity: returnQty, condition, remarks }
+            : item
+        )
+      );
+      setIsEditing(false);
+      setEditId(null);
+    } else {
+      // Create item logic
+      const newItem = {
+        id: Date.now(),
+        customerId,
+        productSize: returnProduct,
+        quantity: returnQty,
+        condition,
+        remarks: remarks || '-'
+      };
+      setReturnsList(prevList => [newItem, ...prevList]);
+    }
+
+    // Reset Form fields
+    setCustomerId('');
+    setReturnProduct('20L');
+    setReturnQty(1);
+    setCondition('Good');
+    setRemarks('');
   };
 
+  // Populate form fields for editing
+  const handleEdit = (item) => {
+    setIsEditing(true);
+    setEditId(item.id);
+    setCustomerId(item.customerId);
+    setReturnProduct(item.productSize);
+    setReturnQty(item.quantity);
+    setCondition(item.condition);
+    setRemarks(item.remarks === '-' ? '' : item.remarks);
+  };
+
+  // Delete handler
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this record?')) {
+      setReturnsList(prevList => prevList.filter(item => item.id !== id));
+      // Adjust page view if current page becomes completely empty due to delete
+      const totalPagesAfterDelete = Math.ceil((returnsList.length - 1) / itemsPerPage);
+      if (currentPage > totalPagesAfterDelete && totalPagesAfterDelete > 0) {
+        setCurrentPage(totalPagesAfterDelete);
+      }
+    }
+  };
+
+  // --- Pagination Logic ---
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = returnsList.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(returnsList.length / itemsPerPage);
+
   return (
-    <div className="empty-return-container">
-      <div className="empty-return-wrapper">
+    <div className="empty-return-container full-page-view">
+      <div className="empty-return-wrapper full-width-stack">
         
-        {/* ================= LEFT CARD: ADD EXTRA STOCK ================= */}
-        <div className="empty-return-card">
+        {/* ================= CARD: EMPTY BOTTLE RETURN ================= */}
+        <div className="empty-return-card full-size-card">
           <div className="empty-return-card-header">
-            <span className="empty-return-badge"></span>
-            <h2 className="empty-return-title">Add Extra Stock</h2>
-          </div>
-
-          <form onSubmit={handleExtraStockSubmit} className="empty-return-form-content">
-            <div className="empty-return-form-left">
-              
-              <div className="empty-return-form-group">
-                <label className="empty-return-label">Product Size</label>
-                <select 
-                  className="empty-return-select" 
-                  value={extraProduct} 
-                  onChange={(e) => setExtraProduct(e.target.value)}
-                >
-                  <option value="20L">20L Water Jar</option>
-                  <option value="15L">15L Water Jar</option>
-                  <option value="10L">10L Water Jar</option>
-                </select>
-              </div>
-
-              <div className="empty-return-form-group">
-                <label className="empty-return-label">Extra Jars</label>
-                <div className="empty-return-counter">
-                  <button 
-                    type="button" 
-                    className="empty-return-counter-btn"
-                    onClick={() => setExtraQty(prev => Math.max(1, prev - 1))}
-                  >
-                    <FaMinus size={12} />
-                  </button>
-                  <span className="empty-return-counter-value">{extraQty}</span>
-                  <button 
-                    type="button" 
-                    className="empty-return-counter-btn"
-                    onClick={() => setExtraQty(prev => prev + 1)}
-                  >
-                    <FaPlus size={12} />
-                  </button>
-                </div>
-              </div>
-
-              <div className="empty-return-form-group">
-                <label className="empty-return-label">Total Amount</label>
-                <div className="empty-return-amount">₹{totalAmount}</div>
-              </div>
-
-              <div className="empty-return-form-group">
-                <label className="empty-return-label">Reason</label>
-                <select 
-                  className="empty-return-select" 
-                  value={reason} 
-                  onChange={(e) => setReason(e.target.value)}
-                >
-                  <option value="Customer Requested">Customer Requested</option>
-                  <option value="Event / Party">Event / Party</option>
-                  <option value="Damaged Replacement">Damaged Replacement</option>
-                </select>
-              </div>
-
-            </div>
-
-            <div className="empty-return-form-right">
-              <img src={jarLeft} alt="Water Jar Extra Stock" className="empty-return-jar-img" />
-            </div>
-
-            <button type="submit" className="empty-return-submit-btn blue-btn">
-              Add &amp; Update Stock
-            </button>
-          </form>
-        </div>
-
-        {/* ================= RIGHT CARD: EMPTY BOTTLE RETURN ================= */}
-        <div className="empty-return-card">
-          <div className="empty-return-card-header">
-            <span className="empty-return-badge"></span>
             <h2 className="empty-return-title">Empty Bottle Return</h2>
           </div>
 
@@ -225,10 +184,104 @@ const EmptyReturn = () => {
               <img src={jarRight} alt="Water Jar Return" className="empty-return-jar-img" />
             </div>
 
-            <button type="submit" className="empty-return-submit-btn blue-btn">
-              Save Return
+            <button type="submit" className={`empty-return-submit-btn blue-btn ${isEditing ? 'edit-mode-btn' : ''}`}>
+              {isEditing ? 'Update Return Details' : 'Save Return'}
             </button>
           </form>
+        </div>
+
+        {/* ================= DATA TABLE SECTION ================= */}
+        <div className="table-section-card">
+          <h3 className="table-section-title">Return Records Logs</h3>
+          <div className="table-responsive-wrapper">
+            <table className="custom-data-table">
+              <thead>
+                <tr>
+                  <th>Sl No.</th>
+                  <th>Customer ID</th>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                  <th>Condition</th>
+                  <th>Remarks</th>
+                  <th style={{ textAlign: 'center' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentItems.length > 0 ? (
+                  currentItems.map((item, index) => (
+                    <tr key={item.id}>
+                      <td>{indexOfFirstItem + index + 1}</td>
+                      <td><strong>{item.customerId}</strong></td>
+                      <td>{item.productSize} Water Jar</td>
+                      <td>{item.quantity}</td>
+                      <td>
+                        <span className={`status-badge cond-${item.condition.toLowerCase().replace(' ', '-')}`}>
+                          {item.condition}
+                        </span>
+                      </td>
+                      <td>{item.remarks}</td>
+                      <td className="table-actions-cell">
+                        <button 
+                          className="action-btn edit-action" 
+                          title="Edit"
+                          onClick={() => handleEdit(item)}
+                        >
+                          <FaEdit size={14} />
+                        </button>
+                        <button 
+                          className="action-btn delete-action" 
+                          title="Delete"
+                          onClick={() => handleDelete(item.id)}
+                        >
+                          <FaTrashAlt size={14} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="empty-table-placeholder">
+                      No matching records found. Submit entry records above.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="table-pagination-container">
+              <span className="pagination-info-text">
+                Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, returnsList.length)} of {returnsList.length} entries
+              </span>
+              <div className="pagination-button-group">
+                <button 
+                  className="pagination-nav-btn" 
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                >
+                  <FaChevronLeft size={10} /> Prev
+                </button>
+                {Array.from({ length: totalPages }, (_, idx) => (
+                  <button
+                    key={idx + 1}
+                    className={`pagination-number-btn ${currentPage === idx + 1 ? 'active-page' : ''}`}
+                    onClick={() => setCurrentPage(idx + 1)}
+                  >
+                    {idx + 1}
+                  </button>
+                ))}
+                <button 
+                  className="pagination-nav-btn" 
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                >
+                  Next <FaChevronRight size={10} />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
       </div>

@@ -466,3 +466,29 @@
     border-bottom-right-radius: 0;
   }
 }
+/* Actions flex container for holding layout items side by side */
+.cm-header-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Download button layout matching blue theme variables */
+.cm-header-bar__download-btn {
+  background-color: transparent;
+  color: var(--cm-blue-primary);
+  border: 1px solid var(--cm-border-gray);
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.cm-header-bar__download-btn:hover {
+  background-color: var(--cm-blue-bg-light);
+  border-color: var(--cm-blue-primary);
+}

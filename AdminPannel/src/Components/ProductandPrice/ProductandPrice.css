@@ -1,4 +1,3 @@
-
 .component-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   max-width: 5000px;
@@ -10,7 +9,6 @@
   overflow: hidden;
   padding: 10px;
 }
-
 
 .card-header {
   padding: 15px 20px 5px 20px;
@@ -32,13 +30,11 @@
   padding: 20px;
 }
 
-
 .table-responsive {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
-
 
 .product-table {
   width: 100%;
@@ -47,7 +43,7 @@
 }
 
 .product-table th {
-  color:white;
+  color: white;
   font-size: 14px;
   font-weight: 600;
   padding: 14px 16px;
@@ -64,7 +60,6 @@
   white-space: nowrap;
 }
 
-
 .text-right {
   text-align: right;
 }
@@ -72,7 +67,6 @@
 .text-center {
   text-align: center;
 }
-
 
 .status-badge {
   font-weight: 600;
@@ -244,4 +238,62 @@
   .card-body {
     padding: 10px;
   }
+  .card-header-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+}
+
+/* ==========================================================================
+   ADDITIONS: New CSS for Download Button (Upper Right Alignment)
+   ========================================================================== */
+.card-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.download-csv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #2d3748;
+  border: 1px solid #cbd5e0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.download-csv-btn:hover {
+  background-color: #f7fafc;
+  border-color: #a0aec0;
+  color: #0b4ca3;
+}
+
+.download-csv-btn:active {
+  transform: scale(0.98);
+}
+
+.download-icon {
+  width: 16px;
+  height: 16px;
+  color: #4a5568;
 }

@@ -1,270 +1,523 @@
-/* Component Scoped UI Variables Customizations */
 :root {
-  --rm-blue-primary: #1d4ed8;
-  --rm-blue-hover: #1e40af;
-  --rm-blue-bg-light: #eff6ff;
-  
-  --rm-surface-base: #ffffff;
-  --rm-surface-alt: #f8fafc;
-  --rm-border-color: #e2e8f0;
-  
-  --rm-txt-main: #0f172a;
-  --rm-txt-muted: #64748b;
-  --rm-success-green: #16a34a;
+  --rm-primary: #2563eb;
+  --rm-primary-hover: #1d4ed8;
+  --rm-primary-light: #eff6ff;
+  --rm-text-dark: #0f172a;
+  --rm-text-muted: #64748b;
+  --rm-border: #e2e8f0;
+  --rm-bg-light: #f8fafc;
+  --rm-shadow: 0 4px 24px rgba(15, 23, 42, 0.05);
 }
 
-/* Base Wrapper Card Structure matching design exactly */
-.rm-dashboard-card {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  max-width: 100%;
-  margin: 30px auto;
-  padding: 24px;
-  background-color: var(--rm-surface-base);
+.route-management-wrapper {
+  background-color: #ffffff;
   border-radius: 12px;
-  border: 1px solid var(--rm-border-color);
-  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+  border: 1px solid var(--rm-border);
+  box-shadow: var(--rm-shadow);
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--rm-text-dark);
 }
 
-/* Header Layout Styles */
-.rm-header-bar {
+/* Header Sections Styling */
+.route-management-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.rm-header-bar__title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--rm-txt-main);
+.route-management-header__title-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.rm-header-bar__plus-btn {
-  background-color: var(--rm-blue-primary);
+.route-management-header__count-badge {
+  background-color: var(--rm-primary);
   color: #ffffff;
-  border: none;
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s, transform 0.1s;
 }
 
-.rm-header-bar__plus-btn:hover {
-  background-color: var(--rm-blue-hover);
-  transform: scale(1.03);
+.route-management-header__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--rm-text-dark);
+  margin: 0;
 }
 
-/* Google Map Viewport Container Block */
-.rm-map-viewport {
-  width: 100%;
-  height: 480px; /* Highly detailed map view spacing */
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--rm-border-color);
-  background-color: var(--rm-surface-alt);
-}
-
-.rm-map-viewport__frame {
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* Contextual tracking updates tray status bar */
-.rm-status-footer {
+.route-management-header__add-btn {
+  background-color: var(--rm-primary);
+  color: #ffffff;
+  border: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--rm-surface-alt);
-  padding: 10px 14px;
+  transition: background-color 0.15s ease;
+}
+
+.route-management-header__add-btn:hover {
+  background-color: var(--rm-primary-hover);
+}
+
+/* Workspace Panels Split Layout */
+.route-management-workspace {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* Map Canvas Container styling */
+.route-management-map-container {
+  position: relative;
+  height: 440px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--rm-border);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.route-management-map-canvas {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Mock Address search overlay mirroring Mockup 1 */
+.route-management-floating-search {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background-color: #ffffff;
   border-radius: 6px;
-  margin-top: 14px;
-  border: 1px solid var(--rm-border-color);
+  border: 1px solid var(--rm-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  z-index: 1000;
+  max-width: 320px;
 }
 
-.rm-status-footer__dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--rm-success-green);
+.route-management-floating-search__details {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-management-floating-search__main-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--rm-text-dark);
+}
+
+.route-management-floating-search__sub-text {
+  font-size: 11.5px;
+  color: var(--rm-text-muted);
+  margin-top: 2px;
+}
+
+.route-management-floating-search__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.route-management-floating-search__btn {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  color: var(--rm-text-muted);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.route-management-floating-search__btn:hover {
+  background-color: var(--rm-bg-light);
+}
+
+.route-management-floating-search__btn.active {
+  color: var(--rm-primary);
+  background-color: var(--rm-primary-light);
+}
+
+/* Sidebar Stops List section */
+.route-management-sidebar-queue {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 440px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.route-management-queue-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid var(--rm-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: transform 0.15s ease, border-color 0.15s;
+}
+
+.route-management-queue-card:hover {
+  transform: translateX(3px);
+  border-color: #cbd5e1;
+}
+
+.route-management-queue-card__left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.route-management-queue-card__num-indicator {
+  width: 24px;
+  height: 24px;
+  background-color: var(--rm-primary);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 700;
   border-radius: 50%;
-  display: inline-block;
-  animation: pulseTracking 2s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.rm-status-footer__text {
+.route-management-queue-card__info-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-management-queue-card__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--rm-text-dark);
   margin: 0;
+}
+
+.route-management-queue-card__meta {
+  font-size: 11px;
+  color: var(--rm-text-muted);
+  margin: 3px 0 0 0;
+}
+
+.route-management-queue-card__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.route-management-queue-card__distance {
+  background-color: var(--rm-primary-light);
+  color: var(--rm-primary);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+
+.route-management-queue-card__remove-btn {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.12s;
+}
+
+.route-management-queue-card__remove-btn:hover {
+  color: #ef4444;
+}
+
+.route-management-queue-empty {
+  text-align: center;
+  padding: 120px 24px;
+  color: var(--rm-text-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+  border: 2px dashed var(--rm-border);
+  border-radius: 8px;
+}
+
+/* Custom Leaflet Map HTML pins */
+.route-management-stop-marker .stop-marker-wrapper {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: var(--rm-primary);
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.45);
+}
+
+.route-management-hub-marker .hub-marker-wrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  border: 2.5px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.45);
+}
+
+.route-management-hub-marker .hub-icon {
   font-size: 13px;
-  color: var(--rm-txt-muted);
 }
 
-@keyframes pulseTracking {
-  0% { opacity: 0.4; }
-  50% { opacity: 1; }
-  100% { opacity: 0.4; }
+/* Dashboard Bottom Footer summary section */
+.route-management-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--rm-border);
+  padding-top: 18px;
+  margin-top: 8px;
 }
 
-/* Popup Onboarding Form Dialog Overlay styles */
-.rm-modal-overlay {
+.route-management-footer__stats-group {
+  display: flex;
+  gap: 24px;
+}
+
+.route-management-footer__stat-item {
+  font-size: 14px;
+  color: var(--rm-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.route-management-footer__stat-icon {
+  color: var(--rm-text-muted);
+  font-size: 14px;
+}
+
+.route-management-footer__stat-item strong {
+  color: var(--rm-text-dark);
+  font-weight: 700;
+}
+
+.route-management-footer__navigate-btn {
+  background-color: var(--rm-primary);
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.route-management-footer__navigate-btn:hover {
+  background-color: var(--rm-primary-hover);
+}
+
+/* Onboarding Popup Dialog Overlay modal styles */
+.route-management-modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 200;
+  z-index: 9999;
   padding: 16px;
 }
 
-.rm-modal {
+.route-management-modal-pane {
   background-color: #ffffff;
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
   border-radius: 12px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border: 1px solid var(--rm-border-color);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cbd5e1;
   padding: 24px;
+  animation: modal-enter-scale 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.animate-modal-slide {
-  animation: slideInUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+@keyframes modal-enter-scale {
+  from { transform: scale(0.96); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-@keyframes slideInUp {
-  from { transform: translateY(12px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.rm-modal__header {
+.route-management-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 1px solid var(--rm-border-color);
+  border-bottom: 1px solid var(--rm-border);
   padding-bottom: 12px;
 }
 
-.rm-modal__header h3 {
+.route-management-modal-title {
   margin: 0;
   font-size: 18px;
   font-weight: 700;
-  color: var(--rm-txt-main);
+  color: var(--rm-text-dark);
 }
 
-.rm-modal__close {
+.route-management-modal-close-btn {
   background: transparent;
   border: none;
-  font-size: 24px;
+  font-size: 18px;
   cursor: pointer;
-  color: var(--rm-txt-muted);
-  line-height: 1;
+  color: var(--rm-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Form Input Element Styling Trees */
-.rm-modal-form {
+.route-management-modal-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.rm-modal-form__field {
+.route-management-modal-form__group {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.rm-modal-form__field label {
-  font-size: 13px;
+.route-management-modal-form__label {
+  font-size: 13.5px;
   font-weight: 600;
-  color: var(--rm-txt-main);
+  color: var(--rm-text-dark);
 }
 
-.rm-modal-form__field input,
-.rm-modal-form__field select {
-  padding: 10px 12px;
+.route-management-modal-form__input,
+.route-management-modal-form__select {
+  padding: 11px 12px;
   border-radius: 6px;
-  border: 1px solid var(--rm-border-color);
+  border: 1px solid #cbd5e1;
   font-size: 14px;
-  color: var(--rm-txt-main);
+  color: var(--rm-text-dark);
   outline: none;
   background-color: #ffffff;
+  transition: border-color 0.15s ease;
 }
 
-.rm-modal-form__field input:focus,
-.rm-modal-form__field select:focus {
-  border-color: var(--rm-blue-primary);
+.route-management-modal-form__input:focus,
+.route-management-modal-form__select:focus {
+  border-color: var(--rm-primary);
 }
 
-.rm-modal-form__help-text {
+.route-management-modal-form__tip {
   font-size: 11px;
-  color: var(--rm-txt-muted);
-  line-height: 1.4;
+  color: var(--rm-text-muted);
+  line-height: 1.45;
   margin-top: 2px;
 }
 
-/* Modal Form Actions Layout buttons footer */
-.rm-modal-form__actions {
+.route-management-modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   margin-top: 10px;
 }
 
-.rm-modal-form__btn-cancel {
+.route-management-modal-actions__cancel {
   background-color: transparent;
-  border: 1px solid var(--rm-border-color);
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--rm-txt-muted);
-}
-
-.rm-modal-form__btn-cancel:hover {
-  background-color: var(--rm-surface-alt);
-}
-
-.rm-modal-form__btn-submit {
-  background-color: var(--rm-blue-primary);
-  color: #ffffff;
-  border: none;
+  border: 1px solid #cbd5e1;
   padding: 10px 20px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--rm-text-muted);
+  transition: background-color 0.12s;
+}
+
+.route-management-modal-actions__cancel:hover {
+  background-color: var(--rm-bg-light);
+}
+
+.route-management-modal-actions__submit {
+  background-color: var(--rm-primary);
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.15s;
+  transition: background-color 0.12s;
 }
 
-.rm-modal-form__btn-submit:hover {
-  background-color: var(--rm-blue-hover);
+.route-management-modal-actions__submit:hover {
+  background-color: var(--rm-primary-hover);
 }
 
-/* Mobile Layout Responsive Media Configurations */
-@media (max-width: 600px) {
-  .rm-dashboard-card {
-    margin: 10px;
-    padding: 16px;
+/* Mobile Responsive Adapters */
+@media (max-width: 840px) {
+  .route-management-workspace {
+    grid-template-columns: 1fr;
   }
 
-  .rm-map-viewport {
-    height: 350px;
+  .route-management-map-container {
+    height: 300px;
   }
 
-  .rm-modal {
-    align-self: flex-end;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  .route-management-sidebar-queue {
+    height: auto;
+    max-height: 260px;
+  }
+
+  .route-management-footer {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .route-management-footer__stats-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .route-management-footer__navigate-btn {
+    justify-content: center;
   }
 }

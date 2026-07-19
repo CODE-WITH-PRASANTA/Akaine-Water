@@ -23,8 +23,49 @@ const Inventory = () => {
     alert('Navigating to full inventory analytical statement panel...');
   };
 
+  // CSV डाउनलोड करने का वर्किंग फंक्शन
+  const handleDownloadCSV = () => {
+    // CSV Headers
+    const headers = ['Bottle Size', 'Opening', 'Sealed', 'Broken', 'Current', 'Used'];
+    
+    // Rows को CSV फॉर्मेट में बदलना
+    const csvRows = inventoryRows.map(row => 
+      [row.size, row.opening, row.sealed, row.broken, row.current, row.used].join(',')
+    );
+    
+    // Headers और Rows को एक साथ जोड़ना
+    const csvContent = [headers.join(','), ...csvRows].join('\n');
+    
+    // Blob बनाना और डाउनलोड लिंक ट्रिगर करना
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'inventory_report.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="inv-dashboard">
+      
+      {/* ऊपरी दाएं कोने में वर्किंग डाउनलोड बटन */}
+      <div className="inv-header-actions">
+        <button 
+          type="button" 
+          className="inv-download-btn"
+          onClick={handleDownloadCSV}
+        >
+          <svg className="inv-download-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Download CSV
+        </button>
+      </div>
       
       {/* Upper Metrics Card Counters Grid Layout */}
       <div className="inv-metrics-grid">

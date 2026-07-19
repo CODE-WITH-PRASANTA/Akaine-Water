@@ -30,21 +30,27 @@
   border-radius: 16px;
   padding: 32px;
   width: 100%;
-  max-width: 1440px; /* Expands wider on massive desktop monitors while keeping text readable */
+  max-width: 1440px; 
   margin: 0 auto;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
   box-sizing: border-box;
-  flex-grow: 1; /* Allows container to fill vertical space nicely */
+  flex-grow: 1; 
   display: flex;
   flex-direction: column;
 }
 
-/* Header styling */
+/* Header styling - फ्लेक्स बॉक्स लेआउट ताकि बटन दाईं ओर जा सके */
 .dsc-header {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
   margin-bottom: 32px;
+}
+
+.dsc-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .dsc-badge {
@@ -68,7 +74,24 @@
   letter-spacing: 0.5px;
 }
 
-/* KPI Cards Section (Grid with widescreen expansion) */
+/* नया वर्किंग डाउनलोड बटन स्टाइल */
+.dsc-download-btn {
+  background-color: var(--dsc-blue);
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.dsc-download-btn:hover {
+  background-color: var(--dsc-blue-hover);
+}
+
+/* KPI Cards Section */
 .dsc-cards-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -98,7 +121,7 @@
 }
 
 .dsc-card-value {
-  font-size: 32px; /* Popping the numbers up for big screens */
+  font-size: 32px; 
   font-weight: 700;
   color: var(--dsc-text-dark);
 }
@@ -114,7 +137,7 @@
   margin-bottom: 40px;
   border: 1px solid var(--dsc-border-color);
   border-radius: 12px;
-  flex-grow: 1; /* Pushes the footer down naturally on massive monitors */
+  flex-grow: 1; 
 }
 
 .dsc-table {
@@ -126,7 +149,7 @@
 
 .dsc-table th, 
 .dsc-table td {
-  padding: 18px 24px; /* Roomier padding for widescreen layouts */
+  padding: 18px 24px; 
   border-bottom: 1px solid var(--dsc-border-color);
 }
 
@@ -134,7 +157,6 @@
   border-bottom: none;
 }
 
-/* Zebra striping to make full screen row scanning easy */
 .dsc-table tbody tr:nth-child(even) {
   background-color: #fafbfc;
 }
@@ -152,7 +174,6 @@
   color: var(--dsc-text-dark);
 }
 
-/* Utility alignments used in JSX */
 .text-left {
   text-align: left !important;
 }
@@ -172,7 +193,7 @@
 /* Button & Footer styling */
 .dsc-footer {
   display: flex;
-  justify-content: center; /* Clean corporate aesthetic alignment */
+  justify-content: center; 
   margin-top: auto; 
 }
 
@@ -196,7 +217,7 @@
   transform: scale(0.98);
 }
 
-/* --- Responsive Breakpoints (Retained for flexibility) --- */
+/* --- Responsive Breakpoints --- */
 @media (max-width: 1024px) {
   .dsc-fullscreen-wrapper {
     padding: 20px;
@@ -204,6 +225,17 @@
 }
 
 @media (max-width: 768px) {
+  .dsc-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .dsc-download-btn {
+    width: 100%;
+    text-align: center;
+  }
+
   .dsc-cards-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

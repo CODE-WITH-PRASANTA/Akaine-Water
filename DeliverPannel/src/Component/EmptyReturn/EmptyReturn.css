@@ -1,5 +1,5 @@
 /* Container reset and base setup */
-.empty-return-container {
+.empty-return-container.full-page-view {
   width: 100%;
   min-height: 100vh;
   padding: 24px;
@@ -7,75 +7,59 @@
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
 }
 
-/* 50/50 responsive grid layout */
-.empty-return-wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
+/* 100% block stack structural architecture layout */
+.empty-return-wrapper.full-width-stack {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
 }
 
-@media (min-width: 868px) {
-  .empty-return-wrapper {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* Card layout */
-.empty-return-card {
+/* Form Card Setup stretching 100% width profile layout */
+.empty-return-card.full-size-card {
   background: #ffffff;
   border-radius: 16px;
   border: 1px solid #e1e8f5;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  padding: 24px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  width: 100%;
 }
 
-/* Header style with round badge */
 .empty-return-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
   margin-bottom: 24px;
 }
 
-
-
 .empty-return-title {
   color: #0b2265;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   margin: 0;
 }
 
-/* Form interior layout (Split inputs and Jar Illustration) */
+/* Split grid container logic layout */
 .empty-return-form-content {
   display: grid;
   grid-template-columns: 1fr;
   position: relative;
-  flex-grow: 1;
-}
-
-@media (min-width: 480px) {
-  .empty-return-form-content {
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 16px;
-  }
 }
 
 .empty-return-form-left {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   z-index: 2;
 }
 
@@ -86,25 +70,14 @@
   z-index: 1;
 }
 
-/* Water Jar illustration styling */
 .empty-return-jar-img {
-  max-width: 140px;
+  max-width: 180px;
   height: auto;
   object-fit: contain;
   opacity: 0.95;
 }
 
-@media (max-width: 479px) {
-  .empty-return-form-right {
-    position: absolute;
-    right: 0;
-    top: 20px;
-    opacity: 0.15; /* Becomes a subtle watermark background on very narrow viewports */
-    pointer-events: none;
-  }
-}
-
-/* Form Fields Styling */
+/* Input Fields styling components */
 .empty-return-form-group {
   display: flex;
   flex-direction: column;
@@ -120,7 +93,7 @@
 .empty-return-input,
 .empty-return-select {
   width: 100%;
-  padding: 10px 14px;
+  padding: 12px 14px;
   border-radius: 8px;
   border: 1px solid #d3dcfa;
   font-size: 14px;
@@ -136,7 +109,7 @@
   border-color: #1253d6;
 }
 
-/* Counter Control (from Ref Image 3) */
+/* Counter setup selectors */
 .empty-return-counter {
   display: inline-flex;
   align-items: center;
@@ -150,8 +123,8 @@
 .empty-return-counter-btn {
   background: none;
   border: none;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +138,7 @@
 }
 
 .empty-return-counter-value {
-  min-width: 42px;
+  min-width: 46px;
   text-align: center;
   font-size: 16px;
   font-weight: 700;
@@ -175,28 +148,19 @@
   padding: 0 8px;
 }
 
-/* Total Amount display */
-.empty-return-amount {
-  font-size: 22px;
-  font-weight: 700;
-  color: #0b2265;
-  padding-bottom: 8px;
-  border-bottom: 1px dashed #e1e8f5;
-}
-
-/* Horizontal Radio & Checkbox Alignments */
+/* Selection arrays */
 .empty-return-checkbox-group,
 .empty-return-radio-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
 }
 
 .empty-return-checkbox-label,
 .empty-return-radio-label {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
   font-size: 14px;
   color: #334155;
@@ -206,48 +170,17 @@
 .empty-return-checkbox,
 .empty-return-radio {
   accent-color: #1253d6;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
 }
 
-/* Button UI styling matching reference blue buttons */
+/* Call to Action Button styling configurations */
 .empty-return-submit-btn {
   grid-column: 1 / -1;
   width: 100%;
+  height: 48px;
   margin-top: 24px;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-/* 1. Forces both form contents to stretch to the exact same height and push buttons down */
-.empty-return-form-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  position: relative;
-  flex-grow: 1;
-  height: 100%; /* Force the form to fill the card height */
-}
-
-@media (min-width: 480px) {
-  .empty-return-form-content {
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 16px;
-  }
-}
-
-/* 2. Modified Submit Button class for identical size & alignment */
-.empty-return-submit-btn {
-  grid-column: 1 / -1;
-  width: 100%;
-  height: 48px; /* Force an identical explicit height */
-  margin-top: auto; /* Pushes the buttons to the very bottom of both cards */
-  padding: 12px 0; /* Clear vertical padding overrides */
   border-radius: 8px;
   border: none;
   font-size: 15px;
@@ -256,22 +189,6 @@
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
   box-sizing: border-box;
-}
-
-/* 3. Small fix to make sure cards have matching heights in the flex wrapper */
-.empty-return-card {
-  background: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #e1e8f5;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Keeps top header and form content aligned */
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-  min-height: 480px; /* Ensures both cards default to the same minimum footprint */
 }
 
 .blue-btn {
@@ -282,6 +199,258 @@
   background-color: #0e42ab;
 }
 
-.blue-btn:active {
+.edit-mode-btn {
+  background-color: #eab308;
+}
+
+.edit-mode-btn:hover {
+  background-color: #ca8a04;
+}
+
+.empty-return-submit-btn:active {
   transform: scale(0.99);
+}
+
+/* ================= CRUD DATA TABLE STYLING ================= */
+.table-section-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e1e8f5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  padding: 24px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.table-section-title {
+  color: #0b2265;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth mobile scroll momentum */
+}
+
+.custom-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+  min-width: 750px; /* Protects data layout table on mobile viewports */
+}
+
+.custom-data-table th {
+  background-color: #f8fafc;
+  color: #5c6b88;
+  font-weight: 600;
+  padding: 14px 16px;
+  border-bottom: 2px solid #edf2f7;
+  white-space: nowrap;
+}
+
+.custom-data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #edf2f7;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.custom-data-table tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Status badging custom specs */
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.cond-good {
+  background-color: #ecfdf5;
+  color: #059669;
+}
+
+.status-badge.cond-average {
+  background-color: #fffbeb;
+  color: #d97706;
+}
+
+.status-badge.cond-not-returned {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+/* Actions buttons controllers */
+.table-actions-cell {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.edit-action {
+  color: #475569;
+}
+
+.edit-action:hover {
+  background-color: #f1f5f9;
+  color: #1253d6;
+}
+
+.delete-action {
+  color: #475569;
+}
+
+.delete-action:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.empty-table-placeholder {
+  text-align: center;
+  color: #94a3b8;
+  padding: 40px 0 !important;
+  font-style: italic;
+}
+
+/* Pagination Control Mechanics UI styling layout specs */
+.table-pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pagination-info-text {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.pagination-button-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pagination-nav-btn {
+  background-color: #ffffff;
+  border: 1px solid #d3dcfa;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0b2265;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.pagination-nav-btn:hover:not(:disabled) {
+  background-color: #f1f5f9;
+}
+
+.pagination-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-number-btn {
+  background-color: #ffffff;
+  border: 1px solid #d3dcfa;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b2265;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-number-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.pagination-number-btn.active-page {
+  background-color: #1253d6;
+  border-color: #1253d6;
+  color: #ffffff;
+}
+
+/* ==========================================================
+   RESPONSIVE DESIGN MEDIA QUERIES (ALWAYS AT THE BOTTOM)
+   ========================================================== */
+
+/* 1. Mobile Devices (Extra Small and Small Screens: 0px to 649px) */
+@media (max-width: 649px) {
+  .empty-return-container.full-page-view {
+    padding: 12px; /* Reduce screen margin padding on mobile */
+  }
+
+  .empty-return-card.full-size-card {
+    padding: 20px; /* Tighter card padding inside form wrapper */
+  }
+
+  .empty-return-form-right {
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    opacity: 0.10; /* Soft background watermark optimization */
+    pointer-events: none;
+  }
+
+  .empty-return-checkbox-group,
+  .empty-return-radio-group {
+    gap: 12px; /* Pull options closer to adapt to small screens */
+  }
+
+  .table-section-card {
+    padding: 16px;
+  }
+
+  .table-pagination-container {
+    flex-direction: column; /* Stacks pagination tracking content on mobile */
+    text-align: center;
+  }
+}
+
+/* 2. Tablets and Large Handsets (Medium Screens: 650px to 991px) */
+@media (min-width: 650px) {
+  .empty-return-form-content {
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 32px;
+  }
+}
+
+/* 3. Laptops and Standard Desktop Setups (Large Screens: 992px and up) */
+@media (min-width: 992px) {
+  .empty-return-card.full-size-card {
+    padding: 40px; /* Luxuriant breathing space on desktop */
+  }
+  
+  .empty-return-title {
+    font-size: 22px;
+  }
 }
