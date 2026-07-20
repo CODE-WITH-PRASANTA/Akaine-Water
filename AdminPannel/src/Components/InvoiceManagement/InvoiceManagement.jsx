@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPrint, FaFilePdf, FaTint } from 'react-icons/fa'; // Import water drop icon
+import { FaPrint, FaFilePdf, FaTint, FaSearch } from 'react-icons/fa'; // Added FaSearch icon
 import './InvoiceManagement.css'; 
 
 // Pre-defined invoice data for the list on the right
@@ -17,6 +17,9 @@ const InvoiceManagement = () => {
     { name: '10L Bottle', qty: 1, rate: 30.00, amount: 30.00 },
     { name: '5L Bottle', qty: 1, rate: 20.00, amount: 20.00 },
   ]);
+
+  // Search input state added for filtering customer names or invoice IDs
+  const [searchQuery, setSearchQuery] = useState('');
 
   const deliveryCharge = 50.00;
   const taxRate = 0.05;
@@ -37,7 +40,7 @@ const InvoiceManagement = () => {
   // कार्यशील डाउनलोड हैंडलर फ़ंक्शन
   const handleDownload = () => {
     const headers = ['Invoice ID', 'Customer Name', 'Amount', 'Date'];
-    const rows = invoiceListData.map(invoice => [
+    const rows = filteredInvoiceList.map(invoice => [
       invoice.id,
       invoice.customerName,
       `₹${invoice.amount.toFixed(2)}`,
@@ -62,6 +65,12 @@ const InvoiceManagement = () => {
     document.body.removeChild(link);
   };
 
+  // Search filter logic
+  const filteredInvoiceList = invoiceListData.filter(invoice => 
+    invoice.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    invoice.id.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="InvoiceManagement">
       <div className="InvoiceManagement__header">
@@ -69,20 +78,32 @@ const InvoiceManagement = () => {
           <span className="InvoiceManagement__header-number">10.</span>
           <h1>INVOICE MANAGEMENT</h1>
         </div>
-        {/* वर्किंग डाउनलोड बटन */}
-        <button className="InvoiceManagement__download-btn" onClick={handleDownload}>
-          Download
-        </button>
+
+        {/* Header Action Section (Search bar + Download Button) */}
+        <div className="InvoiceManagement__header-actions">
+          {/* वर्किंग सर्च बार */}
+          <div className="InvoiceManagement__search-box">
+            <FaSearch className="InvoiceManagement__search-icon" />
+            <input 
+              type="text" 
+              placeholder="Search by name or ID..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          {/* वर्किंग डाउनलोड बटन */}
+          <button className="InvoiceManagement__download-btn" onClick={handleDownload}>
+            Download
+          </button>
+        </div>
       </div>
 
       <div className="InvoiceManagement__content">
         <div className="InvoiceManagement__invoice-form">
           <div className="InvoiceManagement__invoice-details">
             <div className="InvoiceManagement__aqua-pure-logo">
-              {/* --- UPDATED PART START --- */}
-              {/* Replaced the broken image placeholder with the FaTint icon */}
               <FaTint className="InvoiceManagement__logo-icon" size={40} color="#3498db" />
-              {/* --- UPDATED PART END --- */}
               <div>
                 <h2>AquaPure</h2>
                 <p>WATER DELIVERY SERVICE</p>
@@ -159,7 +180,7 @@ const InvoiceManagement = () => {
         <div className="InvoiceManagement__invoice-list">
           <h3>Invoice List</h3>
           <ul>
-            {invoiceListData.map((invoice) => (
+            {filteredInvoiceList.map((invoice) => (
               <li key={invoice.id}>
                 <span>{invoice.id}</span>
                 <span>{invoice.customerName}</span>
@@ -167,6 +188,9 @@ const InvoiceManagement = () => {
                 <span>{invoice.date}</span>
               </li>
             ))}
+            {filteredInvoiceList.length === 0 && (
+              <li className="InvoiceManagement__no-results">No invoices match "{searchQuery}"</li>
+            )}
           </ul>
         </div>
       </div>

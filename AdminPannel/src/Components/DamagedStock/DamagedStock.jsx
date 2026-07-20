@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './DamagedStock.css';
 
 const DamagedStock = () => {
@@ -11,12 +11,27 @@ const DamagedStock = () => {
     { label: 'Customer Damage', value: '10' },
   ];
 
-  const tableData = [
+  const [tableData, setTableData] = useState([
     { reason: 'Broken', v20L: 30, v10L: 15, v5L: 10, v1L: 5, total: 60 },
     { reason: 'Leakage', v20L: 20, v10L: 10, v5L: 5, v1L: 3, total: 38 },
-    { reason: 'Lost', v20L: 10, v10L: 5, v5L: 3, v1L: 2, total: 20 }, // Fixed duplicate v5L key
+    { reason: 'Lost', v20L: 10, v10L: 5, v5L: 3, v1L: 2, total: 20 },
     { reason: 'Customer Damage', v20L: 10, v10L: 5, v5L: 2, v1L: 2, total: 19 },
-  ];
+  ]);
+
+  // Modal State Control
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Form State for Dropdowns & Manual Input Boxes
+  const [formData, setFormData] = useState({
+    brokenDropdown: '',
+    brokenManual: '',
+    leakageDropdown: '',
+    leakageManual: '',
+    lostDropdown: '',
+    lostManual: '',
+    customerDamageDropdown: '',
+    customerDamageManual: ''
+  });
 
   const handleViewReport = () => {
     alert('Loading full stock management report...');
@@ -57,6 +72,29 @@ const DamagedStock = () => {
     document.body.removeChild(link);
   };
 
+  // Handle Form Change for Dropdowns & Text Inputs
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Handle Form Submission
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    alert('Damaged Stock Entry Updated Successfully!');
+    setIsModalOpen(false);
+    setFormData({
+      brokenDropdown: '',
+      brokenManual: '',
+      leakageDropdown: '',
+      leakageManual: '',
+      lostDropdown: '',
+      lostManual: '',
+      customerDamageDropdown: '',
+      customerDamageManual: ''
+    });
+  };
+
   return (
     <div className="dsc-fullscreen-wrapper">
       <div className="dsc-container">
@@ -66,10 +104,18 @@ const DamagedStock = () => {
             <div className="dsc-badge">5.</div>
             <h2 className="dsc-title">DAMAGED STOCK MANAGEMENT</h2>
           </div>
-          {/* वर्किंग डाउनलोड बटन */}
-          <button className="dsc-download-btn" onClick={handleDownload}>
-            Download
-          </button>
+          
+          {/* Header Action Buttons (Download + Add Button) */}
+          <div className="dsc-header-actions">
+            <button className="dsc-download-btn" onClick={handleDownload}>
+              Download
+            </button>
+
+            {/* + Add Button */}
+            <button className="dsc-add-btn" onClick={() => setIsModalOpen(true)} title="Add Damaged Stock">
+              + Add
+            </button>
+          </div>
         </div>
 
         {/* Summary Cards Grid */}
@@ -119,6 +165,149 @@ const DamagedStock = () => {
           </button>
         </div>
       </div>
+
+      {/* POPUP MODAL FORM */}
+      {isModalOpen && (
+        <div className="dsc-modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="dsc-modal-container" onClick={(e) => e.stopPropagation()}>
+            
+            {/* Modal Header */}
+            <div className="dsc-modal-header">
+              <h3>Add Damaged Stock Entry</h3>
+              <button type="button" className="dsc-modal-close-btn" onClick={() => setIsModalOpen(false)}>
+                &times;
+              </button>
+            </div>
+
+            {/* Modal Form */}
+            <form onSubmit={handleFormSubmit} className="dsc-modal-form">
+              
+              {/* 1. Broken Section */}
+              <div className="dsc-form-group">
+                <label className="dsc-group-label">Broken</label>
+                <div className="dsc-input-flex-row">
+                  <select 
+                    name="brokenDropdown" 
+                    value={formData.brokenDropdown} 
+                    onChange={handleInputChange}
+                    className="dsc-select-input"
+                  >
+                    <option value="">Select Option</option>
+                    <option value="30">30</option>
+                    <option value="15">15</option>
+                    <option value="10">10</option>
+                    <option value="5">5</option>
+                  </select>
+
+                  <input 
+                    type="number" 
+                    name="brokenManual" 
+                    placeholder="Enter manual count" 
+                    value={formData.brokenManual} 
+                    onChange={handleInputChange}
+                    className="dsc-text-input" 
+                  />
+                </div>
+              </div>
+
+              {/* 2. Leakage Section */}
+              <div className="dsc-form-group">
+                <label className="dsc-group-label">Leakage</label>
+                <div className="dsc-input-flex-row">
+                  <select 
+                    name="leakageDropdown" 
+                    value={formData.leakageDropdown} 
+                    onChange={handleInputChange}
+                    className="dsc-select-input"
+                  >
+                    <option value="">Select Option</option>
+                    <option value="20">20</option>
+                    <option value="10">10</option>
+                    <option value="5">5</option>
+                    <option value="3">3</option>
+                  </select>
+
+                  <input 
+                    type="number" 
+                    name="leakageManual" 
+                    placeholder="Enter manual count" 
+                    value={formData.leakageManual} 
+                    onChange={handleInputChange}
+                    className="dsc-text-input" 
+                  />
+                </div>
+              </div>
+
+              {/* 3. Lost Section */}
+              <div className="dsc-form-group">
+                <label className="dsc-group-label">Lost</label>
+                <div className="dsc-input-flex-row">
+                  <select 
+                    name="lostDropdown" 
+                    value={formData.lostDropdown} 
+                    onChange={handleInputChange}
+                    className="dsc-select-input"
+                  >
+                    <option value="">Select Option</option>
+                    <option value="10">10</option>
+                    <option value="5">5</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                  </select>
+
+                  <input 
+                    type="number" 
+                    name="lostManual" 
+                    placeholder="Enter manual count" 
+                    value={formData.lostManual} 
+                    onChange={handleInputChange}
+                    className="dsc-text-input" 
+                  />
+                </div>
+              </div>
+
+              {/* 4. Customer Damage Section */}
+              <div className="dsc-form-group">
+                <label className="dsc-group-label">Customer Damage</label>
+                <div className="dsc-input-flex-row">
+                  <select 
+                    name="customerDamageDropdown" 
+                    value={formData.customerDamageDropdown} 
+                    onChange={handleInputChange}
+                    className="dsc-select-input"
+                  >
+                    <option value="">Select Option</option>
+                    <option value="10">10</option>
+                    <option value="5">5</option>
+                    <option value="2">2</option>
+                  </select>
+
+                  <input 
+                    type="number" 
+                    name="customerDamageManual" 
+                    placeholder="Enter manual count" 
+                    value={formData.customerDamageManual} 
+                    onChange={handleInputChange}
+                    className="dsc-text-input" 
+                  />
+                </div>
+              </div>
+
+              {/* Modal Footer Buttons */}
+              <div className="dsc-modal-footer">
+                <button type="button" className="dsc-modal-cancel-btn" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="dsc-modal-submit-btn">
+                  Save Stock
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

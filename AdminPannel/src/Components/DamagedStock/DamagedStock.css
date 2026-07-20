@@ -22,7 +22,7 @@
   flex-direction: column;
 }
 
-/* Main Container Card - Expanded for Full Screen */
+/* Main Container Card */
 .dsc-container {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: #ffffff;
@@ -34,12 +34,11 @@
   margin: 0 auto;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
   box-sizing: border-box;
-  flex-grow: 1; 
   display: flex;
   flex-direction: column;
 }
 
-/* Header styling - फ्लेक्स बॉक्स लेआउट ताकि बटन दाईं ओर जा सके */
+/* Header styling */
 .dsc-header {
   display: flex;
   align-items: center;
@@ -74,7 +73,13 @@
   letter-spacing: 0.5px;
 }
 
-/* नया वर्किंग डाउनलोड बटन स्टाइल */
+/* Header Actions Container */
+.dsc-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .dsc-download-btn {
   background-color: var(--dsc-blue);
   color: #ffffff;
@@ -89,6 +94,26 @@
 
 .dsc-download-btn:hover {
   background-color: var(--dsc-blue-hover);
+}
+
+.dsc-add-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.dsc-add-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.dsc-add-btn:active {
+  transform: scale(0.98);
 }
 
 /* KPI Cards Section */
@@ -130,14 +155,17 @@
   color: var(--dsc-red);
 }
 
-/* Table styling and desktop stretching */
+/* ========================================================= */
+/* TABLE WRAPPER - FIXED (No bottom empty space, tight border) */
+/* ========================================================= */
 .dsc-table-responsive {
   width: 100%;
   overflow-x: auto;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   border: 1px solid var(--dsc-border-color);
   border-radius: 12px;
-  flex-grow: 1; 
+  flex-grow: 0; /* स्ट्रेच बंद करने के लिए 0 सेट किया */
+  height: auto;  /* कंटेंट के हिसाब से परफेक्ट बॉर्डर हाइट */
 }
 
 .dsc-table {
@@ -149,12 +177,12 @@
 
 .dsc-table th, 
 .dsc-table td {
-  padding: 18px 24px; 
+  padding: 16px 24px; 
   border-bottom: 1px solid var(--dsc-border-color);
 }
 
 .dsc-table tr:last-child td {
-  border-bottom: none;
+  border-bottom: none; /* आखरी पंक्ति के नीचे का एक्स्ट्रा बॉर्डर रिमूव किया */
 }
 
 .dsc-table tbody tr:nth-child(even) {
@@ -194,7 +222,7 @@
 .dsc-footer {
   display: flex;
   justify-content: center; 
-  margin-top: auto; 
+  margin-top: 8px; 
 }
 
 .dsc-btn {
@@ -203,7 +231,7 @@
   border: none;
   font-size: 16px;
   font-weight: 700;
-  padding: 16px 48px;
+  padding: 14px 48px;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.15s ease, transform 0.1s ease;
@@ -215,6 +243,165 @@
 
 .dsc-btn:active {
   transform: scale(0.98);
+}
+
+/* POPUP MODAL FORM STYLING */
+.dsc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 16px;
+}
+
+.dsc-modal-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 24px;
+  animation: dscPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+@keyframes dscPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.dsc-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--dsc-border-color);
+  padding-bottom: 12px;
+}
+
+.dsc-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--dsc-text-dark);
+  font-weight: 700;
+}
+
+.dsc-modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 26px;
+  color: var(--dsc-text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.dsc-modal-close-btn:hover {
+  color: var(--dsc-text-dark);
+}
+
+.dsc-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dsc-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dsc-group-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dsc-text-dark);
+}
+
+.dsc-input-flex-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.dsc-select-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--dsc-border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--dsc-text-dark);
+  outline: none;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.dsc-select-input:focus {
+  border-color: var(--dsc-blue);
+}
+
+.dsc-text-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--dsc-border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--dsc-text-dark);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.dsc-text-input:focus {
+  border-color: var(--dsc-blue);
+  box-shadow: 0 0 0 3px rgba(0, 75, 206, 0.1);
+}
+
+.dsc-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--dsc-border-color);
+}
+
+.dsc-modal-cancel-btn {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid var(--dsc-border-color);
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dsc-modal-cancel-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.dsc-modal-submit-btn {
+  background-color: var(--dsc-blue);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dsc-modal-submit-btn:hover {
+  background-color: var(--dsc-blue-hover);
 }
 
 /* --- Responsive Breakpoints --- */
@@ -231,8 +418,12 @@
     gap: 16px;
   }
   
-  .dsc-download-btn {
+  .dsc-header-actions {
     width: 100%;
+  }
+
+  .dsc-download-btn, .dsc-add-btn {
+    flex: 1;
     text-align: center;
   }
 
@@ -252,6 +443,11 @@
 @media (max-width: 480px) {
   .dsc-container {
     padding: 16px;
+  }
+
+  .dsc-input-flex-row {
+    flex-direction: column;
+    gap: 8px;
   }
 
   .dsc-cards-grid {
