@@ -38,6 +38,8 @@ import Vehicles from "./Components/Vehicles/Vehicles";
 import StockManagement from "./Components/StockManagement/StockManagement";
 import AddExpense from "./Components/AddExpense/AddExpense";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import SubscriptionManagement from "./Pages/SubscriptionManagement/SubscriptionManagement";
+import DeliveryId from "./Pages/DeliveryId/DeliveryId";
 
 const App = () => {
   return (
@@ -89,6 +91,8 @@ const App = () => {
             <Route path="wdms/stock/purchase-history" element={<StockManagement />} />
             <Route path="/resources/gallery" element={<Gallery />} />
             <Route path="/wdms/invoice" element={<InvoiceManagement />} />
+            <Route path="/products/subscription" element={<SubscriptionManagement/>} />
+            <Route path="/products/id-generate" element={<DeliveryId/>} />
           </Route>
         </Route>
 

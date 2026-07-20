@@ -11,17 +11,19 @@ import {
   Package,
   ClipboardList,
   Truck,
-  UserPlus,      // Added for Customer
-  Boxes,          // Added for Inventory
-  Tag,           // Added for Product & Price
-  DollarSign,    // Added for Payment
-  Wallet,        // Swapped for Wallet Dropdown
-  Map,           // Added for Route Management
-  Car,           // Added for Vehicle
-  Settings,       // Added for Settings
-  BookmarkCheckIcon,
-  BoxIcon,
-  BarChart3
+  UserPlus,
+  Boxes,
+  Tag,
+  DollarSign,
+  Wallet,
+  Map,
+  Car,
+  Settings,
+  BookmarkCheck,
+  Box,
+  BarChart3,
+  CreditCard,     // For Subscription
+  Badge,          // For Delivery Boy ID
 } from "lucide-react";
 import './Sidebar.css';
 
@@ -48,7 +50,26 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
       ],
     },
     
-    { type: 'link', icon: <Users size={20} />, text: 'Testimonials', path: '/products/testimonials' },
+    {
+  type: "link",
+  icon: <Users size={20} />,
+  text: "Testimonials",
+  path: "/products/testimonials",
+},
+
+{
+  type: "link",
+  icon: <CreditCard size={20} />,
+  text: "Subscription Management",
+  path: "/products/subscription",
+},
+
+{
+  type: "link",
+  icon: <Badge size={20} />,
+  text: "Delivery Boy ID",
+  path: "/products/id-generate",
+},
     
     {
       type: 'dropdown',
@@ -103,8 +124,8 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
     { type: 'link', icon: <Map size={20} />, text: 'Route Management', path: '/wdms/route-management' },
     { type: 'link', icon: <Car size={20} />, text: 'Vehicle Management', path: '/wdms/vehicles' },
     { type: 'link', icon: <BookOpen size={20} />, text: 'Invoice Management', path: '/wdms/invoice' },
-    { type: 'link', icon: <BookmarkCheckIcon size={20} />, text: 'Damage Stock Management', path: '/wdms/damage-stock' },
-    { type: 'link', icon: <BoxIcon size={20} />, text: 'Supplier Management', path: '/wdms/supplier' },
+    { type: 'link', icon: <BookmarkCheck size={20} />, text: 'Damage Stock Management', path: '/wdms/damage-stock' },
+    { type: 'link', icon: <Box size={20} />, text: 'Supplier Management', path: '/wdms/supplier' },
     { type: 'link', icon: <BarChart3 size={20} />, text: 'Report Analysis', path: '/wdms/reports' },
     { type: 'link', icon: <Settings size={20} />, text: 'Settings', path: '/wdms/settings' },
   ];
