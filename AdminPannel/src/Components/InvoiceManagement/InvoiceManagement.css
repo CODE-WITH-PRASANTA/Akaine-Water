@@ -1,0 +1,338 @@
+/* Invoice Management.css */
+
+:root {
+  --primary-blue: #0056b3; /* Or your preferred blue */
+  --secondary-black: #333;
+  --bg-color: #f4f7f6;
+  --text-color: #555;
+  --border-color: #e0e0e0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+}
+
+.InvoiceManagement {
+  width: 100%; /* फुल स्क्रीन चौड़ाई के लिए बदला गया */
+  /* max-width: 1200px; <-- हटा दिया गया है ताकि यह फुल स्क्रीन हो सके */
+  margin: 0; /* फुल स्क्रीन लेआउट के लिए टॉप/बॉटम मार्जिन हटाया गया */
+  background-color: #fff;
+  border-radius: 0px; /* फुल स्क्रीन में कोनों को चौकोर रखने के लिए */
+  box-shadow: none; /* फुल स्क्रीन पर शैडो की आवश्यकता नहीं है */
+  padding: 2rem;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* Header - फ्लेक्सबॉक्स अलाइनमेंट डाउनलोड बटन के लिए */
+.InvoiceManagement__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.InvoiceManagement__header-title {
+  display: flex;
+  align-items: center;
+}
+
+.InvoiceManagement__header-number {
+  background-color: var(--primary-blue);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.InvoiceManagement__header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--primary-blue);
+}
+
+/* नया वर्किंग डाउनलोड बटन स्टाइल */
+.InvoiceManagement__download-btn {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.InvoiceManagement__download-btn:hover {
+  background-color: #004494;
+}
+
+/* Content Area */
+.InvoiceManagement__content {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Invoice Form (Left 50%) */
+.InvoiceManagement__invoice-form {
+  flex: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.InvoiceManagement__invoice-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.InvoiceManagement__aqua-pure-logo {
+  display: flex;
+  align-items: center;
+}
+
+.InvoiceManagement__aqua-pure-logo img {
+  width: 50px; 
+  height: auto;
+  margin-right: 1rem;
+}
+
+.InvoiceManagement__aqua-pure-logo h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--primary-blue);
+}
+
+.InvoiceManagement__aqua-pure-logo p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.InvoiceManagement__invoice-meta h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--secondary-black);
+  text-transform: uppercase;
+}
+
+.InvoiceManagement__invoice-meta p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--primary-blue);
+}
+
+/* Amount Total Box and Billing Info */
+.InvoiceManagement__amount-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.InvoiceManagement__invoice-billing {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.InvoiceManagement__invoice-billing p span {
+    font-weight: bold;
+    color: #333;
+}
+
+.InvoiceManagement__invoice-billing h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-black);
+}
+
+.InvoiceManagement__total-box {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.InvoiceManagement__total-box p {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.InvoiceManagement__total-box h1 {
+    margin: 0.5rem 0 0;
+    color: var(--secondary-black);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Payment Method */
+.InvoiceManagement__payment-method {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.InvoiceManagement__payment-method p span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Items Table */
+.InvoiceManagement__items-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.InvoiceManagement__items-table th {
+  background-color: #f0f4f8; 
+  color: var(--secondary-black);
+  text-align: left;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.InvoiceManagement__items-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.InvoiceManagement__items-table th:nth-child(2),
+.InvoiceManagement__items-table td:nth-child(2),
+.InvoiceManagement__items-table th:nth-child(3),
+.InvoiceManagement__items-table td:nth-child(3),
+.InvoiceManagement__items-table th:nth-child(4),
+.InvoiceManagement__items-table td:nth-child(4) {
+    text-align: right;
+}
+
+.InvoiceManagement__table-footer-label {
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+}
+
+.InvoiceManagement__table-footer-total-label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.InvoiceManagement__table-footer-total-value {
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Invoice List (Right 50%) */
+.InvoiceManagement__invoice-list {
+  flex: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.InvoiceManagement__invoice-list h3 {
+  margin-top: 0;
+  color: var(--secondary-black);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.InvoiceManagement__invoice-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.InvoiceManagement__invoice-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.InvoiceManagement__invoice-list li:last-child {
+  border-bottom: none;
+}
+
+.InvoiceManagement__invoice-list span {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.InvoiceManagement__invoice-list span:first-child {
+  color: var(--primary-blue);
+  font-weight: bold;
+}
+
+.InvoiceManagement__invoice-list span:nth-child(3) {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Action Buttons */
+.InvoiceManagement__form-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.InvoiceManagement__form-buttons button {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.InvoiceManagement__form-buttons button:hover {
+  background-color: #004494;
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .InvoiceManagement__content {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .InvoiceManagement__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .InvoiceManagement__download-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .InvoiceManagement__header-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .InvoiceManagement__header-number {
+    margin-bottom: 0.5rem;
+  }
+}

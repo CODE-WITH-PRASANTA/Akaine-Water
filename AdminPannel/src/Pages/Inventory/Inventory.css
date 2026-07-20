@@ -168,3 +168,43 @@
     padding: 14px;
   }
 }
+
+/* ==========================================================================
+   ADDITIONS: New CSS for Download Button (Upper Right Alignment)
+   ========================================================================== */
+.inv-header-actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.inv-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--inv-surface-base);
+  color: var(--inv-txt-main);
+  border: 1px solid var(--inv-border-color);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+.inv-download-btn:hover {
+  background-color: var(--inv-surface-alt);
+  border-color: #cbd5e1;
+}
+
+.inv-download-btn:active {
+  transform: scale(0.98);
+}
+
+.inv-download-btn__icon {
+  width: 16px;
+  height: 16px;
+  color: var(--inv-txt-muted);
+}

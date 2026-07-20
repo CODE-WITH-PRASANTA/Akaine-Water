@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-blue: #0049cd;
+  --text-dark: #333333;
+  --text-muted: #666666;
+  --border-light: #edf2f7;
+  --bg-card: #ffffff;
+  --bg-panel: #f8fafc;
+  
+  /* Status Color Palettes matching dashboard */
+  --green-main: #2e7d32;
+  --green-bg: #e8f5e9;
+  --blue-main: #1565c0;
+  --blue-bg: #e3f2fd;
+  --red-main: #c62828;
+  --red-bg: #ffebee;
+}
+
+.db-management-container {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-panel);
+  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.db-management-panel {
+  background: #ffffff;
+  width: 100%;
+  /* max-width: 1100px;  <-- हटा दिया गया है ताकि यह फुल स्क्रीन हो सके */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  padding-bottom: 24px;
+}
+
+/* Header Elements - Flexbox जोड़ा गया ताकि बटन राइट साइड में रहे */
+.db-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-text {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  margin: 0;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 6px;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+
+/* नया डाउनलोड बटन स्टाइल (ऊपरी दाएं कोने के लिए) */
+.download-btn {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.download-btn:hover {
+  background-color: #003bb3;
+}
+
+/* Metric Display Grid Layout */
+.db-metrics-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 12px 20px 24px 20px;
+}
+
+.metric-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.metric-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.metric-box.active-metric {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 1px var(--primary-blue);
+}
+
+.metric-title {
+  margin: 0 0 12px 0;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.num-display {
+  font-size: 32px;
+  font-weight: 700;
+  display: block;
+}
+
+.total-num { color: var(--primary-blue); }
+.active-num { color: var(--green-main); }
+.ondelivery-num { color: var(--blue-main); }
+.inactive-num { color: var(--red-main); }
+
+/* Table Data Formatting */
+.db-table-container {
+  padding: 0 20px;
+  overflow-x: auto;
+}
+
+.db-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.db-table th {
+  color: #1a202c;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 16px;
+  border-bottom: 2px solid var(--border-light);
+  background-color: #ffffff;
+}
+
+.db-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #2d3748;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+
+.td-name {
+  font-weight: 500;
+}
+
+/* Static Status Badges */
+.status-badge-visual {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 95px;
+}
+
+.status-active { background-color: var(--green-bg); color: var(--green-main); }
+.status-ondelivery { background-color: var(--blue-bg); color: var(--blue-main); }
+.status-inactive { background-color: var(--red-bg); color: var(--red-main); }
+
+/* Custom Form Selection Dropdowns (Action Column) */
+.td-actions {
+  min-width: 150px;
+}
+
+.action-dropdown-wrapper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 32px 6px 12px;
+  background: #ffffff;
+  position: relative;
+  min-width: 200px;
+  box-sizing: border-box;
+}
+
+.dropdown-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* DYNAMIC STATUS COLORS */
+.status-active-text .dropdown-dot { background-color: var(--green-main); }
+.status-ondelivery-text .dropdown-dot { background-color: var(--blue-main); }
+.status-inactive-text .dropdown-dot { background-color: var(--red-main); }
+
+.status-active-text .action-select { color: var(--green-main); } 
+.status-ondelivery-text .action-select { color: var(--blue-main); }
+.status-inactive-text .action-select { color: var(--red-main); }
+
+.action-select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.action-select option {
+  font-weight: 500;
+}
+.action-select option[value="Active"] { color: var(--green-main); }
+.action-select option[value="On-Delivery"] { color: var(--blue-main); }
+.action-select option[value="Inactive"] { color: var(--red-main); }
+
+.action-dropdown-wrapper::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid #4a5568;
+  pointer-events: none;
+}
+
+/* Bottom Action Elements */
+.db-footer-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+  padding: 0 20px;
+}
+
+.view-all-btn {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  border: none;
+  padding: 12px 36px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-all-btn:hover {
+  background-color: #003bb3;
+}
+
+.no-results-box {
+  padding: 40px;
+  text-align: center;
+}
+
+.no-results-text {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Mobile Devices & Viewports Optimization */
+@media (max-width: 900px) {
+  .db-metrics-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .db-management-container {
+    padding: 10px;
+  }
+  
+  /* मोबाइल व्यू में टाइटल और बटन को एडजस्ट करने के लिए */
+  .db-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .download-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .db-metrics-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .header-text {
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .db-table, .db-table thead, .db-table tbody, .db-table th, .db-table tr, .db-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .db-table thead {
+    display: none;
+  }
+
+  .db-table tr {
+    margin-bottom: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 8px 0;
+  }
+
+  .db-table td {
+    text-align: right;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .db-table td:last-child {
+    border-bottom: none;
+  }
+
+  .db-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 13px;
+    text-align: left;
+  }
+}

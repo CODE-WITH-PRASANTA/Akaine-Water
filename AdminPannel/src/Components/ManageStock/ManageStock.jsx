@@ -1,184 +1,351 @@
 import React, { useState } from 'react';
-import { Plus, X, AlertTriangle, CheckCircle, Package, Edit, Trash2 } from 'lucide-react';
-import './ManageStock.css';
+import './ManageStock.css'; // Importing the custom stylesheet
 
 const ManageStock = () => {
-  // Mock data matching the layout columns in the reference image
-  const [stockData, setStockData] = useState([
-    { id: 1, product: '20L Jar', available: 450, reserved: 90, isLow: false },
-    { id: 2, product: '10L Jar', available: 120, reserved: 20, isLow: true },
-    { id: 3, product: '1L Bottle', available: 980, reserved: 120, isLow: false },
-    { id: 4, product: '500ml', available: 2200, reserved: 350, isLow: false },
+  // Initial state mimicking the image data
+  const [stockList, setStockList] = useState([
+    { id: 1, product: '20L Bottle', opening: 500, received: 200, sold: 400, current: 100, unit: 'Pcs' },
+    { id: 2, product: '30L Bottle', opening: 300, received: 150, sold: 250, current: 100, unit: 'Pcs' },
+    { id: 3, product: '1L Bottle', opening: 120, received: 100, sold: 140, current: 80, unit: 'Pcs' },
+    { id: 4, product: '½ Bottle', opening: 80, received: 30, sold: 90, current: 20, unit: 'Pcs' },
+    { id: 5, product: '500ml Bottle', opening: 70, received: 20, sold: 10, current: 80, unit: 'Pcs' },
   ]);
 
+  // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  
+  // Form State
   const [formData, setFormData] = useState({
     product: '',
-    available: '',
-    reserved: '',
-    lowStockThreshold: ''
+    opening: '',
+    received: '',
+    sold: '',
+    current: '',
+    unit: 'Pcs'
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  // Calculate dynamic totals for the summary cards
+  const totals = stockList.reduce(
+    (acc, item) => {
+      acc.opening += Number(item.opening) || 0;
+      acc.received += Number(item.received) || 0;
+      acc.sold += Number(item.sold) || 0;
+      acc.current += Number(item.current) || 0;
+      return acc;
+    },
+    { opening: 0, received: 0, sold: 0, current: 0 }
+  );
+
+ const handleAddClick = (e) => {
+  e.preventDefault();
+  console.log("Add Stock Clicked");
+  setEditingItem(null);
+  setFormData({
+    product: '',
+    opening: '',
+    received: '',
+    sold: '',
+    current: '',
+    unit: 'Pcs'
+  });
+  setIsModalOpen(true);
+};
+
+  // Open modal for editing an existing item
+  const handleEditClick = (item) => {
+    setEditingItem(item);
+    setFormData({ ...item });
+    setIsModalOpen(true);
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    
-    // Evaluate if the item falls under a low stock condition automatically
-    const availableNum = parseInt(formData.available) || 0;
-    const thresholdNum = parseInt(formData.lowStockThreshold) || 100;
-    const isLowStock = availableNum <= thresholdNum;
+  // Delete an item
+  const handleDeleteClick = (id) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      setStockList(stockList.filter(item => item.id !== id));
+    }
+  };
 
-    const newStockItem = {
-      id: Date.now(),
-      product: formData.product,
-      available: availableNum,
-      reserved: parseInt(formData.reserved) || 0,
-      isLow: isLowStock
+  // Handle Form Input Change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Submit Add / Edit Form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.product.trim()) return;
+
+    const formattedData = {
+      ...formData,
+      opening: Number(formData.opening) || 0,
+      received: Number(formData.received) || 0,
+      sold: Number(formData.sold) || 0,
+      current: Number(formData.current) || 0,
     };
 
-    setStockData([...stockData, newStockItem]);
+    if (editingItem) {
+      setStockList(stockList.map(item => item.id === editingItem.id ? { ...formattedData, id: editingItem.id } : item));
+    } else {
+      const newItem = {
+        ...formattedData,
+        id: Date.now()
+      };
+      setStockList([...stockList, newItem]);
+    }
+
     setIsModalOpen(false);
+  };
+
+  // CSV डाउनलोड करने का वर्किंग फंक्शन
+  const handleDownloadCSV = () => {
+    const headers = ['Product', 'Opening', 'Received', 'Sold', 'Current', 'Unit'];
     
-    // Reset Form Fields
-    setFormData({ product: '', available: '', reserved: '', lowStockThreshold: '' });
+    const csvRows = stockList.map(item => 
+      [
+        `"${item.product}"`, 
+        item.opening, 
+        item.received, 
+        item.sold, 
+        item.current, 
+        item.unit
+      ].join(',')
+    );
+    
+    const csvContent = [headers.join(','), ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'stock_report.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
-    <div className="manage-stock-container">
-      
-      {/* Table Action Header Section */}
-      <div className="manage-stock-header">
-        <div className="header-title-wrapper">
-          <Package className="header-icon" />
-          <h2>Stock Management</h2>
+    <div className="stock-container-wrapper">
+      {/* Main Stock Card Container */}
+      <div className="stock-card">
+        
+        {/* Header Section */}
+        <div className="stock-header">
+          <div className="stock-title-badge">
+              STOCK MANAGEMENT & FRESH WATER STOCK
+          </div>
+          
+          {/* राइट साइड एक्शन बटन्स कंटेनर */}
+          <div className="stock-header-actions">
+            <button 
+              type="button" 
+              className="btn-download-csv"
+              onClick={handleDownloadCSV}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="download-btn-icon">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download CSV
+            </button>
+
+            <button type="button" onClick={handleAddClick} className="btn-add-stock">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+              Add Stock
+            </button>
+          </div>
         </div>
-        <button className="add-stock-btn" onClick={() => setIsModalOpen(true)}>
-          <Plus size={18} />
-          <span>Add New Stock</span>
-        </button>
+
+        <div className="stock-body">
+          
+          {/* Summary Cards Grid */}
+          <div className="summary-grid">
+            
+            <div className="summary-card">
+              <span className="summary-label">Opening Stock</span>
+              <span className="summary-value">{totals.opening.toLocaleString()}</span>
+            </div>
+
+            <div className="summary-card">
+              <span className="summary-label">Received Stock</span>
+              <span className="summary-value">{totals.received.toLocaleString()}</span>
+            </div>
+
+            <div className="summary-card">
+              <span className="summary-label">Sold Stock</span>
+              <span className="summary-value">{totals.sold.toLocaleString()}</span>
+            </div>
+
+            <div className="summary-card current-stock-card">
+              <span className="summary-label">Current Stock</span>
+              <span className="summary-value red-text">{totals.current.toLocaleString()}</span>
+            </div>
+
+          </div>
+
+          {/* Table Container */}
+          <div className="table-wrapper">
+            <table className="stock-table">
+              <thead>
+                <tr>
+                  <th className="text-left">Product</th>
+                  <th className="text-center">Opening</th>
+                  <th className="text-center">Received</th>
+                  <th className="text-center">Sold</th>
+                  <th className="text-center">Current</th>
+                  <th className="text-center">Unit</th>
+                  <th className="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stockList.map((item) => (
+                  <tr key={item.id}>
+                    <td className="text-left product-name">{item.product}</td>
+                    <td className="text-center value-cell">{item.opening}</td>
+                    <td className="text-center value-cell">{item.received}</td>
+                    <td className="text-center value-cell">{item.sold}</td>
+                    <td className="text-center value-cell current-value">{item.current}</td>
+                    <td className="text-center unit-cell">{item.unit}</td>
+                    <td className="text-right actions-cell">
+                      <div className="actions-group">
+                        <button type="button" onClick={() => handleEditClick(item)} className="btn-action edit" title="Edit">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
+                        </button>
+                        <button type="button" onClick={() => handleDeleteClick(item.id)} className="btn-action delete" title="Delete">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {stockList.length === 0 && (
+                  <tr>
+                    <td colSpan="7" className="empty-row">
+                      No products available. Add a product to get started!
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Centered Footer Action Button */}
+          <div className="footer-action">
+            <button type="button" className="btn-view-report">
+              View Full Stock Report
+            </button>
+          </div>
+
+        </div>
       </div>
 
-      {/* Main Stock Data Table Component Layout */}
-      <div className="manage-stock-table-wrapper">
-        <table className="manage-stock-table">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Available</th>
-              <th>Reserved</th>
-              <th>Low Stock Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stockData.map((item) => (
-              <tr key={item.id}>
-                <td className="product-name-cell">{item.product}</td>
-                <td>{item.available}</td>
-                <td>{item.reserved}</td>
-                <td>
-                  {item.isLow ? (
-                    <span className="status-indicator low-alert">
-                      <AlertTriangle size={14} /> Low Stock Alert ⚠️
-                    </span>
-                  ) : (
-                    <span className="status-indicator optimal-alert">
-                      <CheckCircle size={14} /> Normal ❌
-                    </span>
-                  )}
-                </td>
-                <td className="actions-cell">
-                  <button className="table-action-icon edit-btn" title="Edit Item"><Edit size={16} /></button>
-                  <button className="table-action-icon delete-btn" title="Delete Item"><Trash2 size={16} /></button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Dynamic Pop-up Form Modal Component Overlay */}
+      {/* Pop-up Modal Form */}
       {isModalOpen && (
-        <div className="manage-stock-modal-overlay">
-          <div className="manage-stock-modal-card">
-            <div className="modal-card-header">
-              <h3>Create New Stock Entry</h3>
-              <button className="modal-close-btn" onClick={() => setIsModalOpen(false)}>
-                <X size={20} />
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+            
+            <div className="modal-header">
+              <h3>{editingItem ? 'Edit Product Stock' : 'Add New Water Stock'}</h3>
+              <button type="button" onClick={() => setIsModalOpen(false)} className="btn-modal-close">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
             </div>
-            
-            <form onSubmit={handleFormSubmit} className="modal-form">
+
+            <form onSubmit={handleSubmit} className="modal-form">
               <div className="form-group">
-                <label htmlFor="product">Product Name / Description</label>
+                <label>Product Name</label>
                 <input 
                   type="text" 
-                  id="product"
-                  name="product" 
-                  placeholder="e.g., 20L Jar, 2L Bottle"
-                  value={formData.product} 
-                  onChange={handleInputChange} 
-                  required 
+                  name="product"
+                  value={formData.product}
+                  onChange={handleChange}
+                  required
+                  placeholder="e.g. 20L Bottle, 1L Bottle"
                 />
               </div>
 
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="available">Initial Quantity Available</label>
+                  <label>Opening Stock</label>
                   <input 
                     type="number" 
-                    id="available"
-                    name="available" 
-                    placeholder="0"
-                    value={formData.available} 
-                    onChange={handleInputChange} 
+                    name="opening"
+                    value={formData.opening}
+                    onChange={handleChange}
                     min="0"
-                    required 
+                    placeholder="0"
                   />
                 </div>
-
                 <div className="form-group">
-                  <label htmlFor="reserved">Quantity Reserved</label>
+                  <label>Received Stock</label>
                   <input 
                     type="number" 
-                    id="reserved"
-                    name="reserved" 
-                    placeholder="0"
-                    value={formData.reserved} 
-                    onChange={handleInputChange} 
+                    name="received"
+                    value={formData.received}
+                    onChange={handleChange}
                     min="0"
-                    required 
+                    placeholder="0"
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Sold Stock</label>
+                  <input 
+                    type="number" 
+                    name="sold"
+                    value={formData.sold}
+                    onChange={handleChange}
+                    min="0"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Current Stock</label>
+                  <input 
+                    type="number" 
+                    name="current"
+                    value={formData.current}
+                    onChange={handleChange}
+                    min="0"
+                    placeholder="0"
                   />
                 </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="lowStockThreshold">Low Stock Alert Trigger Threshold</label>
-                <input 
-                  type="number" 
-                  id="lowStockThreshold"
-                  name="lowStockThreshold" 
-                  placeholder="Alert when stock falls below this value"
-                  value={formData.lowStockThreshold} 
-                  onChange={handleInputChange} 
-                  min="0"
-                  required 
-                />
+                <label>Unit</label>
+                <select name="unit" value={formData.unit} onChange={handleChange}>
+                  <option value="Pcs">Pcs</option>
+                  <option value="Box">Box</option>
+                  <option value="Ltr">Ltr</option>
+                </select>
               </div>
 
-              <div className="modal-actions-footer">
-                <button type="button" className="cancel-btn" onClick={() => setIsModalOpen(false)}>
+              <div className="modal-footer">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="btn-secondary">
                   Cancel
                 </button>
-                <button type="submit" className="submit-btn">
-                  Save Stock Item
+                <button type="submit" className="btn-primary">
+                  {editingItem ? 'Save Changes' : 'Add Product'}
                 </button>
               </div>
             </form>
+
           </div>
         </div>
       )}

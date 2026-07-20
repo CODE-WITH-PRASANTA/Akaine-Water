@@ -1,0 +1,242 @@
+.payment-management-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1.5px solid #dbeafe;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 5050px;
+  margin: 20px auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.payment-header {
+  background-color: #0b46ad;
+  color: #ffffff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.table-responsive-wrapper {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.payment-table th {
+  background-color: #f8fafc;
+  color: #4b5563;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.payment-table td {
+  padding: 14px 20px;
+  font-size: 0.9rem;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.payment-table tr:last-child td {
+  border-bottom: none;
+}
+
+.amount-col, .transactions-col {
+  font-weight: 500;
+}
+
+.status-completed {
+  color: #10b981;
+  font-weight: 600;
+}
+
+/* बॉटम बटन डिज़ाइन */
+.button-container {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.view-all-btn {
+  background-color: #1d4ed8;
+  color: #ffffff;
+  border: none;
+  padding: 10px 32px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 6px rgba(29, 78, 216, 0.2);
+}
+
+.view-all-btn:hover {
+  background-color: #1e40af;
+}
+
+.view-all-btn:active {
+  transform: scale(0.98);
+}
+
+/* --- रिस्पॉन्सिव मीडिया क्वेरीज़ (Mobile & Tablet Support) --- */
+
+@media (max-width: 768px) {
+  .payment-management-container {
+    padding: 16px;
+    margin: 10px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px;
+  }
+  .payment-header-wrapper {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .payment-header {
+    margin-bottom: 0px;
+  }
+  .payment-header-actions {
+    width: 100%;
+    justify-content: flex-start !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr; 
+  }
+
+  .payment-table, 
+  .payment-table thead, 
+  .payment-table tbody, 
+  .payment-table th, 
+  .payment-table td, 
+  .payment-table tr {
+    display: block;
+  }
+
+  .payment-table thead {
+    display: none; /* हेडर छुपाएं */
+  }
+
+  .payment-table tr {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 8px;
+    background-color: #fafafa;
+  }
+
+  .payment-table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+    font-size: 0.85rem;
+  }
+
+  /* data-label एट्रिब्यूट से मोबाइल हेडिंग दिखाना */
+  .payment-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 12px;
+    width: 45%;
+    font-weight: 600;
+    text-align: left;
+    color: #6b7280;
+  }
+}
+
+/* ==========================================================================
+   ADDITIONS: New CSS for Download Button (Upper Right Corner Grid Setup)
+   ========================================================================== */
+.payment-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.payment-header-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.pm-download-csv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.pm-download-csv-btn:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0b46ad;
+}
+
+.pm-download-csv-btn:active {
+  transform: scale(0.98);
+}
+
+.pm-download-icon {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}

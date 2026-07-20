@@ -1,3 +1,4 @@
+// Sidebar.jsx
 import React, { useState } from 'react';
 import {
   Home,
@@ -11,14 +12,16 @@ import {
   ClipboardList,
   Truck,
   UserPlus,      // Added for Customer
-  Boxes,         // Added for Inventory
+  Boxes,          // Added for Inventory
   Tag,           // Added for Product & Price
   DollarSign,    // Added for Payment
-  TrendingDown,  // Added for Expenses
-  BarChart3,     // Added for Report Analysis
+  Wallet,        // Swapped for Wallet Dropdown
   Map,           // Added for Route Management
   Car,           // Added for Vehicle
-  Settings       // Added for Settings
+  Settings,       // Added for Settings
+  BookmarkCheckIcon,
+  BoxIcon,
+  BarChart3
 } from "lucide-react";
 import './Sidebar.css';
 
@@ -73,7 +76,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
     
     { type: 'link', icon: <Tag size={20} />, text: 'Product & Price', path: '/wdms/products-pricing' },
 
-    // Kept as Dropdown (Only Stock Management)
+    // Dropdowns
     {
       type: 'dropdown',
       icon: <Package size={20} />,
@@ -84,20 +87,25 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
       ],
     },
 
+    {
+      type: 'dropdown',
+      icon: <Wallet size={20} />,
+      text: 'Wallet',
+      subItems: [
+        { text: 'Expenses', path: '/wdms/expenses' },
+        { text: 'Add Expenses', path: '/wdms/add-expenses' },
+      ],
+    },
+
     { type: 'link', icon: <ClipboardList size={20} />, text: 'Order Management', path: '/wdms/orders' },
-
     { type: 'link', icon: <DollarSign size={20} />, text: 'Payment Management', path: '/wdms/payments' },
-
-    { type: 'link', icon: <TrendingDown size={20} />, text: 'Expenses', path: '/wdms/expenses' },
-
     { type: 'link', icon: <Truck size={20} />, text: 'Delivery Boy Assign', path: '/wdms/assign-delivery' },
-
     { type: 'link', icon: <Map size={20} />, text: 'Route Management', path: '/wdms/route-management' },
-
     { type: 'link', icon: <Car size={20} />, text: 'Vehicle Management', path: '/wdms/vehicles' },
-
+    { type: 'link', icon: <BookOpen size={20} />, text: 'Invoice Management', path: '/wdms/invoice' },
+    { type: 'link', icon: <BookmarkCheckIcon size={20} />, text: 'Damage Stock Management', path: '/wdms/damage-stock' },
+    { type: 'link', icon: <BoxIcon size={20} />, text: 'Supplier Management', path: '/wdms/supplier' },
     { type: 'link', icon: <BarChart3 size={20} />, text: 'Report Analysis', path: '/wdms/reports' },
-
     { type: 'link', icon: <Settings size={20} />, text: 'Settings', path: '/wdms/settings' },
   ];
 
@@ -110,11 +118,11 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
       
       <nav className="Sidebar-nav">
         {menuItems.map((item, index) => {
-          // Handle Section Heading with Divider
+          // Handle Section Heading with Animated Divider
           if (item.type === 'section-heading') {
             return (
               <div key={index} className="Sidebar-section-wrapper">
-                <hr className="Sidebar-divider" />
+                <div className="Sidebar-animated-divider"></div>
                 {!isCollapsed && <span className="Sidebar-section-title">{item.text}</span>}
               </div>
             );

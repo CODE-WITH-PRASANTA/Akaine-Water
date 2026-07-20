@@ -7,7 +7,18 @@
   box-sizing: border-box;
 }
 
-/* Floating Palette Icon matching reference style */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-family: 'Poppins', sans-serif;
+  color: #004eb3;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Floating Palette Icon */
 .PopularPost-palette-sticky {
   position: fixed;
   left: 0;
@@ -24,13 +35,18 @@
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   z-index: 100;
+  transition: transform 0.2s ease;
+}
+
+.PopularPost-palette-sticky:hover {
+  transform: scale(1.05);
 }
 
 .PopularPost-container {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 8fr 4fr; /* Balanced grid for content & side columns */
+  grid-template-columns: 8fr 4fr;
   gap: 40px;
 }
 
@@ -88,9 +104,14 @@
   font-size: 0.85rem;
 }
 
+.PopularPost-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .PopularPost-meta-icon {
   color: #00c3ff;
-  margin-right: 4px;
 }
 
 .PopularPost-meta-divider {
@@ -109,14 +130,15 @@
 .PopularPost-section-heading {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   color: #0c1c3f;
-  margin: 35px 0 20px 0;
+  margin: 15px 0 20px 0;
+  line-height: 1.3;
 }
 
-/* Quote Graphic blockout styling matching screenshot 2 */
+/* Quote Graphic blockout styling */
 .PopularPost-quote-block {
-  background-color: #004eb3; /* Deep solid brand blue */
+  background-color: #004eb3;
   border-radius: 10px;
   padding: 40px;
   display: flex;
@@ -158,37 +180,11 @@
 
 .PopularPost-quote-author {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: rgba(255, 255, 255, 0.8);
   font-style: normal;
-}
-
-/* Styled List of features with special icon bullets */
-.PopularPost-feature-list {
-  list-style: none;
-  padding: 0;
-  margin: 30px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.PopularPost-feature-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'Roboto', sans-serif;
-  color: #5d6778;
-  font-size: 0.95rem;
-}
-
-.PopularPost-list-bullet {
-  color: #004eb3;
-  font-size: 0.8rem;
-  display: flex;
-  transform: rotate(45deg); /* Rotates cross to form the four-point element design in reference */
 }
 
 /* Tag/Share footer bar */
@@ -224,26 +220,18 @@
   font-size: 0.8rem;
   color: #7d8898;
   font-family: 'Roboto', sans-serif;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.PopularPost-pill-tag:hover {
-  background-color: #004eb3;
-  color: #ffffff;
-  border-color: #004eb3;
 }
 
 .PopularPost-social-circle {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1px solid #e1e7ec;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #7d8898;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   text-decoration: none;
   transition: all 0.2s ease;
 }
@@ -258,6 +246,15 @@
 .PopularPost-nav-link-box {
   margin: 35px 0;
   text-align: center;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.PopularPost-nav-link-box:hover {
+  background-color: #f1f5f9;
 }
 
 .PopularPost-nav-sub {
@@ -268,7 +265,6 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  cursor: pointer;
 }
 
 .PopularPost-nav-arrow {
@@ -278,13 +274,13 @@
 .PopularPost-nav-title {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   color: #0c1c3f;
-  margin: 10px 0 0 0;
-  cursor: pointer;
+  margin: 8px 0 0 0;
+  line-height: 1.4;
 }
 
-/* Author Profile card block styling matching screenshot 4 */
+/* Author Profile card block styling */
 .PopularPost-author-card {
   display: flex;
   gap: 25px;
@@ -296,8 +292,8 @@
 }
 
 .PopularPost-author-avatar-box {
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
@@ -305,8 +301,9 @@
 }
 
 .PopularPost-author-avatar {
-  width: 110%;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .PopularPost-author-info {
@@ -319,7 +316,14 @@
   font-weight: 700;
   font-size: 1.25rem;
   color: #0c1c3f;
+  margin: 0 0 4px 0;
+}
+
+.PopularPost-author-info h5 {
   margin: 0 0 10px 0;
+  font-family: 'Poppins', sans-serif;
+  color: #004eb3;
+  font-weight: 600;
 }
 
 .PopularPost-author-bio {
@@ -345,26 +349,22 @@
   color: #004eb3;
 }
 
-
 /* ================= RIGHT SIDEBAR WIDGETS STYLING ================= */
 .PopularPost-sidebar {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
   border: 1px solid #ebf1f6;
-  border-top: 2px solid #00c3ff; /* Matching colored top accent border */
+  border-top: 3px solid #00c3ff;
   border-radius: 10px;
   padding: 35px 25px;
   box-sizing: border-box;
   height: fit-content;
+  gap: 40px;
 }
 
 .PopularPost-widget {
-  margin-bottom: 30px;
-}
-
-.PopularPost-widget:last-child {
-  margin-bottom: 0;
+  width: 100%;
 }
 
 .PopularPost-widget-title {
@@ -372,22 +372,19 @@
   font-weight: 700;
   font-size: 1.25rem;
   color: #0c1c3f;
-  margin: 0 0 6px 0;
+  margin: 0 0 20px 0;
+  position: relative;
+  padding-bottom: 8px;
 }
 
-.PopularPost-wave-decoration {
-  width: 56px;
-  height: 6px;
-  margin-bottom: 25px;
-}
-
-.PopularPost-widget-wave-divider {
-  width: 100%;
-  height: 10px;
-  margin-top: 35px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z' fill='%23ebf1f6' opacity='.25'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-size: 100px 10px;
+.PopularPost-widget-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #004eb3;
 }
 
 /* 1. Search Box input widget */
@@ -401,13 +398,19 @@
   width: 100%;
   height: 48px;
   background-color: #f0f3f6;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 24px;
   padding: 0 55px 0 20px;
   box-sizing: border-box;
   font-size: 0.9rem;
   color: #333333;
   outline: none;
+  transition: all 0.2s ease;
+}
+
+.PopularPost-search-input:focus {
+  border-color: #004eb3;
+  background-color: #ffffff;
 }
 
 .PopularPost-search-btn {
@@ -435,13 +438,13 @@
 
 .PopularPost-category-item {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #7d8898;
-  padding: 15px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #ebf1f6;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .PopularPost-category-item:last-child {
@@ -450,6 +453,7 @@
 
 .PopularPost-category-item:hover {
   color: #004eb3;
+  padding-left: 5px;
 }
 
 /* 3. Popular Posts layout in Sidebar */
@@ -507,43 +511,19 @@
 
 .PopularPost-title {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   line-height: 1.4;
   color: #0c1c3f;
   margin: 0;
-  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .PopularPost-title:hover {
-  color: #00c3ff;
+  color: #004eb3;
 }
 
-/* 4. Tag Cloud pills styling */
-.PopularPost-tags-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.PopularPost-cloud-pill {
-  border: 1px solid #e1e7ec;
-  border-radius: 15px;
-  padding: 6px 14px;
-  font-size: 0.75rem;
-  color: #7d8898;
-  font-family: 'Roboto', sans-serif;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.PopularPost-cloud-pill:hover {
-  background-color: #004eb3;
-  color: #ffffff;
-  border-color: #004eb3;
-}
-
-/* 5. Subscription Widget Box */
+/* 4. Subscription Widget Box */
 .PopularPost-subscribe-card {
   background-color: #004eb3;
   border-radius: 8px;
@@ -590,8 +570,8 @@
 .PopularPost-sub-input {
   width: 100%;
   height: 44px;
-  background-color: #f0f3f6;
-  border: none;
+  background-color: #ffffff;
+  border: 1px solid transparent;
   border-radius: 22px;
   padding: 0 20px;
   box-sizing: border-box;
@@ -602,28 +582,29 @@
 }
 
 .PopularPost-sub-btn {
-  background-color: transparent;
+  background-color: #000000;
   color: #ffffff;
   border: none;
+  height: 44px;
+  border-radius: 22px;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 0.8rem;
   cursor: pointer;
   letter-spacing: 0.5px;
-  transition: opacity 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .PopularPost-sub-btn:hover {
-  opacity: 0.8;
+  background-color: #1a1a1a;
 }
-
 
 /* ================= RESPONSIVE VIEWPORTS ================= */
 
 /* Medium screen layouts (e.g. Tablets) */
 @media (max-width: 992px) {
   .PopularPost-container {
-    grid-template-columns: 1fr; /* Sidebar stacks below main column */
+    grid-template-columns: 1fr;
     gap: 50px;
   }
 }
@@ -642,7 +623,7 @@
   }
 
   .PopularPost-section-heading {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   .PopularPost-author-card {
@@ -650,11 +631,6 @@
     align-items: center;
     text-align: center;
     padding: 25px 15px;
-  }
-  
-  .PopularPost-author-avatar-box {
-    width: 90px;
-    height: 90px;
   }
 
   .PopularPost-share-bar {
@@ -664,6 +640,6 @@
   }
   
   .PopularPost-palette-sticky {
-    display: none; /* Hide floating palettes on small devices */
+    display: none;
   }
 }

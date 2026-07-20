@@ -1,0 +1,194 @@
+/* Container reset and base setup */
+.settings-container.full-page-view {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #f4f7fc;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* 100% block stack structural architecture layout */
+.settings-wrapper.full-width-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Main Dashboard Card wrapper profile layout */
+.settings-card.full-size-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e1e8f5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.settings-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.settings-title {
+  color: #0b2265;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Inner nested structural frame box wrapper matching reference layout border lines */
+.settings-grid-inner {
+  border: 1px solid #eaf0fa;
+  border-radius: 12px;
+  padding: 40px 24px;
+  background-color: #ffffff;
+}
+
+/* Responsive Dashboard Matrices system layout configuration grid */
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Generates crisp standard 4 column setup like image */
+  gap: 40px 24px;
+  width: 100%;
+}
+
+/* Individual Interactive Item Options Profiles */
+.settings-item-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 16px;
+  border-radius: 8px;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.2s ease;
+}
+
+/* Continuous smooth floating lift and scale on target cursor points */
+.settings-item-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  background-color: #f8faff;
+}
+
+/* Icon Graphics container layout wrappers styles */
+.settings-icon-wrapper {
+  color: #0b2265;
+  font-size: 42px; /* Large high fidelity line weights icons specs */
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.settings-item-card:hover .settings-icon-wrapper {
+  color: #1253d6; /* Vibrant active blue toggle transformation */
+}
+
+.settings-item-label {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Bottom centered footer actions wrappers profiles button items */
+.settings-action-footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.settings-submit-btn {
+  width: auto;
+  min-width: 260px;
+  height: 44px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.blue-btn {
+  background-color: #1253d6;
+}
+
+.blue-btn:hover {
+  background-color: #0e42ab;
+}
+
+.settings-submit-btn:active {
+  transform: scale(0.99);
+}
+
+/* ==========================================================
+   RESPONSIVE DESIGN MEDIA QUERIES (ALWAYS AT THE BOTTOM)
+   ========================================================== */
+
+/* 1. Mobile Viewports (Phones/Handsets: 0px to 649px) */
+@media (max-width: 649px) {
+  .settings-container.full-page-view {
+    padding: 12px;
+  }
+
+  .settings-card.full-size-card {
+    padding: 20px;
+  }
+
+  .settings-grid-inner {
+    padding: 24px 12px;
+  }
+
+  .settings-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 multi-row block structure for readability on narrow mobile viewports */
+    gap: 24px 12px;
+  }
+
+  .settings-icon-wrapper {
+    font-size: 36px;
+  }
+
+  .settings-item-label {
+    font-size: 13px;
+  }
+
+  .settings-submit-btn {
+    width: 100%; /* Stretches button fluid to card viewport margins */
+  }
+}
+
+/* 2. Tablet Viewports (Medium Screens: 650px to 991px) */
+@media (min-width: 650px) and (max-width: 991px) {
+  .settings-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 column modular balancing system layout */
+    gap: 32px 20px;
+  }
+}
+
+/* 3. High-Res Workstations / Desktop Layout Monitors (992px and up) */
+@media (min-width: 992px) {
+  .settings-card.full-size-card {
+    padding: 40px;
+  }
+}

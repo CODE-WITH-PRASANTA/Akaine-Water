@@ -31,6 +31,7 @@ import Cheakout from "./Pages/Cheakout/Cheakout";
 import Faq from "./Pages/Faq/Faq";
 import BlogDetails from "./Pages/BlogDetails/BlogDetails";
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -49,18 +50,15 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/plan" element={<PricingAndPlans />} />
+        <Route path="/products/pricing" element={<PricingAndPlans />} />
         
 
         {/* Pricing */}
-        <Route
-          path="/products/pricing"
-          element={<PricingAndPlans />}
-        />
+       
 
         {/* Blog */}
         <Route path="/resources/blog" element={<Blog />} />
-         <Route path="/blogdetails" element={<BlogDetails/>}/>
+        <Route path="/blogdetails/:id" element={<BlogDetails />} />
         {/* Resources */}
         <Route path="/resources/team" element={<MainTeam />} />
         <Route path="/resources/gallary" element={<GalaryMain />} />
@@ -84,10 +82,9 @@ function App() {
 
         {/* Optional Components */}
         <Route path="/team-component" element={<OurTeam />} />
-        <Route
-          path="/gallery-component"
-          element={<AkaineGalary />}
-        />
+        <Route path="/gallery-component" element={<AkaineGalary />}/>
+      
+  
       </Routes>
 
       {/* Footer */}
