@@ -482,3 +482,25 @@
 .btn-icon {
   font-size: 16px;
 }
+/* Styling Architecture for the New Download Draft Utility Trigger */
+.btn-download-draft {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.925rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #ffffff;
+  border: 1px solid var(--border-default);
+  color: var(--text-light);
+  transition: all 0.2s ease;
+}
+
+.btn-download-draft:hover {
+  background-color: var(--bg-light-blue);
+  border-color: var(--border-focus);
+  color: var(--primary-blue);
+  transform: translateY(-1px);
+}

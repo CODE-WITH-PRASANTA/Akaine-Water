@@ -1,7 +1,5 @@
 /* Container Base Settings Layout */
-.stock-management-container {
-  width: 100%;
-  max-width: 1300px;
+.stock-management-container { 
   margin: 0 auto;
   padding: 24px;
   box-sizing: border-box;

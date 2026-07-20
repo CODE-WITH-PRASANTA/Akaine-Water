@@ -7,6 +7,7 @@
   align-items: start;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .stock-container-wrapper * {
@@ -16,7 +17,6 @@
 /* --- Card Shell --- */
 .stock-card {
   width: 100%;
-  max-width: 1100px;
   background-color: #ffffff;
   border-radius: 1rem;
   border: 1px solid #e2e8f0;
@@ -92,7 +92,7 @@
 
 /* --- Interactive Action Buttons --- */
 .btn-add-stock {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -105,7 +105,6 @@
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  align-self: flex-start;
 }
 
 .btn-add-stock:hover {
@@ -252,29 +251,31 @@
 
 /* --- Pop-up Modal Design --- */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  z-index: 1000;
-  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(4px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  z-index: 999999 !important; 
 }
 
 .modal-container {
-  background-color: #ffffff;
-  width: 100%;
-  max-width: 440px;
-  border-radius: 1rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  overflow: hidden;
-  animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: #ffffff !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3) !important;
+  overflow: hidden !important;
+  display: block !important;
+  position: relative !important;
 }
 
 .modal-header {
@@ -397,6 +398,44 @@
   background-color: #1d4ed8;
 }
 
+/* --- Extra Additions for Header Actions --- */
+.stock-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-download-csv {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.btn-download-csv:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+  color: #0c3c8c;
+}
+
+.btn-download-csv:active {
+  transform: scale(0.98);
+}
+
+.download-btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
 /* --- Media Queries for Responsive Screens --- */
 @media (min-width: 640px) {
   .stock-header {
@@ -404,13 +443,16 @@
     align-items: center;
     justify-content: space-between;
   }
+}
 
-  .btn-add-stock {
-    align-self: center;
+@media (max-width: 640px) {
+  .stock-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
   }
-
-  .stock-body {
-    padding: 2rem;
+  .btn-download-csv, .btn-add-stock {
+    width: 100%;
   }
 }
 
@@ -425,22 +467,5 @@
 
   .summary-value {
     font-size: 1.875rem;
-  }
-}
-
-/* --- Dynamic Overlay Animations --- */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
   }
 }

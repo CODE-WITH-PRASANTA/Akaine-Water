@@ -65,11 +65,55 @@ const ProductandPrice = () => {
     });
   };
 
+  // CSV डाउनलोड करने का वर्किंग फंक्शन
+  const handleDownloadCSV = () => {
+    const headers = ['Product', 'Size', 'Cost Price (₹)', 'Dealer Price (₹)', 'Retail Price (₹)', 'Tax (%)', 'Status'];
+    
+    const csvRows = products.map(prod => 
+      [
+        `"${prod.name}"`, 
+        `"${prod.size}"`, 
+        prod.cost.toFixed(2), 
+        prod.dealer.toFixed(2), 
+        prod.retail.toFixed(2), 
+        `${prod.tax}%`, 
+        prod.status
+      ].join(',')
+    );
+    
+    const csvContent = [headers.join(','), ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'product_price_report.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="component-container">
-      {/* 4. PRODUCT & PRICE CONTROL HEADER */}
-      <div className="card-header">
-        <h2>4. PRODUCT & PRICE CONTROL</h2>
+      {/* 4. PRODUCT & PRICE CONTROL HEADER WITH DOWNLOAD BUTTON */}
+      <div className="card-header-wrapper">
+        <div className="card-header">
+          <h2>4. PRODUCT & PRICE CONTROL</h2>
+        </div>
+        <div className="header-actions">
+          <button 
+            type="button" 
+            className="download-csv-btn"
+            onClick={handleDownloadCSV}
+          >
+            <svg className="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download CSV
+          </button>
+        </div>
       </div>
 
       <div className="card-body">

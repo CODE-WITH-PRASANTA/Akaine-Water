@@ -1,4 +1,4 @@
-/* InvoiceManagement.css */
+/* Invoice Management.css */
 
 :root {
   --primary-blue: #0056b3; /* Or your preferred blue */
@@ -16,16 +16,18 @@ body {
 }
 
 .InvoiceManagement {
-  width: 90%;
-  max-width: 1200px;
-  margin: 2rem auto;
+  width: 100%; /* फुल स्क्रीन चौड़ाई के लिए बदला गया */
+  /* max-width: 1200px; <-- हटा दिया गया है ताकि यह फुल स्क्रीन हो सके */
+  margin: 0; /* फुल स्क्रीन लेआउट के लिए टॉप/बॉटम मार्जिन हटाया गया */
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0px; /* फुल स्क्रीन में कोनों को चौकोर रखने के लिए */
+  box-shadow: none; /* फुल स्क्रीन पर शैडो की आवश्यकता नहीं है */
   padding: 2rem;
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 
-/* Header */
+/* Header - फ्लेक्सबॉक्स अलाइनमेंट डाउनलोड बटन के लिए */
 .InvoiceManagement__header {
   display: flex;
   justify-content: space-between;
@@ -54,6 +56,23 @@ body {
   color: var(--primary-blue);
 }
 
+/* नया वर्किंग डाउनलोड बटन स्टाइल */
+.InvoiceManagement__download-btn {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.InvoiceManagement__download-btn:hover {
+  background-color: #004494;
+}
+
 /* Content Area */
 .InvoiceManagement__content {
   display: flex;
@@ -80,7 +99,7 @@ body {
 }
 
 .InvoiceManagement__aqua-pure-logo img {
-  width: 50px; /* Adjust size as needed */
+  width: 50px; 
   height: auto;
   margin-right: 1rem;
 }
@@ -174,7 +193,7 @@ body {
 }
 
 .InvoiceManagement__items-table th {
-  background-color: #f0f4f8; /* Light blue header */
+  background-color: #f0f4f8; 
   color: var(--secondary-black);
   text-align: left;
   padding: 0.75rem;
@@ -287,10 +306,23 @@ body {
   background-color: #004494;
 }
 
-/* Responsiveness (Example) */
+/* Responsiveness */
 @media (max-width: 900px) {
   .InvoiceManagement__content {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .InvoiceManagement__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .InvoiceManagement__download-btn {
+    width: 100%;
+    text-align: center;
   }
 }
 

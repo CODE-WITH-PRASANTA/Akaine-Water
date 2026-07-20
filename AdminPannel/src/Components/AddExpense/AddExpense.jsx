@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import { 
   FiFileText, 
@@ -17,7 +18,9 @@ import {
   FiSave,
   FiCheck,
   FiFile,
-  FiTrash2
+  FiTrash2,
+  FiDownload,
+  
 } from 'react-icons/fi';
 import './AddExpense.css';
 
@@ -26,6 +29,7 @@ const VISUAL_CATEGORIES = [
   { id: 'purchase', title: 'Purchase / Stock', desc: 'Raw materials, bottles, caps etc.', icon: FiShoppingCart },
   { id: 'transportation', title: 'Transportation', desc: 'Delivery, Fuel, Vehicle etc.', icon: FiTruck },
   { id: 'salary', title: 'Salary / Wages', desc: 'Staff salary, wages etc.', icon: FiBriefcase },
+  { id: 'utilities', title: 'Utilities', desc: 'Electricity, Water, Internet etc.', icon: FiSun },
   { id: 'utilities', title: 'Utilities', desc: 'Electricity, Water, Internet etc.', icon:FiSun },
   { id: 'rent', title: 'Rent', desc: 'Shop, Warehouse Rent etc.', icon: FiHome },
   { id: 'others', title: 'Others', desc: 'Other miscellaneous expenses', icon: FiMoreHorizontal }
@@ -54,6 +58,7 @@ const AddExpense = () => {
   const [expenseData, setExpenseData] = useState(INITIAL_STATE);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isDragActive, setIsDragActive] = useState(false);
+  // Adjusted inline reference trigger binding safely
   const fileInputRef = useRef(null);
 
   // Form input change engine with automated precision floating point math calculation maps
@@ -109,6 +114,17 @@ const AddExpense = () => {
     if (picker) {
       typeof picker.showPicker === 'function' ? picker.showPicker() : picker.focus();
     }
+  };
+
+  // Function to download the current expense data log structure
+  const handleDownloadPayload = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ ...expenseData, uploadedFileName: uploadedFile ? uploadedFile.name : null }, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `Expense_Log_${expenseData.expenseDate || 'Draft'}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
   };
 
   const handleSaveSubmit = (e) => {
@@ -433,6 +449,16 @@ const AddExpense = () => {
             onClick={handleResetRollback}
           >
             <FiArrowLeft className="btn-icon" /> Cancel
+          </button>
+          
+          {/* New Download Action Button Added Safely inside the Layout Framework */}
+          <button 
+            type="button" 
+            className="btn-download-draft" 
+            onClick={handleDownloadPayload}
+            title="Download Log Data"
+          >
+            <FiDownload className="btn-icon" /> Download Log
           </button>
           
           <button 

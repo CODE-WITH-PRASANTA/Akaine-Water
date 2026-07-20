@@ -15,8 +15,6 @@ const DeliveryBoyassign = () => {
   const [filter, setFilter] = useState('All');
   const [activeFilter, setActiveFilter] = useState('Total');
 
-  // Static metrics overridden or calculated dynamically based on layout metrics
-  // Setting default display numbers from the image, but keeping them dynamic if you expand the list
   const totalCount = 56; 
   const activeCount = 45;
   const onDeliveryCount = 32;
@@ -43,16 +41,50 @@ const DeliveryBoyassign = () => {
     return '';
   };
 
+  const handleDownload = () => {
+    if (filteredData.length === 0) {
+      alert("No data available to download!");
+      return;
+    }
+
+    const headers = ['Delivery Boy', 'Mobile', 'Vehicle', "Today's Orders", 'Status'];
+    const rows = filteredData.map(boy => [
+      boy.name,
+      boy.mobile,
+      boy.vehicle,
+      boy.orders,
+      boy.status
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(val => `"${val}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `Delivery_Boy_Report_${filter}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="db-management-container">
       <div className="db-management-panel">
         
-        {/* Header Title Section */}
         <div className="db-header">
           <h2 className="header-text"> DELIVERY BOY MANAGEMENT</h2>
+          <button className="download-btn" onClick={handleDownload}>
+            Download
+          </button>
         </div>
 
-        {/* Metric Overview Cards */}
         <div className="db-metrics-container">
           <div 
             className={`metric-box ${activeFilter === 'Total' ? 'active-metric' : ''}`} 
@@ -84,7 +116,6 @@ const DeliveryBoyassign = () => {
           </div>
         </div>
 
-        {/* Dynamic Table Layout matching image UI */}
         <div className="db-table-container">
           <table className="db-table">
             <thead>
@@ -135,7 +166,6 @@ const DeliveryBoyassign = () => {
           )}
         </div>
 
-        {/* Primary Layout Action Button */}
         <div className="db-footer-action">
           <button className="view-all-btn" onClick={() => handleFilterClick('All', 'Total')}>
             View All Delivery Boys

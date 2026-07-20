@@ -1,7 +1,7 @@
 // Navbar.jsx
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
-import logo from '../../assets/ALKA DROPS LOGO.png'; // Import your logo image asset here
+import logo from '../../assets/logo-1.png'; // Import your logo image asset here
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,58 +36,44 @@ const Navbar = () => {
 
         {/* Dynamic Navigation Links Block */}
         <ul className={`navbar-menu ${isMobileMenuOpen ? 'is-open' : ''}`}>
+          {/* Home */}
           <li className="navbar-item">
-            <a href="/" className="navbar-link">Home </a>
+            <a href="/" className="navbar-link">Home</a>
           </li>
           
+          {/* About */}
           <li className="navbar-item">
             <a href="/about" className="navbar-link">About</a>
           </li>
 
-          {/* Products Dropdown */}
+          {/* Subscription (Mapping to the pricing pathname) */}
           <li className="navbar-item">
-            <span className="navbar-link">Products <span className="navbar-arrow">▼</span></span>
-            <ul className="navbar-dropdown">
-              {/* <li className="navbar-dropdown-item"><a href="/products/categories">Product Categories</a></li> */}
-              <li className="navbar-dropdown-item"><a href="/products/pricing">Pricing</a></li>
-              <li className="navbar-dropdown-item"><a href="/products/testimonials">Testimonials</a></li>
-              {/* <li className="navbar-dropdown-item"><a href="/products/join-now">Join Now</a></li> */}
-            </ul>
+            <a href="/products/pricing" className="navbar-link">Subscription</a>
           </li>
 
-          {/* Services Dropdown */}
+          {/* Shop */}
           <li className="navbar-item">
-            <span className="navbar-link">Services <span className="navbar-arrow">▼</span></span>
-            <ul className="navbar-dropdown">
-              <li className="navbar-dropdown-item"><a href="/services/all">All Services</a></li>
-              <li className="navbar-dropdown-item"><a href="/services/packages">Service Packages</a></li>
-             
-              <li className="navbar-dropdown-item"><a href="/services/request">Request Service</a></li>
-            </ul>
+            <a href="/shop" className="navbar-link">Shop</a>
           </li>
 
-          {/* Resources Dropdown */}
+          {/* Services */}
           <li className="navbar-item">
-            <span className="navbar-link">Resources <span className="navbar-arrow">▼</span></span>
+            <a href="/services/all" className="navbar-link">Services</a>
+          </li>
+
+          {/* More Dropdown */}
+          <li className="navbar-item">
+            <span className="navbar-link">More <span className="navbar-arrow">▼</span></span>
             <ul className="navbar-dropdown">
               <li className="navbar-dropdown-item"><a href="/resources/blog">Blog</a></li>
               <li className="navbar-dropdown-item"><a href="/resources/faqs">FAQs</a></li>
               <li className="navbar-dropdown-item"><a href="/resources/team">Our Team</a></li>
-               <li className="navbar-dropdown-item"><a href="/resources/gallary">Gallary</a></li>
+              <li className="navbar-dropdown-item"><a href="/resources/gallary">Gallary</a></li>
+              <li className="navbar-dropdown-item"><a href="/products/testimonials">Testimonials</a></li>
             </ul>
           </li>
 
-          {/* Shop Dropdown */}
-          <li className="navbar-item">
-            <span className="navbar-link">Shop <span className="navbar-arrow">▼</span></span>
-            <ul className="navbar-dropdown">
-              <li className="navbar-dropdown-item"><a href="/shop">Shop</a></li>
-              <li className="navbar-dropdown-item"><a href="/shop/cart">Cart</a></li>
-              <li className="navbar-dropdown-item"><a href="/shop/checkout">Checkout</a></li>
-              <li className="navbar-dropdown-item"><a href="/shop/account">My Account</a></li>
-            </ul>
-          </li>
-
+          {/* Contact */}
           <li className="navbar-item">
             <a href="/contact" className="navbar-link">Contact</a>
           </li>

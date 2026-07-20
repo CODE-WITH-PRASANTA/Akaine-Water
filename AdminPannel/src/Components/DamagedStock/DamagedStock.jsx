@@ -22,13 +22,54 @@ const DamagedStock = () => {
     alert('Loading full stock management report...');
   };
 
+  // कार्यशील डाउनलोड हैंडलर फ़ंक्शन
+  const handleDownload = () => {
+    if (tableData.length === 0) {
+      alert("No data available to download!");
+      return;
+    }
+
+    const headers = ['Reason', '20L', '10L', '5L', '1L', 'Total'];
+    const rows = tableData.map(row => [
+      row.reason,
+      row.v20L,
+      row.v10L,
+      row.v5L,
+      row.v1L,
+      row.total
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(val => `"${val}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'Damaged_Stock_Report.csv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="dsc-fullscreen-wrapper">
       <div className="dsc-container">
         {/* Header Section */}
         <div className="dsc-header">
-          <div className="dsc-badge">5.</div>
-          <h2 className="dsc-title">DAMAGED STOCK MANAGEMENT</h2>
+          <div className="dsc-header-left">
+            <div className="dsc-badge">5.</div>
+            <h2 className="dsc-title">DAMAGED STOCK MANAGEMENT</h2>
+          </div>
+          {/* वर्किंग डाउनलोड बटन */}
+          <button className="dsc-download-btn" onClick={handleDownload}>
+            Download
+          </button>
         </div>
 
         {/* Summary Cards Grid */}

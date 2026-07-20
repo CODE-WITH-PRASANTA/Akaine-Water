@@ -30,10 +30,36 @@ const InvoiceManagement = () => {
   };
 
   const handleDownloadPdf = () => {
-    // You would typically use a library like jspdf and html2canvas here
-    // For simplicity, we'll just log a message
     console.log('Generating PDF...');
     alert('PDF download functionality is not implemented in this demo, but you would use libraries like jsPDF to achieve this.');
+  };
+
+  // कार्यशील डाउनलोड हैंडलर फ़ंक्शन
+  const handleDownload = () => {
+    const headers = ['Invoice ID', 'Customer Name', 'Amount', 'Date'];
+    const rows = invoiceListData.map(invoice => [
+      invoice.id,
+      invoice.customerName,
+      `₹${invoice.amount.toFixed(2)}`,
+      invoice.date
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(val => `"${val}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'Invoice_Management_Report.csv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -43,6 +69,10 @@ const InvoiceManagement = () => {
           <span className="InvoiceManagement__header-number">10.</span>
           <h1>INVOICE MANAGEMENT</h1>
         </div>
+        {/* वर्किंग डाउनलोड बटन */}
+        <button className="InvoiceManagement__download-btn" onClick={handleDownload}>
+          Download
+        </button>
       </div>
 
       <div className="InvoiceManagement__content">

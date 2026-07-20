@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import './Paymentmanagement.css'; // CSS फ़ाइल को इम्पोर्ट करें
+import './Paymentmanagement.css'; 
 
 const Paymentmanagement = () => {
-  // स्टैटिक डेटा (इसे आप अपनी API के अनुसार बदल सकते हैं)
   const paymentStats = {
     today: 48650,
     cash: 25450,
@@ -17,24 +16,63 @@ const Paymentmanagement = () => {
     { mode: 'Google Pay', amount: 8450, transactions: 72, status: 'Completed' },
     { mode: 'Card', amount: 2350, transactions: 25, status: 'Completed' },
   ];
-
-  // करेंसी फॉर्मेट करने के लिए हेल्पर फ़ंक्शन (₹)
   const formatCurrency = (value) => {
     return '₹' + value.toLocaleString('en-IN');
   };
 
   const handleViewAllPayments = () => {
-    alert('Viewing all payments!'); // बटन क्लिक होने पर एक्शन
+    alert('Viewing all payments!'); 
+  };
+
+  // CSV डाउनलोड करने का वर्किंग फंक्शन
+  const handleDownloadCSV = () => {
+    const headers = ['Payment Mode', 'Amount', 'Transactions', 'Status'];
+    
+    const csvRows = paymentMethods.map(method => 
+      [
+        `"${method.mode}"`, 
+        method.amount, 
+        method.transactions, 
+        method.status
+      ].join(',')
+    );
+    
+    const csvContent = [headers.join(','), ...csvRows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'payment_report.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
     <div className="payment-management-container">
-      {/* हेडर: जिसमें से "5." हटा दिया गया है */}
-      <div className="payment-header">
-        PAYMENT MANAGEMENT
+      
+      {/* ऊपरी दाएं कोने में वर्किंग डाउनलोड बटन के साथ हेडर रैपर */}
+      <div className="payment-header-wrapper">
+        <div className="payment-header">
+          PAYMENT MANAGEMENT
+        </div>
+        <div className="payment-header-actions">
+          <button 
+            type="button" 
+            className="pm-download-csv-btn"
+            onClick={handleDownloadCSV}
+          >
+            <svg className="pm-download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download CSV
+          </button>
+        </div>
       </div>
 
-      {/* टॉप कार्ड्स सेक्शन */}
       <div className="stats-grid">
         <div className="stat-card">
           <div className="stat-label">Today's Collection</div>

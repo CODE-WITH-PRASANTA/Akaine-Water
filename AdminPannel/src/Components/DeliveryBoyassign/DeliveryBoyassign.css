@@ -25,12 +25,13 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  box-sizing: border-box;
 }
 
 .db-management-panel {
   background: #ffffff;
   width: 100%;
-  max-width: 1100px;
+  /* max-width: 1100px;  <-- हटा दिया गया है ताकि यह फुल स्क्रीन हो सके */
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
@@ -38,9 +39,12 @@
   padding-bottom: 24px;
 }
 
-/* Header Elements */
+/* Header Elements - Flexbox जोड़ा गया ताकि बटन राइट साइड में रहे */
 .db-header {
   padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-text {
@@ -53,6 +57,23 @@
   border-radius: 6px;
   display: inline-block;
   letter-spacing: 0.5px;
+}
+
+/* नया डाउनलोड बटन स्टाइल (ऊपरी दाएं कोने के लिए) */
+.download-btn {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.download-btn:hover {
+  background-color: #003bb3;
 }
 
 /* Metric Display Grid Layout */
@@ -175,21 +196,15 @@
   flex-shrink: 0;
 }
 
-/* -----------------------------------------------------------------
-   DYNAMIC STATUS COLORS FOR DROPDOWN OPTIONS & INNER SELECTS
------------------------------------------------------------------ */
-
-/* 1. Dot Indicators */
+/* DYNAMIC STATUS COLORS */
 .status-active-text .dropdown-dot { background-color: var(--green-main); }
 .status-ondelivery-text .dropdown-dot { background-color: var(--blue-main); }
 .status-inactive-text .dropdown-dot { background-color: var(--red-main); }
 
-/* 2. Text colors matching your mockup image precisely */
 .status-active-text .action-select { color: var(--green-main); } 
 .status-ondelivery-text .action-select { color: var(--blue-main); }
 .status-inactive-text .action-select { color: var(--red-main); }
 
-/* Native browser drop selectors override */
 .action-select {
   border: none;
   outline: none;
@@ -203,7 +218,6 @@
   appearance: none;
 }
 
-/* Options dropdown values inside the selector menu box popup */
 .action-select option {
   font-weight: 500;
 }
@@ -211,7 +225,6 @@
 .action-select option[value="On-Delivery"] { color: var(--blue-main); }
 .action-select option[value="Inactive"] { color: var(--red-main); }
 
-/* Pure CSS Arrow Injector for the Dropdowns */
 .action-dropdown-wrapper::after {
   content: "";
   position: absolute;
@@ -268,6 +281,18 @@
 @media (max-width: 640px) {
   .db-management-container {
     padding: 10px;
+  }
+  
+  /* मोबाइल व्यू में टाइटल और बटन को एडजस्ट करने के लिए */
+  .db-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .download-btn {
+    width: 100%;
+    text-align: center;
   }
   
   .db-metrics-container {
