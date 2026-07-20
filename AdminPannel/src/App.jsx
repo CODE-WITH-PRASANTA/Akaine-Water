@@ -21,7 +21,7 @@ import BlogPosting from "./Components/BlogPosting/BlogPosting";
 import BlogManagement from "./Components/BlogManagement/BlogManagement";
 
 import DashboardMain from "./Pages/DashboardMain/DashboardMain";
-import ManageStock from "./Components/ManageStock/ManageStock";
+// import ManageStock from "./Components/ManageStock/ManageStock";
 import Paymentmanagement from "./Components/Paymentmanagement/Paymentmanagement";
 import ProductandPrice from "./Components/ProductandPrice/ProductandPrice";
 import InvoiceManagement from "./Components/InvoiceManagement/InvoiceManagement";
@@ -35,9 +35,11 @@ import CustomerManage from "./Pages/CustomerManage/CustomerManage";
 import RouteManagement from "./Pages/RouteManagement/RouteManagement";
 import Inventory from "./Pages/Inventory/Inventory";
 import Vehicles from "./Components/Vehicles/Vehicles";
-import StockManagement from "./Components/StockManagement/StockManagement";
+
 import AddExpense from "./Components/AddExpense/AddExpense";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import ManageStock from "./Components/ManageStock/ManageStock";
+
 
 const App = () => {
   return (
@@ -80,15 +82,15 @@ const App = () => {
             <Route path="/wdms/add-expenses" element={<AddExpense />} />
 
             <Route path="/wdms/dashboard" element={<DashboardMain />} />
-            <Route path="/wdms/stock/manage" element={<ManageStock />} />
             <Route path="/wdms/payments" element={<Paymentmanagement />} />
             <Route path="/wdms/products-pricing" element={<ProductandPrice />} />
             <Route path="/wdms/assign-delivery" element={<DeliveryBoyassign />} />
             <Route path="/wdms/damage-stock" element={<DamagedStock />} />
             <Route path="wdms/vehicles" element={<Vehicles />} />
-            <Route path="wdms/stock/purchase-history" element={<StockManagement />} />
+            <Route path="wdms/stock/purchase-history" element={<StockManagement/>}/>
             <Route path="/resources/gallery" element={<Gallery />} />
             <Route path="/wdms/invoice" element={<InvoiceManagement />} />
+           <Route path="/wdms/stock/manage" element={<ManageStock/>}/>
           </Route>
         </Route>
 
