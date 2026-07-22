@@ -4,7 +4,8 @@
 }
 
 .app-viewport {
-  min-height: 100vh;
+  height: 100vh; /* Lock viewport height */
+  overflow: hidden; /* Prevent global viewport scrolling */
   background-color: #f8fafc;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #0f172a;
@@ -12,7 +13,8 @@
 
 .layout-body {
   display: flex;
-  min-height: 100vh;
+  height: 100vh; /* Lock layout height to viewport, changed from min-height */
+  width: 100%;
   overflow: hidden;
 }
 
@@ -20,15 +22,16 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100vh; /* Lock wrapper height so children can scroll independently */
   min-width: 0;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .content-area {
   flex: 1;
   padding: 24px;
   background-color: #f4f7fc;
-  overflow-y: auto;
+  overflow-y: auto; /* Now correctly scrolls independently */
 }
 
 .content-container {
