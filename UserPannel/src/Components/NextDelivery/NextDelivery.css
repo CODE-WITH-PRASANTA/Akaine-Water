@@ -3,12 +3,12 @@
   display: grid;
   grid-template-columns: 320px 1fr 300px;
   gap: 24px;
-  padding: 24px;
+  padding: 10px;
   background-color: #f8fafc;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   box-sizing: border-box;
 }
-
+ 
 /* Card Base */
 .dashboard-card {
   background: #ffffff;

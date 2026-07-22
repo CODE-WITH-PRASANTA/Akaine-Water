@@ -9,7 +9,7 @@ import {
   Wallet 
 } from 'lucide-react';
 import './NextDelivery.css';
-
+ 
 const NextDelivery = () => {
   const recentOrders = [
     { id: '#AD1024', date: 'Oct 10, 2023', items: '2 x 20L Jar', amount: '$24.00', status: 'Delivered' },
