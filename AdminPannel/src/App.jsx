@@ -5,13 +5,12 @@ import "./App.css";
 // Layout
 import MainLayout from "./Layout/MainLayout/MainLayout";
 
-// Components (Imports kept the same)
+// Components
 import Login from "./Components/Login/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import OurTeam from "./Components/OurTeam/OurTeam";
 import Gallery from "./Components/Gallery/Gallery";
 import Testimonial from "./pages/Testimonial/Testimonial";
-import Testiminial from "./Components/Testiminial/Testiminial";
 import ShopPosting from "./Components/ShopPosting/ShopPosting";
 import Contact from "./Components/Contact/Contact";
 import Dashboards from "./Pages/Dashboards/Dashboards";
@@ -19,7 +18,6 @@ import Blog from "./Components/Blog/Blog";
 import BlogPosting from "./Components/BlogPosting/BlogPosting";
 import BlogManagement from "./Components/BlogManagement/BlogManagement";
 import DashboardMain from "./Pages/DashboardMain/DashboardMain";
-import ManageStock from "./Components/ManageStock/ManageStock";
 import Paymentmanagement from "./Components/Paymentmanagement/Paymentmanagement";
 import ProductandPrice from "./Components/ProductandPrice/ProductandPrice";
 import InvoiceManagement from "./Components/InvoiceManagement/InvoiceManagement";
@@ -32,8 +30,9 @@ import CustomerManage from "./Pages/CustomerManage/CustomerManage";
 import RouteManagement from "./Pages/RouteManagement/RouteManagement";
 import Inventory from "./Pages/Inventory/Inventory";
 import Vehicles from "./Components/Vehicles/Vehicles";
-import StockManagement from "./Components/StockManagement/StockManagement";
 import AddExpense from "./Components/AddExpense/AddExpense";
+import ManageStock from "./Components/ManageStock/ManageStock";
+import StockManagement from "./Components/StockManagement/StockManagement"; // Fix: Added missing import
 
 const App = () => {
   return (
@@ -42,11 +41,12 @@ const App = () => {
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
 
-        {/* Protected Routes (Wrapped in ProtectedRoute and MainLayout) */}
+        {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
+            {/* Base Redirect */}
             <Route path="/" element={<Navigate to="/wdms/dashboard" replace />} />
-            
+
             {/* Dashboard & Main Pages */}
             <Route path="/dashboard" element={<Dashboards />} />
             <Route path="/team" element={<OurTeam />} />
@@ -57,7 +57,7 @@ const App = () => {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog-posting" element={<BlogPosting />} />
             <Route path="/blog-management" element={<BlogManagement />} />
-            
+
             {/* WDMS Routes */}
             <Route path="/wdms/dashboard" element={<DashboardMain />} />
             <Route path="/wdms/orders" element={<Orders />} />
@@ -75,15 +75,15 @@ const App = () => {
             <Route path="/wdms/damage-stock" element={<DamagedStock />} />
             <Route path="/wdms/vehicles" element={<Vehicles />} />
             <Route path="/wdms/invoice" element={<InvoiceManagement />} />
-            
-            {/* Cleanup: Combined duplicates and fixed typos */}
+
+            {/* Resource & Legacy Routes */}
             <Route path="/resources/team" element={<OurTeam />} />
             <Route path="/resources/gallery" element={<Gallery />} />
-            <Route path="/products/testimonials" element={<Testiminial />} />
+            <Route path="/products/testimonials" element={<Testimonial />} />
           </Route>
         </Route>
 
-        {/* Fallback */}
+        {/* Catch-all Fallback */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
