@@ -8,6 +8,7 @@ import MainLayout from "./Layout/MainLayout/MainLayout";
 import MainDashboard from "./Pages/MainDashboard/MainDashboard";
 import MyOrder from "./Components/MyOrder/MyOrder";
 import SupportTickets from "./Components/SupportTickets/SupportTickets";
+import MySubscription from "./Components/MySubscription/MySubscription";
 
 const App = () => {
   return (
@@ -23,6 +24,9 @@ const App = () => {
 
           {/* Redirect unknown routes */}
           <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/subscription" element={<MySubscription />} />
+
+
         </Route>
       </Routes>
     </BrowserRouter>
