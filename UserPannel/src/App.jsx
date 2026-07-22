@@ -9,6 +9,9 @@ import MainDashboard from "./Pages/MainDashboard/MainDashboard";
 import MyOrder from "./Components/MyOrder/MyOrder";
 import SupportTickets from "./Components/SupportTickets/SupportTickets";
 
+//Components
+import Profile from "./Components/Profile/Profile";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,6 +26,9 @@ const App = () => {
 
           {/* Redirect unknown routes */}
           <Route path="*" element={<Navigate to="/" replace />} />
+
+          <Route path="/Profile" element={<Profile />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
