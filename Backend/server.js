@@ -13,7 +13,9 @@ const galleryRoutes = require("./src/routes/galleryRoutes");
 const testimonialRoutes = require("./src/routes/testimonialRoutes");
 const contactRoutes = require("./src/routes/contactRoutes");
 const blogRoutes = require("./src/routes/blogRoutes");
-
+const manageRoutes = require("./src/routes/manageRoutes");
+const vehicleRoutes =require("./src/routes/vehicleRoutes");
+const damageRoutes = require("./src/routes/damageRoutes");
 // Connect Database
 connectDB();
 
@@ -33,6 +35,9 @@ app.use("/api/gallery", galleryRoutes);
 app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/blog", blogRoutes);
+app.use("/api/vehicle", vehicleRoutes);
+app.use("/api/manage", manageRoutes);
+app.use("/api/damage", damageRoutes);
 
 // ================= Home Route =================
 app.get("/", (req, res) => {

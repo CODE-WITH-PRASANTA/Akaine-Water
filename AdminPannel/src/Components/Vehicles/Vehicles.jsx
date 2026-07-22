@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FiUser, FiTrash2, FiChevronDown } from 'react-icons/fi';
+import API from '../../api/axios'; // Adjust import path if needed
 import './Vehicles.css';
 
 const Vehicles = () => {
-  // Initial state populated with the reference data
-  const [vehicles, setVehicles] = useState([
-    { id: 1, number: 'OD-02 AB 1234', driver: 'Amit Verma', capacity: '100 Bottles', status: 'Active' },
-    { id: 2, number: 'OD-05 CD 5678', driver: 'Priya Sahoo', capacity: '150 Bottles', status: 'Active' },
-    { id: 3, number: 'OD-08 EF 3456', driver: 'Suresh Das', capacity: '80 Bottles', status: 'Maintenance' },
-    { id: 4, number: 'OD-11 GH 7890', driver: 'Rahul Nayak', capacity: '100 Bottles', status: 'Active' },
-  ]);
+  const [vehicles, setVehicles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Track which row's profile dropdown menu is currently open
   const [activeDropdownId, setActiveDropdownId] = useState(null);
@@ -23,6 +19,27 @@ const Vehicles = () => {
     capacity: '',
     status: 'Active'
   });
+
+  // Fetch all vehicles from backend API
+  const fetchVehicles = async () => {
+    try {
+      setLoading(true);
+      const response = await API.get('/vehicle');
+      
+      // Extract array from standard response format
+      const data = response.data.data || (Array.isArray(response.data) ? response.data : []);
+      setVehicles(data);
+    } catch (error) {
+      console.error('Error fetching vehicles:', error);
+      alert(error.response?.data?.message || 'Failed to fetch vehicles from server.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchVehicles();
+  }, []);
 
   // Close dropdown menu if user clicks anywhere outside of it
   useEffect(() => {
@@ -50,81 +67,112 @@ const Vehicles = () => {
     setActiveDropdownId(activeDropdownId === id ? null : id);
   };
 
-  // Updates status from the custom dropdown menu item click
-  const handleStatusSelect = (id, newStatus) => {
-    setVehicles((prevVehicles) =>
-      prevVehicles.map((v) => (v.id === id ? { ...v, status: newStatus } : v))
-    );
-    setActiveDropdownId(null); // Close dropdown menu
+  // Updates status in backend database
+  const handleStatusSelect = async (id, newStatus) => {
+    try {
+      const response = await API.put(`/vehicle/${id}`, { status: newStatus });
+      if (response.data.success || response.status === 200) {
+        setVehicles((prevVehicles) =>
+          prevVehicles.map((v) => (v._id === id ? { ...v, status: newStatus } : v))
+        );
+      }
+    } catch (error) {
+      console.error('Error updating vehicle status:', error);
+      alert(error.response?.data?.message || 'Failed to update vehicle status.');
+    } finally {
+      setActiveDropdownId(null);
+    }
   };
 
-  const handleSubmit = (e) => {
+  // Create new vehicle in database
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.number.trim() || !formData.driver.trim() || !formData.capacity.trim()) {
       alert("Please fill in all fields.");
       return;
     }
 
-    const formattedCapacity = formData.capacity.toLowerCase().includes('bottles') 
-      ? formData.capacity 
-      : `${formData.capacity} Bottles`;
-
-    const newVehicle = {
-      id: Date.now(),
-      number: formData.number,
-      driver: formData.driver,
-      capacity: formattedCapacity,
-      status: formData.status
-    };
-
-    setVehicles((prevVehicles) => [...prevVehicles, newVehicle]);
-    setIsModalOpen(false);
+    try {
+      const response = await API.post('/vehicle', formData);
+      if (response.data.success || response.status === 201) {
+        alert('Vehicle registered successfully!');
+        setIsModalOpen(false);
+        fetchVehicles(); // Refresh vehicle list
+      }
+    } catch (error) {
+      console.error('Error registering vehicle:', error);
+      alert(error.response?.data?.message || 'Failed to register vehicle.');
+    }
   };
 
-  const handleDeleteClick = (id, vehicleNum) => {
+  // Delete vehicle from database
+  const handleDeleteClick = async (id, vehicleNum) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete vehicle ${vehicleNum}?`);
     if (confirmDelete) {
-      setVehicles((prevVehicles) => prevVehicles.filter((v) => v.id !== id));
+      try {
+        const response = await API.delete(`/vehicle/${id}`);
+        if (response.data.success || response.status === 200) {
+          setVehicles((prevVehicles) => prevVehicles.filter((v) => v._id !== id));
+        }
+      } catch (error) {
+        console.error('Error deleting vehicle:', error);
+        alert(error.response?.data?.message || 'Failed to delete vehicle.');
+      }
     }
   };
 
-  // डाउनलोड फ़ंक्शन जो डेटा को CSV में बदल कर डाउनलोड करता है
-  const handleDownload = () => {
-    if (vehicles.length === 0) {
-      alert("No vehicle data available to download!");
-      return;
+  // Download CSV report directly from backend API
+  const handleDownload = async () => {
+    try {
+      const response = await API.get('/vehicle/export-csv', {
+        responseType: 'blob' // Binary blob response for CSV download
+      });
+
+      const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      
+      link.href = url;
+      link.setAttribute('download', `Vehicle_Management_Report_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.warn('Backend CSV endpoint failed. Falling back to client-side CSV generation:', error);
+
+      if (vehicles.length === 0) {
+        alert("No vehicle data available to download!");
+        return;
+      }
+
+      const headers = ['Vehicle No.', 'Driver', 'Capacity', 'Status'];
+      const rows = vehicles.map(vehicle => [
+        `"${vehicle.number}"`,
+        `"${vehicle.driver}"`,
+        `"${vehicle.capacity}"`,
+        `"${vehicle.status}"`
+      ]);
+
+      const csvContent = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+      const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'Vehicle_Management_Report.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     }
-
-    const headers = ['Vehicle No.', 'Driver', 'Capacity', 'Status'];
-    const rows = vehicles.map(vehicle => [
-      vehicle.number,
-      vehicle.driver,
-      vehicle.capacity,
-      vehicle.status
-    ]);
-
-    const csvContent = [
-      headers.join(','),
-      ...rows.map(row => row.map(val => `"${val}"`).join(','))
-    ].join('\n');
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'Vehicle_Management_Report.csv');
-    link.style.visibility = 'hidden';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   return (
     <div className="vehicles-container">
       <div className="vehicles-card">
-        {/* टाइटल और डाउनलोड बटन के लिए हेडर रैपर */}
+        {/* Title and Download Button Header */}
         <div className="vehicles-header">
           <h2 className="vehicles-title">VEHICLE MANAGEMENT</h2>
           <button className="vehicles-download-btn" onClick={handleDownload}>
@@ -144,74 +192,87 @@ const Vehicles = () => {
               </tr>
             </thead>
             <tbody>
-              {vehicles.length > 0 ? (
-                vehicles.map((vehicle) => (
-                  <tr key={vehicle.id}>
-                    <td className="vehicles-fw-medium">{vehicle.number}</td>
-                    <td>{vehicle.driver}</td>
-                    <td>{vehicle.capacity}</td>
-                    <td>
-                      <span className={`vehicles-status-badge vehicles-badge-${vehicle.status.toLowerCase()}`}>
-                        {vehicle.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="vehicles-actions" ref={activeDropdownId === vehicle.id ? dropdownRef : null}>
-                        
-                        {/* Profile Option Wrapper */}
-                        <div className="vehicles-profile-dropdown-wrapper">
-                          <button 
-                            className={`vehicles-action-btn vehicles-profile-trigger ${activeDropdownId === vehicle.id ? 'active' : ''}`}
-                            title="Profile & Status Menu"
-                            onClick={() => toggleDropdown(vehicle.id)}
-                          >
-                            <FiUser size={16} />
-                            <FiChevronDown size={12} className="vehicles-dropdown-arrow" />
-                          </button>
-
-                          {/* Render Dynamic Click-based Dropdown */}
-                          {activeDropdownId === vehicle.id && (
-                            <div className="vehicles-custom-dropdown-menu">
-                              <div className="dropdown-header">Change Status</div>
-                              <button 
-                                type="button"
-                                className="dropdown-item option-active"
-                                onClick={() => handleStatusSelect(vehicle.id, 'Active')}
-                              >
-                                Active
-                              </button>
-                              <button 
-                                type="button"
-                                className="dropdown-item option-inactive"
-                                onClick={() => handleStatusSelect(vehicle.id, 'Inactive')}
-                              >
-                                Inactive
-                              </button>
-                              <button 
-                                type="button"
-                                className="dropdown-item option-maintenance"
-                                onClick={() => handleStatusSelect(vehicle.id, 'Maintenance')}
-                              >
-                                Maintenance
-                              </button>
-                            </div>
-                          )}
-                        </div>
-
-                        <button 
-                          className="vehicles-action-btn delete-btn" 
-                          title="Delete Vehicle"
-                          onClick={() => handleDeleteClick(vehicle.id, vehicle.number)}
+              {loading ? (
+                <tr>
+                  <td colSpan="5" className="vehicles-no-data">Loading vehicle details...</td>
+                </tr>
+              ) : vehicles.length > 0 ? (
+                vehicles.map((vehicle) => {
+                  const vehicleId = vehicle._id || vehicle.id;
+                  return (
+                    <tr key={vehicleId}>
+                      <td className="vehicles-fw-medium">{vehicle.number}</td>
+                      <td>{vehicle.driver}</td>
+                      <td>{vehicle.capacity}</td>
+                      <td>
+                        <span className={`vehicles-status-badge vehicles-badge-${(vehicle.status || '').toLowerCase()}`}>
+                          {vehicle.status}
+                        </span>
+                      </td>
+                      <td>
+                        <div 
+                          className="vehicles-actions" 
+                          ref={activeDropdownId === vehicleId ? dropdownRef : null}
                         >
-                          <FiTrash2 size={16} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                          {/* Profile Option Wrapper */}
+                          <div className="vehicles-profile-dropdown-wrapper">
+                            <button 
+                              type="button"
+                              className={`vehicles-action-btn vehicles-profile-trigger ${activeDropdownId === vehicleId ? 'active' : ''}`}
+                              title="Profile & Status Menu"
+                              onClick={() => toggleDropdown(vehicleId)}
+                            >
+                              <FiUser size={16} />
+                              <FiChevronDown size={12} className="vehicles-dropdown-arrow" />
+                            </button>
+
+                            {/* Dynamic Click-based Dropdown */}
+                            {activeDropdownId === vehicleId && (
+                              <div className="vehicles-custom-dropdown-menu">
+                                <div className="dropdown-header">Change Status</div>
+                                <button 
+                                  type="button"
+                                  className="dropdown-item option-active"
+                                  onClick={() => handleStatusSelect(vehicleId, 'Active')}
+                                >
+                                  Active
+                                </button>
+                                <button 
+                                  type="button"
+                                  className="dropdown-item option-inactive"
+                                  onClick={() => handleStatusSelect(vehicleId, 'Inactive')}
+                                >
+                                  Inactive
+                                </button>
+                                <button 
+                                  type="button"
+                                  className="dropdown-item option-maintenance"
+                                  onClick={() => handleStatusSelect(vehicleId, 'Maintenance')}
+                                >
+                                  Maintenance
+                                </button>
+                              </div>
+                            )}
+                          </div>
+
+                          <button 
+                            type="button"
+                            className="vehicles-action-btn delete-btn" 
+                            title="Delete Vehicle"
+                            onClick={() => handleDeleteClick(vehicleId, vehicle.number)}
+                          >
+                            <FiTrash2 size={16} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               ) : (
                 <tr>
-                  <td colSpan="5" className="vehicles-no-data">No vehicles registered. Click 'Add Vehicle' below.</td>
+                  <td colSpan="5" className="vehicles-no-data">
+                    No vehicles registered. Click 'Add Vehicle' below.
+                  </td>
                 </tr>
               )}
             </tbody>
@@ -219,7 +280,7 @@ const Vehicles = () => {
         </div>
 
         <div className="vehicles-footer">
-          <button className="vehicles-add-btn" onClick={handleAddClick}>
+          <button type="button" className="vehicles-add-btn" onClick={handleAddClick}>
             Add Vehicle
           </button>
         </div>
