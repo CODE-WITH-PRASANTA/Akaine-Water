@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: #f5f7fb;
+}
+
+/*==============================
+ Dashboard
+===============================*/
+
+.to-dashboard{
+    width: 100%;
+    padding: 25px;
+}
+
+.to-dashboard-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.to-dashboard-title{
+    font-size: 30px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 6px;
+}
+
+.to-dashboard-subtitle{
+    font-size: 15px;
+    color: #6b7280;
+    font-weight: 400;
+}
+
+/*==============================
+ Card Grid
+===============================*/
+
+.to-card-grid{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 22px;
+}
+
+/*==============================
+ Card
+===============================*/
+
+.to-dashboard-card{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 28px;
+    min-height: 165px;
+    overflow: hidden;
+    transition: .35s ease;
+    border: 1px solid #eef2f7;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(15,23,42,.05);
+}
+
+.to-dashboard-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0,0,0,.12);
+}
+
+/*==============================
+ Gradient Cards
+===============================*/
+
+.to-card-blue{
+    background: linear-gradient(135deg,#ffffff 0%,#eef6ff 100%);
+}
+
+.to-card-green{
+    background: linear-gradient(135deg,#ffffff 0%,#effcf5 100%);
+}
+
+.to-card-orange{
+    background: linear-gradient(135deg,#ffffff 0%,#fff7ea 100%);
+}
+
+.to-card-purple{
+    background: linear-gradient(135deg,#ffffff 0%,#faf3ff 100%);
+}
+
+/*==============================
+ Top Border
+===============================*/
+
+.to-card-blue::before,
+.to-card-green::before,
+.to-card-orange::before,
+.to-card-purple::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 5px;
+}
+
+.to-card-blue::before{
+    background: #2F80ED;
+}
+
+.to-card-green::before{
+    background: #27AE60;
+}
+
+.to-card-orange::before{
+    background: #F2994A;
+}
+
+.to-card-purple::before{
+    background: #9B51E0;
+}
+
+/*==============================
+ Icon
+===============================*/
+
+.to-card-icon{
+    width: 78px;
+    height: 78px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    transition: .35s;
+}
+
+.to-dashboard-card:hover .to-card-icon{
+    transform: scale(1.08) rotate(-6deg);
+}
+
+.to-icon-blue{
+    background: rgba(47,128,237,.12);
+    color: #2F80ED;
+}
+
+.to-icon-green{
+    background: rgba(39,174,96,.12);
+    color: #27AE60;
+}
+
+.to-icon-orange{
+    background: rgba(242,153,74,.15);
+    color: #F2994A;
+}
+
+.to-icon-purple{
+    background: rgba(155,81,224,.12);
+    color: #9B51E0;
+}
+
+/*==============================
+ Card Content
+===============================*/
+
+.to-card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.to-card-title{
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+.to-card-value{
+    font-size: 38px;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.to-card-subtitle{
+    font-size: 15px;
+    color: #6b7280;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/*==============================
+ Decorative Circle
+===============================*/
+
+.to-dashboard-card::after{
+    content: "";
+    position: absolute;
+    right: -35px;
+    bottom: -35px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.45);
+}
+
+/*==============================
+ Responsive
+===============================*/
+
+@media(max-width:1300px){
+
+.to-card-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:992px){
+
+.to-dashboard{
+    padding:20px;
+}
+
+.to-dashboard-title{
+    font-size:26px;
+}
+
+.to-dashboard-card{
+    padding:24px;
+    min-height:155px;
+}
+
+.to-card-icon{
+    width:70px;
+    height:70px;
+}
+
+.to-card-value{
+    font-size:32px;
+}
+
+.to-card-title{
+    font-size:17px;
+}
+
+}
+
+@media(max-width:768px){
+
+.to-dashboard-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.to-card-grid{
+    grid-template-columns:1fr;
+}
+
+.to-dashboard-card{
+    min-height:145px;
+}
+
+.to-card-value{
+    font-size:30px;
+}
+
+.to-card-icon{
+    width:66px;
+    height:66px;
+}
+
+}
+
+@media(max-width:576px){
+
+.to-dashboard{
+    padding:15px;
+}
+
+.to-dashboard-card{
+    flex-direction:column;
+    text-align:center;
+    gap:18px;
+    padding:22px;
+}
+
+.to-card-content{
+    align-items:center;
+}
+
+.to-dashboard-title{
+    font-size:24px;
+}
+
+.to-dashboard-subtitle{
+    font-size:14px;
+}
+
+.to-card-title{
+    font-size:16px;
+}
+
+.to-card-value{
+    font-size:28px;
+}
+
+.to-card-subtitle{
+    font-size:14px;
+}
+
+.to-card-icon{
+    width:62px;
+    height:62px;
+}
+
+}
+
+@media(max-width:400px){
+
+.to-dashboard{
+    padding:12px;
+}
+
+.to-dashboard-card{
+    border-radius:18px;
+    padding:18px;
+}
+
+.to-card-icon{
+    width:58px;
+    height:58px;
+}
+
+.to-card-title{
+    font-size:15px;
+}
+
+.to-card-value{
+    font-size:24px;
+}
+
+.to-card-subtitle{
+    font-size:13px;
+}
+
+}
