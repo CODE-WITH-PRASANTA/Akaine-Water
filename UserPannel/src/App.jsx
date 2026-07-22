@@ -1,4 +1,9 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainDashboard from "./Pages/MainDashboard/MainDashboard";
+
+
+// Layout
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import MainLayout from "./Layout/MainLayout/MainLayout";
@@ -9,6 +14,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        
+      <Route path="/" element={<MainDashboard/>} />
 
         <Route path="/" element={<MainLayout />}>
           {/* Default page */}

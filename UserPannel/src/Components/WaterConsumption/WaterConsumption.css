@@ -1,0 +1,329 @@
+/* Container Layout */
+.water-dashboard-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1fr;
+  gap: 24px;
+  padding: 24px;
+  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  align-items: stretch;
+}
+
+/* Card Base */
+.water-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Header & Dropdown */
+.water-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.water-card-title {
+  font-size: 18px;
+  font-weight: 650;
+  color: #0f172a;
+  margin: 0;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #020d1b;
+  background: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.dropdown-badge:hover {
+  background: #e2e8f0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 6px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  list-style: none;
+  padding: 4px;
+  width: 140px;
+  z-index: 10;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.dropdown-item:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+/* --- Monthly Water Consumption Chart Styles --- */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.custom-line-chart {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chart-grid-line {
+  stroke: #f1f5f9;
+  stroke-dasharray: 4 4;
+  stroke-width: 1;
+}
+
+.chart-axis-label {
+  font-size: 11px;
+  fill: #94a3b8;
+  font-family: inherit;
+}
+
+.chart-area-gradient {
+  fill: url(#waterGradient);
+}
+
+.chart-line {
+  fill: none;
+  stroke: #2563eb;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-data-point {
+  fill: #ffffff;
+  stroke: #2563eb;
+  stroke-width: 3;
+  transition: transform 0.2s ease, stroke-width 0.2s ease;
+  cursor: pointer;
+}
+
+.chart-data-point:hover,
+.chart-data-point.active {
+  
+  stroke: #1d4ed8;
+  stroke-width: 4;
+}
+
+/* Stable Constant Tooltip Overlay */
+.chart-tooltip {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+  z-index: 5;
+}
+
+.chart-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #0f172a transparent transparent transparent;
+}
+
+/* --- Quick Actions Styles --- */
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.action-tile {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.action-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.action-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Action Icon Specific Theme Colors */
+.action-tile.blue .action-icon-wrapper {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+.action-tile.blue {
+  border-color: #dbeafe;
+}
+
+.action-tile.green .action-icon-wrapper {
+  background-color: #f0fdf4;
+  color: #16a34a;
+}
+.action-tile.green {
+  border-color: #dcfce7;
+}
+
+.action-tile.orange .action-icon-wrapper {
+  background-color: #fff7ed;
+  color: #ea580c;
+}
+.action-tile.orange {
+  border-color: #ffedd5;
+}
+
+.action-tile.purple .action-icon-wrapper {
+  background-color: #faf5ff;
+  color: #9333ea;
+}
+.action-tile.purple {
+  border-color: #f3e8ff;
+}
+
+.action-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* --- Refer & Earn Banner Styles --- */
+.refer-earn-card {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  justify-content: space-between;
+}
+
+.refer-content {
+  z-index: 2;
+  max-width: 65%;
+}
+
+.refer-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+}
+
+.refer-description {
+  font-size: 13px;
+  color: #eff6ff;
+  line-height: 1.4;
+  margin: 0 0 20px 0;
+}
+
+.refer-btn {
+  background-color: #ffffff;
+  color: #1d4ed8;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.refer-btn:hover {
+  background-color: #f8fafc;
+}
+
+.refer-graphic {
+  position: absolute;
+  right: -10px;
+  bottom: 0px;
+  width: 140px;
+  height: 140px;
+  pointer-events: none;
+}
+
+/* --- Responsive Breakpoints --- */
+@media (max-width: 1100px) {
+  .water-dashboard-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .water-card:last-child {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .water-dashboard-container {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+  .water-card:last-child {
+    grid-column: span 1;
+  }
+}
