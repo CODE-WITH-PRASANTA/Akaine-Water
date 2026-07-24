@@ -2,8 +2,8 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-// Upload folder path (relative to this file, points to /uploads/blog at the root)
-const uploadPath = path.join(__dirname, "../../uploads/blog");
+// Upload folder path (relative to this file, points to /uploads at the root)
+const uploadPath = path.join(__dirname, "../../uploads");
 
 // Create folder recursively if it does not exist
 if (!fs.existsSync(uploadPath)) {
@@ -21,15 +21,28 @@ const storage = multer.diskStorage({
   }
 });
 
-// Image validation
+// File validation for profileImage (images) and offerLetter (documents)
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-
-  if (allowedTypes.includes(file.mimetype)) {
-    cb(null, true);
+  if (file.fieldname === "profileImage") {
+    const allowedImageTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (allowedImageTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only JPG, JPEG, PNG, and WEBP images are allowed for profile image"), false);
+    }
+  } else if (file.fieldname === "offerLetter") {
+    const allowedDocTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ];
+    if (allowedDocTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only PDF, DOC, and DOCX files are allowed for offer letter"), false);
+    }
   } else {
-    // Pass custom error to be handled by express error-handler
-    cb(new Error("Only JPG, JPEG, PNG, and WEBP images are allowed"), false);
+    cb(null, true);
   }
 };
 
