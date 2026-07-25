@@ -5,7 +5,7 @@ import "./App.css";
 // Layout
 import MainLayout from "./Layout/MainLayout/MainLayout";
 
-// Components
+// Components / Pages
 import Login from "./Components/Login/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import OurTeam from "./Components/OurTeam/OurTeam";
@@ -31,8 +31,10 @@ import RouteManagement from "./Pages/RouteManagement/RouteManagement";
 import Inventory from "./Pages/Inventory/Inventory";
 import Vehicles from "./Components/Vehicles/Vehicles";
 import AddExpense from "./Components/AddExpense/AddExpense";
+import SubscriptionManagement from "./Pages/SubscriptionManagement/SubscriptionManagement";
+import DeliveryId from "./Pages/DeliveryId/DeliveryId";
 import ManageStock from "./Components/ManageStock/ManageStock";
-import StockManagement from "./Components/StockManagement/StockManagement"; // Fix: Added missing import
+import StockManagement from "./Components/StockManagement/StockManagement";
 
 const App = () => {
   return (
@@ -76,10 +78,14 @@ const App = () => {
             <Route path="/wdms/vehicles" element={<Vehicles />} />
             <Route path="/wdms/invoice" element={<InvoiceManagement />} />
 
+            {/* Product Routes */}
+            <Route path="/products/subscription" element={<SubscriptionManagement />} />
+            <Route path="/products/id-generate" element={<DeliveryId />} />
+            <Route path="/products/testimonials" element={<Testimonial />} />
+
             {/* Resource & Legacy Routes */}
             <Route path="/resources/team" element={<OurTeam />} />
             <Route path="/resources/gallery" element={<Gallery />} />
-            <Route path="/products/testimonials" element={<Testimonial />} />
           </Route>
         </Route>
 
