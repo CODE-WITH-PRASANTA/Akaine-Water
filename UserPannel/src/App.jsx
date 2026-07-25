@@ -9,12 +9,17 @@ import MainDashboard from "./Pages/MainDashboard/MainDashboard";
 import MyOrder from "./Components/MyOrder/MyOrder";
 import SupportTickets from "./Components/SupportTickets/SupportTickets";
 import MySubscription from "./Components/MySubscription/MySubscription";
-import Login from "../Login/Login";
+import Login from "./Components/Login/Login";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+         <Route path="/login" element={<Login/>} />
+         <Route element={<ProtectedRoute/>}>
+
         <Route path="/" element={<MainLayout />}>
           {/* Default page */}
           <Route index element={<MainDashboard />} />
@@ -26,10 +31,8 @@ const App = () => {
           {/* Redirect unknown routes */}
           <Route path="*" element={<Navigate to="/" replace />} />
           <Route path="/subscription" element={<MySubscription />} />
-          <Route path="/login" element={<Login />} />
-
-
-
+         
+         </Route>
         </Route>
       </Routes>
     </BrowserRouter>

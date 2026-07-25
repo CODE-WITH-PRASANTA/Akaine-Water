@@ -9,7 +9,9 @@ import {
   FaEdit,
   FaTrash,
   FaChevronDown,
-  FaUpload
+  FaUpload,
+  FaCalendarAlt,
+  FaTruck
 } from 'react-icons/fa';
 import './RouteManagement.css';
 
@@ -36,12 +38,30 @@ const LOCATION_OPTIONS = [
   'Rasulgarh'
 ];
 
+// Dummy Data Options
+const NAME_OPTIONS = [
+  'Rahul Sharma',
+  'Amit Patel',
+  'Priya Das',
+  'Suresh Kumar',
+  'Ananya Ray',
+  'Vikram Singh'
+];
+
+const VEHICLE_OPTIONS = [
+  'Tata Ace (Mini Truck)',
+  'Mahindra Bolero Pickup',
+  'Eicher Pro 2049',
+  'Hero Electric Van',
+  'Ashok Leyland Dost'
+];
+
 const RouteManagement = () => {
   // Modal & Route States
   const [showModal, setShowModal] = useState(false);
   const [locationInput, setLocationInput] = useState('');
 
-  // Initial Stops (Reflects modified 3rd Reference Image: Only Name and Distance)
+  // Initial Stops
   const [stops, setStops] = useState([
     { id: 1, name: 'Patia', distance: 2.1, coords: [20.3540, 85.8330] },
     { id: 2, name: 'KIIT Square', distance: 3.4, coords: [20.3510, 85.8180] },
@@ -52,22 +72,29 @@ const RouteManagement = () => {
   // Leaflet Map Refs
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const dateInputRef = useRef(null);
   const baseHubCoords = [20.3050, 85.8280];
 
-  // Table Data & Form States
+  // Initial Table Data
   const [tableData, setTableData] = useState([
     {
-      id: 'ORD-101',
+      id: 1,
+      date: '2026-07-24',
       name: 'Rahul Sharma',
       order: 'Express Delivery',
       locations: ['Patia', 'KIIT Square'],
+      vehicleNo: 'OD-02-AX-1234',
+      vehicle: 'Tata Ace (Mini Truck)',
       image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'
     },
     {
-      id: 'ORD-102',
+      id: 2,
+      date: '2026-07-25',
       name: 'Amit Patel',
       order: 'Standard Cargo',
       locations: ['Sailashree Vihar'],
+      vehicleNo: 'OD-02-BZ-5678',
+      vehicle: 'Mahindra Bolero Pickup',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'
     }
   ]);
@@ -78,10 +105,12 @@ const RouteManagement = () => {
 
   // Table Form Controls
   const [formData, setFormData] = useState({
-    id: '',
+    date: new Date().toISOString().split('T')[0],
     name: '',
     order: '',
     locations: [],
+    vehicleNo: '',
+    vehicle: '',
     image: null,
     imagePreview: ''
   });
@@ -171,7 +200,7 @@ const RouteManagement = () => {
     loadLeafletAssets();
   }, [stops]);
 
-  // Handle Adding Stop from Modal (Only Location Input)
+  // Handle Adding Stop from Modal
   const handleGenerateRoute = (e) => {
     e.preventDefault();
     if (!locationInput.trim()) return;
@@ -252,7 +281,7 @@ const RouteManagement = () => {
 
   const handleTableSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.id || !formData.order) {
+    if (!formData.date || !formData.name || !formData.order || !formData.vehicleNo || !formData.vehicle) {
       alert('Please fill out all required fields.');
       return;
     }
@@ -263,9 +292,12 @@ const RouteManagement = () => {
           item.id === editingId
             ? {
                 ...item,
+                date: formData.date,
                 name: formData.name,
                 order: formData.order,
                 locations: formData.locations,
+                vehicleNo: formData.vehicleNo,
+                vehicle: formData.vehicle,
                 image: formData.imagePreview || item.image
               }
             : item
@@ -274,27 +306,41 @@ const RouteManagement = () => {
       setEditingId(null);
     } else {
       const newItem = {
-        id: formData.id,
+        id: Date.now(),
+        date: formData.date,
         name: formData.name,
         order: formData.order,
         locations: formData.locations.length ? formData.locations : ['General Location'],
-        image: formData.imagePreview || 'https://via.placeholder.com/150'
+        vehicleNo: formData.vehicleNo,
+        vehicle: formData.vehicle,
+        image: formData.imagePreview || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150'
       };
       setTableData([...tableData, newItem]);
     }
 
     // Reset Form
-    setFormData({ id: '', name: '', order: '', locations: [], image: null, imagePreview: '' });
+    setFormData({
+      date: new Date().toISOString().split('T')[0],
+      name: '',
+      order: '',
+      locations: [],
+      vehicleNo: '',
+      vehicle: '',
+      image: null,
+      imagePreview: ''
+    });
     setShowTableForm(false);
   };
 
   const handleEdit = (item) => {
     setEditingId(item.id);
     setFormData({
-      id: item.id,
+      date: item.date,
       name: item.name,
       order: item.order,
       locations: item.locations,
+      vehicleNo: item.vehicleNo,
+      vehicle: item.vehicle,
       image: null,
       imagePreview: item.image
     });
@@ -345,7 +391,7 @@ const RouteManagement = () => {
           </div>
         </div>
 
-        {/* Right Pane Sidebar Cards (Modified Reference Image 3: Only Name & Distance) */}
+        {/* Right Pane Sidebar Cards */}
         <div className="route-management-sidebar-queue">
           {stops.map((stop, index) => (
             <div key={stop.id} className="route-management-queue-card">
@@ -397,7 +443,7 @@ const RouteManagement = () => {
         </button>
       </div>
 
-      {/* Add Stop Modal (Modified Reference 2 Image: Removed Courier Partner Selection) */}
+      {/* Add Stop Modal */}
       {showModal && (
         <div className="route-management-modal-backdrop" onClick={() => setShowModal(false)}>
           <div className="route-management-modal-pane" onClick={(e) => e.stopPropagation()}>
@@ -423,7 +469,7 @@ const RouteManagement = () => {
                   required
                 />
                 <span className="route-management-modal-form__tip">
-                  The integrated Google Map display above will center automatically to this address coordinates on submit.
+                  The integrated Map display above will center automatically to this address coordinates on submit.
                 </span>
               </div>
 
@@ -455,7 +501,16 @@ const RouteManagement = () => {
             className="route-management-table-add-btn"
             onClick={() => {
               setEditingId(null);
-              setFormData({ id: '', name: '', order: '', locations: [], image: null, imagePreview: '' });
+              setFormData({
+                date: new Date().toISOString().split('T')[0],
+                name: '',
+                order: '',
+                locations: [],
+                vehicleNo: '',
+                vehicle: '',
+                image: null,
+                imagePreview: ''
+              });
               setShowTableForm(!showTableForm);
             }}
           >
@@ -468,31 +523,47 @@ const RouteManagement = () => {
           <form className="route-management-table-form" onSubmit={handleTableSubmit}>
             <h4 className="form-heading">{editingId ? 'Edit Entry' : 'Add New Entry'}</h4>
             <div className="form-grid">
-              <div className="form-group">
-                <label>ID</label>
-                <input
-                  type="text"
-                  name="id"
-                  placeholder="e.g. ORD-103"
-                  value={formData.id}
-                  onChange={handleInputChange}
-                  disabled={!!editingId}
-                  required
-                />
+              
+              {/* DATE PICKER WITH WORKING CALENDAR ICON */}
+              <div className="form-group date-input-wrapper">
+                <label>Date</label>
+                <div 
+                  className="calendar-field" 
+                  onClick={() => dateInputRef.current && dateInputRef.current.showPicker && dateInputRef.current.showPicker()}
+                >
+                  <input
+                    ref={dateInputRef}
+                    type="date"
+                    name="date"
+                    className="custom-date-input"
+                    value={formData.date}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <FaCalendarAlt className="calendar-icon" />
+                </div>
               </div>
 
+              {/* NAME DROPDOWN */}
               <div className="form-group">
                 <label>Name</label>
-                <input
-                  type="text"
+                <select
                   name="name"
-                  placeholder="Enter Full Name"
+                  className="form-select"
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                />
+                >
+                  <option value="" disabled>Select Driver / Personnel</option>
+                  {NAME_OPTIONS.map((driver) => (
+                    <option key={driver} value={driver}>
+                      {driver}
+                    </option>
+                  ))}
+                </select>
               </div>
 
+              {/* ORDER INPUT */}
               <div className="form-group">
                 <label>Order</label>
                 <input
@@ -505,7 +576,7 @@ const RouteManagement = () => {
                 />
               </div>
 
-              {/* Checkbox Multi-Select Dropdown for Location */}
+              {/* CHECKBOX MULTI-SELECT DROPDOWN FOR LOCATION */}
               <div className="form-group custom-dropdown-group">
                 <label>Location</label>
                 <div className="custom-dropdown-header" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -542,7 +613,39 @@ const RouteManagement = () => {
                 )}
               </div>
 
-              {/* Image File Upload Input */}
+              {/* VEHICLE NUMBER INPUT */}
+              <div className="form-group">
+                <label>Vehicle Number</label>
+                <input
+                  type="text"
+                  name="vehicleNo"
+                  placeholder="e.g. OD-02-AX-1234"
+                  value={formData.vehicleNo}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              {/* VEHICLE TYPE DROPDOWN */}
+              <div className="form-group">
+                <label>Vehicle</label>
+                <select
+                  name="vehicle"
+                  className="form-select"
+                  value={formData.vehicle}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="" disabled>Select Vehicle Type</option>
+                  {VEHICLE_OPTIONS.map((v) => (
+                    <option key={v} value={v}>
+                      {v}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* IMAGE FILE UPLOAD INPUT */}
               <div className="form-group file-upload-group">
                 <label>Upload Image</label>
                 <label htmlFor="image-file-input" className="file-upload-label">
@@ -573,10 +676,12 @@ const RouteManagement = () => {
             <thead>
               <tr>
                 <th>Image</th>
-                <th>ID</th>
+                <th>Date</th>
                 <th>Name</th>
                 <th>Order</th>
                 <th>Location</th>
+                <th>Vehicle No.</th>
+                <th>Vehicle</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -587,7 +692,7 @@ const RouteManagement = () => {
                     <td>
                       <img src={item.image} alt={item.name} className="table-img" />
                     </td>
-                    <td className="font-semibold">{item.id}</td>
+                    <td className="font-semibold">{item.date}</td>
                     <td>{item.name}</td>
                     <td>{item.order}</td>
                     <td>
@@ -603,6 +708,8 @@ const RouteManagement = () => {
                         )}
                       </div>
                     </td>
+                    <td><span className="vehicle-badge">{item.vehicleNo}</span></td>
+                    <td>{item.vehicle}</td>
                     <td>
                       <div className="action-buttons">
                         <button
@@ -625,7 +732,7 @@ const RouteManagement = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center no-data">
+                  <td colSpan="8" className="text-center no-data">
                     No data records available. Click "+ Add Data" to create one.
                   </td>
                 </tr>
