@@ -119,7 +119,7 @@ const DeliveryId = () => {
     data.append('address', formData.address);
     data.append('salary', formData.salary);
 
-    if (formData.password) {
+    if (formData.password && formData.password.trim() !== '') {
       data.append('password', formData.password);
     }
 
@@ -146,7 +146,7 @@ const DeliveryId = () => {
       } else {
         const response = await API.post('/delivery', data, config);
         if (response.data?.success) {
-          alert('Delivery Partner Added Successfully!');
+          alert('Delivery Partner Registered Successfully!');
         }
       }
 
@@ -157,7 +157,7 @@ const DeliveryId = () => {
       const serverMsg =
         error.response?.data?.message ||
         error.response?.data?.error ||
-        'Failed to complete request (400 Bad Request)';
+        'Failed to complete request';
       alert(`Error: ${serverMsg}`);
     } finally {
       setLoading(false);

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const deliveryPartnerSchema = new mongoose.Schema(
   {
@@ -21,7 +22,8 @@ const deliveryPartnerSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Email is required'],
       trim: true,
-      lowercase: true
+      lowercase: true,
+      unique: true
     },
     address: {
       type: String,
@@ -34,7 +36,8 @@ const deliveryPartnerSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Password is required']
+      required: [true, 'Password is required'],
+      select: false // Hides password field from query results by default
     },
     profileImage: {
       type: String,
@@ -49,5 +52,18 @@ const deliveryPartnerSchema = new mongoose.Schema(
     timestamps: true
   }
 );
+
+// Hash password before saving if modified or newly created
+deliveryPartnerSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+// Helper method to compare entered password with hashed password
+deliveryPartnerSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = mongoose.model('DeliveryPartner', deliveryPartnerSchema);

@@ -5,6 +5,7 @@ const upload = require('../middleware/multer');
 const { 
   getAllDeliveryPartners, 
   createDeliveryPartner, 
+  loginDeliveryPartner,
   updateDeliveryPartner, 
   deleteDeliveryPartner 
 } = require('../controllers/deliveryController');
@@ -14,7 +15,7 @@ const cpUpload = upload.fields([
   { name: 'offerLetter', maxCount: 1 }
 ]);
 
-// Wrapper middleware to safely handle Multer errors without crashing Node
+// Wrapper middleware to safely handle Multer errors
 const handleUpload = (req, res, next) => {
   cpUpload(req, res, (err) => {
     if (err instanceof multer.MulterError) {
@@ -26,7 +27,10 @@ const handleUpload = (req, res, next) => {
   });
 };
 
-// Route definitions
+// Authentication route
+router.post('/login', loginDeliveryPartner);
+
+// Standard CRUD routes
 router.route('/')
   .get(getAllDeliveryPartners)
   .post(handleUpload, createDeliveryPartner);
