@@ -10,10 +10,11 @@ import {
   FaTrash,
   FaChevronDown,
   FaUpload,
-  FaCalendarAlt,
-  FaTruck
+  FaCalendarAlt
 } from 'react-icons/fa';
 import './RouteManagement.css';
+
+const API_BASE_URL = 'http://localhost:5000/api/routeRoutes';
 
 // Coordinates database for Map Pins
 const LOCATION_COORDS = {
@@ -38,7 +39,6 @@ const LOCATION_OPTIONS = [
   'Rasulgarh'
 ];
 
-// Dummy Data Options
 const NAME_OPTIONS = [
   'Rahul Sharma',
   'Amit Patel',
@@ -60,20 +60,18 @@ const RouteManagement = () => {
   // Modal & Route States
   const [showModal, setShowModal] = useState(false);
   const [locationInput, setLocationInput] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  // Initial Stops
-  const [stops, setStops] = useState([
-    { id: 1, name: 'Patia', distance: 2.1, coords: [20.3540, 85.8330] },
-    { id: 2, name: 'KIIT Square', distance: 3.4, coords: [20.3510, 85.8180] },
-    { id: 3, name: 'Sailashree Vihar', distance: 2.8, coords: [20.3390, 85.8150] },
-    { id: 4, name: 'Chandrasekharpur', distance: 3.2, coords: [20.3250, 85.8180] }
-  ]);
+  // Dynamic Route States from API
+  const [stops, setStops] = useState([]);
+  const [totalDistance, setTotalDistance] = useState(0);
+  const [estimatedTime, setEstimatedTime] = useState('0m');
+  const [baseHubCoords, setBaseHubCoords] = useState([20.3050, 85.8280]);
 
   // Leaflet Map Refs
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const dateInputRef = useRef(null);
-  const baseHubCoords = [20.3050, 85.8280];
 
   // Initial Table Data
   const [tableData, setTableData] = useState([
@@ -115,7 +113,33 @@ const RouteManagement = () => {
     imagePreview: ''
   });
 
-  // Load Map Dynamic Rendering
+  // --- API INTEGRATION: FETCH ACTIVE ROUTE ---
+  const fetchActiveRoute = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${API_BASE_URL}/active`);
+      const data = await res.json();
+
+      if (data.success && data.data) {
+        setStops(data.data.stops || []);
+        setTotalDistance(data.data.totalDistance || 0);
+        setEstimatedTime(data.data.estimatedTime || '0m');
+        if (data.data.hubCoords) {
+          setBaseHubCoords(data.data.hubCoords);
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching active route:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchActiveRoute();
+  }, []);
+
+  // --- LEAFLET MAP RENDERING ---
   useEffect(() => {
     const loadLeafletAssets = () => {
       if (window.L) {
@@ -175,11 +199,13 @@ const RouteManagement = () => {
           iconAnchor: [14, 14]
         });
 
-        L.marker(stop.coords, { icon: stopIcon })
-          .addTo(map)
-          .bindPopup(`<b>Stop ${index + 1}: ${stop.name}</b>`);
+        if (stop.coords && stop.coords.length === 2) {
+          L.marker(stop.coords, { icon: stopIcon })
+            .addTo(map)
+            .bindPopup(`<b>Stop ${index + 1}: ${stop.name}</b>`);
 
-        routePoints.push(stop.coords);
+          routePoints.push(stop.coords);
+        }
       });
 
       routePoints.push(baseHubCoords);
@@ -198,10 +224,10 @@ const RouteManagement = () => {
     };
 
     loadLeafletAssets();
-  }, [stops]);
+  }, [stops, baseHubCoords]);
 
-  // Handle Adding Stop from Modal
-  const handleGenerateRoute = (e) => {
+  // --- API INTEGRATION: ADD STOP ---
+  const handleGenerateRoute = async (e) => {
     e.preventDefault();
     if (!locationInput.trim()) return;
 
@@ -216,30 +242,73 @@ const RouteManagement = () => {
 
     const calculatedDistance = parseFloat((Math.random() * 3 + 1.2).toFixed(1));
 
-    const newStop = {
-      id: Date.now(),
-      name: locationInput,
-      distance: calculatedDistance,
-      coords: coords
-    };
+    try {
+      const res = await fetch(`${API_BASE_URL}/add-stop`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: locationInput,
+          distance: calculatedDistance,
+          coords: coords
+        })
+      });
 
-    setStops([...stops, newStop]);
+      const data = await res.json();
+      if (data.success && data.data) {
+        setStops(data.data.stops);
+        setTotalDistance(data.data.totalDistance);
+        setEstimatedTime(data.data.estimatedTime);
+      }
+    } catch (err) {
+      console.error('Error adding stop:', err);
+    }
+
     setLocationInput('');
     setShowModal(false);
   };
 
-  const removeStop = (id) => {
-    setStops(stops.filter((stop) => stop.id !== id));
+  // --- API INTEGRATION: DELETE STOP ---
+  const removeStop = async (stopId) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/stop/${stopId}`, {
+        method: 'DELETE'
+      });
+
+      const data = await res.json();
+      if (data.success && data.data) {
+        setStops(data.data.stops);
+        setTotalDistance(data.data.totalDistance);
+        setEstimatedTime(data.data.estimatedTime);
+      }
+    } catch (err) {
+      console.error('Error removing stop:', err);
+    }
   };
 
-  // Helper Metrics Calculations
-  const totalDistance = stops.reduce((sum, stop) => sum + stop.distance, 0).toFixed(1);
-  const totalMinutes = Math.round(stops.length * 8 + totalDistance * 3.2);
-  const hrs = Math.floor(totalMinutes / 60);
-  const mins = totalMinutes % 60;
-  const estimatedTime = hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`;
+  // --- API INTEGRATION: START NAVIGATION & SAVE ROUTE STATE ---
+  const handleStartNavigation = async () => {
+    try {
+      const res = await fetch(API_BASE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          stops,
+          totalDistance,
+          estimatedTime,
+          hubCoords: baseHubCoords
+        })
+      });
 
-  // --- Table Form Operations ---
+      const data = await res.json();
+      if (data.success) {
+        alert(`Initiating navigation sequences for ${stops.length} locations! Route saved successfully.`);
+      }
+    } catch (err) {
+      console.error('Error starting navigation:', err);
+    }
+  };
+
+  // --- TABLE FORM HANDLERS ---
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -318,7 +387,6 @@ const RouteManagement = () => {
       setTableData([...tableData, newItem]);
     }
 
-    // Reset Form
     setFormData({
       date: new Date().toISOString().split('T')[0],
       name: '',
@@ -393,28 +461,32 @@ const RouteManagement = () => {
 
         {/* Right Pane Sidebar Cards */}
         <div className="route-management-sidebar-queue">
-          {stops.map((stop, index) => (
-            <div key={stop.id} className="route-management-queue-card">
-              <div className="route-management-queue-card__left">
-                <div className="route-management-queue-card__num-indicator">{index + 1}</div>
-                <div className="route-management-queue-card__info-group">
-                  <h4 className="route-management-queue-card__name">{stop.name}</h4>
+          {loading ? (
+            <p className="route-management-queue-empty">Loading active route...</p>
+          ) : (
+            stops.map((stop, index) => (
+              <div key={stop.id || index} className="route-management-queue-card">
+                <div className="route-management-queue-card__left">
+                  <div className="route-management-queue-card__num-indicator">{index + 1}</div>
+                  <div className="route-management-queue-card__info-group">
+                    <h4 className="route-management-queue-card__name">{stop.name}</h4>
+                  </div>
+                </div>
+                <div className="route-management-queue-card__right">
+                  <span className="route-management-queue-card__distance">{stop.distance} KM</span>
+                  <button
+                    className="route-management-queue-card__remove-btn"
+                    onClick={() => removeStop(stop.id)}
+                    title="Remove stop"
+                  >
+                    <FaTimes />
+                  </button>
                 </div>
               </div>
-              <div className="route-management-queue-card__right">
-                <span className="route-management-queue-card__distance">{stop.distance} KM</span>
-                <button
-                  className="route-management-queue-card__remove-btn"
-                  onClick={() => removeStop(stop.id)}
-                  title="Remove stop"
-                >
-                  <FaTimes />
-                </button>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
 
-          {stops.length === 0 && (
+          {!loading && stops.length === 0 && (
             <div className="route-management-queue-empty">
               <p>No stops assigned. Click "+ Add Stop" to populate checkpoints.</p>
             </div>
@@ -437,7 +509,7 @@ const RouteManagement = () => {
 
         <button
           className="route-management-footer__navigate-btn"
-          onClick={() => alert(`Initiating navigation sequences for ${stops.length} locations!`)}
+          onClick={handleStartNavigation}
         >
           <FaLocationArrow /> Start Navigation
         </button>
@@ -493,7 +565,7 @@ const RouteManagement = () => {
         </div>
       )}
 
-      {/* --- TABLE MANAGEMENT SECTION --- */}
+      {/* TABLE MANAGEMENT SECTION */}
       <div className="route-management-table-section">
         <div className="route-management-table-header">
           <h3>Route Assignment Directory</h3>
@@ -518,13 +590,12 @@ const RouteManagement = () => {
           </button>
         </div>
 
-        {/* Collapsible Add / Edit Form */}
+        {/* Collapsible Form */}
         {showTableForm && (
           <form className="route-management-table-form" onSubmit={handleTableSubmit}>
             <h4 className="form-heading">{editingId ? 'Edit Entry' : 'Add New Entry'}</h4>
             <div className="form-grid">
               
-              {/* DATE PICKER WITH WORKING CALENDAR ICON */}
               <div className="form-group date-input-wrapper">
                 <label>Date</label>
                 <div 
@@ -544,7 +615,6 @@ const RouteManagement = () => {
                 </div>
               </div>
 
-              {/* NAME DROPDOWN */}
               <div className="form-group">
                 <label>Name</label>
                 <select
@@ -563,7 +633,6 @@ const RouteManagement = () => {
                 </select>
               </div>
 
-              {/* ORDER INPUT */}
               <div className="form-group">
                 <label>Order</label>
                 <input
@@ -576,7 +645,6 @@ const RouteManagement = () => {
                 />
               </div>
 
-              {/* CHECKBOX MULTI-SELECT DROPDOWN FOR LOCATION */}
               <div className="form-group custom-dropdown-group">
                 <label>Location</label>
                 <div className="custom-dropdown-header" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -613,7 +681,6 @@ const RouteManagement = () => {
                 )}
               </div>
 
-              {/* VEHICLE NUMBER INPUT */}
               <div className="form-group">
                 <label>Vehicle Number</label>
                 <input
@@ -626,7 +693,6 @@ const RouteManagement = () => {
                 />
               </div>
 
-              {/* VEHICLE TYPE DROPDOWN */}
               <div className="form-group">
                 <label>Vehicle</label>
                 <select
@@ -645,7 +711,6 @@ const RouteManagement = () => {
                 </select>
               </div>
 
-              {/* IMAGE FILE UPLOAD INPUT */}
               <div className="form-group file-upload-group">
                 <label>Upload Image</label>
                 <label htmlFor="image-file-input" className="file-upload-label">
