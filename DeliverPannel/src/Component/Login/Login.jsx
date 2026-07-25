@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Login.css';
+import API from "../../api/axios"; 
 
-// Custom Alka Drops Logo & Right Side Image
 import alkaDropsLogo from '../../assets/ALKA DROPS LOGO.png';
-import rightSideGraphic from '../../assets/gemini-svg (1).svg'; // 👈 Update with your image filename
+import rightSideGraphic from '../../assets/gemini-svg (1).svg';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -18,34 +18,63 @@ const Login = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Reset authentication state on mount
+  // Clear previous session on load & retrieve remembered credentials
   useEffect(() => {
     sessionStorage.removeItem('isAdminAuthenticated');
+    sessionStorage.removeItem('deliveryPartner');
+
+    const savedLoginId = localStorage.getItem('deliveryLoginId');
+    if (savedLoginId) {
+      setLoginId(savedLoginId);
+      setRememberMe(true);
+    }
   }, []);
 
   const handleTogglePassword = (e) => {
     e.preventDefault();
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage('');
 
-    // Verified credentials check (alkadrops / 12345)
-    if (username.trim() === 'alkadrops' && password === '12345') {
-      setErrorMessage('');
-      setLoginSuccess(true);
+    try {
+      const response = await API.post('/delivery/login', {
+        loginId: loginId.trim(),
+        password: password,
+      });
 
-      sessionStorage.setItem('isAdminAuthenticated', 'true');
+      const data = response.data;
 
-      setTimeout(() => {
-        navigate('/wdms/dashboard', { replace: true });
-      }, 1000);
-    } else {
+      if (data.success) {
+        setLoginSuccess(true);
+        
+        // Store session authentication state
+        sessionStorage.setItem('isAdminAuthenticated', 'true');
+        sessionStorage.setItem('deliveryPartner', JSON.stringify(data.data));
+
+        if (rememberMe) {
+          localStorage.setItem('deliveryLoginId', loginId.trim());
+        } else {
+          localStorage.removeItem('deliveryLoginId');
+        }
+
+        setTimeout(() => {
+          navigate('/wdms/dashboard', { replace: true });
+        }, 1000);
+      }
+    } catch (error) {
+      console.error('Login Error:', error);
       setIsSubmitting(false);
-      setErrorMessage('Incorrect ID or Password. Credentials are "alkadrops" and "12345".');
       setLoginSuccess(false);
+
+      if (error.response && error.response.data && error.response.data.message) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage('Server connection error. Please ensure the backend is running.');
+      }
     }
   };
 
@@ -54,7 +83,6 @@ const Login = () => {
       <div className="Login-card">
         {/* Left Side: Form Section */}
         <div className="Login-left">
-          {/* Logo Header */}
           <div className="Login-brand-header">
             {alkaDropsLogo ? (
               <img
@@ -71,16 +99,14 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Header Title */}
           <div className="Login-header">
-            <h1 className="Login-title">Admin Login</h1>
-            <p className="Login-subtitle">Welcome Back! Please login to continue.</p>
+            <h1 className="Login-title">Delivery Partner Login</h1>
+            <p className="Login-subtitle">Enter your auto-generated Login ID and Password.</p>
           </div>
 
-          {/* Feedback Messages */}
           {loginSuccess && (
             <div className="Login-toast Login-toast-success">
-              <span>✓ Credentials verified! Redirecting to dashboard...</span>
+              <span>✓ Login Successful! Redirecting to dashboard...</span>
             </div>
           )}
 
@@ -90,15 +116,14 @@ const Login = () => {
             </div>
           )}
 
-          {/* Login Form */}
           <form className="Login-form" onSubmit={handleSubmit}>
             <div className="Login-input-group">
-              <label className="Login-label">Username ID</label>
+              <label className="Login-label">Login ID (e.g. DB1001)</label>
               <input
                 type="text"
-                placeholder="Enter Username ID"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter Login ID (e.g., DB1001)"
+                value={loginId}
+                onChange={(e) => setLoginId(e.target.value)}
                 className="Login-input"
                 disabled={isSubmitting}
                 required
@@ -156,7 +181,7 @@ const Login = () => {
           </p>
         </div>
 
-        {/* Right Side: Image Asset Section */}
+        {/* Right Side Graphic */}
         <div className="Login-right">
           <div className="Login-image-wrapper">
             <img

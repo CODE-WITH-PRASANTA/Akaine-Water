@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import './DeliveryId.css';
 import API from '../../api/axios';
 
+// Inline SVG fallback avatar
+const DEFAULT_AVATAR = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="%23ccc"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-3.8-1.04-4.81-2.62.03-1.59 3.21-2.47 4.81-2.47s4.78.88 4.81 2.47C15.8 18.96 14.03 20 12 20z"/></svg>`;
+
 const DeliveryId = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -21,6 +24,10 @@ const DeliveryId = () => {
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const [editId, setEditId] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // Password visibility states (default: false / hidden)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const profileImageInputRef = useRef(null);
   const offerLetterInputRef = useRef(null);
@@ -45,13 +52,24 @@ const DeliveryId = () => {
     fetchDeliveryPartners();
   }, []);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (!e.target.closest('.delivery-id__dropdown-container')) {
+        setOpenDropdownId(null);
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, []);
+
   // Handle text input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle File input changes
+  // Handle file input changes
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     if (files && files[0]) {
@@ -84,12 +102,14 @@ const DeliveryId = () => {
       profileImagePreview: ''
     });
     setEditId(null);
+    setShowPassword(false);
+    setShowConfirmPassword(false);
 
     if (profileImageInputRef.current) profileImageInputRef.current.value = '';
     if (offerLetterInputRef.current) offerLetterInputRef.current.value = '';
   };
 
-  // Submit Handler for Add / Update
+  // Submit handler for Add / Update
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -146,7 +166,7 @@ const DeliveryId = () => {
       } else {
         const response = await API.post('/delivery', data, config);
         if (response.data?.success) {
-          alert('Delivery Partner Registered Successfully!');
+          alert(`Delivery Partner Registered Successfully! Assigned Login ID: ${response.data.data?.loginId || ''}`);
         }
       }
 
@@ -164,7 +184,8 @@ const DeliveryId = () => {
     }
   };
 
-  const toggleDropdown = (id) => {
+  const toggleDropdown = (id, e) => {
+    e.stopPropagation();
     setOpenDropdownId(openDropdownId === id ? null : id);
   };
 
@@ -333,37 +354,80 @@ const DeliveryId = () => {
               />
             </div>
 
+            {/* Password Fields with Toggle */}
             <div className="delivery-id__form-row">
               <div className="delivery-id__form-group">
                 <label className="delivery-id__label">
                   Password {editId && '(Leave blank to keep unchanged)'}
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  autoComplete="new-password"
-                  className="delivery-id__input"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required={!editId}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    autoComplete="new-password"
+                    className="delivery-id__input"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required={!editId}
+                    style={{ paddingRight: '40px' }}
+                  />
+                  <button
+                    type="button"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    style={{
+                      position: 'absolute',
+                      right: '10px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '16px',
+                      color: '#666'
+                    }}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? '👁️' : '🙈'}
+                  </button>
+                </div>
               </div>
 
               <div className="delivery-id__form-group">
                 <label className="delivery-id__label">
                   Confirm Password {editId && '(Confirm only if updating password)'}
                 </label>
-                <input
-                  type="password"
-                  name="newPassword"
-                  autoComplete="new-password"
-                  className="delivery-id__input"
-                  placeholder="Confirm password"
-                  value={formData.newPassword}
-                  onChange={handleChange}
-                  required={!editId}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    name="newPassword"
+                    autoComplete="new-password"
+                    className="delivery-id__input"
+                    placeholder="Confirm password"
+                    value={formData.newPassword}
+                    onChange={handleChange}
+                    required={!editId}
+                    style={{ paddingRight: '40px' }}
+                  />
+                  <button
+                    type="button"
+                    aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                    style={{
+                      position: 'absolute',
+                      right: '10px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '16px',
+                      color: '#666'
+                    }}
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  >
+                    {showConfirmPassword ? '👁️' : '🙈'}
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -399,6 +463,7 @@ const DeliveryId = () => {
               <thead>
                 <tr>
                   <th>Profile</th>
+                  <th>Login ID</th>
                   <th>Name</th>
                   <th>Phone</th>
                   <th>Aadhaar No</th>
@@ -418,15 +483,16 @@ const DeliveryId = () => {
                           src={
                             item.profileImage
                               ? `${UPLOADS_BASE_URL}${item.profileImage}`
-                              : 'https://via.placeholder.com/40'
+                              : DEFAULT_AVATAR
                           }
                           alt="Profile"
                           className="delivery-id__avatar"
                           onError={(e) => {
-                            e.target.src = 'https://via.placeholder.com/40';
+                            e.target.src = DEFAULT_AVATAR;
                           }}
                         />
                       </td>
+                      <td><strong>{item.loginId || 'N/A'}</strong></td>
                       <td>{item.name}</td>
                       <td>{item.phone}</td>
                       <td>{item.aadharNo}</td>
@@ -453,7 +519,7 @@ const DeliveryId = () => {
                             className={`delivery-id__action-btn ${
                               openDropdownId === item._id ? 'delivery-id__action-btn--active' : ''
                             }`}
-                            onClick={() => toggleDropdown(item._id)}
+                            onClick={(e) => toggleDropdown(item._id, e)}
                             aria-label="Actions menu"
                           >
                             &#8942;
@@ -483,7 +549,7 @@ const DeliveryId = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="9" className="delivery-id__no-data">
+                    <td colSpan="10" className="delivery-id__no-data">
                       No records available.
                     </td>
                   </tr>

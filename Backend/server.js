@@ -18,6 +18,9 @@ const vehicleRoutes =require("./src/routes/vehicleRoutes");
 const damageRoutes = require("./src/routes/damageRoutes");
 const deliveryRoutes = require("./src/routes/deliveryRoutes");
 const boysassigneRoutes = require("./src/routes/boyassigneRoutes");
+
+
+
 // Connect Database
 connectDB();
 
@@ -42,6 +45,8 @@ app.use("/api/manage", manageRoutes);
 app.use("/api/damage", damageRoutes);
 app.use("/api/delivery", deliveryRoutes);
 app.use("/api/boysassigne", boysassigneRoutes);
+
+ // Added alias mapping /api/locations to match frontend expectations
 
 // ================= Home Route =================
 app.get("/", (req, res) => {

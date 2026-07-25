@@ -1,69 +1,95 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const deliveryPartnerSchema = new mongoose.Schema(
   {
+    loginId: {
+      type: String,
+      unique: true,
+      required: true,
+      trim: true,
+    },
     name: {
       type: String,
-      required: [true, 'Full name is required'],
-      trim: true
+      required: true,
+      trim: true,
     },
     phone: {
       type: String,
-      required: [true, 'Phone number is required'],
-      trim: true
+      required: true,
+      trim: true,
     },
     aadharNo: {
       type: String,
-      required: [true, 'Aadhaar number is required'],
-      trim: true
+      required: true,
+      trim: true,
     },
     email: {
       type: String,
-      required: [true, 'Email is required'],
-      trim: true,
+      required: true,
+      unique: true,
       lowercase: true,
-      unique: true
+      trim: true,
     },
     address: {
       type: String,
-      required: [true, 'Address is required'],
-      trim: true
+      required: true,
+      trim: true,
     },
     salary: {
       type: Number,
-      required: [true, 'Salary is required']
+      required: true,
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
-      select: false // Hides password field from query results by default
+      required: true,
+      select: false,
     },
     profileImage: {
       type: String,
-      default: null
+      required: true,
     },
     offerLetter: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
-// Hash password before saving if modified or newly created
-deliveryPartnerSchema.pre('save', async function () {
-  if (!this.isModified('password')) return;
+// Note: No 'next' parameter in async Mongoose hooks
+deliveryPartnerSchema.pre("validate", async function () {
+  if (this.isNew && !this.loginId) {
+    const lastPartner = await this.constructor
+      .findOne()
+      .sort({ createdAt: -1 });
+
+    let nextId = 1001;
+
+    if (lastPartner && lastPartner.loginId) {
+      const number = parseInt(lastPartner.loginId.replace("DB", ""), 10);
+      if (!isNaN(number)) {
+        nextId = number + 1;
+      }
+    }
+
+    this.loginId = `DB${nextId}`;
+  }
+});
+
+deliveryPartnerSchema.pre("save", async function () {
+  if (!this.isModified("password")) {
+    return;
+  }
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Helper method to compare entered password with hashed password
-deliveryPartnerSchema.methods.matchPassword = async function (enteredPassword) {
+deliveryPartnerSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model('DeliveryPartner', deliveryPartnerSchema);
+module.exports = mongoose.model("DeliveryPartner", deliveryPartnerSchema);

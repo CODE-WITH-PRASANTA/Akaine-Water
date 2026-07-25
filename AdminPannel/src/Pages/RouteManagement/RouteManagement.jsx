@@ -10,12 +10,12 @@ import {
   FaTrash,
   FaChevronDown,
   FaUpload,
-  FaCalendarAlt,
-  FaTruck
+  FaCalendarAlt
 } from 'react-icons/fa';
 import './RouteManagement.css';
+import API, { IMG_URL } from '../../api/axios';
 
-// Coordinates database for Map Pins
+// Coordinates database for Map Pins (Fallback / Standard Lookup)
 const LOCATION_COORDS = {
   "patia": [20.3540, 85.8330],
   "kiit square": [20.3510, 85.8180],
@@ -38,36 +38,26 @@ const LOCATION_OPTIONS = [
   'Rasulgarh'
 ];
 
-// Dummy Data Options
-const NAME_OPTIONS = [
-  'Rahul Sharma',
-  'Amit Patel',
-  'Priya Das',
-  'Suresh Kumar',
-  'Ananya Ray',
-  'Vikram Singh'
-];
+const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150';
 
-const VEHICLE_OPTIONS = [
-  'Tata Ace (Mini Truck)',
-  'Mahindra Bolero Pickup',
-  'Eicher Pro 2049',
-  'Hero Electric Van',
-  'Ashok Leyland Dost'
-];
+const EMPTY_FORM = {
+  date: new Date().toISOString().split('T')[0],
+  name: '',
+  order: '',
+  locations: [],
+  vehicleNo: '',
+  vehicle: '',
+  image: null,
+  imagePreview: ''
+};
 
 const RouteManagement = () => {
   // Modal & Route States
   const [showModal, setShowModal] = useState(false);
   const [locationInput, setLocationInput] = useState('');
 
-  // Initial Stops
-  const [stops, setStops] = useState([
-    { id: 1, name: 'Patia', distance: 2.1, coords: [20.3540, 85.8330] },
-    { id: 2, name: 'KIIT Square', distance: 3.4, coords: [20.3510, 85.8180] },
-    { id: 3, name: 'Sailashree Vihar', distance: 2.8, coords: [20.3390, 85.8150] },
-    { id: 4, name: 'Chandrasekharpur', distance: 3.2, coords: [20.3250, 85.8180] }
-  ]);
+  // Initial Stops for the Map Route Planner
+  const [stops, setStops] = useState([]);
 
   // Leaflet Map Refs
   const mapContainerRef = useRef(null);
@@ -75,47 +65,257 @@ const RouteManagement = () => {
   const dateInputRef = useRef(null);
   const baseHubCoords = [20.3050, 85.8280];
 
-  // Initial Table Data
-  const [tableData, setTableData] = useState([
-    {
-      id: 1,
-      date: '2026-07-24',
-      name: 'Rahul Sharma',
-      order: 'Express Delivery',
-      locations: ['Patia', 'KIIT Square'],
-      vehicleNo: 'OD-02-AX-1234',
-      vehicle: 'Tata Ace (Mini Truck)',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'
-    },
-    {
-      id: 2,
-      date: '2026-07-25',
-      name: 'Amit Patel',
-      order: 'Standard Cargo',
-      locations: ['Sailashree Vihar'],
-      vehicleNo: 'OD-02-BZ-5678',
-      vehicle: 'Mahindra Bolero Pickup',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'
-    }
-  ]);
+  // Table Data State
+  const [tableData, setTableData] = useState([]);
+  const [loadingTable, setLoadingTable] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const [showTableForm, setShowTableForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Table Form Controls
-  const [formData, setFormData] = useState({
-    date: new Date().toISOString().split('T')[0],
-    name: '',
-    order: '',
-    locations: [],
-    vehicleNo: '',
-    vehicle: '',
-    image: null,
-    imagePreview: ''
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [locationOptions, setLocationOptions] = useState(LOCATION_OPTIONS);
+  
+  // State for delivery partners names
+  const [deliveryPartners, setDeliveryPartners] = useState([]);
+  const [loadingPartners, setLoadingPartners] = useState(false);
 
-  // Load Map Dynamic Rendering
+  // State for vehicles from Vehicle API
+  const [vehicles, setVehicles] = useState([]);
+  const [loadingVehicles, setLoadingVehicles] = useState(false);
+
+  // Load Initial Data
+  useEffect(() => {
+    fetchTableRecords();
+    fetchLocationOptions();
+    fetchMapLocations();
+    fetchDeliveryPartners();
+    fetchVehicles();
+  }, []);
+
+  // --- Fetch Delivery Partners from Delivery API ---
+  const fetchDeliveryPartners = async () => {
+    try {
+      setLoadingPartners(true);
+      const response = await API.get('/delivery');
+      if (response.data?.success) {
+        setDeliveryPartners(response.data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching delivery partners:', error);
+      setDeliveryPartners([]);
+    } finally {
+      setLoadingPartners(false);
+    }
+  };
+
+  // --- Fetch Vehicles from Vehicle API ---
+  const fetchVehicles = async () => {
+    try {
+      setLoadingVehicles(true);
+      const response = await API.get('/vehicle');
+      console.log('Vehicle API Response:', response.data); // Debug log
+      
+      // Handle different response formats
+      let vehicleData = [];
+      if (response.data?.success && Array.isArray(response.data.data)) {
+        vehicleData = response.data.data;
+      } else if (Array.isArray(response.data)) {
+        vehicleData = response.data;
+      } else if (response.data?.data && Array.isArray(response.data.data)) {
+        vehicleData = response.data.data;
+      }
+      
+      console.log('Processed Vehicle Data:', vehicleData); // Debug log
+      setVehicles(vehicleData);
+    } catch (error) {
+      console.error('Error fetching vehicles:', error);
+      setVehicles([]);
+    } finally {
+      setLoadingVehicles(false);
+    }
+  };
+
+  // --- API BACKEND LOGIC FUNCTIONS ---
+
+  // 1. Fetch Location Options from Backend
+  const fetchLocationOptions = async () => {
+    try {
+      const response = await API.get("/root");
+      const routes = response.data?.data || [];
+      const backendLocations = routes.flatMap(route =>
+        route.locations?.map(loc => typeof loc === 'object' ? loc.name : loc) || []
+      );
+      setLocationOptions([
+        ...new Set([
+          ...LOCATION_OPTIONS,
+          ...backendLocations
+        ])
+      ]);
+    } catch (error) {
+      console.error("Error fetching locations:", error);
+    }
+  };
+
+  // 2. Fetch Map Locations from Backend
+  const fetchMapLocations = async () => {
+    try {
+      const response = await API.get("/root/map");
+      const locations = response.data?.data || [];
+      setStops(
+        locations.map((item, index) => ({
+          id: item._id || item.id || Date.now() + index,
+          name: item.name,
+          coords: item.coords || LOCATION_COORDS[item.name.toLowerCase()] || baseHubCoords,
+          distance: item.distance || Number((Math.random() * 5 + 1).toFixed(1))
+        }))
+      );
+    } catch (error) {
+      console.error("Map Error:", error);
+    }
+  };
+
+  // 3. Build Image URL
+  const getFullImageUrl = (imagePath) => {
+    if (!imagePath) return DEFAULT_AVATAR;
+    if (imagePath.startsWith('http') || imagePath.startsWith('data:')) return imagePath;
+    const base = (IMG_URL || '').replace(/\/$/, '');
+    const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+    return `${base}${cleanPath}`;
+  };
+
+  // 4. GET /api/root
+  const fetchTableRecords = async () => {
+    try {
+      setLoadingTable(true);
+      const response = await API.get('/root');
+      const rawRecords = response.data?.data || [];
+
+      const formatted = rawRecords.map((item) => ({
+        ...item,
+        id: item._id || item.id,
+        locations: Array.isArray(item.locations) ? item.locations : [],
+        image: getFullImageUrl(item.image)
+      }));
+
+      setTableData(formatted);
+    } catch (error) {
+      console.error('Error fetching route records:', error);
+      alert(error.response?.data?.message || 'Failed to load routes from the server.');
+    } finally {
+      setLoadingTable(false);
+    }
+  };
+
+  // 5. POST or PUT Route Record
+  const handleTableSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.date || !formData.name || !formData.order || !formData.vehicleNo || !formData.vehicle) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+    if (formData.locations.length === 0) {
+      alert('Please select at least one location.');
+      return;
+    }
+    if (!formData.image && !(editingId && formData.imagePreview)) {
+      alert('Please upload an image.');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      const payload = new FormData();
+      payload.append('date', formData.date);
+      payload.append('name', formData.name);
+      payload.append('order', formData.order);
+      payload.append('vehicleNo', formData.vehicleNo);
+      payload.append('vehicle', formData.vehicle);
+      
+      payload.append(
+        "locations",
+        JSON.stringify(
+          formData.locations.map(loc => ({
+            name: loc
+          }))
+        )
+      );
+
+      if (formData.image) {
+        payload.append('image', formData.image);
+      }
+
+      if (editingId) {
+        await API.put(`/root/${editingId}`, payload, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+      } else {
+        await API.post('/root', payload, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+      }
+
+      await fetchTableRecords();
+      setEditingId(null);
+      setFormData(EMPTY_FORM);
+      setShowTableForm(false);
+    } catch (error) {
+      console.error('Error saving record:', error);
+      alert(error.response?.data?.message || 'Failed to save record. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // 6. DELETE /api/root/:id
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this record?')) return;
+    try {
+      await API.delete(`/root/${id}`);
+      setTableData((prev) => prev.filter((item) => item.id !== id && item._id !== id));
+    } catch (error) {
+      console.error('Error deleting record:', error);
+      alert(error.response?.data?.message || 'Failed to delete record.');
+    }
+  };
+
+  // 7. Add Stop via Map Generation
+  const handleGenerateRoute = (e) => {
+    e.preventDefault();
+    if (!locationInput) {
+      alert("Select location");
+      return;
+    }
+
+    const key = locationInput.toLowerCase();
+    const coords = LOCATION_COORDS[key] || [20.3050, 85.8280];
+
+    const newStop = {
+      id: Date.now(),
+      name: locationInput,
+      coords,
+      distance: Number((Math.random() * 5 + 1).toFixed(1))
+    };
+
+    setStops(prev => [
+      ...prev,
+      newStop
+    ]);
+
+    setLocationOptions(prev => [
+      ...new Set([
+        ...prev,
+        locationInput
+      ])
+    ]);
+
+    setLocationInput("");
+    setShowModal(false);
+  };
+
+  // --- MAP RENDER LOGIC ---
   useEffect(() => {
     const loadLeafletAssets = () => {
       if (window.L) {
@@ -153,7 +353,6 @@ const RouteManagement = () => {
         maxZoom: 19
       }).addTo(map);
 
-      // Hub Marker Icon
       const hubIcon = L.divIcon({
         className: 'route-management-hub-marker',
         html: `<div class="hub-marker-wrapper"><span class="hub-icon">🏠</span></div>`,
@@ -168,6 +367,7 @@ const RouteManagement = () => {
       const routePoints = [baseHubCoords];
 
       stops.forEach((stop, index) => {
+        if (!stop.coords) return;
         const stopIcon = L.divIcon({
           className: 'route-management-stop-marker',
           html: `<div class="stop-marker-wrapper">${index + 1}</div>`,
@@ -200,46 +400,18 @@ const RouteManagement = () => {
     loadLeafletAssets();
   }, [stops]);
 
-  // Handle Adding Stop from Modal
-  const handleGenerateRoute = (e) => {
-    e.preventDefault();
-    if (!locationInput.trim()) return;
-
-    const formattedKey = locationInput.toLowerCase().trim();
-    let coords = LOCATION_COORDS[formattedKey];
-
-    if (!coords) {
-      const offsetLat = (Math.random() - 0.5) * 0.045;
-      const offsetLng = (Math.random() - 0.5) * 0.045;
-      coords = [baseHubCoords[0] + offsetLat, baseHubCoords[1] + offsetLng];
-    }
-
-    const calculatedDistance = parseFloat((Math.random() * 3 + 1.2).toFixed(1));
-
-    const newStop = {
-      id: Date.now(),
-      name: locationInput,
-      distance: calculatedDistance,
-      coords: coords
-    };
-
-    setStops([...stops, newStop]);
-    setLocationInput('');
-    setShowModal(false);
-  };
-
   const removeStop = (id) => {
     setStops(stops.filter((stop) => stop.id !== id));
   };
 
-  // Helper Metrics Calculations
-  const totalDistance = stops.reduce((sum, stop) => sum + stop.distance, 0).toFixed(1);
+  // Metric Computations
+  const totalDistance = stops.reduce((sum, stop) => sum + (stop.distance || 0), 0).toFixed(1);
   const totalMinutes = Math.round(stops.length * 8 + totalDistance * 3.2);
   const hrs = Math.floor(totalMinutes / 60);
   const mins = totalMinutes % 60;
   const estimatedTime = hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`;
 
-  // --- Table Form Operations ---
+  // Form Handlers
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -262,7 +434,10 @@ const RouteManagement = () => {
 
   const handleSelectAllLocations = (e) => {
     if (e.target.checked) {
-      setFormData((prev) => ({ ...prev, locations: [...LOCATION_OPTIONS] }));
+      setFormData((prev) => ({
+        ...prev,
+        locations: [...locationOptions]
+      }));
     } else {
       setFormData((prev) => ({ ...prev, locations: [] }));
     }
@@ -271,86 +446,39 @@ const RouteManagement = () => {
   const handleLocationCheckboxChange = (location) => {
     setFormData((prev) => {
       const isSelected = prev.locations.includes(location);
-      if (isSelected) {
-        return { ...prev, locations: prev.locations.filter((loc) => loc !== location) };
-      } else {
-        return { ...prev, locations: [...prev.locations, location] };
-      }
-    });
-  };
-
-  const handleTableSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.date || !formData.name || !formData.order || !formData.vehicleNo || !formData.vehicle) {
-      alert('Please fill out all required fields.');
-      return;
-    }
-
-    if (editingId) {
-      setTableData((prev) =>
-        prev.map((item) =>
-          item.id === editingId
-            ? {
-                ...item,
-                date: formData.date,
-                name: formData.name,
-                order: formData.order,
-                locations: formData.locations,
-                vehicleNo: formData.vehicleNo,
-                vehicle: formData.vehicle,
-                image: formData.imagePreview || item.image
-              }
-            : item
-        )
-      );
-      setEditingId(null);
-    } else {
-      const newItem = {
-        id: Date.now(),
-        date: formData.date,
-        name: formData.name,
-        order: formData.order,
-        locations: formData.locations.length ? formData.locations : ['General Location'],
-        vehicleNo: formData.vehicleNo,
-        vehicle: formData.vehicle,
-        image: formData.imagePreview || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150'
+      return {
+        ...prev,
+        locations: isSelected
+          ? prev.locations.filter((loc) => loc !== location)
+          : [...prev.locations, location]
       };
-      setTableData([...tableData, newItem]);
-    }
-
-    // Reset Form
-    setFormData({
-      date: new Date().toISOString().split('T')[0],
-      name: '',
-      order: '',
-      locations: [],
-      vehicleNo: '',
-      vehicle: '',
-      image: null,
-      imagePreview: ''
     });
-    setShowTableForm(false);
   };
 
   const handleEdit = (item) => {
-    setEditingId(item.id);
+    setEditingId(item._id || item.id);
     setFormData({
-      date: item.date,
-      name: item.name,
-      order: item.order,
-      locations: item.locations,
-      vehicleNo: item.vehicleNo,
-      vehicle: item.vehicle,
+      date: item.date || new Date().toISOString().split('T')[0],
+      name: item.name || '',
+      order: item.order || '',
+      locations: item.locations.map(loc => typeof loc === 'object' ? loc.name : loc) || [],
+      vehicleNo: item.vehicleNo || '',
+      vehicle: item.vehicle || '',
       image: null,
-      imagePreview: item.image
+      imagePreview: item.image || ''
     });
     setShowTableForm(true);
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this record?')) {
-      setTableData(tableData.filter((item) => item.id !== id));
-    }
+  // Handle vehicle selection - auto-fill vehicle number
+  const handleVehicleSelect = (e) => {
+    const selectedVehicleNumber = e.target.value;
+    setFormData((prev) => ({
+      ...prev,
+      vehicle: selectedVehicleNumber,
+      // Auto-fill vehicle number if needed
+      vehicleNo: selectedVehicleNumber
+    }));
   };
 
   return (
@@ -460,14 +588,19 @@ const RouteManagement = () => {
             <form onSubmit={handleGenerateRoute} className="route-management-modal-form">
               <div className="route-management-modal-form__group">
                 <label className="route-management-modal-form__label">Target Hub Location / Address</label>
-                <input
-                  type="text"
+                <select
                   className="route-management-modal-form__input"
-                  placeholder="e.g. Patia Square, Bhubaneswar"
                   value={locationInput}
                   onChange={(e) => setLocationInput(e.target.value)}
                   required
-                />
+                >
+                  <option value="">Select Location</option>
+                  {locationOptions.map((loc) => (
+                    <option key={loc} value={loc}>
+                      {loc}
+                    </option>
+                  ))}
+                </select>
                 <span className="route-management-modal-form__tip">
                   The integrated Map display above will center automatically to this address coordinates on submit.
                 </span>
@@ -501,16 +634,7 @@ const RouteManagement = () => {
             className="route-management-table-add-btn"
             onClick={() => {
               setEditingId(null);
-              setFormData({
-                date: new Date().toISOString().split('T')[0],
-                name: '',
-                order: '',
-                locations: [],
-                vehicleNo: '',
-                vehicle: '',
-                image: null,
-                imagePreview: ''
-              });
+              setFormData(EMPTY_FORM);
               setShowTableForm(!showTableForm);
             }}
           >
@@ -523,12 +647,12 @@ const RouteManagement = () => {
           <form className="route-management-table-form" onSubmit={handleTableSubmit}>
             <h4 className="form-heading">{editingId ? 'Edit Entry' : 'Add New Entry'}</h4>
             <div className="form-grid">
-              
-              {/* DATE PICKER WITH WORKING CALENDAR ICON */}
+
+              {/* DATE PICKER */}
               <div className="form-group date-input-wrapper">
                 <label>Date</label>
-                <div 
-                  className="calendar-field" 
+                <div
+                  className="calendar-field"
                   onClick={() => dateInputRef.current && dateInputRef.current.showPicker && dateInputRef.current.showPicker()}
                 >
                   <input
@@ -544,7 +668,7 @@ const RouteManagement = () => {
                 </div>
               </div>
 
-              {/* NAME DROPDOWN */}
+              {/* NAME DROPDOWN - Fetch from Delivery API */}
               <div className="form-group">
                 <label>Name</label>
                 <select
@@ -554,13 +678,32 @@ const RouteManagement = () => {
                   onChange={handleInputChange}
                   required
                 >
-                  <option value="" disabled>Select Driver / Personnel</option>
-                  {NAME_OPTIONS.map((driver) => (
-                    <option key={driver} value={driver}>
-                      {driver}
-                    </option>
-                  ))}
+                  <option value="" disabled>
+                    {loadingPartners ? 'Loading delivery partners...' : 'Select Driver / Personnel'}
+                  </option>
+                  {deliveryPartners.length > 0 ? (
+                    deliveryPartners.map((partner) => (
+                      <option key={partner._id} value={partner.name}>
+                        {partner.name} {partner.loginId ? `(${partner.loginId})` : ''}
+                      </option>
+                    ))
+                  ) : (
+                    // Fallback options if API fails
+                    <>
+                      <option value="Rahul Sharma">Rahul Sharma</option>
+                      <option value="Amit Patel">Amit Patel</option>
+                      <option value="Priya Das">Priya Das</option>
+                      <option value="Suresh Kumar">Suresh Kumar</option>
+                      <option value="Ananya Ray">Ananya Ray</option>
+                      <option value="Vikram Singh">Vikram Singh</option>
+                    </>
+                  )}
                 </select>
+                {deliveryPartners.length === 0 && !loadingPartners && (
+                  <small style={{ color: '#f59e0b', marginTop: '4px', display: 'block' }}>
+                    ⚠️ No delivery partners found. Please add partners in Delivery ID section first.
+                  </small>
+                )}
               </div>
 
               {/* ORDER INPUT */}
@@ -593,13 +736,16 @@ const RouteManagement = () => {
                     <label className="dropdown-option select-all">
                       <input
                         type="checkbox"
-                        checked={formData.locations.length === LOCATION_OPTIONS.length}
+                        checked={
+                          formData.locations.length === locationOptions.length &&
+                          locationOptions.length > 0
+                        }
                         onChange={handleSelectAllLocations}
                       />
                       <strong>Select All</strong>
                     </label>
                     <hr />
-                    {LOCATION_OPTIONS.map((loc) => (
+                    {locationOptions.map((loc) => (
                       <label key={loc} className="dropdown-option">
                         <input
                           type="checkbox"
@@ -613,36 +759,63 @@ const RouteManagement = () => {
                 )}
               </div>
 
-              {/* VEHICLE NUMBER INPUT */}
+              {/* VEHICLE SELECTION - Auto-populates Vehicle Number */}
+              <div className="form-group">
+                <label>Select Vehicle</label>
+                <select
+                  name="vehicle"
+                  className="form-select"
+                  value={formData.vehicle}
+                  onChange={handleVehicleSelect}
+                  required
+                >
+                  <option value="" disabled>
+                    {loadingVehicles ? 'Loading vehicles...' : 'Select Vehicle'}
+                  </option>
+                  {vehicles.length > 0 ? (
+                    vehicles.map((vehicle) => {
+                      const vehicleId = vehicle._id || vehicle.id;
+                      const vehicleNumber = vehicle.number || vehicle.vehicleNo || '';
+                      const driverName = vehicle.driver || 'No Driver';
+                      const status = vehicle.status || 'Active';
+                      
+                      return (
+                        <option key={vehicleId} value={vehicleNumber}>
+                          {vehicleNumber} - {driverName} ({status})
+                        </option>
+                      );
+                    })
+                  ) : (
+                    // Fallback options if API fails
+                    <>
+                      <option value="OD-02-AB-1234">OD-02-AB-1234 - Default Vehicle</option>
+                      <option value="OD-03-CD-5678">OD-03-CD-5678 - Backup Vehicle</option>
+                    </>
+                  )}
+                </select>
+                {vehicles.length === 0 && !loadingVehicles && (
+                  <small style={{ color: '#f59e0b', marginTop: '4px', display: 'block' }}>
+                    ⚠️ No vehicles found. Please add vehicles in Vehicle Management section first.
+                  </small>
+                )}
+              </div>
+
+              {/* VEHICLE NUMBER - Auto-filled from vehicle selection */}
               <div className="form-group">
                 <label>Vehicle Number</label>
                 <input
                   type="text"
                   name="vehicleNo"
-                  placeholder="e.g. OD-02-AX-1234"
+                  placeholder="Auto-filled from vehicle selection"
                   value={formData.vehicleNo}
                   onChange={handleInputChange}
                   required
+                  readOnly
+                  style={{ backgroundColor: '#f5f5f5', cursor: 'not-allowed' }}
                 />
-              </div>
-
-              {/* VEHICLE TYPE DROPDOWN */}
-              <div className="form-group">
-                <label>Vehicle</label>
-                <select
-                  name="vehicle"
-                  className="form-select"
-                  value={formData.vehicle}
-                  onChange={handleInputChange}
-                  required
-                >
-                  <option value="" disabled>Select Vehicle Type</option>
-                  {VEHICLE_OPTIONS.map((v) => (
-                    <option key={v} value={v}>
-                      {v}
-                    </option>
-                  ))}
-                </select>
+                <small style={{ color: '#6c757d', marginTop: '4px', display: 'block' }}>
+                  Vehicle number is auto-filled when you select a vehicle above
+                </small>
               </div>
 
               {/* IMAGE FILE UPLOAD INPUT */}
@@ -659,13 +832,18 @@ const RouteManagement = () => {
                   style={{ display: 'none' }}
                 />
                 {formData.imagePreview && (
-                  <img src={formData.imagePreview} alt="Preview" className="image-preview" />
+                  <img
+                    src={formData.imagePreview}
+                    alt="Preview"
+                    className="image-preview"
+                    onError={(e) => { e.target.src = DEFAULT_AVATAR; }}
+                  />
                 )}
               </div>
             </div>
 
-            <button type="submit" className="form-submit-btn">
-              {editingId ? 'Update Record' : 'Submit Record'}
+            <button type="submit" className="form-submit-btn" disabled={submitting}>
+              {submitting ? 'Saving...' : (editingId ? 'Update Record' : 'Submit Record')}
             </button>
           </form>
         )}
@@ -686,11 +864,22 @@ const RouteManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {tableData.length > 0 ? (
+              {loadingTable ? (
+                <tr>
+                  <td colSpan="8" className="text-center no-data">
+                    Loading records from server...
+                  </td>
+                </tr>
+              ) : tableData.length > 0 ? (
                 tableData.map((item) => (
-                  <tr key={item.id}>
+                  <tr key={item._id || item.id}>
                     <td>
-                      <img src={item.image} alt={item.name} className="table-img" />
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="table-img"
+                        onError={(e) => { e.target.src = DEFAULT_AVATAR; }}
+                      />
                     </td>
                     <td className="font-semibold">{item.date}</td>
                     <td>{item.name}</td>
@@ -700,7 +889,7 @@ const RouteManagement = () => {
                         {item.locations && item.locations.length > 0 ? (
                           item.locations.map((loc, idx) => (
                             <span key={idx} className="location-badge">
-                              {loc}
+                              {typeof loc === 'object' ? loc.name : loc}
                             </span>
                           ))
                         ) : (
@@ -708,8 +897,12 @@ const RouteManagement = () => {
                         )}
                       </div>
                     </td>
-                    <td><span className="vehicle-badge">{item.vehicleNo}</span></td>
-                    <td>{item.vehicle}</td>
+                    <td>
+                      <span className="vehicle-badge" style={{ fontWeight: 'bold' }}>
+                        {item.vehicleNo || 'N/A'}
+                      </span>
+                    </td>
+                    <td>{item.vehicle || 'N/A'}</td>
                     <td>
                       <div className="action-buttons">
                         <button
@@ -721,7 +914,7 @@ const RouteManagement = () => {
                         </button>
                         <button
                           className="action-btn delete"
-                          onClick={() => handleDelete(item.id)}
+                          onClick={() => handleDelete(item._id || item.id)}
                           title="Delete"
                         >
                           <FaTrash />
