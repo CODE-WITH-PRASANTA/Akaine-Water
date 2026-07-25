@@ -18,6 +18,7 @@ const vehicleRoutes =require("./src/routes/vehicleRoutes");
 const damageRoutes = require("./src/routes/damageRoutes");
 const deliveryRoutes = require("./src/routes/deliveryRoutes");
 const boysassigneRoutes = require("./src/routes/boyassigneRoutes");
+const routeRoutes = require("./src/routes/routeRoutes");
 // Connect Database
 connectDB();
 
@@ -42,6 +43,7 @@ app.use("/api/manage", manageRoutes);
 app.use("/api/damage", damageRoutes);
 app.use("/api/delivery", deliveryRoutes);
 app.use("/api/boysassigne", boysassigneRoutes);
+app.use("/api/routeRoutes", routeRoutes);
 
 // ================= Home Route =================
 app.get("/", (req, res) => {
