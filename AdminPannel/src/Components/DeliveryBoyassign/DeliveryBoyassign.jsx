@@ -7,27 +7,37 @@ const DeliveryBoyassign = () => {
   const [filter, setFilter] = useState('All');
   const [activeFilter, setActiveFilter] = useState('Total');
   const [loading, setLoading] = useState(false);
-  const [routeData, setRouteData] = useState([]); // NEW: Store route data
+  const [routeData, setRouteData] = useState([]); // Route Assignment records from /routeRoutes/assignments
 
   const [metrics, setMetrics] = useState({
     totalCount: 0,
     activeCount: 0,
     onDeliveryCount: 0,
     inactiveCount: 0,
-    assignedCount: 0, // NEW: Assigned to routes
-    unassignedCount: 0 // NEW: Not assigned to any route
+    assignedCount: 0,
+    unassignedCount: 0
   });
 
+  // --- Helper: find the MOST RECENT route assigned to a delivery boy by name ---
+  // A driver can appear in multiple saved route-assignment records over time
+  // (one per date/order), so sort newest-first and take the first match.
+  const getAssignedRoute = (boyName, routes = routeData) => {
+    if (!boyName) return null;
+    const matches = routes
+      .filter((item) => item.name?.toLowerCase() === boyName.toLowerCase())
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+    return matches[0] || null;
+  };
+
   // Calculate dynamic count summary
-  const calculateMetrics = (list) => {
+  const calculateMetrics = (list, routes = routeData) => {
     const totalCount = list.length;
     const activeCount = list.filter((b) => b.status === 'Active').length;
     const onDeliveryCount = list.filter((b) => b.status === 'On-Delivery').length;
     const inactiveCount = list.filter((b) => b.status === 'Inactive').length;
 
-    // NEW: Calculate assigned vs unassigned
-    const assignedNames = routeData.map(route => route.name);
-    const assignedCount = list.filter((b) => assignedNames.includes(b.name)).length;
+    const assignedNames = new Set(routes.map((route) => route.name?.toLowerCase()));
+    const assignedCount = list.filter((b) => assignedNames.has(b.name?.toLowerCase())).length;
     const unassignedCount = totalCount - assignedCount;
 
     setMetrics({
@@ -40,28 +50,25 @@ const DeliveryBoyassign = () => {
     });
   };
 
-  // Fetch registered delivery partners directly from /delivery
-  const fetchDeliveryBoys = async () => {
+  // --- Fetch registered delivery partners from /delivery ---
+  const fetchDeliveryBoys = async (routes = routeData) => {
     setLoading(true);
     try {
       const response = await API.get('/delivery');
       if (response.data?.success) {
         const rawPartners = response.data.data || [];
 
-        // Map backend schema to view format
         const mappedPartners = rawPartners.map((boy) => ({
           _id: boy._id,
           name: boy.name || 'Unnamed',
           mobile: boy.phone || boy.mobile || 'N/A',
-          vehicle: boy.vehicle || 'Bike',
-          orders: boy.orders || 0,
-          status: boy.status || 'Active',
-          // NEW: Add route assignment info
-          assignedRoute: boy.assignedRoute || null
+          vehicle: boy.vehicle || 'N/A',
+          orders: Number.isFinite(boy.orders) ? boy.orders : (Number(boy.orders) || 0),
+          status: boy.status || 'Active'
         }));
 
         setData(mappedPartners);
-        calculateMetrics(mappedPartners);
+        calculateMetrics(mappedPartners, routes);
       }
     } catch (error) {
       console.error('Error fetching delivery boys:', error);
@@ -70,42 +77,54 @@ const DeliveryBoyassign = () => {
     }
   };
 
-  // NEW: Fetch Route Management data
+  // --- Fetch Route Assignment records ---
+  // IMPORTANT: RouteManagement now persists its "Add New Entry" submissions to
+  // /api/routeRoutes/assignments (see RouteManagement.jsx's API_BASE_URL), NOT
+  // /api/root. This must point at the same place or route data will never
+  // show up here.
   const fetchRouteData = async () => {
     try {
-      const response = await API.get('/root');
-      if (response.data?.success) {
-        const routes = response.data.data || [];
+      const response = await API.get('/routeRoutes/assignments');
+      if (response.data?.success && Array.isArray(response.data.data)) {
+        const routes = response.data.data.map((item) => ({
+          _id: item._id,
+          date: item.date,
+          name: item.name,
+          order: item.order,
+          locations: Array.isArray(item.locations) ? item.locations : [],
+          vehicleNo: item.vehicleNo,
+          vehicle: item.vehicle
+        }));
         setRouteData(routes);
-        calculateMetrics(data); // Recalculate metrics with route data
+        return routes;
       }
+      setRouteData([]);
+      return [];
     } catch (error) {
-      console.error('Error fetching route data:', error);
+      console.error('Route fetch error:', error);
+      setRouteData([]);
+      return [];
     }
   };
 
+  // Load both data sets together on mount so metrics/table render with
+  // correct assigned/unassigned counts on the very first paint.
   useEffect(() => {
-    fetchDeliveryBoys();
-    fetchRouteData(); // NEW: Fetch route data on mount
+    const loadAll = async () => {
+      const routes = await fetchRouteData();
+      await fetchDeliveryBoys(routes);
+    };
+    loadAll();
   }, []);
-
-  // NEW: Fetch route data whenever delivery data changes
-  useEffect(() => {
-    if (data.length > 0) {
-      fetchRouteData();
-    }
-  }, [data.length]);
 
   // Filter list based on selected filter button
   const filteredData = data.filter((boy) => {
     if (filter === 'All') return true;
     if (filter === 'Assigned') {
-      const assignedNames = routeData.map(route => route.name);
-      return assignedNames.includes(boy.name);
+      return Boolean(getAssignedRoute(boy.name));
     }
     if (filter === 'Unassigned') {
-      const assignedNames = routeData.map(route => route.name);
-      return !assignedNames.includes(boy.name);
+      return !getAssignedRoute(boy.name);
     }
     return boy.status === filter;
   });
@@ -115,20 +134,17 @@ const DeliveryBoyassign = () => {
     setActiveFilter(filterName);
   };
 
-  // Handle Action Status Change (Optimistic UI update + API call)
+  // Handle Status Change (Optimistic UI update + API call)
   const handleStatusChange = async (id, newStatus) => {
-    // 1. Immediately update local state for smooth UI transition
     const updatedData = data.map((boy) =>
       boy._id === id ? { ...boy, status: newStatus } : boy
     );
     setData(updatedData);
     calculateMetrics(updatedData);
 
-    // 2. Persist change in database
     try {
       const res = await API.put(`/delivery/${id}`, { status: newStatus });
       if (!res.data?.success) {
-        // Fallback re-fetch if response reports failure
         fetchDeliveryBoys();
       }
     } catch (error) {
@@ -152,65 +168,11 @@ const DeliveryBoyassign = () => {
     }
   };
 
-  // NEW: Assign delivery boy to a route
-  const handleAssignRoute = async (deliveryId, routeId, routeName) => {
-    try {
-      // Update the delivery partner with assigned route
-      const res = await API.put(`/delivery/${deliveryId}`, { 
-        assignedRoute: routeId,
-        routeName: routeName
-      });
-      
-      if (res.data?.success) {
-        // Update local state
-        const updatedData = data.map((boy) =>
-          boy._id === deliveryId ? { ...boy, assignedRoute: routeId } : boy
-        );
-        setData(updatedData);
-        calculateMetrics(updatedData);
-        alert(`Successfully assigned to route: ${routeName}`);
-      }
-    } catch (error) {
-      console.error('Route assignment failed:', error);
-      alert('Failed to assign route. Please try again.');
-    }
-  };
-
-  // NEW: Unassign delivery boy from route
-  const handleUnassignRoute = async (deliveryId) => {
-    if (!window.confirm('Unassign this delivery boy from their current route?')) return;
-    
-    try {
-      const res = await API.put(`/delivery/${deliveryId}`, { 
-        assignedRoute: null,
-        routeName: null
-      });
-      
-      if (res.data?.success) {
-        const updatedData = data.map((boy) =>
-          boy._id === deliveryId ? { ...boy, assignedRoute: null } : boy
-        );
-        setData(updatedData);
-        calculateMetrics(updatedData);
-        alert('Successfully unassigned from route');
-      }
-    } catch (error) {
-      console.error('Route unassignment failed:', error);
-      alert('Failed to unassign route. Please try again.');
-    }
-  };
-
   const getStatusColorClass = (status) => {
     if (status === 'Active') return 'status-active';
     if (status === 'On-Delivery') return 'status-ondelivery';
     if (status === 'Inactive') return 'status-inactive';
     return '';
-  };
-
-  // NEW: Get route assignments for a delivery boy
-  const getAssignedRoute = (boyName) => {
-    const assignedRoute = routeData.find(route => route.name === boyName);
-    return assignedRoute || null;
   };
 
   // Export Filtered Table to CSV
@@ -220,16 +182,19 @@ const DeliveryBoyassign = () => {
       return;
     }
 
-    const headers = ['Delivery Boy', 'Mobile', 'Vehicle', "Today's Orders", 'Status', 'Assigned Route'];
+    const headers = ['Delivery Boy', 'Mobile', 'Vehicle', "Today's Orders", 'Assigned Route (Order / Location / Vehicle No.)', 'Status'];
     const rows = filteredData.map((boy) => {
       const route = getAssignedRoute(boy.name);
+      const routeSummary = route
+        ? `${route.order || 'N/A'} | ${route.locations.join(', ') || 'N/A'} | ${route.vehicleNo || 'N/A'}`
+        : 'Unassigned';
       return [
         boy.name,
         boy.mobile,
-        boy.vehicle,
-        boy.orders,
-        boy.status,
-        route ? `${route.order || 'N/A'}` : 'Unassigned'
+        route?.vehicle || boy.vehicle,
+        route?.order || boy.orders,
+        routeSummary,
+        boy.status
       ];
     });
 
@@ -261,7 +226,7 @@ const DeliveryBoyassign = () => {
           </button>
         </div>
 
-        {/* Dynamic Metric Display - UPDATED with Route metrics */}
+        {/* Dynamic Metric Display */}
         <div className="db-metrics-container">
           <div
             className={`metric-box ${activeFilter === 'Total' ? 'active-metric' : ''}`}
@@ -291,7 +256,6 @@ const DeliveryBoyassign = () => {
             <p className="metric-title">Inactive</p>
             <span className="num-display inactive-num">{metrics.inactiveCount}</span>
           </div>
-          {/* NEW: Assigned Metrics */}
           <div
             className={`metric-box ${activeFilter === 'Assigned' ? 'active-metric' : ''}`}
             onClick={() => handleFilterClick('Assigned', 'Assigned')}
@@ -308,7 +272,7 @@ const DeliveryBoyassign = () => {
           </div>
         </div>
 
-        {/* Table View - UPDATED with Route Assignment column */}
+        {/* Table View */}
         <div className="db-table-container">
           {loading ? (
             <div style={{ textAlign: 'center', padding: '20px' }}>Loading data...</div>
@@ -320,84 +284,63 @@ const DeliveryBoyassign = () => {
                   <th>Mobile</th>
                   <th>Vehicle</th>
                   <th>Today's Orders</th>
+                  <th>Assigned Route</th>
                   <th>Status</th>
-                  <th>Assigned Route</th> {/* NEW COLUMN */}
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredData.map((boy) => {
                   const assignedRoute = getAssignedRoute(boy.name);
-                  const isAssigned = assignedRoute !== null;
-                  
+
                   return (
                     <tr key={boy._id}>
                       <td data-label="Delivery Boy" className="td-name">{boy.name}</td>
                       <td data-label="Mobile" className="td-mobile">{boy.mobile}</td>
-                      <td data-label="Vehicle" className="td-vehicle">{boy.vehicle}</td>
-                      <td data-label="Today's Orders" className="td-orders">{boy.orders}</td>
+
+                      {/* Vehicle — the vehicle currently assigned to this driver's
+                          active route if there is one, otherwise their own vehicle */}
+                      <td data-label="Vehicle">
+                        {assignedRoute?.vehicle || boy.vehicle}
+                      </td>
+
+                      {/* Today's Orders — the order tied to the active route
+                          assignment if there is one, otherwise their own order count */}
+                      <td data-label="Today's Orders">
+                        {assignedRoute?.order || boy.orders}
+                      </td>
+
+                      {/* Assigned Route — Order / Location(s) / Vehicle No. pulled
+                          straight from the route assignment record */}
+                      <td data-label="Assigned Route">
+                        {assignedRoute ? (
+                          <div className="assigned-route-cell">
+                            <span className="route-badge">
+                              {assignedRoute.order || 'Route Assigned'}
+                            </span>
+                            <br />
+                            <small>
+                              Location: {assignedRoute.locations.length > 0 ? assignedRoute.locations.join(', ') : 'N/A'}
+                            </small>
+                            <br />
+                            <small>
+                              Vehicle No.: {assignedRoute.vehicleNo || 'N/A'}
+                            </small>
+                          </div>
+                        ) : (
+                          <span className="route-badge" style={{ opacity: 0.6 }}>
+                            Not Assigned
+                          </span>
+                        )}
+                      </td>
+
+                      {/* Status */}
                       <td data-label="Status">
                         <span className={`status-badge-visual ${getStatusColorClass(boy.status)}`}>
                           {boy.status}
                         </span>
                       </td>
-                      <td data-label="Assigned Route">
-                        {isAssigned ? (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span className="route-badge" style={{
-                              backgroundColor: '#dbeafe',
-                              color: '#1e40af',
-                              padding: '4px 8px',
-                              borderRadius: '4px',
-                              fontSize: '12px',
-                              fontWeight: '500'
-                            }}>
-                              {assignedRoute.order || 'Route Assigned'}
-                            </span>
-                            <button
-                              onClick={() => handleUnassignRoute(boy._id)}
-                              style={{
-                                background: 'none',
-                                border: 'none',
-                                color: '#ef4444',
-                                cursor: 'pointer',
-                                fontSize: '14px'
-                              }}
-                              title="Unassign from route"
-                            >
-                              ✕
-                            </button>
-                          </div>
-                        ) : (
-                          <select
-                            onChange={(e) => {
-                              const selectedRouteId = e.target.value;
-                              if (selectedRouteId) {
-                                const route = routeData.find(r => r._id === selectedRouteId);
-                                if (route) {
-                                  handleAssignRoute(boy._id, selectedRouteId, route.name);
-                                }
-                              }
-                            }}
-                            value=""
-                            style={{
-                              padding: '4px 8px',
-                              borderRadius: '4px',
-                              border: '1px solid #d1d5db',
-                              backgroundColor: 'white',
-                              fontSize: '12px',
-                              cursor: 'pointer'
-                            }}
-                          >
-                            <option value="">Assign Route</option>
-                            {routeData.map((route) => (
-                              <option key={route._id} value={route._id}>
-                                {route.order || 'Route'} - {route.name}
-                              </option>
-                            ))}
-                          </select>
-                        )}
-                      </td>
+
                       <td data-label="Action" className="td-actions">
                         <div className={`action-dropdown-wrapper ${getStatusColorClass(boy.status)}-text`}>
                           <span className="dropdown-dot"></span>
@@ -411,8 +354,8 @@ const DeliveryBoyassign = () => {
                             <option value="Inactive">Inactive</option>
                           </select>
                         </div>
-                        <button 
-                          onClick={() => handleDelete(boy._id)} 
+                        <button
+                          onClick={() => handleDelete(boy._id)}
                           style={{ marginLeft: '10px', color: 'red', cursor: 'pointer', border: 'none', background: 'transparent' }}
                           title="Delete record"
                         >

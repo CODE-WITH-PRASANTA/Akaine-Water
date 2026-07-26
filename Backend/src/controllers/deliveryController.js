@@ -1,5 +1,6 @@
 const DeliveryPartner = require("../models/delivery");
 
+
 // GET ALL DELIVERY PARTNERS
 exports.getAllDeliveryPartners = async (req, res, next) => {
   try {

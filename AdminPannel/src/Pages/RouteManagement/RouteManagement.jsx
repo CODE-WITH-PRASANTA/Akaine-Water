@@ -10,12 +10,13 @@ import {
   FaTrash,
   FaChevronDown,
   FaUpload,
-  FaCalendarAlt
+  FaCalendarAlt,
+  FaTruck
 } from 'react-icons/fa';
 import './RouteManagement.css';
-import API, { IMG_URL } from '../../api/axios';
+import API from '../../api/axios';
 
-// Coordinates database for Map Pins (Fallback / Standard Lookup)
+// Coordinates database for Map Pins
 const LOCATION_COORDS = {
   "patia": [20.3540, 85.8330],
   "kiit square": [20.3510, 85.8180],
@@ -28,7 +29,7 @@ const LOCATION_COORDS = {
   "khandagiri": [20.2580, 85.7870]
 };
 
-const LOCATION_OPTIONS = [
+const DEFAULT_LOCATION_OPTIONS = [
   'Patia',
   'KIIT Square',
   'Sailashree Vihar',
@@ -38,46 +39,36 @@ const LOCATION_OPTIONS = [
   'Rasulgarh'
 ];
 
-const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150';
-
-const EMPTY_FORM = {
-  date: new Date().toISOString().split('T')[0],
-  name: '',
-  order: '',
-  locations: [],
-  vehicleNo: '',
-  vehicle: '',
-  image: null,
-  imagePreview: ''
-};
+const API_BASE_URL = 'http://localhost:5000/api/routeRoutes';
 
 const RouteManagement = () => {
   // Modal & Route States
   const [showModal, setShowModal] = useState(false);
   const [locationInput, setLocationInput] = useState('');
-
-  // Initial Stops for the Map Route Planner
   const [stops, setStops] = useState([]);
+  const [routeLocations, setRouteLocations] = useState(DEFAULT_LOCATION_OPTIONS);
+  const [totalDistance, setTotalDistance] = useState(0);
+  const [estimatedTime, setEstimatedTime] = useState('0m');
+  const [baseHubCoords, setBaseHubCoords] = useState([20.3050, 85.8280]);
+  const [loadingStops, setLoadingStops] = useState(false);
+  const [mapReady, setMapReady] = useState(false);
 
   // Leaflet Map Refs
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const layerGroupRef = useRef(null); // holds hub/stop markers + polyline so they can be redrawn without recreating the map
   const dateInputRef = useRef(null);
-  const baseHubCoords = [20.3050, 85.8280];
 
   // Table Data State
   const [tableData, setTableData] = useState([]);
   const [loadingTable, setLoadingTable] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [tableError, setTableError] = useState(null);
 
   const [showTableForm, setShowTableForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const [formData, setFormData] = useState(EMPTY_FORM);
-  const [locationOptions, setLocationOptions] = useState(LOCATION_OPTIONS);
-  
-  // State for delivery partners names
+  // State for delivery partners names from Delivery API
   const [deliveryPartners, setDeliveryPartners] = useState([]);
   const [loadingPartners, setLoadingPartners] = useState(false);
 
@@ -85,14 +76,17 @@ const RouteManagement = () => {
   const [vehicles, setVehicles] = useState([]);
   const [loadingVehicles, setLoadingVehicles] = useState(false);
 
-  // Load Initial Data
-  useEffect(() => {
-    fetchTableRecords();
-    fetchLocationOptions();
-    fetchMapLocations();
-    fetchDeliveryPartners();
-    fetchVehicles();
-  }, []);
+  // Table Form Controls
+  const [formData, setFormData] = useState({
+    date: new Date().toISOString().split('T')[0],
+    name: '',
+    order: '',
+    locations: [],
+    vehicleNo: '',
+    vehicle: '',
+    image: null,
+    imagePreview: ''
+  });
 
   // --- Fetch Delivery Partners from Delivery API ---
   const fetchDeliveryPartners = async () => {
@@ -115,9 +109,8 @@ const RouteManagement = () => {
     try {
       setLoadingVehicles(true);
       const response = await API.get('/vehicle');
-      console.log('Vehicle API Response:', response.data); // Debug log
-      
-      // Handle different response formats
+      console.log('Vehicle API Response:', response.data);
+
       let vehicleData = [];
       if (response.data?.success && Array.isArray(response.data.data)) {
         vehicleData = response.data.data;
@@ -126,8 +119,8 @@ const RouteManagement = () => {
       } else if (response.data?.data && Array.isArray(response.data.data)) {
         vehicleData = response.data.data;
       }
-      
-      console.log('Processed Vehicle Data:', vehicleData); // Debug log
+
+      console.log('Processed Vehicle Data:', vehicleData);
       setVehicles(vehicleData);
     } catch (error) {
       console.error('Error fetching vehicles:', error);
@@ -137,189 +130,151 @@ const RouteManagement = () => {
     }
   };
 
-  // --- API BACKEND LOGIC FUNCTIONS ---
-
-  // 1. Fetch Location Options from Backend
-  const fetchLocationOptions = async () => {
-    try {
-      const response = await API.get("/root");
-      const routes = response.data?.data || [];
-      const backendLocations = routes.flatMap(route =>
-        route.locations?.map(loc => typeof loc === 'object' ? loc.name : loc) || []
-      );
-      setLocationOptions([
-        ...new Set([
-          ...LOCATION_OPTIONS,
-          ...backendLocations
-        ])
-      ]);
-    } catch (error) {
-      console.error("Error fetching locations:", error);
-    }
-  };
-
-  // 2. Fetch Map Locations from Backend
-  const fetchMapLocations = async () => {
-    try {
-      const response = await API.get("/root/map");
-      const locations = response.data?.data || [];
-      setStops(
-        locations.map((item, index) => ({
-          id: item._id || item.id || Date.now() + index,
-          name: item.name,
-          coords: item.coords || LOCATION_COORDS[item.name.toLowerCase()] || baseHubCoords,
-          distance: item.distance || Number((Math.random() * 5 + 1).toFixed(1))
-        }))
-      );
-    } catch (error) {
-      console.error("Map Error:", error);
-    }
-  };
-
-  // 3. Build Image URL
-  const getFullImageUrl = (imagePath) => {
-    if (!imagePath) return DEFAULT_AVATAR;
-    if (imagePath.startsWith('http') || imagePath.startsWith('data:')) return imagePath;
-    const base = (IMG_URL || '').replace(/\/$/, '');
-    const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
-    return `${base}${cleanPath}`;
-  };
-
-  // 4. GET /api/root
+  // --- Fetch Table Records from Backend (/api/routeRoutes/assignments) ---
+  // These are the real "Add New Entry" submissions, persisted in MongoDB —
+  // NOT derived from stops. Previously the table only showed stop-based
+  // placeholder rows because nothing was ever saved to the backend on submit.
   const fetchTableRecords = async () => {
     try {
       setLoadingTable(true);
-      const response = await API.get('/root');
-      const rawRecords = response.data?.data || [];
+      setTableError(null);
+      console.log('Fetching route assignment records...');
 
-      const formatted = rawRecords.map((item) => ({
-        ...item,
-        id: item._id || item.id,
-        locations: Array.isArray(item.locations) ? item.locations : [],
-        image: getFullImageUrl(item.image)
-      }));
+      const response = await fetch(`${API_BASE_URL}/assignments`);
+      const result = await response.json();
+      console.log('Assignments response:', result);
 
-      setTableData(formatted);
+      if (result.success && Array.isArray(result.data)) {
+        const formatted = result.data.map((item) => ({
+          id: item._id,
+          date: item.date,
+          name: item.name,
+          order: item.order,
+          locations: item.locations || [],
+          vehicleNo: item.vehicleNo,
+          vehicle: item.vehicle,
+          image: item.image || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150'
+        }));
+        setTableData(formatted);
+      } else {
+        setTableData([]);
+      }
     } catch (error) {
-      console.error('Error fetching route records:', error);
-      alert(error.response?.data?.message || 'Failed to load routes from the server.');
+      console.error('Error fetching route assignment records:', error);
+      setTableError(error.message || 'Failed to fetch data from server');
+      setTableData(getFallbackData());
     } finally {
       setLoadingTable(false);
     }
   };
 
-  // 5. POST or PUT Route Record
-  const handleTableSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.date || !formData.name || !formData.order || !formData.vehicleNo || !formData.vehicle) {
-      alert('Please fill out all required fields.');
-      return;
-    }
-    if (formData.locations.length === 0) {
-      alert('Please select at least one location.');
-      return;
-    }
-    if (!formData.image && !(editingId && formData.imagePreview)) {
-      alert('Please upload an image.');
-      return;
-    }
+  // Fallback data function
+  const getFallbackData = () => {
+    return [
+      {
+        id: 1,
+        date: '2026-07-24',
+        name: 'Rahul Sharma',
+        order: 'Express Delivery',
+        locations: ['Patia', 'KIIT Square'],
+        vehicleNo: 'OD-02-AX-1234',
+        vehicle: 'Tata Ace (Mini Truck)',
+        image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'
+      },
+      {
+        id: 2,
+        date: '2026-07-25',
+        name: 'Amit Patel',
+        order: 'Standard Cargo',
+        locations: ['Sailashree Vihar'],
+        vehicleNo: 'OD-02-BZ-5678',
+        vehicle: 'Mahindra Bolero Pickup',
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'
+      }
+    ];
+  };
 
+  // --- Fetch Active Route ---
+  const fetchActiveRoute = async () => {
+    setLoadingStops(true);
     try {
-      setSubmitting(true);
+      console.log('Fetching active route from:', `${API_BASE_URL}/active`);
+      const response = await fetch(`${API_BASE_URL}/active`);
+      const result = await response.json();
+      console.log('Active route response:', result);
 
-      const payload = new FormData();
-      payload.append('date', formData.date);
-      payload.append('name', formData.name);
-      payload.append('order', formData.order);
-      payload.append('vehicleNo', formData.vehicleNo);
-      payload.append('vehicle', formData.vehicle);
-      
-      payload.append(
-        "locations",
-        JSON.stringify(
-          formData.locations.map(loc => ({
-            name: loc
-          }))
-        )
-      );
+      if (result.success && result.data) {
+        const routeData = result.data;
+        setStops(routeData.stops || []);
+        setTotalDistance(routeData.totalDistance || 0);
+        setEstimatedTime(routeData.estimatedTime || '0m');
+        if (routeData.hubCoords) {
+          setBaseHubCoords(routeData.hubCoords);
+        }
 
-      if (formData.image) {
-        payload.append('image', formData.image);
+        const stopNames = (routeData.stops || []).map(stop => stop.name);
+        const mergedLocations = [...new Set([...DEFAULT_LOCATION_OPTIONS, ...stopNames])];
+        setRouteLocations(mergedLocations);
+        setMapReady(true);
       }
-
-      if (editingId) {
-        await API.put(`/root/${editingId}`, payload, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-      } else {
-        await API.post('/root', payload, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-      }
-
-      await fetchTableRecords();
-      setEditingId(null);
-      setFormData(EMPTY_FORM);
-      setShowTableForm(false);
-    } catch (error) {
-      console.error('Error saving record:', error);
-      alert(error.response?.data?.message || 'Failed to save record. Please try again.');
+    } catch (err) {
+      console.error('Error fetching active route:', err);
+      setMapReady(true);
     } finally {
-      setSubmitting(false);
+      setLoadingStops(false);
     }
   };
 
-  // 6. DELETE /api/root/:id
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this record?')) return;
-    try {
-      await API.delete(`/root/${id}`);
-      setTableData((prev) => prev.filter((item) => item.id !== id && item._id !== id));
-    } catch (error) {
-      console.error('Error deleting record:', error);
-      alert(error.response?.data?.message || 'Failed to delete record.');
-    }
-  };
+  // Load Initial Data
+  useEffect(() => {
+    fetchActiveRoute();
+    fetchTableRecords();
+    fetchDeliveryPartners();
+    fetchVehicles();
+  }, []);
 
-  // 7. Add Stop via Map Generation
-  const handleGenerateRoute = (e) => {
-    e.preventDefault();
-    if (!locationInput) {
-      alert("Select location");
-      return;
-    }
+  /* -----------------------------------------------------------------
+     MAP INITIALIZATION — runs once when mapReady flips true.
+     This used to run on every `stops` change and call
+     mapInstanceRef.current.remove() to recreate the whole map, which
+     raced with Leaflet's internal animation frame (fitBounds / marker
+     positioning) and threw:
+       "Cannot read properties of undefined (reading '_leaflet_pos')"
+     Fix: create the map + a single layerGroup ONCE, then only touch
+     the layerGroup's contents when stops/hub change (see next effect).
+  ----------------------------------------------------------------- */
+  useEffect(() => {
+    if (!mapReady || !mapContainerRef.current) return;
 
-    const key = locationInput.toLowerCase();
-    const coords = LOCATION_COORDS[key] || [20.3050, 85.8280];
+    let cancelled = false;
 
-    const newStop = {
-      id: Date.now(),
-      name: locationInput,
-      coords,
-      distance: Number((Math.random() * 5 + 1).toFixed(1))
+    const initMap = () => {
+      if (cancelled || !mapContainerRef.current || mapInstanceRef.current) return;
+      const L = window.L;
+      if (!L) return;
+
+      const map = L.map(mapContainerRef.current, {
+        zoomControl: true,
+        attributionControl: false
+      }).setView(baseHubCoords, 13);
+
+      mapInstanceRef.current = map;
+      layerGroupRef.current = L.layerGroup().addTo(map);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19
+      }).addTo(map);
+
+      setTimeout(() => {
+        if (!cancelled && mapInstanceRef.current) {
+          mapInstanceRef.current.invalidateSize();
+        }
+      }, 200);
     };
 
-    setStops(prev => [
-      ...prev,
-      newStop
-    ]);
-
-    setLocationOptions(prev => [
-      ...new Set([
-        ...prev,
-        locationInput
-      ])
-    ]);
-
-    setLocationInput("");
-    setShowModal(false);
-  };
-
-  // --- MAP RENDER LOGIC ---
-  useEffect(() => {
     const loadLeafletAssets = () => {
       if (window.L) {
-        renderInteractiveMap();
+        initMap();
         return;
       }
 
@@ -330,28 +285,38 @@ const RouteManagement = () => {
 
       const jsScript = document.createElement('script');
       jsScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-      jsScript.onload = () => renderInteractiveMap();
+      jsScript.onload = () => {
+        if (!cancelled) initMap();
+      };
       document.head.appendChild(jsScript);
     };
 
-    const renderInteractiveMap = () => {
-      const L = window.L;
-      if (!L || !mapContainerRef.current) return;
+    loadLeafletAssets();
 
+    return () => {
+      cancelled = true;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+        layerGroupRef.current = null;
       }
+    };
+  }, [mapReady]);
 
-      const map = L.map(mapContainerRef.current, {
-        zoomControl: true,
-        attributionControl: false
-      }).setView(baseHubCoords, 13);
+  /* -----------------------------------------------------------------
+     MARKER / ROUTE REDRAW — runs whenever stops or hub coords change.
+     Only clears and repopulates the layerGroup; the map instance
+     itself is never destroyed, so there's no race with Leaflet's
+     internal position updates.
+  ----------------------------------------------------------------- */
+  useEffect(() => {
+    const L = window.L;
+    const map = mapInstanceRef.current;
+    const layerGroup = layerGroupRef.current;
+    if (!L || !map || !layerGroup) return;
 
-      mapInstanceRef.current = map;
-
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19
-      }).addTo(map);
+    try {
+      layerGroup.clearLayers();
 
       const hubIcon = L.divIcon({
         className: 'route-management-hub-marker',
@@ -361,13 +326,14 @@ const RouteManagement = () => {
       });
 
       L.marker(baseHubCoords, { icon: hubIcon })
-        .addTo(map)
+        .addTo(layerGroup)
         .bindPopup('<b>Main Dispatch Hub</b>');
 
       const routePoints = [baseHubCoords];
 
       stops.forEach((stop, index) => {
-        if (!stop.coords) return;
+        if (!stop.coords || !Array.isArray(stop.coords) || stop.coords.length !== 2) return;
+
         const stopIcon = L.divIcon({
           className: 'route-management-stop-marker',
           html: `<div class="stop-marker-wrapper">${index + 1}</div>`,
@@ -376,7 +342,7 @@ const RouteManagement = () => {
         });
 
         L.marker(stop.coords, { icon: stopIcon })
-          .addTo(map)
+          .addTo(layerGroup)
           .bindPopup(`<b>Stop ${index + 1}: ${stop.name}</b>`);
 
         routePoints.push(stop.coords);
@@ -390,28 +356,117 @@ const RouteManagement = () => {
           weight: 4,
           opacity: 0.85,
           lineJoin: 'round'
-        }).addTo(map);
+        }).addTo(layerGroup);
 
         const bounds = L.latLngBounds(routePoints);
-        map.fitBounds(bounds, { padding: [40, 40] });
+        map.fitBounds(bounds, { padding: [40, 40], animate: false });
       }
-    };
 
-    loadLeafletAssets();
-  }, [stops]);
+      map.invalidateSize();
+    } catch (error) {
+      console.error('Error redrawing map layers:', error);
+    }
+  }, [stops, baseHubCoords]);
 
-  const removeStop = (id) => {
-    setStops(stops.filter((stop) => stop.id !== id));
+  // Handle Adding Stop via Backend API (`/add-stop`)
+  const handleGenerateRoute = async (e) => {
+    e.preventDefault();
+    if (!locationInput.trim()) {
+      alert('Please enter a location');
+      return;
+    }
+
+    if (stops.some(s => s.name.toLowerCase() === locationInput.toLowerCase().trim())) {
+      alert(`⚠️ Location "${locationInput}" already exists in the route.`);
+      return;
+    }
+
+    const formattedKey = locationInput.toLowerCase().trim();
+    let coords = LOCATION_COORDS[formattedKey];
+
+    if (!coords) {
+      const offsetLat = (Math.random() - 0.5) * 0.045;
+      const offsetLng = (Math.random() - 0.5) * 0.045;
+      coords = [baseHubCoords[0] + offsetLat, baseHubCoords[1] + offsetLng];
+    }
+
+    const calculatedDistance = parseFloat((Math.random() * 3 + 1.2).toFixed(1));
+
+    try {
+      setLoadingStops(true);
+      console.log('Adding stop:', locationInput);
+
+      const response = await fetch(`${API_BASE_URL}/add-stop`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: locationInput,
+          distance: calculatedDistance,
+          coords: coords
+        })
+      });
+      const result = await response.json();
+      console.log('Add stop response:', result);
+
+      if (result.success) {
+        const updatedStops = result.data.stops;
+        setStops(updatedStops);
+        setTotalDistance(result.data.totalDistance);
+        setEstimatedTime(result.data.estimatedTime);
+
+        const newLocation = locationInput.trim();
+        setRouteLocations((prev) => {
+          const alreadyExists = prev.some(
+            (loc) => loc.toLowerCase() === newLocation.toLowerCase()
+          );
+          if (alreadyExists) return prev;
+          return [...prev, newLocation];
+        });
+
+        setLocationInput('');
+        setShowModal(false);
+        alert(`✅ Location "${locationInput}" added successfully!`);
+        await fetchTableRecords();
+      } else {
+        alert(result.message || 'Failed to add stop');
+      }
+    } catch (error) {
+      console.error('API Error adding stop:', error);
+      alert('Error adding location. Please try again.');
+    } finally {
+      setLoadingStops(false);
+    }
   };
 
-  // Metric Computations
-  const totalDistance = stops.reduce((sum, stop) => sum + (stop.distance || 0), 0).toFixed(1);
-  const totalMinutes = Math.round(stops.length * 8 + totalDistance * 3.2);
-  const hrs = Math.floor(totalMinutes / 60);
-  const mins = totalMinutes % 60;
-  const estimatedTime = hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`;
+  // Handle Removing Stop via Backend API (`/stop/:stopId`)
+  const removeStop = async (id) => {
+    if (!window.confirm('Are you sure you want to remove this stop?')) return;
 
-  // Form Handlers
+    try {
+      setLoadingStops(true);
+      const response = await fetch(`${API_BASE_URL}/stop/${id}`, {
+        method: 'DELETE'
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        setStops(result.data.stops);
+        setTotalDistance(result.data.totalDistance);
+        setEstimatedTime(result.data.estimatedTime);
+        alert('✅ Stop removed successfully!');
+        await fetchTableRecords();
+      } else {
+        alert(result.message || 'Failed to delete stop');
+      }
+    } catch (error) {
+      console.error('API Error deleting stop:', error);
+      alert('Error removing stop. Please try again.');
+    } finally {
+      setLoadingStops(false);
+    }
+  };
+
+  // --- Table Form Operations ---
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -434,10 +489,7 @@ const RouteManagement = () => {
 
   const handleSelectAllLocations = (e) => {
     if (e.target.checked) {
-      setFormData((prev) => ({
-        ...prev,
-        locations: [...locationOptions]
-      }));
+      setFormData((prev) => ({ ...prev, locations: [...routeLocations] }));
     } else {
       setFormData((prev) => ({ ...prev, locations: [] }));
     }
@@ -446,39 +498,169 @@ const RouteManagement = () => {
   const handleLocationCheckboxChange = (location) => {
     setFormData((prev) => {
       const isSelected = prev.locations.includes(location);
-      return {
-        ...prev,
-        locations: isSelected
-          ? prev.locations.filter((loc) => loc !== location)
-          : [...prev.locations, location]
-      };
+      if (isSelected) {
+        return { ...prev, locations: prev.locations.filter((loc) => loc !== location) };
+      } else {
+        return { ...prev, locations: [...prev.locations, location] };
+      }
     });
   };
 
+  const handleVehicleSelect = (e) => {
+    const selectedVehicleNumber = e.target.value;
+    if (selectedVehicleNumber) {
+      setFormData((prev) => ({
+        ...prev,
+        vehicle: selectedVehicleNumber,
+        vehicleNo: selectedVehicleNumber
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        vehicle: '',
+        vehicleNo: ''
+      }));
+    }
+  };
+
+  // Submit form - Save to backend
+  const handleTableSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.date || !formData.name || !formData.order || !formData.vehicleNo || !formData.vehicle) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
+    try {
+      setLoadingTable(true);
+
+      // Prepare data for backend
+      const payload = {
+        date: formData.date,
+        name: formData.name,
+        order: formData.order,
+        locations: formData.locations.length ? formData.locations : ['General Location'],
+        vehicleNo: formData.vehicleNo,
+        vehicle: formData.vehicle,
+        image: formData.imagePreview || undefined // only send when a new image was picked
+      };
+
+      console.log('Saving to backend:', payload);
+
+      if (editingId) {
+        const response = await fetch(`${API_BASE_URL}/assignments/${editingId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        console.log('Update assignment response:', result);
+
+        if (!result.success) {
+          alert(result.message || 'Failed to update record');
+          return;
+        }
+
+        alert('✅ Record updated successfully!');
+        setEditingId(null);
+      } else {
+        const response = await fetch(`${API_BASE_URL}/assignments`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        console.log('Create assignment response:', result);
+
+        if (!result.success) {
+          alert(result.message || 'Failed to create record');
+          return;
+        }
+
+        // Also add the name as a stop if it's a delivery partner
+        const isDeliveryPartner = deliveryPartners.some(p => p.name === formData.name);
+        if (isDeliveryPartner && !stops.some(s => s.name === formData.name)) {
+          try {
+            const coords = LOCATION_COORDS[formData.name.toLowerCase()] || [baseHubCoords[0] + (Math.random() - 0.5) * 0.045, baseHubCoords[1] + (Math.random() - 0.5) * 0.045];
+            const distance = parseFloat((Math.random() * 3 + 1.2).toFixed(1));
+
+            await fetch(`${API_BASE_URL}/add-stop`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: formData.name,
+                distance: distance,
+                coords: coords
+              })
+            });
+            // Refresh route data
+            await fetchActiveRoute();
+          } catch (error) {
+            console.error('Error adding as stop:', error);
+          }
+        }
+
+        alert('✅ Record created successfully!');
+      }
+
+      // Refetch from backend so the table always reflects real DB state
+      await fetchTableRecords();
+
+      setFormData({
+        date: new Date().toISOString().split('T')[0],
+        name: '',
+        order: '',
+        locations: [],
+        vehicleNo: '',
+        vehicle: '',
+        image: null,
+        imagePreview: ''
+      });
+      setShowTableForm(false);
+
+    } catch (error) {
+      console.error('Error saving record:', error);
+      alert('Failed to save record. Please try again.');
+    } finally {
+      setLoadingTable(false);
+    }
+  };
+
   const handleEdit = (item) => {
-    setEditingId(item._id || item.id);
+    setEditingId(item.id);
     setFormData({
-      date: item.date || new Date().toISOString().split('T')[0],
-      name: item.name || '',
-      order: item.order || '',
-      locations: item.locations.map(loc => typeof loc === 'object' ? loc.name : loc) || [],
-      vehicleNo: item.vehicleNo || '',
-      vehicle: item.vehicle || '',
+      date: item.date,
+      name: item.name,
+      order: item.order,
+      locations: item.locations,
+      vehicleNo: item.vehicleNo,
+      vehicle: item.vehicle,
       image: null,
-      imagePreview: item.image || ''
+      imagePreview: item.image
     });
     setShowTableForm(true);
   };
 
-  // Handle vehicle selection - auto-fill vehicle number
-  const handleVehicleSelect = (e) => {
-    const selectedVehicleNumber = e.target.value;
-    setFormData((prev) => ({
-      ...prev,
-      vehicle: selectedVehicleNumber,
-      // Auto-fill vehicle number if needed
-      vehicleNo: selectedVehicleNumber
-    }));
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this record?')) return;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/assignments/${id}`, {
+        method: 'DELETE'
+      });
+      const result = await response.json();
+
+      if (!result.success) {
+        alert(result.message || 'Failed to delete record');
+        return;
+      }
+
+      alert('✅ Record deleted successfully!');
+      await fetchTableRecords();
+    } catch (error) {
+      console.error('Error deleting record:', error);
+      alert('Error deleting record. Please try again.');
+    }
   };
 
   return (
@@ -492,8 +674,9 @@ const RouteManagement = () => {
         <button
           className="route-management-header__add-btn"
           onClick={() => setShowModal(true)}
+          disabled={loadingStops}
         >
-          <FaPlus /> Add Stop
+          <FaPlus /> {loadingStops ? 'Loading...' : 'Add Stop'}
         </button>
       </div>
 
@@ -521,28 +704,35 @@ const RouteManagement = () => {
 
         {/* Right Pane Sidebar Cards */}
         <div className="route-management-sidebar-queue">
-          {stops.map((stop, index) => (
-            <div key={stop.id} className="route-management-queue-card">
-              <div className="route-management-queue-card__left">
-                <div className="route-management-queue-card__num-indicator">{index + 1}</div>
-                <div className="route-management-queue-card__info-group">
-                  <h4 className="route-management-queue-card__name">{stop.name}</h4>
+          {loadingStops ? (
+            <div className="route-management-queue-empty">
+              <p>Loading stops...</p>
+            </div>
+          ) : (
+            stops.map((stop, index) => (
+              <div key={stop.id} className="route-management-queue-card">
+                <div className="route-management-queue-card__left">
+                  <div className="route-management-queue-card__num-indicator">{index + 1}</div>
+                  <div className="route-management-queue-card__info-group">
+                    <h4 className="route-management-queue-card__name">{stop.name}</h4>
+                  </div>
+                </div>
+                <div className="route-management-queue-card__right">
+                  <span className="route-management-queue-card__distance">{stop.distance} KM</span>
+                  <button
+                    className="route-management-queue-card__remove-btn"
+                    onClick={() => removeStop(stop.id)}
+                    title="Remove stop"
+                    disabled={loadingStops}
+                  >
+                    <FaTimes />
+                  </button>
                 </div>
               </div>
-              <div className="route-management-queue-card__right">
-                <span className="route-management-queue-card__distance">{stop.distance} KM</span>
-                <button
-                  className="route-management-queue-card__remove-btn"
-                  onClick={() => removeStop(stop.id)}
-                  title="Remove stop"
-                >
-                  <FaTimes />
-                </button>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
 
-          {stops.length === 0 && (
+          {!loadingStops && stops.length === 0 && (
             <div className="route-management-queue-empty">
               <p>No stops assigned. Click "+ Add Stop" to populate checkpoints.</p>
             </div>
@@ -555,7 +745,7 @@ const RouteManagement = () => {
         <div className="route-management-footer__stats-group">
           <span className="route-management-footer__stat-item">
             <FaRoute className="route-management-footer__stat-icon" />
-            Total Distance : <strong>{totalDistance} KM</strong>
+            Total Distance : <strong>{Number(totalDistance).toFixed(1)} KM</strong>
           </span>
           <span className="route-management-footer__stat-item">
             <FaClock className="route-management-footer__stat-icon" />
@@ -566,6 +756,7 @@ const RouteManagement = () => {
         <button
           className="route-management-footer__navigate-btn"
           onClick={() => alert(`Initiating navigation sequences for ${stops.length} locations!`)}
+          disabled={stops.length === 0}
         >
           <FaLocationArrow /> Start Navigation
         </button>
@@ -588,19 +779,14 @@ const RouteManagement = () => {
             <form onSubmit={handleGenerateRoute} className="route-management-modal-form">
               <div className="route-management-modal-form__group">
                 <label className="route-management-modal-form__label">Target Hub Location / Address</label>
-                <select
+                <input
+                  type="text"
                   className="route-management-modal-form__input"
+                  placeholder="e.g. Patia Square, Bhubaneswar"
                   value={locationInput}
                   onChange={(e) => setLocationInput(e.target.value)}
                   required
-                >
-                  <option value="">Select Location</option>
-                  {locationOptions.map((loc) => (
-                    <option key={loc} value={loc}>
-                      {loc}
-                    </option>
-                  ))}
-                </select>
+                />
                 <span className="route-management-modal-form__tip">
                   The integrated Map display above will center automatically to this address coordinates on submit.
                 </span>
@@ -617,8 +803,9 @@ const RouteManagement = () => {
                 <button
                   type="submit"
                   className="route-management-modal-actions__submit"
+                  disabled={loadingStops}
                 >
-                  Generate Map Route
+                  {loadingStops ? 'Adding...' : 'Generate Map Route'}
                 </button>
               </div>
             </form>
@@ -634,7 +821,16 @@ const RouteManagement = () => {
             className="route-management-table-add-btn"
             onClick={() => {
               setEditingId(null);
-              setFormData(EMPTY_FORM);
+              setFormData({
+                date: new Date().toISOString().split('T')[0],
+                name: '',
+                order: '',
+                locations: [],
+                vehicleNo: '',
+                vehicle: '',
+                image: null,
+                imagePreview: ''
+              });
               setShowTableForm(!showTableForm);
             }}
           >
@@ -648,7 +844,6 @@ const RouteManagement = () => {
             <h4 className="form-heading">{editingId ? 'Edit Entry' : 'Add New Entry'}</h4>
             <div className="form-grid">
 
-              {/* DATE PICKER */}
               <div className="form-group date-input-wrapper">
                 <label>Date</label>
                 <div
@@ -668,7 +863,7 @@ const RouteManagement = () => {
                 </div>
               </div>
 
-              {/* NAME DROPDOWN - Fetch from Delivery API */}
+              {/* NAME DROPDOWN - Fetched from Delivery API */}
               <div className="form-group">
                 <label>Name</label>
                 <select
@@ -688,7 +883,6 @@ const RouteManagement = () => {
                       </option>
                     ))
                   ) : (
-                    // Fallback options if API fails
                     <>
                       <option value="Rahul Sharma">Rahul Sharma</option>
                       <option value="Amit Patel">Amit Patel</option>
@@ -706,7 +900,6 @@ const RouteManagement = () => {
                 )}
               </div>
 
-              {/* ORDER INPUT */}
               <div className="form-group">
                 <label>Order</label>
                 <input
@@ -719,7 +912,6 @@ const RouteManagement = () => {
                 />
               </div>
 
-              {/* CHECKBOX MULTI-SELECT DROPDOWN FOR LOCATION */}
               <div className="form-group custom-dropdown-group">
                 <label>Location</label>
                 <div className="custom-dropdown-header" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -736,16 +928,13 @@ const RouteManagement = () => {
                     <label className="dropdown-option select-all">
                       <input
                         type="checkbox"
-                        checked={
-                          formData.locations.length === locationOptions.length &&
-                          locationOptions.length > 0
-                        }
+                        checked={formData.locations.length === routeLocations.length}
                         onChange={handleSelectAllLocations}
                       />
-                      <strong>Select All</strong>
+                      <strong>Select All ({routeLocations.length})</strong>
                     </label>
                     <hr />
-                    {locationOptions.map((loc) => (
+                    {routeLocations.map((loc) => (
                       <label key={loc} className="dropdown-option">
                         <input
                           type="checkbox"
@@ -759,7 +948,7 @@ const RouteManagement = () => {
                 )}
               </div>
 
-              {/* VEHICLE SELECTION - Auto-populates Vehicle Number */}
+              {/* VEHICLE SELECTION - Fetched from Vehicle API */}
               <div className="form-group">
                 <label>Select Vehicle</label>
                 <select
@@ -777,16 +966,16 @@ const RouteManagement = () => {
                       const vehicleId = vehicle._id || vehicle.id;
                       const vehicleNumber = vehicle.number || vehicle.vehicleNo || '';
                       const driverName = vehicle.driver || 'No Driver';
+                      const capacity = vehicle.capacity || 'N/A';
                       const status = vehicle.status || 'Active';
-                      
+
                       return (
                         <option key={vehicleId} value={vehicleNumber}>
-                          {vehicleNumber} - {driverName} ({status})
+                          {vehicleNumber} - {driverName} (Capacity: {capacity}, Status: {status})
                         </option>
                       );
                     })
                   ) : (
-                    // Fallback options if API fails
                     <>
                       <option value="OD-02-AB-1234">OD-02-AB-1234 - Default Vehicle</option>
                       <option value="OD-03-CD-5678">OD-03-CD-5678 - Backup Vehicle</option>
@@ -818,7 +1007,6 @@ const RouteManagement = () => {
                 </small>
               </div>
 
-              {/* IMAGE FILE UPLOAD INPUT */}
               <div className="form-group file-upload-group">
                 <label>Upload Image</label>
                 <label htmlFor="image-file-input" className="file-upload-label">
@@ -832,23 +1020,18 @@ const RouteManagement = () => {
                   style={{ display: 'none' }}
                 />
                 {formData.imagePreview && (
-                  <img
-                    src={formData.imagePreview}
-                    alt="Preview"
-                    className="image-preview"
-                    onError={(e) => { e.target.src = DEFAULT_AVATAR; }}
-                  />
+                  <img src={formData.imagePreview} alt="Preview" className="image-preview" />
                 )}
               </div>
             </div>
 
-            <button type="submit" className="form-submit-btn" disabled={submitting}>
-              {submitting ? 'Saving...' : (editingId ? 'Update Record' : 'Submit Record')}
+            <button type="submit" className="form-submit-btn" disabled={loadingTable}>
+              {loadingTable ? 'Saving...' : (editingId ? 'Update Record' : 'Submit Record')}
             </button>
           </form>
         )}
 
-        {/* Data Table */}
+        {/* Data Table - Connected to Backend */}
         <div className="route-management-table-container">
           <table className="route-management-table">
             <thead>
@@ -870,15 +1053,23 @@ const RouteManagement = () => {
                     Loading records from server...
                   </td>
                 </tr>
+              ) : tableError ? (
+                <tr>
+                  <td colSpan="8" className="text-center no-data" style={{ color: '#ef4444' }}>
+                    ⚠️ Error: {tableError}
+                  </td>
+                </tr>
               ) : tableData.length > 0 ? (
                 tableData.map((item) => (
-                  <tr key={item._id || item.id}>
+                  <tr key={item.id}>
                     <td>
                       <img
                         src={item.image}
                         alt={item.name}
                         className="table-img"
-                        onError={(e) => { e.target.src = DEFAULT_AVATAR; }}
+                        onError={(e) => {
+                          e.target.src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150';
+                        }}
                       />
                     </td>
                     <td className="font-semibold">{item.date}</td>
@@ -914,7 +1105,7 @@ const RouteManagement = () => {
                         </button>
                         <button
                           className="action-btn delete"
-                          onClick={() => handleDelete(item._id || item.id)}
+                          onClick={() => handleDelete(item.id)}
                           title="Delete"
                         >
                           <FaTrash />
