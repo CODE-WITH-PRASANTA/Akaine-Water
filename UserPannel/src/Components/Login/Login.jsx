@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API from '../../api/axios';
 import {
   FaUser,
   FaLock,
@@ -8,7 +9,6 @@ import {
   FaUserShield,
   FaRegSquare,
   FaCheckSquare,
-  FaKey,
   FaEnvelope,
   FaPhone,
   FaMapMarkerAlt,
@@ -17,27 +17,22 @@ import {
 import { TbGridDots } from 'react-icons/tb';
 import './Login.css';
 
-// Importing custom logo 
 import alkaDropsLogo from "../../assets/ALKA DROPS LOGO.png";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  // Mode state: 'login' | 'register'
   const [isRegistering, setIsRegistering] = useState(false);
-
-  // Common UI State
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  // Login Form State
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 
-  // Registration Form State
   const [registerData, setRegisterData] = useState({
     fullName: '',
     address: '',
@@ -60,41 +55,53 @@ const Login = () => {
     setIsRegistering(mode === 'register');
   };
 
-  // Login Handler (Simulated JWT Auth)
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
+    setSubmitting(true);
 
-    // Check credentials against demo admin or registered user in localStorage
-    const savedUser = JSON.parse(localStorage.getItem('alkadrops_user') || '{}');
+    try {
+      const response = await API.post('/auth/login', {
+        email: loginUsername,
+        password: loginPassword
+      });
 
-    const isValidAdmin = loginUsername === 'alkadrops' && loginPassword === '12345';
-    const isValidRegisteredUser = savedUser.email === loginUsername && savedUser.password === loginPassword;
+      if (response.data?.success) {
+        setSuccessMessage(response.data.message || 'Credentials verified! Opening dashboard...');
+const { token, role } = response.data;
 
-    if (isValidAdmin || isValidRegisteredUser) {
-      setSuccessMessage('Credentials verified! Opening dashboard...');
-      
-      // Store JWT token simulation in Session/Local Storage
-      const mockJWTToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjo2NjYiLCJyb2xlIjoiYWRtaW4ifQ";
-      sessionStorage.setItem("authToken", mockJWTToken);
-      sessionStorage.setItem("isAdminAuthenticated", "true");
+const storage = rememberMe ? localStorage : sessionStorage;
 
-      setTimeout(() => {
-        navigate("/wdms/dashboard");
-      }, 1200);
-    } else {
-      setErrorMessage('Invalid ID or Password. Check credentials displayed above.');
+storage.setItem('authToken', token);
+storage.setItem('isAdminAuthenticated', 'true');
+storage.setItem('userRole', role || 'user');
+
+console.log("Login Success");
+console.log("Token:", storage.getItem("authToken"));
+
+navigate("/wdms/dashboard", { replace: true });
+
+        // Small timeout to ensure token is committed to storage before router checks it
+        setTimeout(() => {
+          navigate("/wdms/dashboard");
+        }, 100);
+      } else {
+        setErrorMessage(response.data?.message || 'Invalid ID or Password.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrorMessage(error.response?.data?.message || 'Invalid ID or Password. Check credentials and try again.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  // Registration Handler
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
 
-    // Password validation check
     if (registerData.password !== registerData.confirmPassword) {
       setErrorMessage('Passwords do not match!');
       return;
@@ -105,30 +112,42 @@ const Login = () => {
       return;
     }
 
-    // Save registered user details locally (Mock backend call)
-    localStorage.setItem('alkadrops_user', JSON.stringify(registerData));
+    setSubmitting(true);
 
-    setSuccessMessage('Account registered successfully! Please login with your details.');
-    
-    // Switch back to login panel after short delay
-    setTimeout(() => {
-      setLoginUsername(registerData.email);
-      setLoginPassword('');
-      setIsRegistering(false);
-      setSuccessMessage('');
-    }, 1500);
+    try {
+      const response = await API.post('/auth/register', {
+        fullName: registerData.fullName,
+        address: registerData.address,
+        phone: registerData.phone,
+        email: registerData.email,
+        password: registerData.password
+      });
+
+      if (response.data?.success) {
+        setSuccessMessage(response.data.message || 'Account registered successfully! Please login with your details.');
+
+        setTimeout(() => {
+          setLoginUsername(registerData.email);
+          setLoginPassword('');
+          setIsRegistering(false);
+          setSuccessMessage('');
+        }, 1500);
+      } else {
+        setErrorMessage(response.data?.message || 'Registration failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      setErrorMessage(error.response?.data?.message || 'Registration failed. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <div className="Login-container">
       <div className="Login-card">
-        
-        {/* Left Side: Gradient Banner */}
         <div className="Login-left">
-          <div className="Login-dots-top">
-            <TbGridDots size={40} />
-          </div>
-
+          <div className="Login-dots-top"><TbGridDots size={40} /></div>
           <div className="Login-brand-header">
             <div className="Login-logo-container">
               {alkaDropsLogo ? (
@@ -142,12 +161,8 @@ const Login = () => {
               <p className="Login-brand-subtitle">BEST SOFTWARE SOLUTION</p>
             </div>
           </div>
-
           <div className="Login-left-body">
-            <h1 className="Login-hero-text">
-              ALKA <br />
-              DROPS
-            </h1>
+            <h1 className="Login-hero-text">ALKA <br /> DROPS</h1>
             <div className="Login-divider" />
             <p className="Login-description">
               {isRegistering 
@@ -155,49 +170,31 @@ const Login = () => {
                 : "Welcome to the Alka Drops Admin Dashboard. Manage projects, clients, content and business operations securely."}
             </p>
           </div>
-
           <div className="Login-secure-badge">
-            <div className="Login-badge-icon-wrapper">
-              <FaUserShield className="Login-badge-icon" />
-            </div>
+            <div className="Login-badge-icon-wrapper"><FaUserShield className="Login-badge-icon" /></div>
             <div className="Login-badge-text">
               <span className="Login-badge-title">JWT Authenticated</span>
               <span className="Login-badge-desc">Your security is our priority.</span>
             </div>
           </div>
-
-          <div className="Login-dots-bottom">
-            <TbGridDots size={40} />
-          </div>
-
+          <div className="Login-dots-bottom"><TbGridDots size={40} /></div>
           <div className="Login-orb-bottom" />
         </div>
 
-        {/* Right Side: Dynamic Form (Login / Register) */}
         <div className="Login-right">
-          
           <div className="Login-avatar-container">
             <div className="Login-avatar-wrapper">
-              {isRegistering ? (
-                <FaUserPlus className="Login-avatar-icon" />
-              ) : (
-                <FaUserShield className="Login-avatar-icon" />
-              )}
+              {isRegistering ? <FaUserPlus className="Login-avatar-icon" /> : <FaUserShield className="Login-avatar-icon" />}
             </div>
           </div>
 
           <div className="Login-right-header">
-            <h2 className="Login-welcome-title">
-              {isRegistering ? "Create Account" : "Welcome Back"}
-            </h2>
+            <h2 className="Login-welcome-title">{isRegistering ? "Create Account" : "Welcome Back"}</h2>
             <p className="Login-welcome-subtitle">
-              {isRegistering 
-                ? "Fill in your details to create a new user profile" 
-                : "Sign in to continue to your dashboard"}
+              {isRegistering ? "Fill in your details to create a new user profile" : "Sign in to continue to your dashboard"}
             </p>
           </div>
 
-          {/* Feedback Messages */}
           {successMessage && (
             <div className="Login-success-toast">
               <span className="Login-success-check">✓</span>
@@ -212,10 +209,8 @@ const Login = () => {
             </div>
           )}
 
-          {/* LOGIN FORM VIEW */}
           {!isRegistering ? (
             <>
-              {/* Credentials Display Box */}
               <form className="Login-form" onSubmit={handleLoginSubmit}>
                 <div className="Login-input-wrapper">
                   <FaUser className="Login-input-icon" />
@@ -262,28 +257,21 @@ const Login = () => {
                   <a href="#forgot" className="Login-forgot-link">Forgot Password?</a>
                 </div>
 
-                <button type="submit" className="Login-submit-btn">
-                  Login
+                <button type="submit" className="Login-submit-btn" disabled={submitting}>
+                  {submitting ? 'Signing in...' : 'Login'}
                 </button>
               </form>
 
               <div className="Login-switch-prompt">
                 <span>Don't have an account?</span>
-                <button 
-                  type="button" 
-                  className="Login-switch-btn"
-                  onClick={() => toggleMode('register')}
-                >
+                <button type="button" className="Login-switch-btn" onClick={() => toggleMode('register')}>
                   Register Now
                 </button>
               </div>
             </>
           ) : (
-            /* REGISTER FORM VIEW */
             <>
               <form className="Login-form Login-register-form" onSubmit={handleRegisterSubmit}>
-                
-                {/* Full Name */}
                 <div className="Login-input-wrapper">
                   <FaUser className="Login-input-icon" />
                   <input
@@ -297,7 +285,6 @@ const Login = () => {
                   />
                 </div>
 
-                {/* Address */}
                 <div className="Login-input-wrapper">
                   <FaMapMarkerAlt className="Login-input-icon" />
                   <input
@@ -311,7 +298,6 @@ const Login = () => {
                   />
                 </div>
 
-                {/* Phone Number */}
                 <div className="Login-input-wrapper">
                   <FaPhone className="Login-input-icon" />
                   <input
@@ -325,7 +311,6 @@ const Login = () => {
                   />
                 </div>
 
-                {/* Email ID */}
                 <div className="Login-input-wrapper">
                   <FaEnvelope className="Login-input-icon" />
                   <input
@@ -339,7 +324,6 @@ const Login = () => {
                   />
                 </div>
 
-                {/* Password */}
                 <div className="Login-input-wrapper">
                   <FaLock className="Login-input-icon" />
                   <input
@@ -360,7 +344,6 @@ const Login = () => {
                   </button>
                 </div>
 
-                {/* Confirm Password */}
                 <div className="Login-input-wrapper">
                   <FaLock className="Login-input-icon" />
                   <input
@@ -381,18 +364,14 @@ const Login = () => {
                   </button>
                 </div>
 
-                <button type="submit" className="Login-submit-btn">
-                  Submit & Register
+                <button type="submit" className="Login-submit-btn" disabled={submitting}>
+                  {submitting ? 'Submitting...' : 'Submit & Register'}
                 </button>
               </form>
 
               <div className="Login-switch-prompt">
                 <span>Already have an account?</span>
-                <button 
-                  type="button" 
-                  className="Login-switch-btn"
-                  onClick={() => toggleMode('login')}
-                >
+                <button type="button" className="Login-switch-btn" onClick={() => toggleMode('login')}>
                   Sign In
                 </button>
               </div>
@@ -403,7 +382,6 @@ const Login = () => {
             © {new Date().getFullYear()} ALKA DROPS. All rights reserved.
           </p>
         </div>
-
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ const boysassigneRoutes = require("./src/routes/boyassigneRoutes");
 const routeRoutes = require("./src/routes/routeRoutes");
 const damagedStockRoutes = require("./src/routes/damagedStockRoutes");
 const productRoutes = require("./src/routes/productRoutes");
+const authRoutes = require("./src/routes/authRoutes");
 // Connect Database
 connectDB();
 
@@ -48,6 +49,7 @@ app.use("/api/boysassigne", boysassigneRoutes);
 app.use("/api/routeRoutes", routeRoutes);
 app.use("/api/damage", damagedStockRoutes);
 app.use("/api/products", productRoutes);
+app.use('/api/auth', authRoutes);
  // Added alias mapping /api/locations to match frontend expectations
 
 // ================= Home Route =================
