@@ -10,7 +10,7 @@ import VehicleStock from "./Pages/VehicleStock/VehicleStock";
 import Payment from "./Pages/Payment/Payment";
 
 // Components
-import Dashboard from "./Component/Dashboard/Dashboard";
+
 import Reports from "./Component/Reports/Reports";
 import Orders from "./Component/Orders/Orders";
 import EmptyReturn from "./Component/EmptyReturn/EmptyReturn";
@@ -22,6 +22,7 @@ import Settings from "./Component/Settings/Settings";
 // Authentication
 import ProtectedRoute from "./Component/ProtectedRoute/ProtectedRoute";
 import Login from "./Component/Login/Login";
+import DashBoard from "./Pages/DashBoard/DashBoard";
 
 const App = () => {
   return (
@@ -34,10 +35,10 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<MainLayout />}>
             {/* Default Dashboard */}
-            <Route index element={<Dashboard />} />
+            <Route index element={<DashBoard/>} />
 
             {/* Dashboard Route */}
-            <Route path="wdms/dashboard" element={<Dashboard />} />
+            <Route path="wdms/dashboard" element={<DashBoard/>}/>
 
             {/* Other Routes */}
             <Route path="fail" element={<FailedDelivery />} />
