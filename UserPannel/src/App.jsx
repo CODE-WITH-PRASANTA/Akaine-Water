@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainDashboard from "./Pages/MainDashboard/MainDashboard";
 
 
-// Layout
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import MyOrder from "./Components/MyOrder/MyOrder";
