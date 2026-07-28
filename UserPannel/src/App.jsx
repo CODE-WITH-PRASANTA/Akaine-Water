@@ -1,28 +1,79 @@
 import React from "react";
+<<<<<<< HEAD
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainDashboard from "./Pages/MainDashboard/MainDashboard";
 
 
+=======
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+>>>>>>> f4fbcef515dd2122efd89e7432186bc856e61b33
 
 import MainLayout from "./Layout/MainLayout/MainLayout";
+
+import MainDashboard from "./Pages/MainDashboard/MainDashboard";
 import MyOrder from "./Components/MyOrder/MyOrder";
 import SupportTickets from "./Components/SupportTickets/SupportTickets";
+import MySubscription from "./Components/MySubscription/MySubscription";
+import Login from "./Components/Login/Login";
+
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        
-      <Route path="/" element={<MainDashboard/>} />
 
-        <Route path="/" element={<MainLayout />}>
-          {/* Default page */}
-          <Route index element={<Navigate to="orders" replace />} />
+        {/* Public Login */}
+        <Route path="/login" element={<Login />} />
 
-          {/* Pages inside layout */}
-          <Route path="orders" element={<MyOrder />} />
-          <Route path="support" element={<SupportTickets />} />
+
+        {/* Protected Admin Panel */}
+        <Route element={<ProtectedRoute />}>
+
+          <Route path="/wdms" element={<MainLayout />}>
+
+            {/* Default */}
+            <Route index element={<Navigate to="dashboard" replace />} />
+
+
+            {/* Dashboard */}
+            <Route 
+              path="dashboard" 
+              element={<MainDashboard />} 
+            />
+
+
+            {/* Orders */}
+            <Route 
+              path="orders" 
+              element={<MyOrder />} 
+            />
+
+
+            {/* Support */}
+            <Route 
+              path="support" 
+              element={<SupportTickets />} 
+            />
+
+
+            {/* Subscription */}
+            <Route 
+              path="subscription" 
+              element={<MySubscription />} 
+            />
+
+
+          </Route>
+
         </Route>
+
+
+        {/* Unknown URL */}
+        <Route 
+          path="*" 
+          element={<Navigate to="/wdms/dashboard" replace />} 
+        />
 
       </Routes>
     </BrowserRouter>

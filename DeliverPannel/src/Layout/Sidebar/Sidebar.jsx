@@ -30,6 +30,8 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
     { type: 'link', icon: <BarChart3 size={20} />, text: 'Reports', path: '/wdms/reports' },
   
     { type: 'link', icon: <Settings size={20} />, text: 'Settings', path: '/wdms/settings' },
+    { type: 'link', icon: <Settings size={20} />, text: 'My Profile', path: '/wdms/profile' },
+   
   
   ];
 

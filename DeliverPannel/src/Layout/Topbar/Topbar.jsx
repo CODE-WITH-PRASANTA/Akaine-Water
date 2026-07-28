@@ -1,22 +1,39 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Menu, ChevronDown, Bell, Search, User, LogOut, Shield, Info, AlertTriangle, CreditCard, ShoppingBag } from 'lucide-react';
 import './Topbar.css';
 
 const Topbar = ({ toggleSidebar }) => {
+  const navigate = useNavigate();
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const notificationsRef = useRef(null);
+  const userRef = useRef(null);
 
-  // Close notifications if clicked outside
+  // Close notifications/user dropdown if clicked outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
         setNotificationsOpen(false);
       }
+      if (userRef.current && !userRef.current.contains(event.target)) {
+        setUserDropdownOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setUserDropdownOpen(false);
+
+    // Clear the same session keys Login.jsx sets on sign-in
+    sessionStorage.removeItem('isAdminAuthenticated');
+    sessionStorage.removeItem('deliveryPartner');
+
+    navigate('/login', { replace: true });
+  };
 
   return (
     <header className="Topbar">
@@ -37,17 +54,15 @@ const Topbar = ({ toggleSidebar }) => {
           <input type="text" placeholder="Search..." className="Topbar-search-input" />
         </div>
 
-        {/* --- MODIFIED NOTIFICATION SECTION --- */}
         <div className="Topbar-notification-wrapper" ref={notificationsRef}>
-          <button 
-            className="Topbar-action-btn" 
+          <button
+            className="Topbar-action-btn"
             onClick={() => setNotificationsOpen(!notificationsOpen)}
           >
             <Bell size={20} />
             <span className="Topbar-badge">3</span>
           </button>
 
-          {/* New Notification Popup Card - accurate design from reference */}
           <div className={`Topbar-notification-popup ${notificationsOpen ? 'is-open' : ''}`}>
             <div className="Notification-header">
               <div className="Notification-header-info">
@@ -55,7 +70,7 @@ const Topbar = ({ toggleSidebar }) => {
                 <h3 className="Notification-title">Notifications</h3>
               </div>
             </div>
-            
+
             <div className="Notification-list">
               <div className="Notification-item">
                 <div className="Notification-icon-wrapper info">
@@ -101,19 +116,18 @@ const Topbar = ({ toggleSidebar }) => {
                 <span className="Notification-time">09:20 AM</span>
               </div>
             </div>
-            
+
             <div className="Notification-footer">
               <a href="#viewall" className="Notification-viewall">View All</a>
             </div>
           </div>
         </div>
-        {/* --- END MODIFIED SECTION --- */}
 
-        <div className="Topbar-user" onClick={() => setUserDropdownOpen(!userDropdownOpen)}>
-          <img 
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" 
-            alt="User Avatar" 
-            className="Topbar-avatar" 
+        <div className="Topbar-user" ref={userRef} onClick={() => setUserDropdownOpen(!userDropdownOpen)}>
+          <img
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+            alt="User Avatar"
+            className="Topbar-avatar"
           />
           <div className="Topbar-user-info">
             <span className="Topbar-username">Jane Doe</span>
@@ -130,7 +144,7 @@ const Topbar = ({ toggleSidebar }) => {
                 <Shield size={16} /> Security
               </a>
               <div className="Topbar-dropdown-divider"></div>
-              <a href="#logout" className="Topbar-dropdown-item logout">
+              <a href="#logout" className="Topbar-dropdown-item logout" onClick={handleLogout}>
                 <LogOut size={16} /> Logout
               </a>
             </div>

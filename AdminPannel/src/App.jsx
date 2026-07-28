@@ -5,7 +5,7 @@ import "./App.css";
 // Layout
 import MainLayout from "./Layout/MainLayout/MainLayout";
 
-// Components
+// Components / Pages
 import Login from "./Components/Login/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import OurTeam from "./Components/OurTeam/OurTeam";
@@ -31,19 +31,10 @@ import RouteManagement from "./Pages/RouteManagement/RouteManagement";
 import Inventory from "./Pages/Inventory/Inventory";
 import Vehicles from "./Components/Vehicles/Vehicles";
 import AddExpense from "./Components/AddExpense/AddExpense";
-<<<<<<< HEAD
-import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
-<<<<<<< HEAD
 import SubscriptionManagement from "./Pages/SubscriptionManagement/SubscriptionManagement";
 import DeliveryId from "./Pages/DeliveryId/DeliveryId";
-=======
 import ManageStock from "./Components/ManageStock/ManageStock";
-
->>>>>>> f6076958211f0ad7c407d1250f8806b23c81701f
-=======
-import ManageStock from "./Components/ManageStock/ManageStock";
-import StockManagement from "./Components/StockManagement/StockManagement"; // Fix: Added missing import
->>>>>>> 3475c31e90059eefead3b42f4371ce5e22298dad
+import StockManagement from "./Components/StockManagement/StockManagement";
 
 const App = () => {
   return (
@@ -86,20 +77,15 @@ const App = () => {
             <Route path="/wdms/damage-stock" element={<DamagedStock />} />
             <Route path="/wdms/vehicles" element={<Vehicles />} />
             <Route path="/wdms/invoice" element={<InvoiceManagement />} />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <Route path="/products/subscription" element={<SubscriptionManagement/>} />
-            <Route path="/products/id-generate" element={<DeliveryId/>} />
-=======
-           <Route path="/wdms/stock/manage" element={<ManageStock/>}/>
->>>>>>> f6076958211f0ad7c407d1250f8806b23c81701f
-=======
+
+            {/* Product Routes */}
+            <Route path="/products/subscription" element={<SubscriptionManagement />} />
+            <Route path="/products/id-generate" element={<DeliveryId />} />
+            <Route path="/products/testimonials" element={<Testimonial />} />
 
             {/* Resource & Legacy Routes */}
             <Route path="/resources/team" element={<OurTeam />} />
             <Route path="/resources/gallery" element={<Gallery />} />
-            <Route path="/products/testimonials" element={<Testimonial />} />
->>>>>>> 3475c31e90059eefead3b42f4371ce5e22298dad
           </Route>
         </Route>
 
