@@ -1,0 +1,565 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.supporttickets-wrapper {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Layout Split Grid */
+.supporttickets-container {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.supporttickets-container.split-view .supporttickets-left-panel,
+.supporttickets-container.split-view .supporttickets-right-panel {
+  flex: 1;
+  width: 50%;
+}
+
+.supporttickets-container.full-view .supporttickets-left-panel {
+  width: 100%;
+  flex: 1;
+}
+
+/* Common Card Panel Styling */
+.supporttickets-left-panel,
+.supporttickets-right-panel {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+/* Left Panel Header */
+.supporttickets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.supporttickets-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.supporttickets-subtitle {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.supporttickets-new-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #1d4ed8;
+  color: #ffffff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.supporttickets-new-btn:hover {
+  background-color: #1e40af;
+}
+
+.supporttickets-new-btn.disabled-btn {
+  background-color: #2563eb;
+  cursor: default;
+}
+
+/* Status Tabs Bar */
+.supporttickets-tabs-bar {
+  display: flex;
+  gap: 16px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.supporttickets-tab {
+  background: none;
+  border: none;
+  padding: 10px 0 14px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.supporttickets-tab.active {
+  color: #2563eb;
+  font-weight: 600;
+  border-bottom-color: #2563eb;
+}
+
+.supporttickets-tab-count {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.supporttickets-tab-count.blue-bg { background: #eff6ff; color: #2563eb; }
+.supporttickets-tab-count.yellow-bg { background: #fefce8; color: #ca8a04; }
+.supporttickets-tab-count.light-blue-bg { background: #e0f2fe; color: #0284c7; }
+.supporttickets-tab-count.green-bg { background: #f0fdf4; color: #16a34a; }
+.supporttickets-tab-count.gray-bg { background: #f1f5f9; color: #64748b; }
+
+/* Filter Bar & Universal Input Field Styling */
+.supporttickets-filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.supporttickets-search-box {
+  position: relative;
+  flex: 1;
+}
+
+/* Base styles for all Inputs, Selects, and Textareas */
+.supporttickets-search-box input,
+.supporttickets-select,
+.supporttickets-input,
+.supporttickets-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  font-size: 13px;
+  font-family: inherit;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Custom Search Box padding for search icon placement */
+.supporttickets-search-box input {
+  padding-left: 38px;
+}
+
+.supporttickets-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 16px;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+/* Hover States for all inputs */
+.supporttickets-search-box input:hover,
+.supporttickets-select:hover,
+.supporttickets-input:hover,
+.supporttickets-textarea:hover {
+  border-color: #94a3b8;
+}
+
+/* Focus States for all inputs */
+.supporttickets-search-box input:focus,
+.supporttickets-select:focus,
+.supporttickets-input:focus,
+.supporttickets-textarea:focus {
+  border-color: #2563eb;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.supporttickets-search-box input:focus + .supporttickets-search-icon {
+  color: #2563eb;
+}
+
+/* Placeholder Custom Styling */
+.supporttickets-search-box input::placeholder,
+.supporttickets-input::placeholder,
+.supporttickets-textarea::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+/* Dropdown Select Specific Styling */
+.supporttickets-dropdown-wrapper {
+  min-width: 140px;
+}
+
+.supporttickets-select,
+.select-input {
+  appearance: none;
+  padding-right: 34px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+}
+
+.supporttickets-filter-icon-btn {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.supporttickets-filter-icon-btn:hover {
+  border-color: #94a3b8;
+  background-color: #f8fafc;
+  color: #334155;
+}
+
+/* Ticket List Item */
+.supporttickets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.supporttickets-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  background: #ffffff;
+  transition: all 0.2s;
+}
+
+.supporttickets-card:hover {
+  border-color: #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.supporttickets-card-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.supporttickets-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.supporttickets-icon-wrapper.delivery { background: #eff6ff; }
+.supporttickets-icon-wrapper.product { background: #fff7ed; }
+.supporttickets-icon-wrapper.payment { background: #f3e8ff; }
+.supporttickets-icon-wrapper.general { background: #fef2f2; }
+
+.supporttickets-item-icon { font-size: 20px; }
+.supporttickets-item-icon.blue { color: #2563eb; }
+.supporttickets-item-icon.orange { color: #ea580c; }
+.supporttickets-item-icon.purple { color: #9333ea; }
+.supporttickets-item-icon.green { color: #16a34a; }
+.supporttickets-item-icon.pink { color: #e11d48; }
+
+.supporttickets-id {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.supporttickets-subject {
+  margin: 2px 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.supporttickets-meta {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.supporttickets-card-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.supporttickets-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.supporttickets-badge.resolved { background: #dcfce7; color: #15803d; }
+.supporttickets-badge.in-progress { background: #e0f2fe; color: #0369a1; }
+.supporttickets-badge.open { background: #fef3c7; color: #b45309; }
+.supporttickets-badge.closed { background: #f1f5f9; color: #64748b; }
+
+.supporttickets-arrow {
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+/* Footer Pagination */
+.supporttickets-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.supporttickets-showing-text {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.supporttickets-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.supporttickets-page-arrow,
+.supporttickets-page-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #334155;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.supporttickets-page-arrow:hover,
+.supporttickets-page-num:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.supporttickets-page-num.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+/* Right Panel Form Specifics */
+.supporttickets-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.supporttickets-form-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.supporttickets-close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.supporttickets-close-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.supporttickets-form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.supporttickets-form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.supporttickets-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.supporttickets-help-text {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 5px;
+}
+
+/* Upload Box Container */
+.supporttickets-upload-box {
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.supporttickets-upload-box:hover {
+  border-color: #2563eb;
+  background: #f0f6ff;
+}
+
+.supporttickets-upload-icon {
+  font-size: 28px;
+  color: #2563eb;
+  margin-bottom: 8px;
+}
+
+.supporttickets-upload-text {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+}
+
+.supporttickets-link {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.supporttickets-upload-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  display: block;
+  margin-top: 4px;
+}
+
+/* Form Action Buttons */
+.supporttickets-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.supporttickets-btn-cancel {
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.supporttickets-btn-cancel:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.supporttickets-btn-submit {
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.supporttickets-btn-submit:hover {
+  background: #1d4ed8;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .supporttickets-container.split-view {
+    flex-direction: column;
+  }
+
+  .supporttickets-container.split-view .supporttickets-left-panel,
+  .supporttickets-container.split-view .supporttickets-right-panel {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .supporttickets-filter-bar {
+    flex-direction: column;
+  }
+  
+  .supporttickets-dropdown-wrapper {
+    width: 100%;
+  }
+
+  .supporttickets-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .supporttickets-card-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
