@@ -6,8 +6,7 @@ import "./App.css";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 
 // Components / Pages
-import Login from "./Components/Login/Login"; // Import your Login Component
- // Import your ProtectedRoute wrapper
+import Login from "./Components/Login/Login"; 
 
 import OurTeam from "./Components/OurTeam/OurTeam";
 import Gallery from "./Components/Gallery/Gallery";
@@ -21,7 +20,6 @@ import BlogPosting from "./Components/BlogPosting/BlogPosting";
 import BlogManagement from "./Components/BlogManagement/BlogManagement";
 
 import DashboardMain from "./Pages/DashboardMain/DashboardMain";
-// import ManageStock from "./Components/ManageStock/ManageStock";
 import Paymentmanagement from "./Components/Paymentmanagement/Paymentmanagement";
 import ProductandPrice from "./Components/ProductandPrice/ProductandPrice";
 import InvoiceManagement from "./Components/InvoiceManagement/InvoiceManagement";
@@ -40,6 +38,9 @@ import AddExpense from "./Components/AddExpense/AddExpense";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import ManageStock from "./Components/ManageStock/ManageStock";
 
+
+import StockManagement from "./Components/StockManagement/StockManagement";
+import LeaveRequest from "./Components/LeaveRequest/LeaveRequest";
 
 const App = () => {
   return (
@@ -90,7 +91,8 @@ const App = () => {
             <Route path="wdms/stock/purchase-history" element={<StockManagement/>}/>
             <Route path="/resources/gallery" element={<Gallery />} />
             <Route path="/wdms/invoice" element={<InvoiceManagement />} />
-           <Route path="/wdms/stock/manage" element={<ManageStock/>}/>
+            <Route path="/wdms/stock/manage" element={<ManageStock/>}/>
+            <Route path="/wdms/leave-request" element={<LeaveRequest/>}/>
           </Route>
         </Route>
 

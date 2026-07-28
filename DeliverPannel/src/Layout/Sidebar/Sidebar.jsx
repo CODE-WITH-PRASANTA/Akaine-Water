@@ -10,7 +10,9 @@ import {
   BarChart3,
   Bell,
   Settings,
-  LogOut
+  LogOut,
+  CalendarPlus, // Leave Apply के लिए
+  FileText      // Leave Request के लिए
 } from "lucide-react";
 import './Sidebar.css';
 import { FaWineBottle } from 'react-icons/fa';
@@ -24,13 +26,15 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
     { type: 'link', icon: <Users size={20} />, text: 'Customers', path: '/wdms/customers' },
     { type: 'link', icon: <Truck size={20} />, text: 'Vehicle Stock', path: '/wdms/vehicle-stock' },
     { type: 'link', icon: <RotateCcw size={20} />, text: 'Empty Return', path: '/wdms/empty-return' },
-
     { type: 'link', icon: <FaWineBottle size={20} />, text: 'Extra Stock', path: '/wdms/extra-stock' },
+
+    // नए जोड़े गए मेनू आइटम्स
+    { type: 'link', icon: <CalendarPlus size={20} />, text: 'Leave Apply', path: '/wdms/leave-apply' },
+    { type: 'link', icon: <FileText size={20} />, text: 'Leave Request', path: '/wdms/leave-request' },
+
     { type: 'link', icon: <CreditCard size={20} />, text: 'Payments', path: '/wdms/payments' },
     { type: 'link', icon: <BarChart3 size={20} />, text: 'Reports', path: '/wdms/reports' },
-  
     { type: 'link', icon: <Settings size={20} />, text: 'Settings', path: '/wdms/settings' },
-  
   ];
 
   return (

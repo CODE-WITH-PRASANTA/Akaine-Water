@@ -17,6 +17,8 @@ import FailedDelivery from "./Component/FailedDelivery/FailedDelivery"
 import Dashboard from "./Component/Dashboard/Dashboard"
 import ExtraStock from "./Component/ExtraStock/ExtraStock";
 import Settings from "./Component/Settings/Settings";
+import LeaveApply from "./Component/LeaveApply/LeaveApply";
+import LeaveRequest from "./Component/LeaveRequest/LeaveRequest";
 
 
 const App = () => {
@@ -42,6 +44,9 @@ const App = () => {
           <Route path="wdms/orders" element={<Orders />} />
           <Route path="wdms/empty-return" element={<EmptyReturn />} />
           <Route path="wdms/route-planner" element={<RoutePlanner />} />
+          <Route path="wdms/leave-apply" element={<LeaveApply/>}/>
+          <Route path="wdms/leave-request" element={<LeaveRequest/>}/>
+          
 
           {/* Optional Route */}
           <Route path="emptyreturn" element={<EmptyReturn />} />
