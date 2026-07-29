@@ -8,6 +8,8 @@ import MainLayout from "./Layout/MainLayout/MainLayout";
 import MainDashboard from "./Pages/MainDashboard/MainDashboard";
 import MyOrder from "./Components/MyOrder/MyOrder";
 import SupportTickets from "./Components/SupportTickets/SupportTickets";
+import MySubscription from "./Components/MySubscription/MySubscription";
+import Login from "../Login/Login";
 
 //Components
 import Profile from "./Components/Profile/Profile";
@@ -28,6 +30,10 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
 
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/subscription" element={<MySubscription />} />
+          <Route path="/login" element={<Login />} />
+
+
 
         </Route>
       </Routes>
