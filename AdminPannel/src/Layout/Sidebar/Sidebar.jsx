@@ -26,6 +26,9 @@ import {
   CreditCard,     // For Subscription
   Badge,          // For Delivery Boy ID
   Droplet,        // Brand mark
+  CreditCard,    // For Subscription
+  Badge,         // For Delivery Boy ID
+  CalendarCheck, // Added for Leave Request
 } from "lucide-react";
 import './Sidebar.css';
 
@@ -76,6 +79,14 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
       path: "/products/id-generate",
     },
 
+
+    {
+      type: "link",
+      icon: <Badge size={20} />,
+      text: "Delivery Boy ID",
+      path: "/products/id-generate",
+    },
+    
     {
       type: 'dropdown',
       icon: <BookOpen size={20} />,
@@ -124,6 +135,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen }) => {
     },
 
     { type: 'link', icon: <ClipboardList size={20} />, text: 'Order Management', path: '/wdms/orders' },
+    { type: 'link', icon: <CalendarCheck size={20} />, text: 'Leave Request', path: '/wdms/leave-request' },
     { type: 'link', icon: <DollarSign size={20} />, text: 'Payment Management', path: '/wdms/payments' },
     { type: 'link', icon: <Truck size={20} />, text: 'Delivery Boy Assign', path: '/wdms/assign-delivery' },
     { type: 'link', icon: <Map size={20} />, text: 'Route Management', path: '/wdms/route-management' },

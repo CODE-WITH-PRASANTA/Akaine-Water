@@ -11,13 +11,16 @@ import {
   BarChart3,
   Settings,
   LogOut,
-  X
+  CalendarPlus, // Leave Apply
+  FileText,     // Leave Request
+  X,            // Mobile close icon
+  User          // Profile icon (replaced duplicate Settings)
 } from "lucide-react";
 import './Sidebar.css';
 import { FaWineBottle } from 'react-icons/fa';
 
 const Sidebar = ({ isCollapsed, isMobileOpen, onLogout, onClose }) => {
-  // Menu items taken exactly from the provided Water Delivery dashboard image
+  // Navigation items configuration
   const menuItems = [
     { type: 'link', icon: <Home size={20} />, text: 'Dashboard', path: '/' },
     { type: 'link', icon: <ClipboardList size={20} />, text: 'Orders', path: '/wdms/orders' },
@@ -26,15 +29,18 @@ const Sidebar = ({ isCollapsed, isMobileOpen, onLogout, onClose }) => {
     { type: 'link', icon: <Truck size={20} />, text: 'Vehicle Stock', path: '/wdms/vehicle-stock' },
     { type: 'link', icon: <RotateCcw size={20} />, text: 'Empty Return', path: '/wdms/empty-return' },
     { type: 'link', icon: <FaWineBottle size={20} />, text: 'Extra Stock', path: '/wdms/extra-stock' },
+
+    // Leave Management items
+    { type: 'link', icon: <CalendarPlus size={20} />, text: 'Leave Apply', path: '/wdms/leave-apply' },
+    { type: 'link', icon: <FileText size={20} />, text: 'Leave Request', path: '/wdms/leave-request' },
+
     { type: 'link', icon: <CreditCard size={20} />, text: 'Payments', path: '/wdms/payments' },
     { type: 'link', icon: <BarChart3 size={20} />, text: 'Reports', path: '/wdms/reports' },
     { type: 'link', icon: <Settings size={20} />, text: 'Settings', path: '/wdms/settings' },
-    { type: 'link', icon: <Settings size={20} />, text: 'My Profile', path: '/wdms/profile' },
-   
-  
+    { type: 'link', icon: <User size={20} />, text: 'My Profile', path: '/wdms/profile' },
   ];
 
-  // Close on Escape key, and lock background scroll while the mobile menu is open
+  // Close on Escape key press and prevent body scroll when mobile menu is open
   useEffect(() => {
     if (!isMobileOpen) return;
 
@@ -52,7 +58,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen, onLogout, onClose }) => {
     };
   }, [isMobileOpen, onClose]);
 
-  // Tapping a nav item on mobile should close the menu so the page underneath is visible
+  // Close sidebar on mobile item tap
   const handleNavClick = () => {
     if (window.innerWidth <= 768 && onClose) {
       onClose();
@@ -61,11 +67,11 @@ const Sidebar = ({ isCollapsed, isMobileOpen, onLogout, onClose }) => {
 
   return (
     <>
-      {/* Backdrop shown only on mobile when the sidebar is open */}
+      {/* Mobile Backdrop */}
       {isMobileOpen && <div className="Sidebar-backdrop" onClick={onClose} />}
 
       <aside className={`Sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
-        {/* Mobile-only close button */}
+        {/* Mobile Close Button */}
         <button
           type="button"
           className="Sidebar-close-btn"
@@ -78,7 +84,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen, onLogout, onClose }) => {
           <X size={20} />
         </button>
 
-        {/* Sidebar Header / Brand */}
+        {/* Brand / Logo Section */}
         <div className="Sidebar-logo">
           <div className="Sidebar-logo-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -96,7 +102,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen, onLogout, onClose }) => {
           )}
         </div>
 
-        {/* Navigation Links */}
+        {/* Navigation Section */}
         <nav className="Sidebar-nav">
           {menuItems.map((item, index) => (
             <Link
@@ -123,7 +129,7 @@ const Sidebar = ({ isCollapsed, isMobileOpen, onLogout, onClose }) => {
           </button>
         </nav>
 
-        {/* Promo Card */}
+        {/* Promotional Card Visual */}
         {!isCollapsed && (
           <div className="Sidebar-promo">
             <div className="Sidebar-promo-shine" />
