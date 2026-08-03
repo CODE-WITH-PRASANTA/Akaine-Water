@@ -1,7 +1,10 @@
 /* ==========================================================================
-   Blue Theme Component Base Scoping Variables (Enhanced)
+   Blue Theme Component Base Scoping Variables (Enhanced with Gradient Background)
    ========================================================================== */
 :root {
+  /* Dynamic Background Gradient (Inspired by Reference Image) */
+  --cm-bg-gradient: linear-gradient(180deg, #388bfd 0%, #1d4ed8 50%, #0e1e38 100%);
+
   /* Brand Colors */
   --cm-blue-primary: #2563eb;
   --cm-blue-hover: #1d4ed8;
@@ -40,6 +43,16 @@
   --cm-radius-md: 10px;
   --cm-radius-lg: 16px;
   --cm-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Body Styling with Reference Gradient Background */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--cm-bg-gradient);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 /* Base Card Shell Frame */

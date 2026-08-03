@@ -6,6 +6,7 @@ import "./App.css";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 
 // Authentication
+// Components / Pages
 import Login from "./Components/Login/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
@@ -59,6 +60,12 @@ const App = () => {
               element={<Navigate to="/wdms/dashboard" replace />}
             />
 
+            {/* Redirect */}
+            <Route
+              path="/"
+              element={<Navigate to="/wdms/dashboard" replace />}
+            />
+
             {/* Main Pages */}
             <Route path="/dashboard" element={<Dashboards />} />
             <Route path="/team" element={<OurTeam />} />
@@ -71,7 +78,10 @@ const App = () => {
             <Route path="/blog" element={<Blog />} />
             {/* <Route path="/blog-details" element={<BlogDetails />} /> */}
             <Route path="/blog-posting" element={<BlogPosting />} />
-            <Route path="/blog-management" element={<BlogManagement />} />
+            <Route
+              path="/blog-management"
+              element={<BlogManagement />}
+            />
 
             {/* WDMS */}
             <Route path="/wdms/dashboard" element={<DashboardMain />} />
@@ -84,10 +94,47 @@ const App = () => {
             <Route path="/wdms/reports" element={<ReportsAnalytics />} />
             <Route path="/wdms/stock/manage" element={<ManageStock />} />
             <Route
+              path="/wdms/dashboard"
+              element={<DashboardMain />}
+            />
+            <Route path="/wdms/orders" element={<Orders />} />
+            <Route
+              path="/wdms/customer"
+              element={<CustomerManage />}
+            />
+            <Route
+              path="/wdms/route-management"
+              element={<RouteManagement />}
+            />
+            <Route
+              path="/wdms/inventory"
+              element={<Inventory />}
+            />
+            <Route
+              path="/wdms/expenses"
+              element={<Expense />}
+            />
+            <Route
+              path="/wdms/add-expenses"
+              element={<AddExpense />}
+            />
+            <Route
+              path="/wdms/reports"
+              element={<ReportsAnalytics />}
+            />
+            <Route
+              path="/wdms/stock/manage"
+              element={<ManageStock />}
+            />
+            <Route
               path="/wdms/stock/purchase-history"
               element={<StockManagement />}
             />
             <Route path="/wdms/payments" element={<Paymentmanagement />} />
+            <Route
+              path="/wdms/payments"
+              element={<Paymentmanagement />}
+            />
             <Route
               path="/wdms/products-pricing"
               element={<ProductandPrice />}
@@ -100,11 +147,24 @@ const App = () => {
             <Route path="/wdms/vehicles" element={<Vehicles />} />
             <Route path="/wdms/invoice" element={<InvoiceManagement />} />
             <Route
+              path="/wdms/damage-stock"
+              element={<DamagedStock />}
+            />
+            <Route
+              path="/wdms/vehicles"
+              element={<Vehicles />}
+            />
+            <Route
+              path="/wdms/invoice"
+              element={<InvoiceManagement />}
+            />
+            <Route
               path="/wdms/leave-request"
               element={<LeaveRequest />}
             />
 
             {/* Products */}
+            {/* Product Pages */}
             <Route
               path="/products/subscription"
               element={<SubscriptionManagement />}
@@ -122,11 +182,24 @@ const App = () => {
             <Route path="/resources/team" element={<OurTeam />} />
             <Route path="/resources/gallery" element={<Gallery />} />
 
+            {/* Resource Pages */}
+            <Route
+              path="/resources/team"
+              element={<OurTeam />}
+            />
+            <Route
+              path="/resources/gallery"
+              element={<Gallery />}
+            />
           </Route>
         </Route>
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route
+          path="*"
+          element={<Navigate to="/login" replace />}
+        />
       </Routes>
     </BrowserRouter>
   );
