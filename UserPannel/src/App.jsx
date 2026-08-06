@@ -17,6 +17,7 @@ import Profile from "./Components/Profile/Profile";
 import Payments from "./Components/Payments/Payments";
 import Delivery from "./Components/Delivery/Delivery";
 import ReferEarn from "./Components/ReferEarn/ReferEarn";
+import Notifications from "./Components/Notifications/Notifications";
 
 const App = () => {
   return (
@@ -84,6 +85,12 @@ const App = () => {
               element={<ReferEarn />} 
             />
             
+            {/* Notifications */}
+            <Route
+              path="notifications"
+              element={<Notifications />}
+            />
+
           </Route>
         </Route>
 

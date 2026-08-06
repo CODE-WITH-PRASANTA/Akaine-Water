@@ -1,394 +1,341 @@
 import React, { useState } from 'react';
+import { 
+  FiUser, 
+  FiSettings, 
+  FiEdit2, 
+  FiLock, 
+  FiMail, 
+  FiBell, 
+  FiDroplet, 
+  FiShield, 
+  FiChevronRight, 
+  FiSave,
+  FiX
+} from 'react-icons/fi';
 import './Profile.css';
 
-// Import your local profile image asset here
-import mainProfileAvatar from '../../assets/Profile.png'; 
-
-// SVG Icons matching the UI design
-const UserIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-
-const MailIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-    <polyline points="22,6 12,13 2,6" />
-  </svg>
-);
-
-const IdBadgeIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="#94a3b8">
-    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-7-8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm0-4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm4 8c0-1.33-2.67-2-4-2s-4 .67-4 2v1h8v-1z"/>
-  </svg>
-);
-
-const PhoneIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-  </svg>
-);
-
-const PhoneRightIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-  </svg>
-);
-
-const PinIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-    <circle cx="12" cy="10" r="3" />
-  </svg>
-);
-
-const EyeIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#227c8d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-);
-
-const TrashIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="3 6 5 6 21 6" />
-    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-  </svg>
-);
-
-const CameraIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-    <circle cx="12" cy="13" r="4" />
-  </svg>
-);
-
-const SaveIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-    <polyline points="17 21 17 13 7 13 7 21" />
-    <polyline points="7 3 7 8 15 8" />
-  </svg>
-);
-
-const LockIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#101828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-  </svg>
-);
-
 const Profile = () => {
-  // Saved profiles state
-  const [savedProfiles, setSavedProfiles] = useState([
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      email: 'sarah.johnson@example.com',
-      image: mainProfileAvatar, // Using imported image
-      selected: true,
-      phone: '+1 (555) 123-4567',
-      address: '123 Main Street, New York, NY 10001'
-    },
-    {
-      id: 2,
-      name: 'Michael Brown',
-      email: 'michael.brown@example.com',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80',
-      selected: false,
-      phone: '+1 (555) 987-6543',
-      address: '456 Oak Avenue, Los Angeles, CA 90001'
-    },
-    {
-      id: 3,
-      name: 'Emily Davis',
-      email: 'emily.davis@example.com',
-      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=250&q=80',
-      selected: false,
-      phone: '+1 (555) 456-7890',
-      address: '789 Pine Road, Chicago, IL 60601'
-    },
-    {
-      id: 4,
-      name: 'James Wilson',
-      email: 'james.wilson@example.com',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=250&q=80',
-      selected: false,
-      phone: '+1 (555) 321-7654',
-      address: '101 Maple Street, Miami, FL 33101'
-    }
-  ]);
-
-  // Main active form state
-  const [formData, setFormData] = useState({
-    name: 'Sarah Johnson',
-    email: 'sarah.johnson@example.com',
-    phone: '+1 (555) 123-4567',
-    address: '123 Main Street, New York, NY 10001',
-    avatar: mainProfileAvatar // Using imported image as default avatar
+  // User profile state
+  const [profileData, setProfileData] = useState({
+    name: 'John Doe',
+    email: 'john.doe@email.com',
+    phone: '+91 98765 43210',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250'
   });
 
-  const [showAllProfiles, setShowAllProfiles] = useState(false);
+  // Toggles for notifications / switches
+  const [settingsToggles, setSettingsToggles] = useState({
+    emailNotifications: true,
+    pushNotifications: true,
+    waterDeliveryAlerts: true
+  });
 
-  // Handle Input Changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  // Dropdown / Expanded View States
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  // Edit Profile Modal State
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempProfile, setTempProfile] = useState(profileData);
+
+  // Save feedback state
+  const [saveMessage, setSaveMessage] = useState('');
+
+  // Handle Switch Toggle
+  const handleToggleChange = (key) => {
+    setSettingsToggles(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
   };
 
-  // Select Saved Profile
-  const handleSelectProfile = (profile) => {
-    setSavedProfiles((prev) =>
-      prev.map((item) => ({ ...item, selected: item.id === profile.id }))
-    );
-    setFormData({
-      name: profile.name,
-      email: profile.email,
-      phone: profile.phone,
-      address: profile.address,
-      avatar: profile.image
-    });
+  // Toggle Dropdowns for list items
+  const handleDropdownToggle = (section) => {
+    setActiveDropdown(prev => (prev === section ? null : section));
   };
 
-  // Delete Profile Handler
-  const handleDeleteProfile = (e, id) => {
-    e.stopPropagation(); // prevent selecting profile when deleting
-    setSavedProfiles((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  // Toggle View All
-  const handleViewAll = () => {
-    setShowAllProfiles(!showAllProfiles);
-  };
-
-  // Save Changes Handler
-  const handleSaveChanges = (e) => {
+  // Handle Edit Profile Save
+  const handleSaveProfileModal = (e) => {
     e.preventDefault();
-    setSavedProfiles((prev) =>
-      prev.map((item) =>
-        item.selected
-          ? {
-              ...item,
-              name: formData.name,
-              email: formData.email,
-              phone: formData.phone,
-              address: formData.address,
-              image: formData.avatar
-            }
-          : item
-      )
-    );
-    alert('Changes saved successfully!');
+    setProfileData(tempProfile);
+    setIsEditing(false);
+    setSaveMessage('Profile details updated successfully!');
+    setTimeout(() => setSaveMessage(''), 3000);
   };
 
-  // Change Password Handler
-  const handleChangePassword = () => {
-    const newPassword = prompt('Enter your new password:');
-    if (newPassword) {
-      alert('Password updated successfully!');
-    }
+  // Handle global "Save Changes" button
+  const handleSaveChangesAll = () => {
+    setSaveMessage('All account settings saved successfully!');
+    setTimeout(() => setSaveMessage(''), 3000);
   };
-
-  // Avatar Upload Handler
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setFormData((prev) => ({ ...prev, avatar: imageURL }));
-    }
-  };
-
-  // Filter list if "View All" is toggled
-  const displayedProfiles = showAllProfiles 
-    ? savedProfiles 
-    : savedProfiles.slice(0, 4);
 
   return (
-    <div className="Profile">
-      {/* Header Title Section */}
-      <div className="Profile-header">
-        <h1 className="Profile-title">Profile</h1>
-        <p className="Profile-subtitle">
-          Manage your personal information and account settings
-        </p>
-      </div>
+    <div className="profile-container">
+      <div className="profile-card-wrapper">
+        
+        {/* Global Save Feedback Alert */}
+        {saveMessage && (
+          <div className="profile-save-banner">
+            <span>{saveMessage}</span>
+          </div>
+        )}
 
-      {/* Main Content Card Container */}
-      <div className="Profile-card">
-        {/* Left Column - Sidebar */}
-        <div className="Profile-sidebar">
-          {/* Main Avatar & Profile Info */}
-          <div className="Profile-pfp-area">
-            <div className="Profile-avatar-wrapper">
-              <img
-                src={formData.avatar}
-                alt={formData.name}
-                className="Profile-avatar"
-              />
-              <label htmlFor="avatar-upload" className="Profile-camera-badge" title="Upload Photo">
-                <CameraIcon />
-              </label>
-              <input
-                type="file"
-                id="avatar-upload"
-                accept="image/*"
-                onChange={handleAvatarChange}
-                style={{ display: 'none' }}
-              />
+        {/* Top Title Section */}
+        <div className="profile-header-section">
+          <div className="profile-title-box">
+            <FiUser className="profile-header-main-icon" />
+          </div>
+          <h2 className="profile-main-title">Profile & Settings</h2>
+        </div>
+
+        {/* User Card Section */}
+        <div className="profile-user-card">
+          <div className="profile-user-info-group">
+            <img 
+              src={profileData.avatar} 
+              alt={profileData.name} 
+              className="profile-user-avatar" 
+            />
+            <div className="profile-user-details">
+              <div className="profile-name-row">
+                <h3 className="profile-user-name">{profileData.name}</h3>
+                <span className="profile-badge-premium">Premium User</span>
+              </div>
+              <p className="profile-user-email">{profileData.email}</p>
+              <p className="profile-user-phone">{profileData.phone}</p>
             </div>
-            <h2 className="Profile-name">{formData.name}</h2>
-            <p className="Profile-email">{formData.email}</p>
+          </div>
+          <button 
+            type="button" 
+            className="profile-edit-btn"
+            onClick={() => { setTempProfile(profileData); setIsEditing(true); }}
+          >
+            <FiEdit2 className="profile-edit-icon" /> Edit Profile
+          </button>
+        </div>
+
+        {/* Account Settings Header */}
+        <div className="profile-section-heading-group">
+          <div className="profile-settings-icon-box">
+            <FiSettings className="profile-settings-heading-icon" />
+          </div>
+          <h4 className="profile-section-title">Account Settings</h4>
+        </div>
+
+        {/* Settings Options List */}
+        <div className="profile-settings-list">
+
+          {/* 1. Personal Information */}
+          <div className="profile-setting-item-wrapper">
+            <div 
+              className="profile-setting-item"
+              onClick={() => handleDropdownToggle('personal')}
+            >
+              <div className="profile-setting-left">
+                <div className="profile-item-icon-box">
+                  <FiUser className="profile-item-icon" />
+                </div>
+                <div className="profile-item-text">
+                  <h5>Personal Information</h5>
+                  <p>Manage your personal details</p>
+                </div>
+              </div>
+              <FiChevronRight className={`profile-arrow-icon ${activeDropdown === 'personal' ? 'rotate' : ''}`} />
+            </div>
+            {activeDropdown === 'personal' && (
+              <div className="profile-dropdown-content">
+                <p><strong>Full Name:</strong> {profileData.name}</p>
+                <p><strong>Email Address:</strong> {profileData.email}</p>
+                <p><strong>Phone Number:</strong> {profileData.phone}</p>
+                <p><strong>Member Since:</strong> January 2025</p>
+              </div>
+            )}
           </div>
 
-          {/* Saved Profiles Section */}
-          <div className="Profile-saved-section">
-            <div className="Profile-saved-header">
-              <span className="Profile-saved-title">Saved Profiles</span>
-              <button
-                type="button"
-                className="Profile-view-all-btn"
-                onClick={handleViewAll}
-              >
-                <EyeIcon />
-                <span>{showAllProfiles ? 'Show Less' : 'View All'}</span>
-              </button>
+          {/* 2. Change Password */}
+          <div className="profile-setting-item-wrapper">
+            <div 
+              className="profile-setting-item"
+              onClick={() => handleDropdownToggle('password')}
+            >
+              <div className="profile-setting-left">
+                <div className="profile-item-icon-box">
+                  <FiLock className="profile-item-icon" />
+                </div>
+                <div className="profile-item-text">
+                  <h5>Change Password</h5>
+                  <p>Keep your account secure</p>
+                </div>
+              </div>
+              <FiChevronRight className={`profile-arrow-icon ${activeDropdown === 'password' ? 'rotate' : ''}`} />
             </div>
-
-            <div className="Profile-saved-list">
-              {displayedProfiles.length === 0 ? (
-                <p className="Profile-no-data">No saved profiles</p>
-              ) : (
-                displayedProfiles.map((item) => (
-                  <div
-                    key={item.id}
-                    className={`Profile-saved-item ${item.selected ? 'selected' : ''}`}
-                    onClick={() => handleSelectProfile(item)}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="Profile-saved-avatar"
-                    />
-                    <div className="Profile-saved-info">
-                      <h4 className="Profile-saved-name">{item.name}</h4>
-                      <p className="Profile-saved-email">{item.email}</p>
-                    </div>
-                    <button
-                      type="button"
-                      className="Profile-delete-btn"
-                      onClick={(e) => handleDeleteProfile(e, item.id)}
-                      title="Delete profile"
-                    >
-                      <TrashIcon />
-                    </button>
+            {activeDropdown === 'password' && (
+              <div className="profile-dropdown-content">
+                <form onSubmit={(e) => { e.preventDefault(); alert('Password updated successfully!'); handleDropdownToggle(null); }}>
+                  <div className="profile-form-group">
+                    <label>Current Password</label>
+                    <input type="password" placeholder="••••••••" required />
                   </div>
-                ))
-              )}
+                  <div className="profile-form-group">
+                    <label>New Password</label>
+                    <input type="password" placeholder="••••••••" required />
+                  </div>
+                  <button type="submit" className="profile-dropdown-submit-btn">Update Password</button>
+                </form>
+              </div>
+            )}
+          </div>
+
+          {/* 3. Email Notifications (Switch) */}
+          <div className="profile-setting-item">
+            <div className="profile-setting-left">
+              <div className="profile-item-icon-box">
+                <FiMail className="profile-item-icon" />
+              </div>
+              <div className="profile-item-text">
+                <h5>Email Notifications</h5>
+                <p>Get updates on your email</p>
+              </div>
             </div>
+            <label className="profile-switch">
+              <input 
+                type="checkbox" 
+                checked={settingsToggles.emailNotifications} 
+                onChange={() => handleToggleChange('emailNotifications')} 
+              />
+              <span className="profile-slider round"></span>
+            </label>
+          </div>
+
+          {/* 4. Push Notifications (Switch) */}
+          <div className="profile-setting-item">
+            <div className="profile-setting-left">
+              <div className="profile-item-icon-box">
+                <FiBell className="profile-item-icon" />
+              </div>
+              <div className="profile-item-text">
+                <h5>Push Notifications</h5>
+                <p>Get real-time updates</p>
+              </div>
+            </div>
+            <label className="profile-switch">
+              <input 
+                type="checkbox" 
+                checked={settingsToggles.pushNotifications} 
+                onChange={() => handleToggleChange('pushNotifications')} 
+              />
+              <span className="profile-slider round"></span>
+            </label>
+          </div>
+
+          {/* 5. Water Delivery Alerts (Switch) */}
+          <div className="profile-setting-item">
+            <div className="profile-setting-left">
+              <div className="profile-item-icon-box">
+                <FiDroplet className="profile-item-icon" />
+              </div>
+              <div className="profile-item-text">
+                <h5>Water Delivery Alerts</h5>
+                <p>Receive delivery status updates</p>
+              </div>
+            </div>
+            <label className="profile-switch">
+              <input 
+                type="checkbox" 
+                checked={settingsToggles.waterDeliveryAlerts} 
+                onChange={() => handleToggleChange('waterDeliveryAlerts')} 
+              />
+              <span className="profile-slider round"></span>
+            </label>
+          </div>
+
+          {/* 6. Privacy & Security */}
+          <div className="profile-setting-item-wrapper">
+            <div 
+              className="profile-setting-item"
+              onClick={() => handleDropdownToggle('privacy')}
+            >
+              <div className="profile-setting-left">
+                <div className="profile-item-icon-box">
+                  <FiShield className="profile-item-icon" />
+                </div>
+                <div className="profile-item-text">
+                  <h5>Privacy & Security</h5>
+                  <p>Your data is safe with us</p>
+                </div>
+              </div>
+              <FiChevronRight className={`profile-arrow-icon ${activeDropdown === 'privacy' ? 'rotate' : ''}`} />
+            </div>
+            {activeDropdown === 'privacy' && (
+              <div className="profile-dropdown-content">
+                <p><strong>Data Encryption:</strong> End-to-end 256-bit secure encryption.</p>
+                <p><strong>Two-Factor Auth:</strong> Disabled (Tap to configure)</p>
+                <p><strong>Active Sessions:</strong> 2 devices connected</p>
+              </div>
+            )}
+          </div>
+
+        </div>
+
+        {/* Footer Save Changes Button */}
+        <div className="profile-footer-action">
+          <button 
+            type="button" 
+            className="profile-save-changes-btn"
+            onClick={handleSaveChangesAll}
+          >
+            <FiSave className="profile-save-icon" /> Save Changes
+          </button>
+        </div>
+
+      </div>
+
+      {/* Edit Profile Modal Dialog */}
+      {isEditing && (
+        <div className="profile-modal-overlay">
+          <div className="profile-modal-card">
+            <div className="profile-modal-header">
+              <h3>Edit Profile Information</h3>
+              <button onClick={() => setIsEditing(false)} className="profile-modal-close-btn">
+                <FiX />
+              </button>
+            </div>
+            <form onSubmit={handleSaveProfileModal}>
+              <div className="profile-form-group">
+                <label>Full Name</label>
+                <input 
+                  type="text" 
+                  value={tempProfile.name} 
+                  onChange={(e) => setTempProfile({...tempProfile, name: e.target.value})}
+                  required 
+                />
+              </div>
+              <div className="profile-form-group">
+                <label>Email Address</label>
+                <input 
+                  type="email" 
+                  value={tempProfile.email} 
+                  onChange={(e) => setTempProfile({...tempProfile, email: e.target.value})}
+                  required 
+                />
+              </div>
+              <div className="profile-form-group">
+                <label>Phone Number</label>
+                <input 
+                  type="text" 
+                  value={tempProfile.phone} 
+                  onChange={(e) => setTempProfile({...tempProfile, phone: e.target.value})}
+                  required 
+                />
+              </div>
+              <div className="profile-modal-footer">
+                <button type="button" className="profile-modal-cancel" onClick={() => setIsEditing(false)}>Cancel</button>
+                <button type="submit" className="profile-modal-save">Save Changes</button>
+              </div>
+            </form>
           </div>
         </div>
+      )}
 
-        {/* Right Column - Form */}
-        <div className="Profile-form-area">
-          <form onSubmit={handleSaveChanges}>
-            {/* Name Field */}
-            <div className="Profile-form-group">
-              <label className="Profile-label">
-                <UserIcon />
-                <span>Name</span>
-              </label>
-              <div className="Profile-input-wrapper">
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="Profile-input"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Email Field */}
-            <div className="Profile-form-group">
-              <label className="Profile-label">
-                <MailIcon />
-                <span>Email</span>
-              </label>
-              <div className="Profile-input-wrapper">
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="Profile-input Profile-input-has-suffix"
-                  required
-                />
-                <span className="Profile-input-suffix">
-                  <IdBadgeIcon />
-                </span>
-              </div>
-            </div>
-
-            {/* Phone Field */}
-            <div className="Profile-form-group">
-              <label className="Profile-label">
-                <PhoneIcon />
-                <span>Phone</span>
-              </label>
-              <div className="Profile-input-wrapper">
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="Profile-input Profile-input-has-suffix"
-                  required
-                />
-                <span className="Profile-input-suffix">
-                  <PhoneRightIcon />
-                </span>
-              </div>
-            </div>
-
-            {/* Address Field */}
-            <div className="Profile-form-group">
-              <label className="Profile-label">
-                <PinIcon />
-                <span>Address</span>
-              </label>
-              <div className="Profile-input-wrapper">
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  className="Profile-input"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="Profile-actions">
-              <button type="submit" className="Profile-btn Profile-save-btn">
-                <SaveIcon />
-                <span>Save Changes</span>
-              </button>
-              <button
-                type="button"
-                className="Profile-btn Profile-password-btn"
-                onClick={handleChangePassword}
-              >
-                <LockIcon />
-                <span>Change Password</span>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
   );
 };
