@@ -44,6 +44,7 @@ import StockManagement from "./Components/StockManagement/StockManagement";
 import LeaveRequest from "./Components/LeaveRequest/LeaveRequest";
 import AlkaMyProfile from "./Components/AlkaMyProfile/AlkaMyProfile";
 import AlkaNotificationSetting from "./Components/AlkaNotificationSetting/AlkaNotificationSetting";
+import Settings from "./Components/Settings/Settings";
 
 const App = () => {
   return (
@@ -78,7 +79,8 @@ const App = () => {
 
 
             <Route path="/profile" element={<AlkaMyProfile/>} />
-            <Route path="/security" element={<AlkaNotificationSetting/>} />
+            <Route path="/Security" element={<AlkaNotificationSetting/>} />
+            <Route path="/Settings" element={<Settings/>} />
 
             {/* Blog */}
             <Route path="/blog" element={<Blog />} />
