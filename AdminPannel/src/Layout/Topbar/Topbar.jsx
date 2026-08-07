@@ -46,7 +46,7 @@ const Topbar = ({ toggleSidebar }) => {
           <a href="/profile" className="Topbar-dropdown-item">
             <User size={16} /> My Profile
           </a>
-          <a href="/security" className="Topbar-dropdown-item">
+          <a href="/Settings" className="Topbar-dropdown-item">
             <Shield size={16} /> Security
           </a>
           <div className="Topbar-dropdown-divider"></div>
